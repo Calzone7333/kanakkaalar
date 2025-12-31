@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admin_landing"
+            android:icon="@drawable/ic_nav_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_admin_home"
+            android:icon="@drawable/ic_nav_dashboard"
+            android:title="Dashboard" />
+
+        <item android:title="CRM">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_admin_crm"
+                        android:icon="@drawable/ic_nav_dashboard"
+                        android:title="Overview" />
+                    <item
+                        android:id="@+id/nav_admin_customers"
+                        android:icon="@drawable/ic_users_group"
+                        android:title="Customers" />
+                    <item
+                        android:id="@+id/nav_admin_companies"
+                        android:icon="@drawable/ic_building"
+                        android:title="Companies" />
+                    <item
+                        android:id="@+id/nav_admin_leads"
+                        android:icon="@drawable/ic_trending_up"
+                        android:title="Leads" />
+                    <item
+                        android:id="@+id/nav_admin_deals"
+                        android:icon="@drawable/ic_diamond"
+                        android:title="Deals" />
+                </group>
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/nav_admin_attendance"
+            android:icon="@drawable/ic_calendar_check"
+            android:title="Attendance" />
+        <item
+            android:id="@+id/nav_admin_employees"
+            android:icon="@drawable/ic_employee"
+            android:title="Employees" />
+        <item
+            android:id="@+id/nav_admin_agents"
+            android:icon="@drawable/ic_support_agent"
+            android:title="Agents" />
+        <item
+            android:id="@+id/nav_admin_performance"
+            android:icon="@drawable/ic_trending_up"
+            android:title="Performance" />
+        <item
+            android:id="@+id/nav_admin_sales_reports"
+            android:icon="@drawable/ic_analytics"
+            android:title="Sales Reports" />
+        <item
+            android:id="@+id/nav_admin_orders"
+            android:icon="@drawable/ic_shopping_bag"
+            android:title="Orders" />
+        <item
+            android:id="@+id/nav_admin_experts"
+            android:icon="@drawable/ic_feature_expert"
+            android:title="Experts" />
+        <item
+            android:id="@+id/nav_admin_reports"
+            android:icon="@drawable/ic_report"
+            android:title="Reports" />
+    </group>
+
+</menu>

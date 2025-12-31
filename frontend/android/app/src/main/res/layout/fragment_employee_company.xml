@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Hero Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_header_gradient_curved"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_white_rounded_stroke"
+                android:clipToOutline="true"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Established 2020"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_pill_white_20"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Building the Future of\nFinancial Compliance"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Empowering businesses with seamless solutions."
+                    android:textColor="#E9D5FF"
+                    android:textSize="12sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Mission & Vision -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_white_rounded_stroke"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Our Mission &amp; Vision"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We strive to create an ecosystem where businesses can focus on growth while we handle the complexities of legal and financial regulations."
+                android:textColor="#4B5563"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:backgroundTint="#FAF5FF"
+                    android:padding="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Innovation First"
+                        android:textColor="#581C87"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Constantly evolving tech."
+                        android:textColor="#6B21A8"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:backgroundTint="#EFF6FF"
+                    android:padding="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer Centric"
+                        android:textColor="#1E40AF"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your success is ours."
+                        android:textColor="#1D4ED8"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Leadership -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_white_rounded_stroke"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leadership"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:layout_marginBottom="16dp"/>
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+                
+                <TextView
+                     android:layout_width="40dp"
+                     android:layout_height="40dp"
+                     android:text="JD"
+                     android:gravity="center"
+                     android:background="@drawable/bg_circle_gray_light"
+                     android:textStyle="bold"
+                     android:textColor="#6B7280"/>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" text="John Doe" android:textStyle="bold" android:textColor="#111827"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" text="CEO &amp; Founder" android:textSize="12sp" android:textColor="#6B7280"/>
+                </LinearLayout>
+            </LinearLayout>
+            
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                
+                <TextView
+                     android:layout_width="40dp"
+                     android:layout_height="40dp"
+                     android:text="JS"
+                     android:gravity="center"
+                     android:background="@drawable/bg_circle_gray_light"
+                     android:textStyle="bold"
+                     android:textColor="#6B7280"/>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" text="Jane Smith" android:textStyle="bold" android:textColor="#111827"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" text="CTO" android:textSize="12sp" android:textColor="#6B7280"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Company Policies -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_white_rounded_stroke"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company Policies"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:layout_marginBottom="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPolicies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+        <!-- Contact HR Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContactHR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact HR"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="#4F46E5"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

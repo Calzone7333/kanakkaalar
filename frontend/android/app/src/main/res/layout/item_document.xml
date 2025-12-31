@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="16dp"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground">
+    
+    <ImageView
+        android:id="@+id/ivDocIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_save"
+        app:tint="#EF4444"
+        android:background="@drawable/bg_rounded_square_light_red"
+        android:padding="12dp"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
+        <TextView
+            android:id="@+id/tvDocName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Document Name"
+            android:textStyle="bold"
+            android:textColor="#1F2937"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tvDocDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PDF • 2.4 MB"
+            android:textSize="14sp"
+            android:textColor="#9CA3AF"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDownload"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/stat_sys_download"
+        app:tint="#9CA3AF"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_menu_more"
+        app:tint="#D1D5DB"/>
+
+</LinearLayout>

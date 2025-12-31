@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Work &amp; Performance">
+            <menu>
+                <item
+                    android:id="@+id/nav_employee_attendance"
+                    android:icon="@drawable/ic_history"
+                    android:title="Attendance" />
+                <item
+                    android:id="@+id/nav_employee_sales"
+                    android:icon="@drawable/ic_menu_upload"
+                    android:title="Sales" />
+                <item
+                    android:id="@+id/nav_employee_reports"
+                    android:icon="@drawable/ic_report"
+                    android:title="Reports" />
+            </menu>
+        </item>
+
+        <item android:title="CRM">
+            <menu>
+                <item
+                    android:id="@+id/nav_employee_leads"
+                    android:icon="@drawable/ic_trending_up"
+                    android:title="Leads" />
+                <item
+                    android:id="@+id/nav_employee_deals"
+                    android:icon="@drawable/ic_money"
+                    android:title="Deals" />
+                <item
+                    android:id="@+id/nav_employee_customers"
+                    android:icon="@drawable/ic_users_group"
+                    android:title="Customers" />
+                <item
+                    android:id="@+id/nav_employee_companies"
+                    android:icon="@drawable/ic_building"
+                    android:title="Companies" />
+            </menu>
+        </item>
+
+        <item android:title="Organization">
+            <menu>
+                <item
+                    android:id="@+id/nav_employee_contact"
+                    android:icon="@drawable/ic_support_agent"
+                    android:title="Contact Directory" />
+                <item
+                    android:id="@+id/nav_employee_company"
+                    android:icon="@drawable/ic_service_company"
+                    android:title="Company Info" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

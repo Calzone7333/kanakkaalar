@@ -1,0 +1,138 @@
+/* Global Typography Setup */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   Root Variables & Responsive Font Scaling
+   =========================================================== */
+:root {
+  --brand-1: 228 100% 50%;
+  --brand-2: 190 100% 40%;
+  /* Heading font: Sora */
+  --font-head: 'Sora', sans-serif;
+  /* Body/UI font: DM Sans */
+  --font-body: 'DM Sans', sans-serif;
+  /* Premium Serif font */
+  --font-serif: 'Sora', sans-serif;
+  /* Using Sora for now to match User's request for Home page feel, or could use a serif if preferred */
+  /* Base font-size (adjusted via media queries) */
+  --base-font-size: 16px;
+}
+
+/* Root font-size for responsive scaling */
+html {
+  font-size: var(--base-font-size);
+}
+
+/* Small devices */
+@media (max-width: 640px) {
+  :root {
+    --base-font-size: 14px;
+  }
+}
+
+/* Medium devices (default) */
+@media (min-width: 641px) and (max-width: 1023px) {
+  :root {
+    --base-font-size: 16px;
+  }
+}
+
+/* Large devices */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root {
+    --base-font-size: 18px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  :root {
+    --base-font-size: 20px;
+  }
+}
+
+/* ===========================================================
+   Base Layer Overrides
+   =========================================================== */
+@layer base {
+
+  html,
+  body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #111;
+    background-color: #fff;
+  }
+
+  /* =======================================================
+     Headings → Libre Bodoni (Elegant Serif Display)
+     ======================================================= */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    line-height: 1.1;
+    color: #111;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  /* =======================================================
+     Body text → Source Sans 3 (Clean Sans-serif)
+     ======================================================= */
+  p,
+  span,
+  div,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
+  }
+
+  /* =======================================================
+     Navigation headings → Libre Bodoni for brand consistency
+     ======================================================= */
+  nav[aria-label="Primary"] {
+    font-family: var(--font-head);
+  }
+}

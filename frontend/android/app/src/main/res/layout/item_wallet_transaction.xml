@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:strokeColor="#E2E8F0"
+    app:strokeWidth="1dp"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+        
+        <FrameLayout
+            android:id="@+id/viewTxIconBg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_bg_gray">
+            <ImageView
+                android:id="@+id/imgTxIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_menu_send"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+            <TextView
+                android:id="@+id/tvTxTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Commission"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tvTxDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="12sp"
+                android:textColor="#64748B"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTxAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ ₹0"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#16A34A"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

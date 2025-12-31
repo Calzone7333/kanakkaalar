@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/bg_white_rounded_stroke"
+    android:backgroundTint="#F9FAFB"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+        
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_document"
+            android:padding="6dp"
+            android:background="@drawable/bg_white_rounded_stroke"
+            android:elevation="1dp"
+            android:layout_marginRight="8dp"/>
+            
+        <TextView
+            android:id="@+id/tvPolicyType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PDF"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:background="@drawable/bg_pill_white_20"
+            android:backgroundTint="#E5E7EB"
+            android:textColor="#9CA3AF"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPolicyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Employee Handbook 2025"
+        android:textStyle="bold"
+        android:textColor="#111827"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginBottom="4dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        
+        <TextView
+            android:id="@+id/tvPolicySize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2.4 MB"
+            android:textSize="12sp"
+            android:textColor="#6B7280"/>
+            
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_back"
+            android:rotation="-90" 
+            android:padding="4dp"
+            android:background="@drawable/bg_white_rounded_stroke"/> 
+            <!-- Using rotated arrow back as download/upload placeholder if needed, or check for download icon -->
+    </LinearLayout>
+
+</LinearLayout>

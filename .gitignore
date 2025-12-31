@@ -1,0 +1,95 @@
+# =========================
+# Node.js / Frontend
+# =========================
+node_modules/
+frontend/node_modules/
+dist/
+build/
+release/
+*.exe
+.vite/
+.next/
+out/
+coverage/
+
+# =========================
+# Environment files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =========================
+# Java / Spring Boot
+# =========================
+target/
+*.class
+*.jar
+*.war
+*.ear
+/.mvn/
+/.settings/
+*.iml
+
+# =========================
+# Android
+# =========================
+**/build/
+**/.gradle/
+**/*.apk
+**/*.aab
+**/local.properties
+**/.idea/
+**/*.log
+
+# =========================
+# IDEs
+# =========================
+.idea/
+.vscode/
+*.swp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# Services / Microservices
+# =========================
+services/*/target/
+services/*/node_modules/
+
+# =========================
+# Apache / Server
+# =========================
+*.crt
+*.key
+*.pem
+*.p12
+
+# =========================
+# PM2
+# =========================
+pids/
+logs/
+pm2.log
+
+# =========================
+# Temporary / Backup
+# =========================
+*.tmp
+*.bak
+*.old
+*.backup

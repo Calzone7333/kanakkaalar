@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF6FF"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Admin Dashboard"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"/>
+        </LinearLayout>
+
+        <!-- QUICK ACTIONS -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="20dp"
+            android:clipToPadding="false">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                
+                <!-- Action 1: Add Employee -->
+                <LinearLayout
+                    android:id="@+id/btnQuickAddEmployee"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:padding="12dp"
+                    android:layout_marginRight="12dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_employee"
+                        app:tint="#3B82F6"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Emp"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- Action 2: Add Agent -->
+                <LinearLayout
+                    android:id="@+id/btnQuickAddAgent"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:padding="12dp"
+                    android:layout_marginRight="12dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_support_agent"
+                        app:tint="#22C55E"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Agent"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- Action 3: Reports -->
+                <LinearLayout
+                    android:id="@+id/btnQuickReports"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:padding="12dp"
+                    android:layout_marginRight="12dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_analytics"
+                        app:tint="#A855F7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reports"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- Action 4: Settings -->
+                <LinearLayout
+                    android:id="@+id/btnQuickSettings"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_white_rounded_stroke"
+                    android:padding="12dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_nav_settings"
+                        app:tint="#64748B"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Settings"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- STATS GRID (2 columns) -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false"
+            android:useDefaultMargins="true">
+
+            <!-- 1. Total Employees (Blue) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_employee"
+                        app:tint="#3B82F6"
+                        android:background="#EFF6FF"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Employees" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalEmployees" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#1E293B"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 2. Total Agents (Green) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_support_agent"
+                        app:tint="#22C55E"
+                        android:background="#F0FDF4"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Agents" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalAgents" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#1E293B"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. Total Customers (Purple) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_users_group"
+                        app:tint="#A855F7"
+                        android:background="#FAF5FF"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Customers" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalCustomers" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#1E293B"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4. Total Leads (Orange) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_trending_up"
+                        app:tint="#F97316"
+                        android:background="#FFF7ED"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Leads" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalLeads" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#1E293B"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 5. Total Deals (Pink) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_diamond"
+                        app:tint="#EC4899"
+                        android:background="#FDF2F8"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Deals" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalDeals" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#1E293B"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 6. Total Revenue (Teal) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_money"
+                        app:tint="#10B981"
+                        android:background="#ECFDF5"
+                        android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Revenue" android:textSize="12sp" android:textColor="#64748B"/>
+                        <TextView android:id="@+id/tvTotalRevenue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="#10B981"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <!-- CHART 1: Leads vs Deals -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Leads vs Deals Trend"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#1E293B"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Real 3D Bar Chart -->
+                <com.bizzfilling.app.components.BarChartView
+                    android:id="@+id/barChartTrend"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CHART 2: Revenue Trend (NEW) -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Revenue Growth"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E293B"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+12.5%"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#10B981"
+                        android:background="#ECFDF5"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"/>
+                </LinearLayout>
+
+                <!-- New 3D Line Chart -->
+                <com.bizzfilling.app.components.LineChartView
+                    android:id="@+id/lineChartRevenue"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CHART 3: Order Status -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Order Status Distribution"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#1E293B"
+                    android:layout_marginBottom="16dp"/>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    
+                    <!-- Custom Pie Chart -->
+                    <com.bizzfilling.app.components.PieChartView
+                        android:id="@+id/pieChartOrders"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="32dp"/>
+
+                    <!-- Legend -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
+                             <View android:layout_width="12dp" android:layout_height="12dp" android:background="#10B981" android:layout_marginRight="8dp"/>
+                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Completed" android:textSize="12sp" android:textColor="#4B5563"/>
+                         </LinearLayout>
+                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
+                             <View android:layout_width="12dp" android:layout_height="12dp" android:background="#3B82F6" android:layout_marginRight="8dp"/>
+                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Processing" android:textSize="12sp" android:textColor="#4B5563"/>
+                         </LinearLayout>
+                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
+                             <View android:layout_width="12dp" android:layout_height="12dp" android:background="#F59E0B" android:layout_marginRight="8dp"/>
+                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pending" android:textSize="12sp" android:textColor="#4B5563"/>
+                         </LinearLayout>
+                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                             <View android:layout_width="12dp" android:layout_height="12dp" android:background="#EF4444" android:layout_marginRight="8dp"/>
+                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cancelled" android:textSize="12sp" android:textColor="#4B5563"/>
+                         </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- RECENT ACTIVITY -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recent Activity"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E293B"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View All"
+                        android:textSize="12sp"
+                        android:textColor="#3B82F6"/>
+                </LinearLayout>
+
+                <!-- Activity 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp">
+                    <View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/bg_circle_green" android:layout_marginRight="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="New Order #1024" android:textSize="14sp" android:textColor="#1E293B" android:textStyle="bold"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Assigned to Agent John Doe" android:textSize="12sp" android:textColor="#64748B"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2m ago" android:textSize="10sp" android:textColor="#9CA3AF"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F1F5F9" android:layout_marginVertical="8dp"/>
+
+                <!-- Activity 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp">
+                     <View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/bg_circle_blue" android:layout_marginRight="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="New Agent Registered" android:textSize="14sp" android:textColor="#1E293B" android:textStyle="bold"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sarah Smith joined the team" android:textSize="12sp" android:textColor="#64748B"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1h ago" android:textSize="10sp" android:textColor="#9CA3AF"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F1F5F9" android:layout_marginVertical="8dp"/>
+
+                <!-- Activity 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp">
+                     <View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/bg_circle_orange" android:layout_marginRight="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lead Converted" android:textSize="14sp" android:textColor="#1E293B" android:textStyle="bold"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="New Deal created for XYZ Corp" android:textSize="12sp" android:textColor="#64748B"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3h ago" android:textSize="10sp" android:textColor="#9CA3AF"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

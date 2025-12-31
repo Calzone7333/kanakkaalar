@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8FAFC"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+                
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_menu_gallery"
+                    app:tint="#CBD5E1"
+                    android:background="@drawable/circle_bg_gray"
+                    android:padding="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+                    <TextView
+                        android:id="@+id/tvHello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hello, Agent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E293B"/>
+                    <TextView
+                        android:id="@+id/tvRole"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Agent Dashboard"
+                        android:textSize="14sp"
+                        android:textColor="#64748B"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_menu_agenda" 
+                    app:tint="#64748B"/> 
+            </LinearLayout>
+
+            <!-- Stats Grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:layout_marginBottom="12dp">
+
+                 <!-- Wallet (First Card) -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:text="Wallet Balance"
+                            android:textSize="12sp"
+                            android:textColor="#6B7280"/>
+                        <TextView
+                            android:id="@+id/tvWalletBalance"
+                            android:text="₹0.00"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#10B981"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Active Referrals -->
+                 <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                     app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:text="Active Clients"
+                            android:textSize="12sp"
+                            android:textColor="#6B7280"/>
+                        <TextView
+                            android:id="@+id/tvActiveReferrals"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#2563EB"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                
+                 <!-- Pending Orders -->
+                 <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                     app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:text="Pending"
+                            android:textSize="12sp"
+                            android:textColor="#6B7280"/>
+                        <TextView
+                            android:id="@+id/tvPendingOrders"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#F59E0B"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Actions -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quick Actions"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnCreateOrder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Create New Order"
+                android:backgroundTint="#F97316"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_menu_gallery" 
+                app:iconTint="#FFFFFF"
+                android:layout_marginBottom="12dp"/>
+                
+            <Button
+                android:id="@+id/btnReferUser"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Refer New User"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#F97316"
+                android:textStyle="bold"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="#F97316"
+                app:strokeWidth="1dp"
+                android:layout_marginBottom="12dp"/>
+                
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

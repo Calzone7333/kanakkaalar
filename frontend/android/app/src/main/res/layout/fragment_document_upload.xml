@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F9FAFB"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Documents"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#111827"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Upload Zone -->
+    <LinearLayout
+        android:id="@+id/layoutUploadZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:background="@drawable/bg_upload_dashed"
+        android:layout_marginBottom="24dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_menu_upload"
+            app:tint="#10B981"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drag and Drop or\nBrowse to Upload"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1F2937"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Supported formats: PDF, JPG, PNG"
+            android:textSize="14sp"
+            android:textColor="#6B7280"/>
+        
+        <!-- Invisible button to capture clicks -->
+        <View
+            android:id="@+id/viewUploadClick"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+            
+    </LinearLayout>
+
+    <!-- List of Uploading/Uploaded Files -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUploads"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"/>
+
+</LinearLayout>

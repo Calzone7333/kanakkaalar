@@ -1,0 +1,485 @@
+import React, { useState, useEffect } from "react";
+import LeadForm from "../../components/LeadForm";
+// Consolidated lucide-react icons for partnership registration page
+import {
+    ChevronDown,
+    ArrowRight,
+    CheckCircle,
+    FileText,
+    Star,
+    Shield,
+    Award,
+    Timer,
+    FilePenLine,
+    Rocket,
+    Users,
+    Layers,
+    Briefcase,
+    IndianRupee,
+    Activity,
+    Zap,
+    Scale,
+    FileCheck,
+    BadgeCheck,
+    Calendar,
+    Calculator,
+    Home,
+    ShieldCheck,
+    Gavel,
+    Handshake
+} from "lucide-react";
+import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+
+// --- STATIC DATA DEFINITIONS ---
+
+const tabs = [
+    { id: 'overview-content', label: 'Overview' },
+    { id: 'benefits-content', label: 'Benefits' },
+    { id: 'pricing-content', label: 'Pricing' },
+    { id: 'requirements-content', label: 'Requirements' },
+    { id: 'documents-content', label: 'Documents' },
+    { id: 'process-content', label: 'Process' },
+    { id: 'faqs-content', label: 'FAQs' },
+];
+
+const partnershipPlans = [
+    {
+        title: "Standard Drafting",
+        price: "₹2,499",
+        originalPrice: "₹3,339",
+        discountText: "25% off",
+        description: "Perfect for partners who just need a legally sound agreement.",
+        features: [
+            "Partnership Deed Drafting",
+            "PAN Card Application",
+            "TAN Application",
+            "Bank Account Assistance",
+            "Basic Legal Consultation"
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "Registered Firm",
+        price: "₹4,999",
+        originalPrice: "₹7,149",
+        discountText: "30% off",
+        description: "Includes official registration with the Registrar of Firms (RoF).",
+        features: [
+            "Includes Standard Features",
+            "Registration with RoF",
+            "GST Registration",
+            "MSME (Udyam) Registration",
+            "Government Fees Included*",
+            "Digital Success Kit"
+        ],
+        isRecommended: true,
+    },
+    {
+        title: "Executive Pack",
+        price: "₹8,999",
+        originalPrice: "₹13,899",
+        discountText: "35% off",
+        description: "End-to-end setup including trademark protection.",
+        features: [
+            "Includes Registered Firm Plan",
+            "Trademark Filing (1 Class)",
+            "1 Year Compliance Support",
+            "Quarterly Audit Assistance",
+            "Partnership Property Registry",
+            "Priority Support"
+        ],
+        isRecommended: false,
+        isPremium: true,
+    },
+];
+
+const partnershipRequirements = [
+    { icon: Handshake, title: "Minimum 2 Partners", description: "At least two persons are required. Maximum limit is 20 for most businesses." },
+    { icon: FileText, title: "Agreement (Deed)", description: "A written partnership deed on stamp paper defining profit sharing and roles." },
+    { icon: Briefcase, title: "Business Name", description: "A unique name that doesn't violate existing trademarks or company names." },
+    { icon: Scale, title: "Capacity to Contract", description: "Partners must be of sound mind and at least 18 years of age." },
+    { icon: Home, title: "Address Proof", description: "A dedicated office or place of business with valid occupancy proof." },
+    { icon: Gavel, title: "Lawful Business", description: "The object of the partnership must be for carrying out a legal business activity." }
+];
+
+const partnershipDocuments = [
+    { category: "For All Partners", items: ["PAN Card copies", "Aadhaar Card with updated Address", "Latest Passport size photos", "Recent Utility Bill/Bank Statement"] },
+    { category: "For Firm Registration", items: ["Partnership Deed (signed by all)", "Draft of the Deed", "Power of Attorney (if applicable)", "NOC from Landlord"] }
+];
+
+const partnershipFAQs = [
+    { q: "Is it mandatory to register a partnership firm?", a: "No, registration is optional under the Indian Partnership Act, 1932. However, an unregistered firm cannot sue third parties or other partners in court." },
+    { q: "What is a Partnership Deed?", a: "It is a legal document that contains the terms and conditions the partners have agreed upon, such as profit sharing, capital contribution, and dispute resolution." },
+    { q: "How long is a partnership valid?", a: "A partnership continues as long as the partners wish. It can be dissolved by agreement, death of a partner, or by order of the court." },
+    { q: "Can a minor be a partner?", a: "A minor can be admitted only to the 'benefits' of a partnership with the consent of all other partners, but cannot be held personally liable for losses." },
+    { q: "Can a partnership be converted into a Private Limited Company?", a: "Yes, once the business reaches a certain scale, it can be converted into a Private Limited Company or an LLP to limit liability and attract investment." },
+    { q: "What is the tax rate for a partnership firm?", a: "Partnership firms are taxed at a flat rate of 30% on their total income, plus applicable surcharges and cess." },
+    { q: "Is a partnership firm a separate legal entity?", a: "No, under the law, the firm and the partners are the same. Partners have unlimited liability for the firm's debts." },
+];
+
+// --- Components ---
+
+const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
+    <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+            {subtitle}
+        </span>
+        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+            {title}
+        </h3>
+        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+            {description}
+        </p>
+    </div>
+);
+
+const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
+    <div className={`p-6 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
+    ${isHighlighted
+            ? 'bg-gradient-to-br from-[#E8DCC2] to-[#D4B982] border-transparent shadow-lg transform -translate-y-1'
+            : 'bg-white border-slate-100 hover:shadow-lg hover:border-[#1A7F7D]/30 shadow-sm'}
+  `}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-colors
+       ${isHighlighted ? 'bg-white/30 text-[#8C6B28]' : 'bg-slate-50 text-[#1A7F7D]'}
+    `}>
+            {Icon ? <Icon className="w-5 h-5" /> : (isHighlighted ? <Star className="w-5 h-5" /> : <FileText className="w-5 h-5" />)}
+        </div>
+        <h3 className={`text-base font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
+            {title}
+        </h3>
+        <p className={`text-xs leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
+            {description}
+        </p>
+        <div className={`flex items-center text-xs font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-2 transition-all
+       ${isHighlighted ? 'text-[#5C4518]' : 'text-[#1A7F7D]'}
+    `}>
+            <span>Learn More</span>
+            <ArrowRight className="w-3 h-3 ml-1" />
+        </div>
+    </div>
+);
+
+const FaqItem = ({ faq, isOpen, onClick }) => (
+    <div className={`border rounded-lg transition-all duration-300 overflow-hidden
+     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg' : 'border-slate-200 bg-white text-slate-800 hover:border-[#1A7F7D]/50'}
+  `}>
+        <button className="flex items-center justify-between w-full p-4 text-left" onClick={onClick}>
+            <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+            <div className="flex-shrink-0">
+                {isOpen ? <ChevronDown className="w-4 h-4 text-white rotate-180 transition-transform" /> : <ChevronDown className="w-4 h-4 text-slate-400 transition-transform" />}
+            </div>
+        </button>
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>{faq.a}</p>
+        </div>
+    </div>
+);
+
+// --- Sections ---
+
+const OverviewContent = () => (
+    <section id="overview-content" className="py-16 bg-slate-50/50">
+        <div className="max-w-7xl px-6 mx-auto">
+            <SectionHeading subtitle="Introduction" title="Partnership Firm Setup" description="Unite strengths and share responsibilities through a formal partnership." />
+
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div className="space-y-6">
+                    <h4 className="text-2xl font-bold text-slate-800">Together Everyone Achieves More</h4>
+                    <p className="text-slate-600 leading-relaxed">
+                        A Partnership Firm is a popular form of business for small ventures where two or more persons come together to manage a business according to the terms and goals set out in the Partnership Deed. It is governed by the Indian Partnership Act, 1932.
+                    </p>
+                    <p className="text-slate-600 leading-relaxed">
+                        The beauty of a partnership lies in its simplicity and the ability to combine various skills and capital. While it doesn't offer limited liability like an LLP or Private Limited, it's remarkably easy to set up and has much lower annual compliance costs.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Simple Drafting</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Low Compliance</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Scale Ready</span>
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <Handshake className="w-8 h-8 text-[#1A7F7D] mb-3" />
+                        <span className="text-sm font-bold text-slate-800">Trust Based</span>
+                    </div>
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <ShieldCheck className="w-8 h-8 text-[#1A7F7D] mb-3" />
+                        <span className="text-sm font-bold text-slate-800">Legal Deed</span>
+                    </div>
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <Calculator className="w-8 h-8 text-[#1A7F7D] mb-3" />
+                        <span className="text-sm font-bold text-slate-800">Income Tax (ITR-5)</span>
+                    </div>
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <Users className="w-8 h-8 text-[#1A7F7D] mb-3" />
+                        <span className="text-sm font-bold text-slate-800">Shared Liability</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl p-8 text-center bg-[#103B3E] hover:bg-[#154d51] transition-colors shadow-lg">
+                    <Users className="w-16 h-16 text-[#C59B4E] mx-auto mb-4" />
+                    <h4 className="text-xl font-bold text-white mb-2">Skill Combination</h4>
+                    <p className="text-gray-300 text-sm">Combine technical skills with marketing or financial prowess for a balanced business.</p>
+                </div>
+                <div className="rounded-xl p-8 text-center bg-[#103B3E] hover:bg-[#154d51] transition-colors shadow-lg">
+                    <Timer className="w-16 h-16 text-[#C59B4E] mx-auto mb-4" />
+                    <h4 className="text-xl font-bold text-white mb-2">Quick Decisions</h4>
+                    <p className="text-gray-300 text-sm">No board meetings or voting formalities required; partners can decide and act instantly.</p>
+                </div>
+                <div className="rounded-xl p-8 text-center bg-[#103B3E] hover:bg-[#154d51] transition-colors shadow-lg">
+                    <Scale className="w-16 h-16 text-[#C59B4E] mx-auto mb-4" />
+                    <h4 className="text-xl font-bold text-white mb-2">Low Overhead</h4>
+                    <p className="text-gray-300 text-sm">Minimal statutory filings compared to a company, saving you time and professional fees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+);
+
+const BenefitsContent = () => (
+    <section id="benefits-content" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+            <SectionHeading subtitle="Pros" title="Benefits of Partnership" description="Why partners choose this traditional yet effective model." />
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                    <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center"><Handshake className="w-6 h-6" /></div>
+                    <h5 className="font-bold text-slate-800">Collective Synergy</h5>
+                    <p className="text-xs text-slate-500 leading-relaxed">Leverage the combined intelligence and experience of multiple partners.</p>
+                </div>
+                <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                    <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center"><IndianRupee className="w-6 h-6" /></div>
+                    <h5 className="font-bold text-slate-800">Shared Capital</h5>
+                    <p className="text-xs text-slate-500 leading-relaxed">Raise capital easily through contributions from all the partners involved.</p>
+                </div>
+                <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                    <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center"><Briefcase className="w-6 h-6" /></div>
+                    <h5 className="font-bold text-slate-800">Operational Ease</h5>
+                    <p className="text-xs text-slate-500 leading-relaxed">Fewer legal formalities allow you to focus on core business growth and sales.</p>
+                </div>
+                <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                    <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center"><ShieldCheck className="w-6 h-6" /></div>
+                    <h5 className="font-bold text-slate-800">Flexibility</h5>
+                    <p className="text-xs text-slate-500 leading-relaxed">Easy to change rules, profit ratios, and business objects via a supplementary deed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+);
+
+const PricingContent = () => (
+    <section id="pricing-content" className="py-16 bg-slate-50/50">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading subtitle="Plans" title="Uncomplicated Pricing" description="Clear, upfront costs with no hidden legal fees." />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {partnershipPlans.map((plan, i) => (
+                    <div key={i} className={`flex flex-col p-6 rounded-2xl border ${plan.isRecommended ? 'bg-[#F0FDFA] border-[#1A7F7D] shadow-xl relative scale-105 z-10' : 'bg-white border-slate-100 hover:shadow-lg'}`}>
+                        {plan.isRecommended && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1A7F7D] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Top Choice</span>}
+                        <h3 className="text-lg font-bold mb-1 text-slate-800">{plan.title}</h3>
+                        <p className="text-[10px] text-slate-500 mb-4 h-8">{plan.description}</p>
+                        <div className="flex items-baseline gap-2 mb-6">
+                            <span className="text-4xl font-extrabold text-slate-900">{plan.price}</span>
+                            {plan.originalPrice && <span className="text-sm text-slate-400 line-through font-medium">{plan.originalPrice}</span>}
+                        </div>
+                        <ul className="space-y-4 mb-8 flex-grow">
+                            {plan.features.map((feat, j) => (
+                                <li key={j} className="flex items-start gap-3 text-xs text-slate-600">
+                                    <CheckCircle className="w-4 h-4 text-[#1A7F7D] flex-shrink-0" />
+                                    <span className="leading-tight">{feat}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <button className={`w-full py-4 rounded-xl font-bold text-xs uppercase transition-all duration-300 ${plan.isPremium ? 'bg-[#C59B4E] hover:bg-[#A37D35]' : 'bg-[#1A7F7D] hover:bg-[#146361]'} text-white shadow-md`}>Select Plan</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+const RequirementsContent = () => (
+    <section id="requirements-content" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading subtitle="Checklist" title="Compliance Criteria" description="The basic building blocks for a legal partnership." />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {partnershipRequirements.map((req, i) => (<ServiceCard key={i} title={req.title} description={req.description} icon={req.icon} />))}
+            </div>
+        </div>
+    </section>
+);
+
+const DocumentsContent = () => (
+    <section id="documents-content" className="py-16 bg-slate-900 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#C59B4E]/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-12">
+                <span className="text-[#C59B4E] font-bold text-xs uppercase tracking-widest mb-3 block">Paperwork</span>
+                <h3 className="text-3xl font-bold mb-4">Required Documents</h3>
+                <p className="text-slate-400 text-sm max-w-xl mx-auto">Collate these documents to begin the drafting process.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+                {partnershipDocuments.map((doc, idx) => (
+                    <div key={idx} className="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 transition-transform hover:scale-[1.02]">
+                        <h4 className="text-xl font-bold text-[#1A7F7D] mb-6 flex items-center gap-3">
+                            <span className="w-8 h-8 rounded-full bg-[#1A7F7D]/20 flex items-center justify-center text-xs text-[#1A7F7D]">{idx + 1}</span>
+                            {doc.category}
+                        </h4>
+                        <ul className="grid grid-cols-1 gap-4">
+                            {doc.items.map((item, i) => (
+                                <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                                    <FileCheck className="w-4 h-4 text-[#C59B4E]" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+const ProcessContent = () => (
+    <section id="process-content" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+            <SectionHeading subtitle="Cycle" title="The Registration Journey" description="From drafting the deed to final certification." />
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -z-10 mt-[-28px]"></div>
+                {[
+                    { icon: FilePenLine, title: "Drafting", desc: "Our legal team drafts a customized deed based on your terms." },
+                    { icon: Layers, title: "Execution", desc: "Printing on stamp paper and notarization by the partners." },
+                    { icon: Timer, title: "RoF Filing", desc: "Official submission of documents to the Registrar of Firms." },
+                    { icon: Award, title: "Certificate", desc: "Receive your Acknowledgement and Firm PAN Card." }
+                ].map((step, idx) => (
+                    <div key={idx} className="space-y-4">
+                        <div className="w-16 h-16 bg-white border-2 border-[#1A7F7D] rounded-full flex items-center justify-center mx-auto shadow-lg relative transition-transform hover:scale-110">
+                            <step.icon className="w-7 h-7 text-[#1A7F7D]" />
+                            <div className="absolute -top-2 -right-2 w-7 h-7 bg-[#C59B4E] text-white rounded-full flex items-center justify-center text-xs font-bold ring-4 ring-white">{idx + 1}</div>
+                        </div>
+                        <h5 className="text-lg font-bold text-slate-800">{step.title}</h5>
+                        <p className="text-xs text-slate-500 leading-relaxed px-4">{step.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+export default function PartnershipPage() {
+    const [activeTab, setActiveTab] = useState('overview-content');
+    const [faqOpen, setFaqOpen] = useState(null);
+    const SCROLL_OFFSET = 140;
+
+    useEffect(() => {
+        const sectionIds = tabs.map(tab => tab.id);
+        const handleScroll = () => {
+            let currentActiveTab = sectionIds[0];
+            for (let i = 0; i < sectionIds.length; i++) {
+                const sectionId = sectionIds[i];
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= SCROLL_OFFSET + 50) currentActiveTab = sectionId;
+                }
+            }
+            setActiveTab(prev => (prev !== currentActiveTab ? currentActiveTab : prev));
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleTabClick = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            window.scrollTo({ top: element.offsetTop - SCROLL_OFFSET + 20, behavior: 'smooth' });
+            setActiveTab(id);
+        }
+    };
+
+    return (
+        <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
+            <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
+
+            {/* Hero */}
+            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+                <div className="absolute inset-0 z-0">
+                    <img src={BackgroundImageSrc} alt="Partnership Background" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+                </div>
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+                        <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
+                            <div className="relative w-28 h-28 flex items-center justify-center">
+                                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
+                                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2">
+                                    <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
+                                    <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">Partnership <br /> Firm</span>
+                                    <span className="text-white text-[8px] uppercase mt-1 opacity-70">Verified</span>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-serif italic">
+                                    Partnership <br className="hidden lg:block" />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic">Registration</span>
+                                </h1>
+                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed">Build a stronger future together. Register your partnership firm with expert drafting and filing support. <span className="text-[#C59B4E] font-bold uppercase tracking-wider text-xs ml-2">Growth Through Unity.</span></p>
+                            </div>
+                            <div className="flex items-center gap-4 py-2">
+                                <div className="flex flex-col">
+                                    <span className="text-white text-2xl font-bold italic">₹2,499</span>
+                                    <span className="text-slate-400 text-[10px] uppercase tracking-wider">Starting Fee</span>
+                                </div>
+                                <div className="h-10 w-[1px] bg-white/20"></div>
+                                <div className="flex flex-col">
+                                    <span className="text-white text-2xl font-bold italic">3 Days</span>
+                                    <span className="text-slate-400 text-[10px] uppercase tracking-wider">Deed Drafting</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full max-w-md lg:w-[400px]">
+                            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-white/10">
+                                <h2 className="text-2xl font-bold mb-2 text-center text-slate-800">Join Forces</h2>
+                                <p className="text-[11px] text-slate-500 mb-6 text-center">Expert registration for Partnership Firms!</p>
+                                <LeadForm serviceName="Partnership Firm Registration" btnText="Get Started" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Navigation */}
+            <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+                <div className="max-w-7xl mx-auto px-4">
+                    <ul className="flex items-center justify-center gap-8 md:gap-16 py-0 min-w-max">
+                        {tabs.map((tab) => (
+                            <li key={tab.id}>
+                                <button
+                                    className={`py-4 text-xs md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-wider ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-700 border-transparent hover:text-[#0F4C49]'}`}
+                                    onClick={() => handleTabClick(tab.id)}
+                                >{tab.label}</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+            <OverviewContent />
+            <BenefitsContent />
+            <PricingContent />
+            <RequirementsContent />
+            <DocumentsContent />
+            <ProcessContent />
+
+            <section id="faqs-content" className="py-20 bg-white">
+                <div className="max-w-4xl mx-auto px-6">
+                    <SectionHeading subtitle="FAQ" title="Partnership Insights" description="Answers to common questions about firm registration and deeds." />
+                    <div className="space-y-4">
+                        {partnershipFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+}

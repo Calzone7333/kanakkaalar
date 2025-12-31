@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+  <style>
+    .box { fill:#f8fafc; stroke:#0f172a; stroke-width:1.5; rx:8; }
+    .service { fill:#e6f2ff; stroke:#036; stroke-width:1.5; rx:8; }
+    .text { font-family: Poppins, Arial, sans-serif; font-size:14px; fill:#0f172a }
+    .title { font-weight:700; font-size:16px }
+    .arrow { stroke:#0f172a; stroke-width:1.6; fill:none; marker-end:url(#arrowhead);} 
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <!-- User -->
+  <rect x="40" y="40" width="160" height="60" class="box"/>
+  <text x="120" y="75" text-anchor="middle" class="text title">User Browser</text>
+
+  <!-- Frontend -->
+  <rect x="260" y="40" width="220" height="80" class="service"/>
+  <text x="370" y="65" text-anchor="middle" class="text title">Frontend (React / Vite)</text>
+  <text x="370" y="85" text-anchor="middle" class="text">/, /login, /dashboard</text>
+
+  <!-- Auth Service -->
+  <rect x="540" y="20" width="220" height="80" class="service"/>
+  <text x="650" y="45" text-anchor="middle" class="text title">Auth Service (Spring Boot)</text>
+  <text x="650" y="65" text-anchor="middle" class="text">port 8081</text>
+
+  <!-- CRM Service -->
+  <rect x="540" y="140" width="220" height="80" class="service"/>
+  <text x="650" y="165" text-anchor="middle" class="text title">CRM Service (Spring Boot)</text>
+  <text x="650" y="185" text-anchor="middle" class="text">port 8082</text>
+
+  <!-- MySQL -->
+  <rect x="820" y="40" width="140" height="60" class="box"/>
+  <text x="890" y="65" text-anchor="middle" class="text title">MySQL</text>
+
+  <!-- Twilio -->
+  <rect x="820" y="140" width="140" height="60" class="box"/>
+  <text x="890" y="165" text-anchor="middle" class="text title">Twilio (SMS)</text>
+
+  <!-- Docker Compose -->
+  <rect x="260" y="260" width="700" height="80" class="box"/>
+  <text x="610" y="295" text-anchor="middle" class="text title">Docker Compose (mysql, auth-service, crm-service, frontend)</text>
+
+  <!-- Arrows -->
+  <path d="M200 70 L260 70" class="arrow"/>
+  <path d="M480 70 L540 50" class="arrow"/>
+  <path d="M480 70 L540 180" class="arrow"/>
+  <path d="M760 70 L820 70" class="arrow"/>
+  <path d="M760 180 L820 180" class="arrow"/>
+  <path d="M650 100 L650 140" class="arrow"/>
+
+  <!-- Labels on arrows -->
+  <text x="320" y="60" class="text">HTTP / UI</text>
+  <text x="560" y="40" class="text">POST /api/auth/send-otp</text>
+  <text x="560" y="210" class="text">POST /api/leads (protected)</text>
+  <text x="765" y="55" class="text">store otp / users</text>
+  <text x="765" y="195" class="text">send SMS</text>
+  <text x="660" y="120" class="text">JWT token</text>
+
+</svg>

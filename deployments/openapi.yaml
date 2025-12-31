@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  title: Vakilsearch Platform API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8081
+paths:
+  /api/leads:
+    get:
+      summary: List leads
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create lead
+      requestBody:
+        required: true
+      responses:
+        '201':
+          description: Created
+  /api/orders:
+    get:
+      summary: List orders
+    post:
+      summary: Create order
+  /api/cases:
+    get:
+      summary: List cases
+    post:
+      summary: Create case
+  /api/execute/company-reg:
+    post:
+      summary: Schedule company registration execution

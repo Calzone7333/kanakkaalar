@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8FAFC">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attendance Management"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Track employee attendance"
+                android:textSize="14sp"
+                android:textColor="#64748B"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Chart Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:elevation="2dp"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today's Status"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E293B"
+                        android:layout_marginBottom="16dp"/>
+
+                    <com.bizzfilling.app.components.PieChartView
+                        android:id="@+id/chartAttendance"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:layout_gravity="center_horizontal"/>
+                        
+                    <!-- Legend -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="16dp">
+                        
+                        <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/bg_circle_green" android:layout_marginEnd="8dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Present" android:layout_marginEnd="16dp"/>
+                        
+                        <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/bg_circle_orange" android:layout_marginEnd="8dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Late" android:layout_marginEnd="16dp"/>
+                        
+                        <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/bg_circle_light_red" android:layout_marginEnd="8dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Absent"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- List Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's Records"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Records List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAttendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No records found for today"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="gone"
+                android:textColor="#64748B"/>
+                
+             <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attendance"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#111827" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Track your daily work hours."
+            android:textSize="14sp"
+            android:textColor="#6B7280"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Main Action Card -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_attendance"
+            android:padding="24dp"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <!-- Date & Time -->
+                <TextView
+                    android:id="@+id/tvCurrentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monday, 1 January 2024"
+                    android:textColor="#E9D5FF"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvCurrentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:00:00 AM"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Location -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_white_20"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="6dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="24dp">
+                    
+                    <ImageView
+                         android:layout_width="16dp"
+                         android:layout_height="16dp"
+                         android:src="@drawable/ic_search" 
+                         app:tint="#FFFFFF"/> <!-- Replacing MapPin with search/generic if MapPin missing -->
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Office HQ (Verified)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="8dp"/>
+                </LinearLayout>
+
+                <!-- Work Duration Circle -->
+                <FrameLayout
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginBottom="24dp">
+                    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_circle_white_translucent"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="WORK TIME"
+                            android:textColor="#E9D5FF"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1"
+                            android:textStyle="bold"/>
+                        
+                        <TextView
+                            android:id="@+id/tvWorkDuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:00:00"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+                    
+                    <!-- Active Indicator (Green Dot) -->
+                    <View
+                        android:id="@+id/viewActiveDot"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/bg_circle_green"
+                        android:layout_gravity="top|right"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginRight="12dp"
+                        android:visibility="gone"/>
+                </FrameLayout>
+
+                <!-- Action Button -->
+                <Button
+                    android:id="@+id/btnCheckInOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check In"
+                    android:textColor="#5E33AC"
+                    android:backgroundTint="#FFFFFF"
+                    android:drawableLeft="@drawable/ic_check_circle"
+                    android:drawableTint="#5E33AC"
+                    android:drawablePadding="8dp"
+                    android:paddingHorizontal="32dp"
+                    android:paddingVertical="12dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Stats Grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginBottom="24dp">
+
+            <!-- Card 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/bg_white_rounded_stroke"
+                android:backgroundTint="#EFF6FF"
+                android:layout_marginRight="8dp">
+
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_history" app:tint="#2563EB" android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Avg Hrs" android:textSize="12sp" android:textColor="#4B5563"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8h 45m" android:textSize="16sp" android:textStyle="bold" android:textColor="#111827"/>
+            </LinearLayout>
+
+            <!-- Card 2 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/bg_white_rounded_stroke"
+                android:backgroundTint="#FAF5FF"
+                android:layout_marginRight="8dp">
+
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_calendar_check" app:tint="#9333EA" android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Present" android:textSize="12sp" android:textColor="#4B5563"/>
+                <TextView android:id="@+id/tvDaysPresent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 Days" android:textSize="16sp" android:textStyle="bold" android:textColor="#111827"/>
+            </LinearLayout>
+
+            <!-- Card 3 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/bg_white_rounded_stroke"
+                android:backgroundTint="#FFFBEB">
+
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_app_logo" app:tint="#D97706" android:layout_marginBottom="8dp"/> <!-- Coffee Cup fallback -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Leaves" android:textSize="12sp" android:textColor="#4B5563"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2 Days" android:textSize="16sp" android:textStyle="bold" android:textColor="#111827"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- History Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_rounded_stroke"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_history" app:tint="#6B7280"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Recent History" android:textSize="18sp" android:textStyle="bold" android:textColor="#111827" android:layout_marginLeft="8dp"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View Full Report"
+                    android:textColor="#5E33AC"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
