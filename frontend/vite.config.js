@@ -12,8 +12,9 @@ export default defineConfig({
     },
   },
   server: {
-    host: true, // Listen on all local IPs
+    host: '0.0.0.0', // Listen on all local IPs (IPv4)
     port: 5173,
+    allowedHosts: ['uliyar.com', 'kanakkaalar.com', 'www.uliyar.com', 'www.kanakkaalar.com', '.uliyar.com', '.kanakkaalar.com'],
     proxy: {
       // Proxy API requests to the backend server
       '/api': {

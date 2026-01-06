@@ -232,14 +232,18 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
 };
 
 // --- Mobile Components ---
-const MobileSubMenu = ({ dropdown, isMegaMenu }) => {
+const MobileSubMenu = ({ dropdown, isMegaMenu, onLinkClick }) => {
   if (!dropdown) return null;
 
   const renderLinks = (links) => (
     <ul className="list-none pl-4 space-y-3 mt-2 border-l-2 border-slate-100 ml-2">
       {links.map((link) => (
         <li key={link.label}>
-          <Link to={link.href} className="block text-[15px] text-slate-600 hover:text-[#1A7F7D]">
+          <Link
+            to={link.href}
+            className="block text-[15px] text-slate-600 hover:text-[#1A7F7D]"
+            onClick={onLinkClick} // Close menu on click
+          >
             {link.label}
           </Link>
         </li>
@@ -555,7 +559,11 @@ export default function Header() {
                   className={`overflow-hidden transition-all duration-300 ease-in-out 
                   ${expandedMobileItem === item.id ? 'max-h-[1500px] opacity-100 mb-6' : 'max-h-0 opacity-0'}`}
                 >
-                  <MobileSubMenu dropdown={item.dropdown} isMegaMenu={item.isMegaMenu} />
+                  <MobileSubMenu
+                    dropdown={item.dropdown}
+                    isMegaMenu={item.isMegaMenu}
+                    onLinkClick={toggleMobileMenu}
+                  />
                 </div>
               </div>
             ))}

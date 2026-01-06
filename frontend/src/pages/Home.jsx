@@ -88,7 +88,7 @@ export default function Home() {
   return (
     <>
       <section
-        className="cs_hero cs_style_2 cs_bg_filed position-relative bg-cover bg-center "
+        className="cs_hero cs_style_2 cs_bg_filed position-relative bg-cover bg-center w-full overflow-hidden"
         style={{
           backgroundImage: `url(${videoBg2})`,
           backgroundSize: "cover",
@@ -96,7 +96,7 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="text-center cs_hero_text position-relative">
             <p className="text-center cs_hero_subtitle cs_heading_color cs_heading_font cs_mb_18">
               <span className="text-[#C59B4E]">
@@ -169,7 +169,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="cs_banner cs_style_1 relative">
+      <div className="cs_banner cs_style_1 relative w-full overflow-hidden">
         <div className="container">
           <div className="cs_banner_thumbnail_wrapper">
             <div className="cs_banner_thumbnail relative">
