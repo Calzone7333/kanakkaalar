@@ -40,16 +40,31 @@ jobs:
         npm install
         npm run build
 
+    # --- PREPARE SERVER ---
+    - name: Prepare Server Directory
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        timeout: 30s
+        script: |
+          # Ensure temp dir exists and is clean/writable
+          sudo rm -rf /home/ubuntu/deploy_temp
+          mkdir -p /home/ubuntu/deploy_temp
+          chmod 777 /home/ubuntu/deploy_temp
+
     # --- DEPLOY TO EC2 ---
-    - name: Deploy to EC2 via SSH
+    - name: Deploy Artifacts (SCP)
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         source: "backend/target/*.jar,frontend/dist/**"
-        target: "/var/www/kanakkaalar_temp"
+        target: "/home/ubuntu/deploy_temp"
         strip_components: 0
+        timeout: 120s  # Increased timeout
 
     - name: Switch Artifacts & Restart
       uses: appleboy/ssh-action@v1.0.3
@@ -57,26 +72,25 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
+        timeout: 60s
         script: |
           set -e
-          echo "Switching to new build..."
+          echo "Deploying from temp..."
           
           # 1. Update Backend
-          # Move new jar from temp to actual location
-          # Note: scp-action preserves structure roughly, let's just find and move
-          sudo cp -f /var/www/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
+          sudo cp -f /home/ubuntu/deploy_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
           
           # 2. Update Frontend
-          # Clear old dist
           sudo rm -rf /var/www/kanakkaalar/frontend/dist/*
-          # Move new dist contents
-          sudo cp -r /var/www/kanakkaalar_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
+          # Ensure target dir exists
+          sudo mkdir -p /var/www/kanakkaalar/frontend/dist
+          sudo cp -r /home/ubuntu/deploy_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
           
-          # Cleanup temp
-          sudo rm -rf /var/www/kanakkaalar_temp
+          # Cleanup
+          rm -rf /home/ubuntu/deploy_temp
 
           # 3. Restart Services
-          echo "Restarting Backend..."
+          echo "Restarting Services..."
           sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
           
           echo "Deployment Complete!"
