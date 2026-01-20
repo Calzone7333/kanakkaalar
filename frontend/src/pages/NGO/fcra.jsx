@@ -25,14 +25,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/fcra_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -137,14 +137,14 @@ const ReviewBox = ({ score, reviews, source }) => (
         <div className="flex items-center mb-1 text-yellow-400">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
         </div>
-        <p className="text-xs font-semibold text-white/80">{source}</p>
+        <p className="text-sm font-semibold text-white/80">{source}</p>
         <p className="mt-1 text-xl font-bold text-white">{score}</p>
-        <p className="text-xs text-white/90">{reviews}</p>
+        <p className="text-sm text-white/90">{reviews}</p>
     </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-    <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+    <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
         <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
         <div>
             <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -156,8 +156,8 @@ const DetailItem = ({ title, description, icon: Icon }) => (
 const FeatureBox = ({ title, detail, icon: Icon }) => (
     <div className="p-5 bg-white border border-gray-200 rounded-lg shadow-sm">
         <Icon className="w-6 h-6 mb-2 text-amber-500" />
-        <h4 className="mb-1 text-lg font-bold text-gray-800">{title}</h4>
-        <p className="text-sm text-gray-600">{detail}</p>
+        <h4 className="mb-1 text-xl font-bold text-gray-800">{title}</h4>
+        <p className="text-base text-gray-600">{detail}</p>
     </div>
 );
 
@@ -173,7 +173,7 @@ const FCRAOverviewContent = () => (
             />
 
             <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
+                <div className="space-y-8 text-slate-600 text-lg md:text-xl leading-relaxed">
                     <p>
                         The **Foreign Contribution Regulation Act (FCRA) Registration** allows organizations engaged in cultural, economic, educational, religious, or social activities to **legally accept foreign contributions**.
                     </p>
@@ -186,7 +186,7 @@ const FCRAOverviewContent = () => (
                     <p className="text-slate-600 leading-relaxed mb-6">
                         The **Foreign Contribution (Regulation) Act, 2010** is the consolidating act that strictly governs the acceptance and utilization of foreign contributions or foreign hospitality for activities connected therewith or incidental thereto.
                     </p>
-                    <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-slate-100">
+                    <div className="flex items-center gap-5 p-4 bg-white rounded-lg border border-slate-100">
                         <Scale className="w-6 h-6 text-[#00695C]" />
                         <span className="text-sm font-bold text-slate-700">Strict Compliance Required</span>
                     </div>
@@ -206,27 +206,27 @@ const FCRAPurposeBenefits = () => (
             />
 
             <h4 className="text-xl font-bold text-slate-800 mb-6">Key Purposes</h4>
-            <div className="grid gap-6 mb-16 md:grid-cols-2">
+            <div className="grid gap-10 mb-16 md:grid-cols-2">
                 {fcraPurposes.map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+                    <div key={i} className="flex items-start gap-5 p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
                         <div className="p-3 bg-[#E0F2F1] rounded-lg text-[#00695C] shadow-sm">
                             <item.icon className="w-6 h-6" />
                         </div>
                         <div>
-                            <h4 className="text-lg font-bold text-slate-800 mb-2">{item.title}</h4>
-                            <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                            <h4 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h4>
+                            <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                         </div>
                     </div>
                 ))}
             </div>
 
             <h4 className="text-xl font-bold text-slate-800 mb-6">Registration Benefits</h4>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                 {fcraBenefits.map((benefit, i) => (
-                    <div key={i} className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-[#00695C] transition-all group">
+                    <div key={i} className="p-8 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-[#00695C] transition-all group">
                         <benefit.icon className="w-8 h-8 mb-4 text-[#00695C] group-hover:scale-110 transition-transform" />
-                        <h4 className="mb-2 text-lg font-bold text-slate-800">{benefit.title}</h4>
-                        <p className="text-sm text-slate-600 leading-relaxed">{benefit.detail}</p>
+                        <h4 className="mb-2 text-xl font-bold text-slate-800">{benefit.title}</h4>
+                        <p className="text-base text-slate-600 leading-relaxed">{benefit.detail}</p>
                     </div>
                 ))}
             </div>
@@ -246,11 +246,11 @@ const FCRAEligibilityContent = () => (
             <div className="grid gap-12 lg:grid-cols-2">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Eligibility Criteria</h4>
-                    <div className="space-y-4">
+                    <div className="space-y-8">
                         {fcraEligibility.map((item, i) => (
-                            <div key={i} className="flex items-start gap-4 p-4 border border-slate-100 rounded-xl bg-slate-50">
+                            <div key={i} className="flex items-start gap-5 p-4 border border-slate-100 rounded-xl bg-slate-50">
                                 <CheckCircle className="flex-shrink-0 w-5 h-5 mt-1 text-[#00695C]" />
-                                <span className="text-sm font-medium text-slate-700 leading-relaxed">{item}</span>
+                                <span className="text-base font-medium text-slate-700 leading-relaxed">{item}</span>
                             </div>
                         ))}
                     </div>
@@ -258,14 +258,14 @@ const FCRAEligibilityContent = () => (
 
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Checklist (FC-3A)</h4>
-                    <div className="p-6 bg-[#F8FAFC] border border-slate-200 rounded-2xl">
-                        <ul className="space-y-4">
+                    <div className="p-8 bg-[#F8FAFC] border border-slate-200 rounded-2xl">
+                        <ul className="space-y-8">
                             {fcraChecklist.map((item, i) => (
-                                <li key={i} className="flex items-start gap-3">
+                                <li key={i} className="flex items-start gap-5">
                                     <div className="w-6 h-6 rounded-full bg-[#E0F2F1] text-[#00695C] flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <ArrowRight className="w-3 h-3" />
                                     </div>
-                                    <span className="text-sm text-slate-600 leading-relaxed font-medium">{item}</span>
+                                    <span className="text-base text-slate-600 leading-relaxed font-medium">{item}</span>
                                 </li>
                             ))}
                         </ul>
@@ -285,18 +285,18 @@ const FCRATypesContent = () => (
                 description="Choose the right registration type and prepare necessary documents."
             />
 
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="grid md:grid-cols-2 gap-10 mb-16">
                 {fcraTypes.map((type, i) => (
                     <div key={i} className="flex flex-col p-8 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all">
                         <div className="mb-6">
-                            <span className="inline-block px-3 py-1 rounded-full bg-[#E0F2F1] text-[#00695C] text-xs font-bold mb-3">
+                            <span className="inline-block px-3 py-1 rounded-full bg-[#E0F2F1] text-[#00695C] text-sm font-bold mb-3">
                                 {type.validity}
                             </span>
-                            <h4 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <h4 className="text-xl font-bold text-slate-800 flex items-center gap-5">
                                 {type.title}
                             </h4>
                         </div>
-                        <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{type.detail}</p>
+                        <p className="text-slate-600 text-base leading-relaxed mb-6 flex-grow">{type.detail}</p>
                         <div className="mt-auto pt-6 border-t border-slate-100">
                             <type.icon className="w-6 h-6 text-[#00695C]" />
                         </div>
@@ -305,15 +305,15 @@ const FCRATypesContent = () => (
             </div>
 
             <h4 className="text-xl font-bold text-slate-800 mb-6">Required Documents (FC-3A)</h4>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 {fcraDocuments.map((doc, i) => (
-                    <div key={i} className="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-[#00695C] transition-colors group">
+                    <div key={i} className="flex items-start gap-5 p-5 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-[#00695C] transition-colors group">
                         <div className="p-2 bg-slate-50 text-slate-400 group-hover:text-[#00695C] rounded-lg transition-colors">
                             <doc.icon className="w-5 h-5" />
                         </div>
                         <div>
-                            <p className="font-bold text-slate-800 text-sm mb-1">{doc.title}</p>
-                            <p className="text-xs text-slate-500">Max Size: {doc.size}</p>
+                            <p className="font-bold text-slate-800 text-base mb-1">{doc.title}</p>
+                            <p className="text-sm text-slate-500">Max Size: {doc.size}</p>
                         </div>
                     </div>
                 ))}
@@ -338,9 +338,9 @@ const FCRAPlProcessContent = () => (
                         {fcraProcessSteps.map((step, i) => (
                             <li key={i} className="ml-6">
                                 <span className="absolute -left-3 flex items-center justify-center w-6 h-6 bg-[#00695C] rounded-full ring-4 ring-white">
-                                    <span className="text-white text-xs font-bold">{i + 1}</span>
+                                    <span className="text-white text-sm font-bold">{i + 1}</span>
                                 </span>
-                                <p className="text-slate-700 font-medium leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100">{step}</p>
+                                <p className="text-slate-700 font-medium leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100 text-base">{step}</p>
                             </li>
                         ))}
                     </ol>
@@ -349,14 +349,14 @@ const FCRAPlProcessContent = () => (
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Mandatory Bank Account</h4>
                     <div className="p-8 bg-[#F0FDF4] border border-green-200 rounded-2xl">
-                        <div className="flex items-center gap-3 mb-4 text-green-800">
+                        <div className="flex items-center gap-5 mb-4 text-green-800">
                             <Banknote className="w-8 h-8" />
                             <h5 className="text-lg font-bold">Designated Account</h5>
                         </div>
                         <p className="text-green-900 leading-relaxed mb-4">
                             According to the FCRA Amendment Act, 2020, you must open an FCRA Bank Account **only in State Bank of India (SBI), Main Branch, 11, Sansad Marg, New Delhi-110001**.
                         </p>
-                        <p className="text-sm text-green-700 font-medium bg-white/50 p-3 rounded-lg">
+                        <p className="text-base text-green-700 font-medium bg-white/50 p-3 rounded-lg">
                             This specific account is mandatory for the acceptance of all foreign contributions.
                         </p>
                     </div>
@@ -375,34 +375,34 @@ const FCRARenewalCompliance = () => (
                 description="Staying compliant: Validity, Renewal and Annual Returns."
             />
 
-            <div className="grid gap-6 mb-12 md:grid-cols-2">
+            <div className="grid gap-10 mb-12 md:grid-cols-2">
                 <div className="p-8 bg-white border border-slate-100 shadow-sm rounded-2xl">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-800">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-800">
                         <Clock className="w-6 h-6 text-[#00695C]" />
                         Validity & Renewal
                     </h4>
                     <p className="mb-6 text-slate-600 leading-relaxed text-sm">
                         Registration valid for **five years**. Must apply for **FCRA renewal (FC-3C)** six months before expiration.
                     </p>
-                    <div className="bg-slate-50 p-4 rounded-xl text-sm font-medium text-slate-700">
+                    <div className="bg-slate-50 p-4 rounded-xl text-base font-medium text-slate-700">
                         Status Track: Visit FCRA portal & enter application ID.
                     </div>
                 </div>
 
                 <div className="p-8 bg-white border border-slate-100 shadow-sm rounded-2xl">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-800">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-800">
                         <FileText className="w-6 h-6 text-[#00695C]" />
                         Annual Return (FC-4)
                     </h4>
                     <p className="mb-6 text-slate-600 leading-relaxed text-sm">
                         Registered NGOs must file annual returns with MHA.
                     </p>
-                    <ul className="space-y-3 text-sm text-slate-600">
-                        <li className="flex items-center gap-2">
+                    <ul className="space-y-8 text-base text-slate-600">
+                        <li className="flex items-center gap-5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#00695C]"></span>
                             Deadline: **December 31st**.
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#00695C]"></span>
                             Requirement: Audited by CA, filed on FCRA portal.
                         </li>
@@ -410,7 +410,7 @@ const FCRARenewalCompliance = () => (
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto text-center p-6 bg-blue-50 text-blue-900 rounded-xl font-medium">
+            <div className="max-w-4xl mx-auto text-center p-8 bg-blue-50 text-blue-900 rounded-xl font-medium">
                 **Quarterly Reporting:** If total receipts from foreign sources exceed **Rs. 1 crore** in a financial year, a quarterly summary of total receipts must be filed.
             </div>
         </div>
@@ -429,11 +429,11 @@ const FCRAPRoPenalties = () => (
             <div className="grid lg:grid-cols-2 gap-12">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Prohibited Activities</h4>
-                    <ul className="space-y-4">
+                    <ul className="space-y-8">
                         {fcraProhibitions.map((item, i) => (
-                            <li key={i} className="flex items-start gap-3 p-4 bg-red-50 rounded-lg text-red-900 border border-red-100">
+                            <li key={i} className="flex items-start gap-5 p-4 bg-red-50 rounded-lg text-red-900 border border-red-100">
                                 <Shield className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                                <span className="text-sm font-medium">{item}</span>
+                                <span className="text-base font-medium">{item}</span>
                             </li>
                         ))}
                     </ul>
@@ -441,15 +441,15 @@ const FCRAPRoPenalties = () => (
 
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Violation Penalties</h4>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {fcraPenalties.map((item, i) => (
-                            <div key={i} className="flex items-start gap-4 p-4 border border-slate-100 rounded-xl shadow-sm bg-white">
+                            <div key={i} className="flex items-start gap-5 p-4 border border-slate-100 rounded-xl shadow-sm bg-white">
                                 <div className="p-2 bg-red-100 text-red-600 rounded-lg">
                                     <item.icon className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-slate-800 mb-1">{item.title}</h5>
-                                    <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                                    <h5 className="font-bold text-slate-800 mb-1 text-lg">{item.title}</h5>
+                                    <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -469,7 +469,7 @@ const FCRAWhyBizzfiling = () => (
                 description="Simplifying your FCRA registration journey."
             />
 
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-12">
+            <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-12">
                 <FeatureBox title="Expert Guidance" detail="Precise advice on eligibility and documentation." icon={Lightbulb} />
                 <FeatureBox title="Document Prep" detail="Meticulous preparation to avoid delays." icon={FileText} />
                 <FeatureBox title="Application Filing" detail="Full handling of FC-3A online submission." icon={Briefcase} />
@@ -477,14 +477,14 @@ const FCRAWhyBizzfiling = () => (
             </div>
 
             <div className="max-w-4xl mx-auto p-8 bg-[#FFF8E1] rounded-2xl border border-[#FFE082] text-center">
-                <h4 className="flex items-center justify-center gap-2 mb-4 text-xl font-bold text-amber-900">
+                <h4 className="flex items-center justify-center gap-5 mb-4 text-xl font-bold text-amber-900">
                     <DollarSign className="w-6 h-6 text-amber-600" />
                     Govt. Registration Fees
                 </h4>
                 <p className="text-amber-800 text-lg">
                     Permission: **₹5,000/-** | Permanent Registration: **₹10,000/-**
                 </p>
-                <p className="text-xs text-amber-700 mt-2">*Fees are subject to change by the government.</p>
+                <p className="text-sm text-amber-700 mt-2">*Fees are subject to change by the government.</p>
             </div>
         </div>
     </section>
@@ -498,14 +498,14 @@ const FCRAFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
             description="Common queries regarding FCRA registration and compliance."
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-8">
             {faqs.map((f, i) => (
                 <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                     <button
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -516,7 +516,7 @@ const FCRAFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         transition={{ duration: 0.3 }}
                         style={{ overflow: 'hidden' }}
                     >
-                        <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                        <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                             {f.a}
                         </div>
                     </motion.div>
@@ -601,7 +601,7 @@ export default function FCRARegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -614,7 +614,7 @@ export default function FCRARegistrationPage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -623,50 +623,50 @@ export default function FCRARegistrationPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     FCRA <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert assisted **FC-3A filing** and full guidance on the **FCRA registration in India**. Understand **eligibility, benefits, checklist**, and types of FCRA registration.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Analysis of Foreign Contribution Eligibility</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Analysis of Foreign Contribution Eligibility</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Opening of FCRA Bank Account (SBI New Delhi)</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Opening of FCRA Bank Account (SBI New Delhi)</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Filing of Form FC-3A/FC-3B online</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Filing of Form FC-3A/FC-3B online</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Reply to Ministry of Home Affairs (MHA) Queries</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Reply to Ministry of Home Affairs (MHA) Queries</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Expert Filing</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Zap className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Renewal Support</span>
                                 </div>
@@ -679,7 +679,7 @@ export default function FCRARegistrationPage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Register for FCRA with expert guidance.
                                         </p>
                                     </div>
@@ -695,7 +695,7 @@ export default function FCRARegistrationPage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
                         {fcraTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

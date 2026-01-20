@@ -48,4 +48,5 @@ INSERT INTO workflow_events (order_id, stage, status, description, created_at, u
 (1002, 'CRM', 'COMPLETED', 'Lead scored and routed to sales team', NOW(), NOW()),
 (1002, 'SALES', 'COMPLETED', 'Customer approved quote and made payment', NOW(), NOW()),
 (1002, 'ONBD', 'IN_PROGRESS', 'Documents being uploaded and verified', NOW(), NOW())
+
 ON DUPLICATE KEY UPDATE updated_at = NOW();

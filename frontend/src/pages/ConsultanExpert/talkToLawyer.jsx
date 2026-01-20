@@ -50,14 +50,14 @@ const faqs = [
 // --- Reusable Components (Enhanced Design) ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -89,7 +89,7 @@ const ProcessStep = ({ stepNumber, step, isLast }) => (
     </div>
 
     <h4 className="text-sm font-bold text-slate-800 mb-1 group-hover:text-[#1A7F7D] transition-colors">Step {stepNumber}</h4>
-    <p className="text-xs text-slate-500 max-w-[150px] mx-auto leading-relaxed">
+    <p className="text-sm text-slate-500 max-w-[150px] mx-auto leading-relaxed">
       {step}
     </p>
   </div>
@@ -104,14 +104,14 @@ const BenefitItem = ({ title, description, icon: Icon }) => (
     </div>
     <div>
       <h4 className="text-sm font-bold text-slate-800 mb-1">{title}</h4>
-      <p className="text-slate-500 text-xs leading-relaxed">{description}</p>
+      <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
     </div>
   </div>
 );
 
 const ExpertiseCard = ({ title }) => (
   <div className="group px-4 py-3 bg-white rounded-lg border border-slate-100 hover:border-[#1A7F7D] hover:shadow-md transition-all duration-300 flex items-center justify-between cursor-pointer">
-    <h3 className="text-xs font-semibold text-slate-700 group-hover:text-[#1A7F7D] transition-colors uppercase tracking-wide">{title}</h3>
+    <h3 className="text-sm font-semibold text-slate-700 group-hover:text-[#1A7F7D] transition-colors uppercase tracking-wide">{title}</h3>
     <div className="w-5 h-5 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#1A7F7D] transition-colors">
       <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-white" />
     </div>
@@ -121,7 +121,7 @@ const ExpertiseCard = ({ title }) => (
 // --- Tab Content Components ---
 
 const ExpertiseContent = () => (
-  <section id="expertise-content" className="py-12 scroll-mt-24 bg-slate-50/50">
+  <section id="expertise-content" className="py-16 scroll-mt-24 bg-slate-50/50">
     <div className="w-full px-4 mx-auto">
       <SectionHeading
         subtitle="Platform Overview"
@@ -156,30 +156,30 @@ const WalletIcon = ({ className }) => (
 
 // Helper for Services Grid
 const ServiceCard = ({ title, description, isHighlighted }) => (
-  <div className={`p-6 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
+  <div className={`p-8 md:p-10 rounded-3xl border transition-all duration-300 flex flex-col items-start h-full group
     ${isHighlighted
-      ? 'bg-gradient-to-br from-[#E8DCC2] to-[#D4B982] border-transparent shadow-lg transform -translate-y-1'
-      : 'bg-white border-slate-100 hover:shadow-lg hover:border-[#1A7F7D]/30 shadow-sm'}
+      ? 'bg-gradient-to-br from-[#E8DCC2] to-[#D4B982] border-transparent shadow-xl transform -translate-y-1'
+      : 'bg-white border-slate-100 hover:shadow-2xl hover:border-[#1A7F7D]/30 shadow-sm'}
   `}>
-    <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-colors
-       ${isHighlighted ? 'bg-white/30 text-[#8C6B28]' : 'bg-slate-50 text-[#1A7F7D]'}
+    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors shadow-sm
+       ${isHighlighted ? 'bg-white/30 text-[#8C6B28]' : 'bg-[#F0FDFA] text-[#1A7F7D]'}
     `}>
-      {isHighlighted ? <Star className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
+      {isHighlighted ? <Star className="w-8 h-8" /> : <FileText className="w-8 h-8" />}
     </div>
 
-    <h3 className={`text-base font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
+    <h3 className={`text-2xl font-bold mb-4 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-900'}`}>
       {title}
     </h3>
 
-    <p className={`text-xs leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
+    <p className={`text-lg leading-relaxed mb-6 flex-grow ${isHighlighted ? 'text-[#5C4518]/90' : 'text-slate-600'}`}>
       {description}
     </p>
 
-    <div className={`flex items-center text-xs font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-2 transition-all
+    <div className={`flex items-center text-base font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-2 transition-all
        ${isHighlighted ? 'text-[#5C4518]' : 'text-[#1A7F7D]'}
     `}>
       <span>Learn More</span>
-      <ArrowRight className="w-3 h-3 ml-1" />
+      <ArrowRight className="w-5 h-5 ml-2" />
     </div>
   </div>
 );
@@ -208,7 +208,7 @@ const ServicesContent = () => (
 
 const ProcessContent = () => {
   return (
-    <section id="process-content" className="py-20 scroll-mt-24 bg-white overflow-hidden">
+    <section id="process-content" className="py-16 scroll-mt-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 text-center">
         <SectionHeading
           subtitle="Process"
@@ -231,11 +231,11 @@ const ProcessContent = () => {
                 <div className="w-14 h-14 mx-auto mb-4 text-[#C59B4E]">
                   <FilePenLine className="w-full h-full" strokeWidth={1.2} />
                 </div>
-                <h4 className="text-xl font-bold text-slate-800 mb-3">Fill Details</h4>
-                <p className="text-sm text-slate-500 leading-relaxed">Submit your case details and documents securely.</p>
+                <h4 className="text-2xl font-bold text-slate-800 mb-3">Fill Details</h4>
+                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Submit your case details and documents securely.</p>
               </div>
               {/* Number Badge */}
-              <div className="w-10 h-10 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-sm shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
+              <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
                 1
               </div>
             </div>
@@ -243,15 +243,15 @@ const ProcessContent = () => {
             {/* Step 2: Bottom */}
             <div className="flex flex-col-reverse md:flex-col items-center group md:mt-32">
               {/* Number Badge (Top for bottom card) */}
-              <div className="w-10 h-10 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-sm shadow-md mb-6 md:mb-12 relative z-20 ring-4 ring-white">
+              <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mb-6 md:mb-12 relative z-20 ring-4 ring-white">
                 2
               </div>
               <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 w-full max-w-[280px] hover:border-[#1A7F7D]/30 transition-all duration-300 relative z-20">
                 <div className="w-14 h-14 mx-auto mb-4 text-[#C59B4E]">
                   <Rocket className="w-full h-full" strokeWidth={1.2} />
                 </div>
-                <h4 className="text-xl font-bold text-slate-800 mb-3">Analysis</h4>
-                <p className="text-sm text-slate-500 leading-relaxed">Our experts review your case for the best approach.</p>
+                <h4 className="text-2xl font-bold text-slate-800 mb-3">Analysis</h4>
+                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Our experts review your case for the best approach.</p>
               </div>
             </div>
 
@@ -261,11 +261,11 @@ const ProcessContent = () => {
                 <div className="w-14 h-14 mx-auto mb-4 text-[#C59B4E]">
                   <FileText className="w-full h-full" strokeWidth={1.2} />
                 </div>
-                <h4 className="text-xl font-bold text-slate-800 mb-3">Consultation</h4>
-                <p className="text-sm text-slate-500 leading-relaxed">Connect with a lawyer via video or audio call.</p>
+                <h4 className="text-2xl font-bold text-slate-800 mb-3">Consultation</h4>
+                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Connect with a lawyer via video or audio call.</p>
               </div>
               {/* Number Badge */}
-              <div className="w-10 h-10 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-sm shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
+              <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
                 3
               </div>
             </div>
@@ -273,15 +273,15 @@ const ProcessContent = () => {
             {/* Step 4: Bottom */}
             <div className="flex flex-col-reverse md:flex-col items-center group md:mt-32">
               {/* Number Badge */}
-              <div className="w-10 h-10 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-sm shadow-md mb-6 md:mb-12 relative z-20 ring-4 ring-white">
+              <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mb-6 md:mb-12 relative z-20 ring-4 ring-white">
                 4
               </div>
               <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 w-full max-w-[280px] hover:border-[#1A7F7D]/30 transition-all duration-300 relative z-20">
                 <div className="w-14 h-14 mx-auto mb-4 text-[#C59B4E]">
                   <UserCheck className="w-full h-full" strokeWidth={1.2} />
                 </div>
-                <h4 className="text-xl font-bold text-slate-800 mb-3">Resolution</h4>
-                <p className="text-sm text-slate-500 leading-relaxed">Get specific advice and documents to resolve your issue.</p>
+                <h4 className="text-2xl font-bold text-slate-800 mb-3">Resolution</h4>
+                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Get specific advice and documents to resolve your issue.</p>
               </div>
             </div>
 
@@ -303,7 +303,7 @@ const SearchIcon = ({ className }) => (
 )
 
 const BenefitsContent = () => (
-  <section id="benefits-content" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+  <section id="benefits-content" className="py-16 scroll-mt-24 bg-[#F8FDFC]">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Why Choose Us"
@@ -324,8 +324,8 @@ const BenefitsContent = () => (
             <div className="mx-auto w-12 h-12 mb-4 text-[#1A7F7D] group-hover:scale-110 transition-transform">
               <item.icon className="w-10 h-10 mx-auto" strokeWidth={1.2} />
             </div>
-            <h4 className="text-base font-bold text-slate-800 mb-2">{item.title}</h4>
-            <p className="text-xs text-slate-500 max-w-[220px] mx-auto leading-relaxed">{item.desc}</p>
+            <h4 className="text-lg md:text-xl font-bold text-slate-800 mb-3">{item.title}</h4>
+            <p className="text-slate-500 text-base md:text-lg max-w-[260px] mx-auto leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -339,7 +339,7 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => {
   const rightFaqs = faqs.slice(midPoint);
 
   return (
-    <section id="faqs-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="faqs-content" className="py-16 scroll-mt-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <SectionHeading
           subtitle="FAQ"
@@ -376,24 +376,24 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => {
 };
 
 const FaqItem = ({ faq, isOpen, onClick }) => (
-  <div className={`border rounded-lg transition-all duration-300 overflow-hidden
-     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg' : 'border-slate-200 bg-white text-slate-800 hover:border-[#1A7F7D]/50'}
+  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-4
+     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-200 bg-white text-slate-800 hover:border-[#1A7F7D]/50 shadow-sm'}
   `}>
     <button
-      className="flex items-center justify-between w-full p-4 text-left"
+      className="flex items-center justify-between w-full p-6 text-left"
       onClick={onClick}
     >
-      <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
         {faq.q}
       </h3>
       <div className="flex-shrink-0">
-        {isOpen ? <ChevronDown className="w-4 h-4 text-white rotate-180 transition-transform" /> : <ChevronDown className="w-4 h-4 text-slate-400 transition-transform" />}
+        {isOpen ? <ChevronDown className="w-6 h-6 text-white rotate-180 transition-transform" /> : <ChevronDown className="w-6 h-6 text-slate-400 transition-transform" />}
       </div>
     </button>
     <div
-      className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
     >
-      <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>
         {faq.a}
       </p>
     </div>
@@ -477,11 +477,11 @@ export default function TalkToLawyer() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-xs leading-tight uppercase tracking-wider mb-1">
                       Legal<br />Services<br />In India
                     </span>
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
-                    <span className="block text-white text-[9px] uppercase tracking-[0.2em] font-medium">Verified</span>
+                    <span className="block text-white text-[10px] uppercase tracking-[0.2em] font-medium">Verified</span>
                   </div>
                 </div>
               </div>
@@ -515,7 +515,7 @@ export default function TalkToLawyer() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Talk to a Lawyer</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-xs px-2 leading-relaxed">
                       Call us or Fill the form below with your new lead form!
                     </p>
                   </div>

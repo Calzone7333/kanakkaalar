@@ -4,13 +4,13 @@ import { HashRouter } from "react-router-dom";
 import App from "./App";
 
 // ✅ CSS Imports
-import "./styles/globals.css";
 import "./assets1/css/bootstrap.min.css";
 import "./assets1/css/fontawesome.min.css";
 import "./assets1/css/slick.min.css";
 import "./assets1/css/animate.css";
 import "./assets1/css/odometer.css";
 import "./assets1/css/style.css";
+import "./styles/globals.css";
 
 // ✅ JS Library Imports (auto-bundled by Vite)
 import "jquery";

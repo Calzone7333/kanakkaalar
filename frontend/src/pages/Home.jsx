@@ -126,19 +126,17 @@ export default function Home() {
                 aria-label="Get started button"
                 className="cs_btn cs_style_1 cs_fs_14 cs_bold cs_white_color text-uppercase"
                 style={{
-                  background: "radial-gradient(circle at center, #1A7F7D 0%, #23938D 100%)",
+                  background: "#1A7F7D",
                   border: "none",
                   color: "#fff",
                   transition: "all 0.4s ease",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background =
-                    "radial-gradient(circle at center, #23938D 0%, #1A7F7D 100%)";
+                  e.currentTarget.style.background = "#156664"; // Darker shade on hover
                   e.currentTarget.style.transform = "scale(1.05)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background =
-                    "radial-gradient(circle at center, #1A7F7D 0%, #23938D 100%)";
+                  e.currentTarget.style.background = "#1A7F7D";
                   e.currentTarget.style.transform = "scale(1)";
                 }}
               >

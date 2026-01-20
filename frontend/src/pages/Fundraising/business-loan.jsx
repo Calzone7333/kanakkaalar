@@ -108,14 +108,14 @@ const ReviewBox = ({ score, reviews, source }) => (
     <div className="flex items-center mb-1 text-yellow-400">
       {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
     </div>
-    <p className="text-xs font-semibold text-white/80">{source}</p>
+    <p className="text-sm font-semibold text-white/80">{source}</p>
     <p className="mt-1 text-xl font-bold text-white">{score}</p>
-    <p className="text-xs text-white/90">{reviews}</p>
+    <p className="text-sm text-white/90">{reviews}</p>
   </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-  <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+  <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
     <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
     <div>
       <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -132,21 +132,35 @@ const FeatureBox = ({ title, description, icon: Icon }) => (
   </div>
 );
 
+const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
+      {subtitle}
+    </span>
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      {title}
+    </h3>
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+      {description}
+    </p>
+  </div>
+);
+
 
 // --- TAB CONTENT COMPONENTS (Business Loan Content) ---
 
 const LoanOverviewContent = () => (
   <section id="loan-overview-content" className="py-12 scroll-mt-24">
-    <h2 className="mb-6 text-3xl font-bold text-gray-800">What Is Business Loan?</h2>
-    <p className="max-w-4xl mb-4 text-lg text-gray-700">
+    <SectionHeading subtitle="Overview" title="What Is Business Loan?" description="Funding for expansion and facilitation of various business activities." />
+    <p className="max-w-4xl mx-auto mb-4 text-lg text-gray-700 text-center">
       **Business loans** are lending agreements established between business owners and financial institutions or private lenders. These loans provide funding to entrepreneurs and business owners to be used for **investment or working capital purposes**, aiding in the expansion and facilitation of various business activities.
     </p>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
+    <p className="max-w-4xl mx-auto mb-8 text-lg text-gray-700 text-center">
       Unlike regular loans, business loans have specific formalities and terms. Bizzfiling partners with India's top lenders to provide the **best unsecured business loans** for SMEs.
     </p>
 
     <h3 className="mb-6 text-2xl font-bold text-gray-800">Types of Business Loans</h3>
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {loanTypes.map((item, i) => (
         <FeatureBox key={i} title={item.title} description={item.description} icon={item.icon} />
       ))}
@@ -156,12 +170,9 @@ const LoanOverviewContent = () => (
 
 const LoanFeaturesContent = () => (
   <section id="loan-features-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-gray-800">Features of Business Loan</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Bizzfiling provides tailor-made business loans for small and medium businesses in India, offering a user-friendly digital interface and superfast processing.
-    </p>
+    <SectionHeading subtitle="Highlights" title="Features of Business Loan" description="Tailor-made loans with user-friendly digital interface and superfast processing." />
 
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
       {loanFeatures.map((item, i) => (
         <DetailItem
           key={i}
@@ -176,17 +187,14 @@ const LoanFeaturesContent = () => (
 
 const LoanBenefitsContent = () => (
   <section id="loan-benefits-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Benefits of Business Loan</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Obtaining an unsecured business loan from Bizzfiling provides several key advantages for rapid business growth and financial stability.
-    </p>
+    <SectionHeading subtitle="Advantages" title="Benefits of Business Loan" description="Key advantages for rapid business growth and financial stability." />
 
-    <div className="space-y-4">
+    <div className="space-y-8">
       {loanBenefits.map((benefit, i) => {
         const [title, description] = benefit.split(':').map(s => s.trim());
         const Icon = i === 0 ? Clock : i === 1 ? Shield : i === 2 ? DollarSign : TrendingUp;
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-blue-200 shadow-sm bg-blue-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-blue-200 shadow-sm bg-blue-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-xl font-bold text-gray-800">{title}</h4>
@@ -201,14 +209,11 @@ const LoanBenefitsContent = () => (
 
 const LoanDocumentsContent = () => (
   <section id="loan-documents-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Documents Required for Business Loan</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      We aim for **minimal documentation** to ensure superfast processing. Just submit the key documents, and our experts will handle the rest.
-    </p>
+    <SectionHeading subtitle="Checklist" title="Documents Required" description="We aim for minimal documentation to ensure superfast processing." />
 
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
       {requiredDocuments.map((doc, i) => (
-        <div key={i} className="flex items-start gap-3 p-4 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
+        <div key={i} className="flex items-start gap-5 p-4 bg-white border-l-4 border-red-500 rounded-lg shadow-md">
           <FileText className="flex-shrink-0 w-5 h-5 mt-1 text-red-500" />
           <p className="font-medium text-gray-700">{doc}</p>
         </div>
@@ -219,14 +224,11 @@ const LoanDocumentsContent = () => (
 
 const LoanEligibilityContent = () => (
   <section id="loan-eligibility-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Eligibility Criteria for Business Loan</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      To be eligible for an unsecured business loan with Bizzfiling, you generally need to meet the following simplified criteria:
-    </p>
+    <SectionHeading subtitle="Requirements" title="Eligibility Criteria" description="General requirements to be eligible for an unsecured business loan." />
 
     <ol className="space-y-5 list-none border-l-2 border-[#022B50] pl-4">
       {eligibilityCriteria.map((item, i) => (
-        <li key={i} className="flex items-start gap-4">
+        <li key={i} className="flex items-start gap-5">
           <div className="bg-[#022B50] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
             <Target className="w-4 h-4" />
           </div>
@@ -242,17 +244,14 @@ const LoanEligibilityContent = () => (
 
 const LoanWhyBizzfiling = () => (
   <section id="loan-why-Bizzfiling" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Why Choose Bizzfiling?</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Trusted by **5,00,000+ Businesses**, we are committed to providing the quickest, most transparent, and most flexible loan options in India.
-    </p>
+    <SectionHeading subtitle="Trust" title="Why Choose Bizzfiling?" description="Quickest, most transparent, and most flexible loan options in India." />
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {whyBizzfiling.map((reason, i) => {
         const [title, description] = reason.includes(':') ? reason.split(':').map(s => s.trim()) : [reason.split('.')[0].trim(), reason.split('.').slice(1).join('.').trim()];
         const Icon = i % 6 === 0 ? Users : i % 6 === 1 ? Smartphone : i % 6 === 2 ? FileText : i % 6 === 3 ? Clock : i % 6 === 4 ? DollarSign : TrendingUp;
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-lg font-bold text-gray-800">{title}</h4>
@@ -267,9 +266,9 @@ const LoanWhyBizzfiling = () => (
 
 const LoanFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   <section id="loan-faqs-content" className="max-w-5xl py-12 mx-auto scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-center text-gray-800">FAQs on Business Loan</h3>
+    <SectionHeading subtitle="FAQ" title="Business Loan Guide" description="Frequently Asked Questions about Business Loans." />
 
-    <div className="space-y-4">
+    <div className="space-y-8">
       {faqs.map((f, i) => (
         <div key={i} className="overflow-hidden border border-gray-200 shadow-sm rounded-xl">
           <button
@@ -396,7 +395,7 @@ export default function BusinessLoanPage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -413,7 +412,7 @@ export default function BusinessLoanPage() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-sm leading-tight uppercase tracking-wider mb-1">
                       Business<br />Loan<br />Service
                     </span>
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -422,7 +421,7 @@ export default function BusinessLoanPage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   Business Loans for <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Your Growth</span>
@@ -433,12 +432,12 @@ export default function BusinessLoanPage() {
                 </p>
               </div>
 
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Clock className="w-4 h-4 text-[#C59B4E]" />
                   <span>72 Hr Approval</span>
                 </div>
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Shield className="w-4 h-4 text-[#C59B4E]" />
                   <span>No Collateral</span>
                 </div>
@@ -450,7 +449,7 @@ export default function BusinessLoanPage() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Apply for Loan</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                       Check your eligibility in minutes!
                     </p>
                   </div>
@@ -466,7 +465,7 @@ export default function BusinessLoanPage() {
       {/* === Sticky Navigation === */}
       < div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100" >
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
             {loanTabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button

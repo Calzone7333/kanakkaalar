@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { authAPI } from "../lib/api";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { setAuth } from "../lib/auth";
 import AppBackButton from "../components/AppBackButton";
 
@@ -19,6 +19,8 @@ export default function Login() {
   const [showResendVerification, setShowResendVerification] = useState(false);
   const nav = useNavigate();
 
+  const location = useLocation(); // Make sure to import this at top
+
   // 🔹 Login with email & password
   const loginPassword = async (e) => {
     e.preventDefault();
@@ -33,6 +35,13 @@ export default function Login() {
       // Works automatically when autocomplete is on and successful login happens
 
       const role = r.data.user?.role || "USER";
+
+      // 🔄 Redirect logic
+      if (location.state?.redirectTo && role === "USER") {
+        // Pass forward the state (like serviceTitle)
+        return nav(location.state.redirectTo, { replace: true, state: location.state });
+      }
+
       if (role === "ADMIN") nav("/dashboard/admin", { replace: true });
       else if (role === "EMPLOYEE") nav("/dashboard/employee", { replace: true });
       else if (role === "AGENT") nav("/dashboard/agent", { replace: true });
@@ -81,6 +90,12 @@ export default function Login() {
       setAuth(r.data); // Use setAuth to store the entire auth object
       window.dispatchEvent(new Event("auth:update"));
       const role = r.data.user?.role || "USER";
+
+      // 🔄 Redirect logic
+      if (location.state?.redirectTo && role === "USER") {
+        return nav(location.state.redirectTo, { replace: true, state: location.state });
+      }
+
       if (role === "ADMIN") nav("/dashboard/admin", { replace: true });
       else if (role === "EMPLOYEE") nav("/dashboard/employee", { replace: true });
       else if (role === "AGENT") nav("/dashboard/agent", { replace: true });

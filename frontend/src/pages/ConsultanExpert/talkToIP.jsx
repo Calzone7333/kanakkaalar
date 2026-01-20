@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
-import {
-    ChevronDown,
+chevronDown,
     ArrowRight,
     CheckCircle,
     FileText,
@@ -16,8 +15,8 @@ import {
     Search,
     Scale,
     Gavel,
-    BookOpen
-} from "lucide-react";
+    BookOpen,
+    Target
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
 
 // --- IP EXPERT CONSULTATION FULL DATA ---

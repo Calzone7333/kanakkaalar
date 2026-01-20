@@ -1,5 +1,4 @@
 /* Global Typography Setup */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,12 +10,12 @@
 :root {
   --brand-1: 228 100% 50%;
   --brand-2: 190 100% 40%;
-  /* Heading font: Sora */
-  --font-head: 'Sora', sans-serif;
-  /* Body/UI font: DM Sans */
-  --font-body: 'DM Sans', sans-serif;
+  /* Heading font: Poppins */
+  --font-head: 'Poppins', sans-serif;
+  /* Body/UI font: Poppins */
+  --font-body: 'Poppins', sans-serif;
   /* Premium Serif font */
-  --font-serif: 'Sora', sans-serif;
+  --font-serif: 'Poppins', sans-serif;
   /* Using Sora for now to match User's request for Home page feel, or could use a serif if preferred */
   /* Base font-size (adjusted via media queries) */
   --base-font-size: 16px;

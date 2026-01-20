@@ -34,12 +34,12 @@ public class UserController {
 
         List<UserProfile> users = userRepository.findAll().stream()
                 .map(u -> new UserProfile(
-                    u.getId(),
-                    u.getFullName(),
-                    u.getEmail(),
-                    u.getPhone(),
-                    u.hasProfileImage()
-                ))
+                        u.getId(),
+                        u.getFullName(),
+                        u.getEmail(),
+                        u.getPhone(),
+                        u.hasProfileImage(),
+                        u.getRoles().stream().findFirst().map(Role::getName).orElse("USER")))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(Map.of("users", users));
@@ -53,12 +53,12 @@ public class UserController {
         }
 
         UserProfile profile = new UserProfile(
-            user.getId(),
-            user.getFullName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.hasProfileImage()
-        );
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.hasProfileImage(),
+                user.getRoles().stream().findFirst().map(Role::getName).orElse("USER"));
 
         return ResponseEntity.ok(profile);
     }
@@ -101,33 +101,32 @@ public class UserController {
             @RequestParam(value = "fullName", required = false) String fullName,
             @RequestParam(value = "phone", required = false) String phone,
             @RequestParam(value = "password", required = false) String password,
-            @RequestParam(value = "profileImage", required = false) MultipartFile profileImage
-    ) {
+            @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) {
         if (user == null) {
             return ResponseEntity.status(401).body(Map.of("message", "Unauthenticated"));
         }
 
         try {
             User updatedUser = userService.updateUserProfile(user, fullName, phone, password, profileImage);
-            
+
             UserProfile profile = new UserProfile(
-                updatedUser.getId(),
-                updatedUser.getFullName(),
-                updatedUser.getEmail(),
-                updatedUser.getPhone(),
-                updatedUser.hasProfileImage()
-            );
-    
+                    updatedUser.getId(),
+                    updatedUser.getFullName(),
+                    updatedUser.getEmail(),
+                    updatedUser.getPhone(),
+                    updatedUser.hasProfileImage(),
+                    updatedUser.getRoles().stream().findFirst().map(Role::getName).orElse("USER"));
+
             return ResponseEntity.ok(Map.of(
-                "user", profile,
-                "message", "Profile updated successfully"
-            ));
+                    "user", profile,
+                    "message", "Profile updated successfully"));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of("message", "An unexpected error occurred."));
         }
     }
+
     // ==================== GET USER BY ID ====================
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
@@ -137,8 +136,8 @@ public class UserController {
                         u.getFullName(),
                         u.getEmail(),
                         u.getPhone(),
-                        u.hasProfileImage()
-                ))
+                        u.hasProfileImage(),
+                        u.getRoles().stream().findFirst().map(Role::getName).orElse("USER")))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

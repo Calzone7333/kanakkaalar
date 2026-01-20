@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 import {
     ChevronDown,
     Zap,
@@ -89,9 +90,23 @@ const apedaProcessSteps = [
     "Download RCMC: Issue and download certificate from portal login.",
 ];
 
-const apedaFees = [
-    { category: "MSME Entities", fee: "₹5,000 + GST", validity: "5 Financial Years" },
-    { category: "Large Enterprises", fee: "₹10,000 + GST", validity: "5 Financial Years" },
+const apedaPlans = [
+    {
+        title: "MSME Entities",
+        price: "₹5,000 + GST",
+        description: "Complete MSME Entities service.",
+        features: [
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "Large Enterprises",
+        price: "₹10,000 + GST",
+        description: "Complete Large Enterprises service.",
+        features: [
+        ],
+        isRecommended: true,
+    },
 ];
 
 const apedaChallenges = [
@@ -118,14 +133,14 @@ const apedaFAQs = [
 // --- Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -139,7 +154,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
             className="flex items-center justify-between w-full p-4 text-left"
             onClick={onClick}
         >
-            <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+            <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
                 {faq.q}
             </h3>
             <div className="flex-shrink-0">
@@ -149,7 +164,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -159,32 +174,32 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="apeda-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="apeda-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Agri-Export" title="APEDA RCMC Authority" description="The mandatory gateway for agricultural exporters to access global food markets." />
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6 text-slate-600 leading-relaxed italic">
+                <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         The <strong>APEDA</strong> is a statutory body established in 1985 to promote the export of fruits, meat, dairy, and alcoholic beverages.
                     </p>
                     <p>
                         To export these goods, you must obtain an <strong>Import Export Code (IEC)</strong> and then complete APEDA registration to receive the <strong>RCMC Certificate</strong>, which is mandatory for customs clearance.
                     </p>
-                    <div className="flex flex-wrap gap-3 pt-2">
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase tracking-tighter">Statutory Body</span>
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase tracking-tighter">RCMC Verification</span>
+                    <div className="flex flex-wrap gap-5 pt-2">
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase tracking-tighter">Statutory Body</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase tracking-tighter">RCMC Verification</span>
                     </div>
                 </div>
                 <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl border-r-[12px] border-r-[#1A7F7D]">
                     <h4 className="text-xl font-bold text-slate-800 mb-4 tracking-tight uppercase italic">RCMC Required For:</h4>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-5">
                         {apedaProducts.slice(0, 4).map((p, i) => (
-                            <div key={i} className="flex items-center gap-2 p-3 bg-slate-50 rounded-xl">
+                            <div key={i} className="flex items-center gap-5 p-3 bg-slate-50 rounded-xl">
                                 <CheckCircle size={14} className="text-[#1A7F7D]" />
-                                <span className="text-[10px] font-bold text-slate-600 uppercase">{p}</span>
+                                <span className="text-sm font-bold text-slate-600 uppercase">{p}</span>
                             </div>
                         ))}
-                        <div className="col-span-2 flex items-center justify-center p-2 bg-[#E0F2F1] rounded-xl text-[10px] font-bold text-[#1A7F7D] uppercase">
+                        <div className="col-span-2 flex items-center justify-center p-2 bg-[#E0F2F1] rounded-xl text-sm font-bold text-[#1A7F7D] uppercase">
                             & 10+ Other Categories
                         </div>
                     </div>
@@ -195,15 +210,15 @@ const OverviewContent = () => (
 );
 
 const ProductsRoleContent = () => (
-    <section id="apeda-products-content" className="py-16 bg-white scroll-mt-24">
+    <section id="apeda-products-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Ecosystem" title="The Role & Coverage" description="How APEDA supports development and inspections for Indian farm produce." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {apedaRoles.map((role, i) => (
-                    <div key={i} className="p-8 bg-slate-50 rounded-[32px] border border-slate-100 flex flex-col space-y-4 hover:bg-white hover:shadow-2xl transition-all h-full">
+                    <div key={i} className="p-8 bg-slate-50 rounded-[32px] border border-slate-100 flex flex-col space-y-8 hover:bg-white hover:shadow-2xl transition-all h-full">
                         <div className="w-12 h-12 bg-white rounded-2xl shadow-sm text-[#1A7F7D] flex items-center justify-center shrink-0"><role.icon size={24} /></div>
-                        <h6 className="font-bold text-slate-800 text-sm italic uppercase tracking-tighter">{role.title}</h6>
-                        <p className="text-xs text-slate-500 italic leading-relaxed">{role.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg italic uppercase tracking-tighter">{role.title}</h6>
+                        <p className="text-sm text-slate-500 italic leading-relaxed">{role.detail}</p>
                     </div>
                 ))}
             </div>
@@ -212,15 +227,15 @@ const ProductsRoleContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="apeda-benefits-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="apeda-benefits-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Strategic Plan" title="RCMC Registration Value" description="Building a legal and financial foundation for global competitiveness." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {apedaBenefits.map((item, i) => (
                     <div key={i} className="group p-8 bg-white border border-slate-100 rounded-3xl hover:border-[#1A7F7D]/30 transition-all shadow-sm">
                         <item.icon className="w-10 h-10 text-[#C19A5B] mb-6 group-hover:rotate-12 transition-transform" />
-                        <h6 className="font-bold text-slate-800 text-sm mb-3 uppercase tracking-tighter italic">{item.title}</h6>
-                        <p className="text-xs text-slate-500 leading-relaxed italic">{item.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg mb-3 uppercase tracking-tighter italic">{item.title}</h6>
+                        <p className="text-sm text-slate-500 leading-relaxed italic">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -229,53 +244,41 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-    <section id="apeda-eligibility-content" className="py-16 bg-white scroll-mt-24">
+    <section id="apeda-eligibility-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Policy" title="Who Can Register?" description="Eligibility for manufacturers and exporters of scheduled agricultural goods." />
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-10 mb-12">
                 <div className="p-8 rounded-[40px] bg-slate-900 text-white relative flex flex-col items-center text-center group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full group-hover:w-40 transition-all"></div>
                     <Ship size={40} className="text-[#C59B4E] mb-6" />
                     <h5 className="text-lg font-bold mb-4 uppercase italic">Merchant Exporters</h5>
-                    <p className="text-xs text-slate-400 italic leading-relaxed">Companies that procure and export scheduled products must register to access international markets.</p>
+                    <p className="text-sm text-slate-400 italic leading-relaxed">Companies that procure and export scheduled products must register to access international markets.</p>
                 </div>
                 <div className="p-8 rounded-[40px] bg-slate-900 text-white relative flex flex-col items-center text-center group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full group-hover:w-40 transition-all"></div>
                     <Factory size={40} className="text-[#C59B4E] mb-6" />
                     <h5 className="text-lg font-bold mb-4 uppercase italic">Manufacturers</h5>
-                    <p className="text-xs text-slate-400 italic leading-relaxed">Agri-manufacturers wishing to export their production can register with proof of industrial COI or FPO status.</p>
+                    <p className="text-sm text-slate-400 italic leading-relaxed">Agri-manufacturers wishing to export their production can register with proof of industrial COI or FPO status.</p>
                 </div>
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
-                {apedaFees.map((fee, i) => (
-                    <div key={i} className="p-6 bg-slate-50 border border-slate-100 rounded-2xl flex justify-between items-center shadow-sm">
-                        <div>
-                            <h6 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{fee.category}</h6>
-                            <p className="text-xl font-extrabold text-[#1A7F7D] italic tracking-tight">{fee.fee}</p>
-                        </div>
-                        <div className="text-right">
-                            <span className="text-[10px] font-bold text-slate-800 uppercase italic">Validity</span>
-                            <p className="text-xs text-slate-500 italic">{fee.validity}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <PricingCards plans={apedaPlans} serviceName="APEDA Registration" />
         </div>
     </section>
+
 );
 
 const ProcessContent = () => (
     <section id="apeda-process-content" className="py-24 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 text-center">
             <SectionHeading subtitle="Application" title="RCMC Portal Journey" description="A structured verification path handled entirely on the official APEDA e-Governance portal." />
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 relative">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-10 relative">
                 {apedaProcessSteps.map((step, idx) => (
-                    <div key={idx} className="space-y-4">
+                    <div key={idx} className="space-y-8">
                         <div className="w-14 h-14 bg-white border-2 border-[#1A7F7D] rounded-full flex items-center justify-center mx-auto shadow-lg relative transition-transform hover:rotate-6">
                             <span className="text-lg font-bold text-[#1A7F7D]">{idx + 1}</span>
-                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#C59B4E] text-white rounded-full flex items-center justify-center text-[10px] font-bold ring-4 ring-white">✓</div>
+                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#C59B4E] text-white rounded-full flex items-center justify-center text-sm font-bold ring-4 ring-white">✓</div>
                         </div>
-                        <p className="text-[10px] text-slate-500 leading-relaxed font-semibold italic">{step}</p>
+                        <p className="text-sm text-slate-500 leading-relaxed font-semibold italic">{step}</p>
                     </div>
                 ))}
             </div>
@@ -284,16 +287,16 @@ const ProcessContent = () => (
 );
 
 const ChallengesContent = () => (
-    <section id="apeda-challenges-content" className="py-16 bg-white scroll-mt-24">
+    <section id="apeda-challenges-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Scrutiny" title="Risks & Expert Solutions" description="Overcoming documentation logic and portal technicalities proactively." />
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-10">
                 {apedaChallenges.map((item, i) => (
-                    <div key={i} className="p-8 bg-slate-900 rounded-[32px] text-white space-y-4 hover:shadow-2xl transition-all border-b-8 border-b-[#C59B4E]">
+                    <div key={i} className="p-8 bg-slate-900 rounded-[32px] text-white space-y-8 hover:shadow-2xl transition-all border-b-8 border-b-[#C59B4E]">
                         <item.icon className="text-[#C59B4E]" size={32} />
-                        <h6 className="font-bold text-sm tracking-widest uppercase italic">{item.title}</h6>
-                        <p className="text-[10px] text-slate-400 leading-relaxed italic"><strong>Problem:</strong> {item.issue}</p>
-                        <p className="text-[10px] text-[#A7F3D0] font-bold uppercase underline">Expert Fix: {item.solution}</p>
+                        <h6 className="font-bold text-lg tracking-widest uppercase italic">{item.title}</h6>
+                        <p className="text-sm text-slate-400 leading-relaxed italic"><strong>Problem:</strong> {item.issue}</p>
+                        <p className="text-sm text-[#A7F3D0] font-bold uppercase underline">Expert Fix: {item.solution}</p>
                     </div>
                 ))}
             </div>
@@ -307,12 +310,12 @@ const WhyBizzfiling = () => (
             <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Confidence" title="Assisted Agri-Exporters" description="Ensuring zero-error compliance across all APEDA and DGFT protocols." align="left" />
-                    <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                    <div className="grid sm:grid-cols-2 gap-10 pt-4">
                         {apedaWhyBizzfiling.map((s, i) => (
-                            <div key={i} className="p-6 bg-white rounded-[24px] border border-slate-100 shadow-sm">
+                            <div key={i} className="p-8 bg-white rounded-[24px] border border-slate-100 shadow-sm">
                                 <div className="w-10 h-10 bg-[#1A7F7D]/5 text-[#1A7F7D] rounded-xl flex items-center justify-center mb-4"><s.icon size={20} /></div>
-                                <h6 className="font-bold text-slate-800 text-sm mb-1 uppercase italic tracking-tighter">{s.title}</h6>
-                                <p className="text-[10px] text-slate-500 italic">{s.detail}</p>
+                                <h6 className="font-bold text-slate-800 text-lg mb-1 uppercase italic tracking-tighter">{s.title}</h6>
+                                <p className="text-sm text-slate-500 italic">{s.detail}</p>
                             </div>
                         ))}
                     </div>
@@ -320,8 +323,8 @@ const WhyBizzfiling = () => (
                 <div className="order-1 lg:order-2 bg-[#103B3E] p-12 rounded-[50px] text-white flex flex-col items-center text-center shadow-3xl">
                     <Award className="w-20 h-20 text-[#C59B4E] mb-6" />
                     <h4 className="text-2xl font-bold font-serif italic mb-4 uppercase">Excellence in Export</h4>
-                    <p className="text-slate-400 text-xs italic mb-8">"Facilitating agricultural trade worth billions of dollars for Indian enterprises annually."</p>
-                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-[11px] shadow-lg hover:bg-[#a37d35] transition-all">Contact Expert</button>
+                    <p className="text-slate-400 text-sm italic mb-8">"Facilitating agricultural trade worth billions of dollars for Indian enterprises annually."</p>
+                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-sm shadow-lg hover:bg-[#a37d35] transition-all">Contact Expert</button>
                 </div>
             </div>
         </div>
@@ -372,55 +375,41 @@ export default function APEDARegistrationPage() {
         <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-            {/* Hero */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            {/* Hero Section - Premium Style */}
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
                 <div className="absolute inset-0 z-0">
-                    <img src={BackgroundImageSrc} alt="APEDA Hero Background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+                    <img src={BackgroundImageSrc} alt="APEDA Registration" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
-                <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-                        <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-                            <div className="relative w-28 h-28 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-                                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2">
-                                    <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
-                                    <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">APEDA <br /> Registration</span>
-                                    <span className="text-white text-[8px] uppercase mt-1 opacity-70">RCMC Authority</span>
-                                </div>
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        <div className="w-full lg:w-3/5 space-y-8">
+                            <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                                <Award size={14} className="text-[#C59B4E]" />
+                                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official Agri-Export RCMC Authorization</span>
                             </div>
-                            <div className="space-y-4">
-                                <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1] font-serif italic tracking-tighter">
-                                    Agri-Export <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic uppercase tracking-widest">RCMC Power</span>
-                                </h1>
-                                <div className="space-y-3 pt-2">
-                                    {apedaIntroBullets.map((bullet, i) => (
-                                        <div key={i} className="flex gap-3 text-slate-300">
-                                            <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                                            <p className="text-sm font-light leading-relaxed italic">{bullet}</p>
-                                        </div>
-                                    ))}
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                                APEDA <br className="hidden lg:block" />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">RCMC Registration</span>
+                            </h1>
+                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                                Streamline your agri-export business with expert-assisted APEDA registration. 100% online process including documentation, DGFT filing, and RCMC application.
+                            </p>
+                            <div className="flex gap-10 pt-2">
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <CheckCircle size={18} className="text-[#C59B4E]" /> 100% Online
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-6 py-2 overflow-x-auto no-scrollbar w-full">
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white lg:text-3xl text-2xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">MSME</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Incentives</span>
-                                </div>
-                                <div className="h-10 w-[1px] bg-white/20"></div>
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white lg:text-3xl text-2xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">Global</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Recognition</span>
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <Globe size={18} className="text-[#C59B4E]" /> Global Market Access
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full max-w-sm lg:w-[400px]">
-                            <div className="bg-white rounded-[48px] shadow-3xl p-10 border border-white/5 relative overflow-hidden group">
-                                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#C59B4E]/5 rounded-full blur-2xl group-hover:scale-150 transition-all"></div>
-                                <h2 className="text-2xl font-bold mb-1 text-center text-slate-800 tracking-tighter uppercase italic">Secure RCMC</h2>
-                                <p className="text-[11px] text-slate-400 mb-8 text-center uppercase tracking-widest font-bold">Professional APEDA Compliance</p>
-                                <LeadForm serviceName="APEDA Registration" btnText="Apply Now" />
+                        <div className="w-full max-w-sm">
+                            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                                <div className="p-8 md:p-8">
+                                    <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Secure RCMC</h3>
+                                    <LeadForm serviceName="APEDA Registration" btnText="Apply Now" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -428,13 +417,13 @@ export default function APEDARegistrationPage() {
             </section>
 
             {/* Navigation */}
-            <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+            <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-center gap-6 md:gap-12 py-0 min-w-max list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
                         {tabs.map((tab) => (
                             <li key={tab.id}>
                                 <button
-                                    className={`py-5 text-[11px] md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-widest ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-400 border-transparent hover:text-slate-700'}`}
+                                    className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                                     onClick={() => handleTabClick(tab.id)}
                                 >{tab.label}</button>
                             </li>
@@ -454,7 +443,7 @@ export default function APEDARegistrationPage() {
             <section id="apeda-faqs-content" className="py-24 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="APEDA Knowledge Hub" description="Essential guidance for exporters dealing with scheduled products." />
-                    <div className="space-y-4 pt-10">
+                    <div className="space-y-8 pt-10">
                         {apedaFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
                     </div>
                 </div>

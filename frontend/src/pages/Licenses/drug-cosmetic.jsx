@@ -117,14 +117,14 @@ const dcFAQs = [
 // --- Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -148,7 +148,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-sm leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -158,27 +158,27 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="dc-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="dc-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Regulation" title="CDSCO Healthcare Nexus" description="The Central Drugs Standard Control Organisation oversees the D&C Act 1940." />
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6 text-slate-600 leading-relaxed italic">
+                <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Overseen by the <strong>Drugs Controller General of India (DCGI)</strong>, this licensing system regulates the import, manufacture, and distribution of healthcare goods.
                     </p>
                     <p>
                         It is mandatory to ensure all products meet required safety standards, protecting public health while facilitating legitimate pharmaceutical trade across Indian soil.
                     </p>
-                    <div className="flex flex-wrap gap-3 pt-2">
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">DCGI COMPLIANT</span>
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">SCHEDULE M HUB</span>
+                    <div className="flex flex-wrap gap-5 pt-2">
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase italic">DCGI COMPLIANT</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase italic">SCHEDULE M HUB</span>
                     </div>
                 </div>
                 <div className="bg-[#103B3E] p-10 rounded-[50px] text-white relative group overflow-hidden shadow-2xl text-center">
                     <Activity className="w-16 h-16 text-[#C59B4E] mx-auto mb-6 group-hover:scale-110 transition-transform" />
                     <h4 className="text-xl font-bold mb-4 italic uppercase tracking-tighter text-[#C59B4E]">Public Safety Guard</h4>
-                    <p className="text-[10px] text-slate-400 italic mb-6 leading-relaxed">Preventing substandard products from reaching consumers through rigorous site inspections and lab validations.</p>
-                    <div className="flex justify-center gap-4 text-white">
+                    <p className="text-sm text-slate-400 italic mb-6 leading-relaxed">Preventing substandard products from reaching consumers through rigorous site inspections and lab validations.</p>
+                    <div className="flex justify-center gap-5 text-white">
                         <div className="flex items-center gap-1"><CheckCircle size={10} className="text-[#C59B4E]" /><span className="text-[8px] font-bold uppercase italic">RETAIL</span></div>
                         <div className="flex items-center gap-1"><CheckCircle size={10} className="text-[#C59B4E]" /><span className="text-[8px] font-bold uppercase italic">WHOLESALE</span></div>
                         <div className="flex items-center gap-1"><CheckCircle size={10} className="text-[#C59B4E]" /><span className="text-[8px] font-bold uppercase italic">EXPORT</span></div>
@@ -190,24 +190,24 @@ const OverviewContent = () => (
 );
 
 const DrugTypesContent = () => (
-    <section id="dc-drug-types" className="py-16 bg-white scroll-mt-24">
+    <section id="dc-drug-types" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Tiers" title="Drug License Categories" description="Classification based on business activity and nature of pharmacuticals." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {drugLicenseTypes.map((item, i) => (
                     <div key={i} className="group p-8 bg-slate-50 border border-slate-100 rounded-[32px] hover:border-[#1A7F7D]/30 transition-all shadow-sm">
                         <item.icon className="w-10 h-10 text-[#C19A5B] mb-6 group-hover:scale-110 transition-transform" />
                         <h6 className="font-bold text-slate-800 text-sm mb-3 uppercase tracking-tighter italic">{item.type}</h6>
-                        <p className="text-xs text-slate-500 leading-relaxed italic font-medium">{item.detail}</p>
+                        <p className="text-sm text-slate-500 leading-relaxed italic font-medium">{item.detail}</p>
                     </div>
                 ))}
             </div>
-            <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {manufacturingRules.map((rule, i) => (
-                    <div key={i} className="p-6 bg-[#F8FAFC] border border-slate-200 rounded-[24px] shadow-sm flex flex-col items-center text-center">
+                    <div key={i} className="p-8 bg-[#F8FAFC] border border-slate-200 rounded-[24px] shadow-sm flex flex-col items-center text-center">
                         <div className="w-12 h-12 bg-white rounded-2xl shadow-sm text-[#1A7F7D] flex items-center justify-center mb-4"><rule.icon size={24} /></div>
-                        <h6 className="font-bold text-slate-800 text-xs italic uppercase mb-2">{rule.title}</h6>
-                        <p className="text-[10px] text-slate-500 italic font-medium">{rule.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-sm italic uppercase mb-2">{rule.title}</h6>
+                        <p className="text-sm text-slate-500 italic font-medium">{rule.detail}</p>
                     </div>
                 ))}
             </div>
@@ -216,16 +216,16 @@ const DrugTypesContent = () => (
 );
 
 const CosmeticTypesContent = () => (
-    <section id="dc-cosmetic-types" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="dc-cosmetic-types" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Beauty Care" title="Cosmetic Registry Hub" description="Mandatory standards for manufacturing and importing skincare/beauty products." />
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-10">
                 {cosmeticRequirements.map((req, i) => (
-                    <div key={i} className="flex gap-6 items-start p-8 bg-white border border-slate-100 rounded-[40px] hover:shadow-xl transition-all">
+                    <div key={i} className="flex gap-10 items-start p-8 bg-white border border-slate-100 rounded-[40px] hover:shadow-xl transition-all">
                         <div className="w-14 h-14 bg-slate-50 rounded-2xl text-[#1A7F7D] flex items-center justify-center shrink-0 shadow-sm"><req.icon size={28} /></div>
                         <div>
                             <h6 className="font-bold text-slate-800 text-sm italic uppercase mb-2 tracking-widest">{req.title}</h6>
-                            <p className="text-xs text-slate-500 italic leading-relaxed">{req.detail}</p>
+                            <p className="text-sm text-slate-500 italic leading-relaxed">{req.detail}</p>
                         </div>
                     </div>
                 ))}
@@ -235,16 +235,16 @@ const CosmeticTypesContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="dc-documents-content" className="py-16 bg-white scroll-mt-24">
+    <section id="dc-documents-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Archive" title="Consolidated Registry Proofs" description="Legal, premises, and technical documentation required for portal filing." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
                 {commonDocs.map((doc, i) => (
-                    <div key={i} className="p-6 bg-slate-50 border border-slate-100 rounded-2xl flex gap-4 items-center shadow-sm">
+                    <div key={i} className="p-8 bg-slate-50 border border-slate-100 rounded-2xl flex gap-5 items-center shadow-sm">
                         <div className="w-10 h-10 bg-white text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0 shadow-sm"><doc.icon size={20} /></div>
                         <div>
-                            <h6 className="font-bold text-slate-800 text-xs italic uppercase mb-1 tracking-tight">{doc.title}</h6>
-                            <p className="text-[10px] text-slate-400 italic font-medium">{doc.detail}</p>
+                            <h6 className="font-bold text-slate-800 text-sm italic uppercase mb-1 tracking-tight">{doc.title}</h6>
+                            <p className="text-sm text-slate-400 italic font-medium">{doc.detail}</p>
                         </div>
                     </div>
                 ))}
@@ -257,14 +257,14 @@ const RulesContent = () => (
     <section id="dc-rules-content" className="py-24 bg-slate-900 scroll-mt-24 text-center">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Statutes" title="Governing Framework" description="Legal rules defining standard operating procedures for various categories." />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
                 {governingRules.map((rule, idx) => (
                     <div key={idx} className="relative p-10 bg-white/5 border border-white/10 rounded-[48px] overflow-hidden group hover:bg-[#C59B4E] transition-all">
                         <div className="w-12 h-12 bg-white/10 text-[#C59B4E] rounded-full flex items-center justify-center mx-auto mb-8 font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors">
                             <rule.icon size={24} />
                         </div>
                         <h5 className="text-white font-bold text-sm uppercase italic mb-4">{rule.title}</h5>
-                        <p className="text-[10px] text-slate-400 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-amber-900">{rule.detail}</p>
+                        <p className="text-sm text-slate-400 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-amber-900">{rule.detail}</p>
                     </div>
                 ))}
             </div>
@@ -277,19 +277,19 @@ const LabellingContent = () => (
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Protocols" title="Label Integrity norms" description="Mandatory disclosures for all imported and local pharmaceutical goods." />
             <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-4">
+                <div className="space-y-8">
                     {labellingNorms.map((e, i) => (
-                        <div key={i} className="flex items-center gap-4 p-5 bg-slate-50 rounded-[28px] italic border border-slate-100 italic">
+                        <div key={i} className="flex items-center gap-5 p-5 bg-slate-50 rounded-[28px] italic border border-slate-100 italic">
                             <CheckCircle size={16} className="text-[#C19A5B] shrink-0" />
-                            <span className="text-xs font-bold text-slate-600 tracking-tight leading-relaxed">{e}</span>
+                            <span className="text-sm font-bold text-slate-600 tracking-tight leading-relaxed">{e}</span>
                         </div>
                     ))}
                 </div>
                 <div className="p-12 bg-[#103B3E] rounded-[60px] text-white flex flex-col items-center text-center shadow-3xl">
                     <Search size={48} className="text-[#C59B4E] mb-6 animate-pulse" />
                     <h4 className="text-xl font-bold uppercase italic tracking-tighter text-[#C59B4E] mb-4">Inspection Audit</h4>
-                    <p className="text-[11px] text-slate-400 italic font-medium leading-relaxed mb-6 italic">We provide a comprehensive checklist for store layout, refrigerator calibration, and record-keeping to clear Drug Inspector visits on the first attempt.</p>
-                    <button className="px-8 py-4 border-2 border-[#C59B4E] text-[#C59B4E] rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-[#C59B4E] hover:text-white transition-all">Prepare for visit</button>
+                    <p className="text-sm text-slate-400 italic font-medium leading-relaxed mb-6 italic">We provide a comprehensive checklist for store layout, refrigerator calibration, and record-keeping to clear Drug Inspector visits on the first attempt.</p>
+                    <button className="px-8 py-4 border-2 border-[#C59B4E] text-[#C59B4E] rounded-full text-sm font-black uppercase tracking-widest hover:bg-[#C59B4E] hover:text-white transition-all">Prepare for visit</button>
                 </div>
             </div>
         </div>
@@ -302,13 +302,13 @@ const WhyUsContent = () => (
             <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Strategy" title="Healthcare compliance Specialist" description="Simplifying intricate CDSCO/DCGI procedures through legal precision." align="left" />
-                    <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                    <div className="grid sm:grid-cols-2 gap-10 pt-4">
                         {whyBizzfiling.map((s, i) => (
-                            <div key={i} className="p-6 bg-white rounded-[32px] border border-slate-100 flex flex-col items-start gap-4 shadow-sm">
+                            <div key={i} className="p-8 bg-white rounded-[32px] border border-slate-100 flex flex-col items-start gap-5 shadow-sm">
                                 <div className="w-10 h-10 bg-[#1A7F7D]/5 text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0 shadow-sm"><s.icon size={20} /></div>
                                 <div>
-                                    <h6 className="font-bold text-slate-800 text-xs mb-1 uppercase italic tracking-tighter">{s.title}</h6>
-                                    <p className="text-[10px] text-slate-500 italic leading-relaxed font-bold">{s.detail}</p>
+                                    <h6 className="font-bold text-slate-800 text-sm mb-1 uppercase italic tracking-tighter">{s.title}</h6>
+                                    <p className="text-sm text-slate-500 italic leading-relaxed font-bold">{s.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -317,8 +317,8 @@ const WhyUsContent = () => (
                 <div className="order-1 lg:order-2 bg-[#103B3E] p-12 rounded-[50px] shadow-3xl text-white flex flex-col items-center text-center">
                     <Award className="w-20 h-20 text-[#C59B4E] mb-6 animate-pulse" />
                     <h4 className="text-2xl font-bold font-serif italic mb-4 uppercase tracking-tighter leading-tight italic decoration-[#C59B4E] underline underline-offset-8 decoration-4">Statutory Safety Nexus</h4>
-                    <p className="text-slate-400 text-xs italic mb-8 px-10 italic">"Facilitating Drug & Cosmetic Act compliance for India's leading pharmaceutical hubs."</p>
-                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-[11px] hover:bg-[#a37d35] transition-all italic">Talk to Bizzfiling expert</button>
+                    <p className="text-slate-400 text-sm italic mb-8 px-10 italic">"Facilitating Drug & Cosmetic Act compliance for India's leading pharmaceutical hubs."</p>
+                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-sm hover:bg-[#a37d35] transition-all italic">Talk to Bizzfiling expert</button>
                 </div>
             </div>
         </div>
@@ -366,55 +366,41 @@ export default function DrugCosmeticLicensePage() {
         <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-            {/* Hero */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            {/* Hero Section - Premium Style */}
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
                 <div className="absolute inset-0 z-0">
-                    <img src={BackgroundImageSrc} alt="D&C Hero Background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+                    <img src={BackgroundImageSrc} alt="Drug & Cosmetic License" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
-                <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-                        <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-                            <div className="relative w-28 h-28 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-                                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2 text-center">
-                                    <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
-                                    <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">D & C <br /> License</span>
-                                    <span className="text-white text-[8px] uppercase mt-1 opacity-70 italic tracking-widest leading-tight">Healthcare Hub</span>
-                                </div>
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        <div className="w-full lg:w-3/5 space-y-8">
+                            <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                                <Award size={14} className="text-[#C59B4E]" />
+                                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official CDSCO / DCGI Compliance Hub</span>
                             </div>
-                            <div className="space-y-4">
-                                <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1] font-serif italic tracking-tighter">
-                                    Drug <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic uppercase tracking-widest text-4xl md:text-6xl text-white font-sans italic">Pharma Safety Hub</span>
-                                </h1>
-                                <div className="space-y-3 pt-2">
-                                    {dcIntroBullets.map((bullet, i) => (
-                                        <div key={i} className="flex gap-3 text-slate-300">
-                                            <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                                            <p className="text-sm font-light leading-relaxed italic">{bullet}</p>
-                                        </div>
-                                    ))}
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                                Drug & <br className="hidden lg:block" />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Cosmetic License</span>
+                            </h1>
+                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                                Secure your healthcare business with official CDSCO/DCGI licensing. Full support for manufacturing, retail, and import certifications.
+                            </p>
+                            <div className="flex gap-10 pt-2">
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <CheckCircle size={18} className="text-[#C59B4E]" /> 100% Statutory
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-6 py-2 overflow-x-auto no-scrollbar w-full">
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">DCGI</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">1940 Act hub</span>
-                                </div>
-                                <div className="h-10 w-[1px] bg-white/20"></div>
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">On-Tap</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Portal Registry</span>
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <Shield size={18} className="text-[#C59B4E]" /> Verified Experts
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full max-w-sm lg:w-[400px]">
-                            <div className="bg-white rounded-[50px] shadow-3xl p-10 border border-white/5 relative overflow-hidden group">
-                                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C59B4E]/5 rounded-full blur-2xl group-hover:scale-150 transition-all"></div>
-                                <h2 className="text-2xl font-bold mb-1 text-center text-slate-800 tracking-tighter uppercase italic">License Now</h2>
-                                <p className="text-[11px] text-slate-400 mb-8 text-center uppercase tracking-widest font-bold italic">Official Healthcare Hub</p>
-                                <LeadForm serviceName="Drug & Cosmetic License" btnText="Apply Now" />
+                        <div className="w-full max-w-sm">
+                            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                                <div className="p-8 md:p-8">
+                                    <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Apply Now</h3>
+                                    <LeadForm serviceName="Drug & Cosmetic License" btnText="Apply Now" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -422,13 +408,13 @@ export default function DrugCosmeticLicensePage() {
             </section>
 
             {/* Navigation */}
-            <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+            <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-center gap-6 md:gap-12 py-0 min-w-max list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
                         {tabs.map((tab) => (
                             <li key={tab.id}>
                                 <button
-                                    className={`py-5 text-[11px] md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-widest ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-400 border-transparent hover:text-slate-700'}`}
+                                    className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                                     onClick={() => handleTabClick(tab.id)}
                                 >{tab.label}</button>
                             </li>
@@ -448,7 +434,7 @@ export default function DrugCosmeticLicensePage() {
             <section id="dc-faqs-content" className="py-24 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Pharma Law Intelligence" description="Clearing compliance and registry protocols for drugs, cosmetics and medical devices." />
-                    <div className="space-y-4 pt-10">
+                    <div className="space-y-8 pt-10">
                         {dcFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
                     </div>
                 </div>

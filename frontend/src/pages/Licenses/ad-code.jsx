@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 import {
     ChevronDown,
     Zap,
@@ -37,8 +38,49 @@ const tabs = [
     { id: 'adcode-documents-content', label: 'Documents' },
     { id: 'adcode-procedure-content', label: 'Procedure' },
     { id: 'adcode-consequences-content', label: 'Compliance Risk' },
+    { id: 'adcode-fees-content', label: 'Fees' },
     { id: 'adcode-why-Bizzfiling', label: 'Why Us' },
     { id: 'adcode-faqs-content', label: 'FAQs' },
+];
+
+const adCodePlans = [
+    {
+        title: "Basic AD Code",
+        price: "₹3,500",
+        description: "Complete Basic AD Code service.",
+        features: [
+            "Bank Authorization Letter",
+            "Customs Portal Mapping",
+            "Basic Consultation",
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "Standard AD Code",
+        price: "₹5,000",
+        description: "Complete Standard AD Code service.",
+        features: [
+            "Bank Authorization Letter",
+            "Customs Portal Mapping",
+            "Priority Processing",
+            "ICEGATE Troubleshooting",
+        ],
+        isRecommended: true,
+    },
+    {
+        title: "Premium AD Code",
+        price: "₹7,000",
+        description: "Complete Premium AD Code service.",
+        features: [
+            "Bank Authorization Letter",
+            "Customs Portal Mapping",
+            "Dedicated Manager",
+            "Lifetime Support",
+            "Multi-Port Mapping Assistance",
+        ],
+        isRecommended: false,
+        isPremium: true,
+    },
 ];
 
 const adCodeIntroBullets = [
@@ -101,14 +143,14 @@ const adCodeFAQs = [
 // --- Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -122,7 +164,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
             className="flex items-center justify-between w-full p-4 text-left"
             onClick={onClick}
         >
-            <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+            <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
                 {faq.q}
             </h3>
             <div className="flex-shrink-0">
@@ -132,7 +174,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -142,29 +184,29 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="adcode-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="adcode-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Trade Identity" title="14-Digit Banking Nexus" description="The Authorised Dealer (AD) Code is mandatory for all foreign currency trade cycles." />
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6 text-slate-600 leading-relaxed italic">
+                <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Issued by AD Category-I banks, this 14-digit code verifies that your foreign currency transactions are genuine and compliant with <strong>Foreign Exchange Management Act (FEMA)</strong>.
                     </p>
                     <p>
                         Without this registration, exporters cannot receive payments or clear shipments at Indian customs, making it a critical hub for international market players.
                     </p>
-                    <div className="flex flex-wrap gap-3 pt-2">
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">FEMA 1999</span>
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">ICEGATE HUB</span>
+                    <div className="flex flex-wrap gap-5 pt-2">
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-base font-semibold text-slate-700 shadow-sm uppercase italic">FEMA 1999</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-base font-semibold text-slate-700 shadow-sm uppercase italic">ICEGATE HUB</span>
                     </div>
                 </div>
                 <div className="bg-[#103B3E] p-10 rounded-[50px] text-white relative group overflow-hidden shadow-2xl text-center">
                     <Landmark className="w-16 h-16 text-[#C59B4E] mx-auto mb-6 group-hover:scale-110 transition-transform" />
-                    <h4 className="text-xl font-bold mb-4 italic uppercase tracking-tighter text-[#C59B4E]">Financial Guard</h4>
-                    <p className="text-[10px] text-slate-400 italic mb-6 leading-relaxed">Assessing authenticity to block illegal outflow of forex and prevent money laundering activities as per RBI guidelines.</p>
-                    <div className="flex justify-center gap-4">
-                        <span className="px-3 py-1 bg-white/5 rounded-full text-[8px] font-bold text-white uppercase tracking-widest italic border border-white/10 italic">RBI COMPLIANT</span>
-                        <span className="px-3 py-1 bg-white/5 rounded-full text-[8px] font-bold text-white uppercase tracking-widest italic border border-white/10 italic">DGFT SYNCED</span>
+                    <h4 className="text-2xl font-bold mb-4 italic uppercase tracking-tighter text-[#C59B4E]">Financial Guard</h4>
+                    <p className="text-sm text-slate-400 italic mb-6 leading-relaxed">Assessing authenticity to block illegal outflow of forex and prevent money laundering activities as per RBI guidelines.</p>
+                    <div className="flex justify-center gap-5">
+                        <span className="px-3 py-1 bg-white/5 rounded-full text-sm font-bold text-white uppercase tracking-widest italic border border-white/10 italic">RBI COMPLIANT</span>
+                        <span className="px-3 py-1 bg-white/5 rounded-full text-sm font-bold text-white uppercase tracking-widest italic border border-white/10 italic">DGFT SYNCED</span>
                     </div>
                 </div>
             </div>
@@ -173,15 +215,15 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="adcode-benefits-content" className="py-16 bg-white scroll-mt-24">
+    <section id="adcode-benefits-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Value" title="Optimizing Export Workflow" description="Accelerating port clearances and unlocking statutory government incentives." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {adCodeBenefits.map((item, i) => (
                     <div key={i} className="group p-8 bg-slate-50 border border-slate-100 rounded-[32px] hover:border-[#1A7F7D]/30 transition-all shadow-sm">
                         <item.icon className="w-10 h-10 text-[#C19A5B] mb-6 group-hover:scale-110 transition-transform" />
-                        <h6 className="font-bold text-slate-800 text-sm mb-3 uppercase tracking-tighter italic">{item.title}</h6>
-                        <p className="text-xs text-slate-500 leading-relaxed italic font-medium">{item.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg mb-3 uppercase tracking-tighter italic">{item.title}</h6>
+                        <p className="text-base text-slate-500 leading-relaxed italic font-medium">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -190,15 +232,15 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-    <section id="adcode-eligibility-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="adcode-eligibility-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Tiers" title="Trade Prerequisites" description="Determining eligibility through DGFT IEC and banking credentials." />
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-10">
                 {adCodeEligibility.map((item, i) => (
                     <div key={i} className="flex flex-col items-center text-center p-8 bg-white rounded-[40px] shadow-sm border border-slate-100">
                         <div className="w-16 h-16 bg-slate-50 rounded-2xl text-[#1A7F7D] flex items-center justify-center mb-6 shrink-0 shadow-sm"><item.icon size={32} /></div>
-                        <h6 className="font-bold text-slate-800 text-sm italic uppercase mb-2 tracking-widest">{item.title}</h6>
-                        <p className="text-[11px] text-slate-500 italic leading-relaxed">{item.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg italic uppercase mb-2 tracking-widest">{item.title}</h6>
+                        <p className="text-base text-slate-500 italic leading-relaxed">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -207,16 +249,16 @@ const EligibilityContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="adcode-documents-content" className="py-16 bg-white scroll-mt-24">
+    <section id="adcode-documents-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Archive" title="Registry Documentation" description="Hybrid archival records for bank branch and electronic customs portal." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {adCodeDocs.map((doc, i) => (
-                    <div key={i} className="p-6 bg-slate-50 border border-slate-100 rounded-2xl flex gap-4 items-center shadow-sm text-left">
+                    <div key={i} className="p-8 bg-slate-50 border border-slate-100 rounded-2xl flex gap-5 items-center shadow-sm text-left">
                         <div className="w-10 h-10 bg-white text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0 shadow-sm"><doc.icon size={20} /></div>
                         <div>
-                            <h6 className="font-bold text-slate-800 text-xs italic uppercase mb-1 tracking-tight">{doc.title}</h6>
-                            <p className="text-[10px] text-slate-400 italic font-medium">{doc.detail}</p>
+                            <h6 className="font-bold text-slate-800 text-lg italic uppercase mb-1 tracking-tight">{doc.title}</h6>
+                            <p className="text-sm text-slate-400 italic font-medium">{doc.detail}</p>
                         </div>
                     </div>
                 ))}
@@ -232,14 +274,14 @@ const ProcedureContent = () => (
             <div className="grid md:grid-cols-2 gap-12 mt-16 max-w-4xl mx-auto">
                 {procedureSteps.map((step, idx) => (
                     <div key={idx} className="relative p-10 bg-white/5 border border-white/10 rounded-[48px] overflow-hidden group hover:bg-[#C59B4E] transition-all">
-                        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 text-white font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors text-lg">0{idx + 1}</div>
-                        <h5 className="text-[#C59B4E] font-bold text-sm uppercase italic mb-4 group-hover:text-white transition-colors">{step.title}</h5>
-                        <p className="text-[11px] text-slate-300 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-amber-900">{step.detail}</p>
+                        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 text-white font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors text-2xl">0{idx + 1}</div>
+                        <h5 className="text-[#C59B4E] font-bold text-xl uppercase italic mb-4 group-hover:text-white transition-colors">{step.title}</h5>
+                        <p className="text-base text-slate-300 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-amber-900">{step.detail}</p>
                     </div>
                 ))}
             </div>
             <div className="mt-16 p-8 bg-white/10 rounded-[32px] border border-white/20 italic max-w-2xl mx-auto">
-                <p className="text-white text-xs leading-relaxed"><strong>Port Specific:</strong> Separate digital registration is mandatory for each port location (Mumbai, JNPT, Kolkata, ICDs) where exports will be physically handled.</p>
+                <p className="text-white text-base leading-relaxed"><strong>Port Specific:</strong> Separate digital registration is mandatory for each port location (Mumbai, JNPT, Kolkata, ICDs) where exports will be physically handled.</p>
             </div>
         </div>
     </section>
@@ -249,17 +291,28 @@ const ConsequencesContent = () => (
     <section id="adcode-consequences-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Risk" title="Non-Compliance Penalties" description="Severe financial blocks and regulatory prosecution under FEMA or PMLA." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {riskFactors.map((item, i) => (
-                    <div key={i} className="p-8 bg-white border-b-4 border-b-red-500 rounded-[40px] shadow-xl flex flex-col items-center text-center space-y-4">
+                    <div key={i} className="p-8 bg-white border-b-4 border-b-red-500 rounded-[40px] shadow-xl flex flex-col items-center text-center space-y-8">
                         <div className="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center shrink-0"><item.icon size={24} /></div>
-                        <h6 className="font-bold text-slate-800 text-xs italic uppercase tracking-tighter leading-tight">{item.title}</h6>
-                        <p className="text-[10px] text-slate-500 italic leading-relaxed font-bold">{item.penalty}</p>
+                        <h6 className="font-bold text-slate-800 text-lg italic uppercase tracking-tighter leading-tight">{item.title}</h6>
+                        <p className="text-sm text-slate-500 italic leading-relaxed font-bold">{item.penalty}</p>
                     </div>
                 ))}
             </div>
         </div>
     </section>
+);
+
+
+
+const FeesContent = () => (
+    <section id="adcode-fees-content" className="py-20 bg-white scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading subtitle="Service Costs" title="Transparent Pricing" description="Packages tailored for your export volume and frequency." />
+            <PricingCards plans={adCodePlans} serviceName="ADCODE Registration" />
+        </div>
+    </section >
 );
 
 const WhyBizzfiling = () => (
@@ -268,13 +321,13 @@ const WhyBizzfiling = () => (
             <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Trust" title="FX Strategy Partner" description="Simplifying Authorised Dealer code linkage through up-to-date RBI knowledge." align="left" />
-                    <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                    <div className="grid sm:grid-cols-2 gap-10 pt-4">
                         {whyBizzfiling.map((s, i) => (
-                            <div key={i} className="p-6 bg-white rounded-[32px] border border-slate-100 flex flex-col items-start gap-4">
+                            <div key={i} className="p-8 bg-white rounded-[32px] border border-slate-100 flex flex-col items-start gap-5">
                                 <div className="w-10 h-10 bg-[#1A7F7D]/5 text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0 shadow-sm"><s.icon size={20} /></div>
                                 <div>
-                                    <h6 className="font-bold text-slate-800 text-xs mb-1 uppercase italic tracking-tighter">{s.title}</h6>
-                                    <p className="text-[10px] text-slate-500 italic leading-relaxed font-medium">{s.detail}</p>
+                                    <h6 className="font-bold text-slate-800 text-lg mb-1 uppercase italic tracking-tighter">{s.title}</h6>
+                                    <p className="text-sm text-slate-500 italic leading-relaxed font-medium">{s.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -282,9 +335,9 @@ const WhyBizzfiling = () => (
                 </div>
                 <div className="order-1 lg:order-2 bg-[#103B3E] p-12 rounded-[50px] shadow-3xl text-white flex flex-col items-center text-center">
                     <Award className="w-20 h-20 text-[#C59B4E] mb-6 animate-pulse" />
-                    <h4 className="text-2xl font-bold font-serif italic mb-4 uppercase tracking-tighter leading-tight italic decoration-[#C59B4E] underline underline-offset-8 decoration-4">Trade Quality Nexus</h4>
-                    <p className="text-slate-400 text-xs italic mb-8 px-10">"Facilitating AD Code & ICEGATE port mapping for India's leading global exporters."</p>
-                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-[11px] hover:bg-[#a37d35] transition-all">Talk to Bizzfiling expert</button>
+                    <h4 className="text-3xl font-bold font-serif italic mb-4 uppercase tracking-tighter leading-tight italic decoration-[#C59B4E] underline underline-offset-8 decoration-4">Trade Quality Nexus</h4>
+                    <p className="text-slate-400 text-lg italic mb-8 px-10">"Facilitating AD Code & ICEGATE port mapping for India's leading global exporters."</p>
+                    <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-sm hover:bg-[#a37d35] transition-all">Talk to Bizzfiling expert</button>
                 </div>
             </div>
         </div>
@@ -332,55 +385,41 @@ export default function ADCodeRegistrationPage() {
         <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-            {/* Hero */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            {/* Hero Section - Premium Style */}
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
                 <div className="absolute inset-0 z-0">
-                    <img src={BackgroundImageSrc} alt="AD Code Hero Background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+                    <img src={BackgroundImageSrc} alt="AD Code Registration" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
-                <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-                        <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-                            <div className="relative w-28 h-28 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-                                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2 text-center">
-                                    <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
-                                    <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">AD <br /> Code</span>
-                                    <span className="text-white text-[8px] uppercase mt-1 opacity-70 italic tracking-widest leading-tight">Banking Registry</span>
-                                </div>
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        <div className="w-full lg:w-3/5 space-y-8">
+                            <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                                <Award size={14} className="text-[#C59B4E]" />
+                                <span className="text-white text-sm md:text-base uppercase font-bold tracking-[0.2em]">Official Authorised Dealer (AD) Code Linkage</span>
                             </div>
-                            <div className="space-y-4">
-                                <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1] font-serif italic tracking-tighter">
-                                    Trade <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic uppercase tracking-widest text-4xl md:text-6xl">Exim Nexus hub</span>
-                                </h1>
-                                <div className="space-y-3 pt-2">
-                                    {adCodeIntroBullets.map((bullet, i) => (
-                                        <div key={i} className="flex gap-3 text-slate-300">
-                                            <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                                            <p className="text-sm font-light leading-relaxed italic">{bullet}</p>
-                                        </div>
-                                    ))}
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                                AD Code <br className="hidden lg:block" />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Registration</span>
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-300 max-w-lg font-light leading-relaxed">
+                                Accelerate your export-import operations with seamless AD Code and ICEGATE port mapping. Expert support for FEMA-compliant cross-border transactions.
+                            </p>
+                            <div className="flex gap-10 pt-2">
+                                <div className="flex items-center gap-5 text-white/90 text-base font-bold">
+                                    <CheckCircle size={18} className="text-[#C59B4E]" /> ICEGATE Mapping
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-6 py-2 overflow-x-auto no-scrollbar w-full">
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">AD</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">14-Digit Link</span>
-                                </div>
-                                <div className="h-10 w-[1px] bg-white/20"></div>
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">ICEGATE</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Port Mapping</span>
+                                <div className="flex items-center gap-5 text-white/90 text-base font-bold">
+                                    <Globe size={18} className="text-[#C59B4E]" /> Global Trade
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full max-w-sm lg:w-[400px]">
-                            <div className="bg-white rounded-[50px] shadow-3xl p-10 border border-white/5 relative overflow-hidden group">
-                                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C59B4E]/5 rounded-full blur-2xl group-hover:scale-150 transition-all"></div>
-                                <h2 className="text-2xl font-bold mb-1 text-center text-slate-800 tracking-tighter uppercase italic">Apply Now</h2>
-                                <p className="text-[11px] text-slate-400 mb-8 text-center uppercase tracking-widest font-bold">Cross-Border Banking Hub</p>
-                                <LeadForm serviceName="AD Code Registration" btnText="Get Code" />
+                        <div className="w-full max-w-sm">
+                            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                                <div className="p-8 md:p-8">
+                                    <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Apply Now</h3>
+                                    <LeadForm serviceName="AD Code Registration" btnText="Apply Now" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -388,13 +427,13 @@ export default function ADCodeRegistrationPage() {
             </section>
 
             {/* Navigation */}
-            <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+            <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-center gap-6 md:gap-12 py-0 min-w-max list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
                         {tabs.map((tab) => (
                             <li key={tab.id}>
                                 <button
-                                    className={`py-5 text-[11px] md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-widest ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-400 border-transparent hover:text-slate-700'}`}
+                                    className={`py-5 text-sm md:text-base font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                                     onClick={() => handleTabClick(tab.id)}
                                 >{tab.label}</button>
                             </li>
@@ -409,12 +448,13 @@ export default function ADCodeRegistrationPage() {
             <DocumentsContent />
             <ProcedureContent />
             <ConsequencesContent />
+            <FeesContent />
             <WhyBizzfiling />
 
             <section id="adcode-faqs-content" className="py-24 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Trade Law Intelligence" description="Clearing compliance and registry protocols for Authorised Dealer codes and FEMA rules." />
-                    <div className="space-y-4 pt-10">
+                    <div className="space-y-8 pt-10">
                         {adCodeFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
                     </div>
                 </div>

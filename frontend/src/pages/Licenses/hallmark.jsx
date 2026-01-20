@@ -102,14 +102,14 @@ const hallmarkFAQs = [
 // --- Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -123,7 +123,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
             className="flex items-center justify-between w-full p-4 text-left"
             onClick={onClick}
         >
-            <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+            <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
                 {faq.q}
             </h3>
             <div className="flex-shrink-0">
@@ -133,7 +133,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -143,32 +143,32 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="hallmark-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Authenticity" title="BIS Hallmarking Standards" description="The definitive certificate of quality and purity for gold and silver in the Indian market." />
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6 text-slate-600 leading-relaxed italic">
+                <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Hallmark registration in India is managed by the <strong>Bureau of Indian Standards (BIS)</strong>. It certifies the fineness and purity of precious metals, aligning with specific Indian Standards.
                     </p>
                     <p>
                         Every piece includes a Jeweller Mark, Assay Center sign, and the mandatory <strong>HUID (Hallmark Unique ID)</strong>. This ensures traceability and builds premium consumer confidence.
                     </p>
-                    <div className="flex flex-wrap gap-3 pt-2">
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">BIS ACCREDITED</span>
-                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm uppercase italic">HUID MANDATORY</span>
+                    <div className="flex flex-wrap gap-5 pt-2">
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase italic">BIS ACCREDITED</span>
+                        <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm uppercase italic">HUID MANDATORY</span>
                     </div>
                 </div>
                 <div className="p-10 bg-white border border-slate-100 rounded-[50px] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#1A7F7D]/5 rounded-bl-full group-hover:scale-110 transition-all"></div>
-                    <h4 className="text-xl font-bold text-slate-800 mb-6 tracking-tight uppercase italic flex items-center gap-2">
+                    <h4 className="text-xl font-bold text-slate-800 mb-6 tracking-tight uppercase italic flex items-center gap-5">
                         <Search size={20} className="text-[#1A7F7D]" />
                         Traceability
                     </h4>
-                    <p className="text-[10px] text-slate-500 leading-relaxed italic mb-6">Since 2023, the 6-digit HUID tag is mandatory. Buyers can check the purity and source jeweler instantly using the official BIS Care mobile application.</p>
-                    <div className="p-4 bg-slate-50 rounded-2xl flex items-center gap-4">
+                    <p className="text-sm text-slate-500 leading-relaxed italic mb-6">Since 2023, the 6-digit HUID tag is mandatory. Buyers can check the purity and source jeweler instantly using the official BIS Care mobile application.</p>
+                    <div className="p-4 bg-slate-50 rounded-2xl flex items-center gap-5">
                         <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#C19A5B] shadow-sm"><FilePenLine size={20} /></div>
-                        <span className="text-[9px] font-extrabold text-slate-700 uppercase tracking-widest leading-tight italic">Laser Serial Marking <br /> 100% Tamper Proof</span>
+                        <span className="text-sm font-extrabold text-slate-700 uppercase tracking-widest leading-tight italic">Laser Serial Marking <br /> 100% Tamper Proof</span>
                     </div>
                 </div>
             </div>
@@ -177,15 +177,15 @@ const OverviewContent = () => (
 );
 
 const MetalsContent = () => (
-    <section id="hallmark-metals-standards" className="py-16 bg-white scroll-mt-24">
+    <section id="hallmark-metals-standards" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Assets" title="Precious Metals Scope" description="Standards for gold, silver and platinum purity grades per BIS norms." />
-            <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="grid md:grid-cols-3 gap-10 text-center">
                 {metalsAndPurity.map((m, i) => (
                     <div key={i} className="p-8 bg-slate-50 rounded-[40px] border border-slate-100 hover:bg-white hover:shadow-xl transition-all">
                         <div className="w-16 h-16 bg-white rounded-3xl shadow-sm text-[#1A7F7D] flex items-center justify-center mx-auto mb-6"><m.icon size={32} /></div>
-                        <h6 className="font-bold text-slate-800 text-sm mb-2 uppercase italic">{m.metal}</h6>
-                        <p className="text-[11px] text-slate-500 italic leading-relaxed">{m.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg mb-2 uppercase italic">{m.metal}</h6>
+                        <p className="text-sm text-slate-500 italic leading-relaxed">{m.detail}</p>
                     </div>
                 ))}
             </div>
@@ -194,15 +194,15 @@ const MetalsContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="hallmark-benefits-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-benefits-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Value" title="Premium Competitive Edge" description="Scaling jeweler credibility through official purity guarantees and HUID tech." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {hallmarkBenefits.map((item, i) => (
                     <div key={i} className="group p-8 bg-white border border-slate-100 rounded-[32px] hover:border-[#1A7F7D]/30 transition-all shadow-sm">
                         <item.icon className="w-10 h-10 text-[#C19A5B] mb-6 group-hover:scale-110 transition-transform" />
-                        <h6 className="font-bold text-slate-800 text-sm mb-3 uppercase tracking-tighter italic">{item.title}</h6>
-                        <p className="text-xs text-slate-500 leading-relaxed italic">{item.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg mb-3 uppercase tracking-tighter italic">{item.title}</h6>
+                        <p className="text-sm text-slate-500 leading-relaxed italic">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -211,23 +211,23 @@ const BenefitsContent = () => (
 );
 
 const FrameworkContent = () => (
-    <section id="hallmark-framework-content" className="py-16 bg-white scroll-mt-24">
+    <section id="hallmark-framework-content" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Legal" title="Legislative Pure-Metal Hub" description="The BIS Act 2016 and the mandatory hallmarking guidelines for retailers." />
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-3 gap-10 mb-16">
                 {hallmarkFramework.map((f, i) => (
-                    <div key={i} className="p-8 bg-slate-900 rounded-[40px] text-white flex flex-col items-center text-center space-y-4">
+                    <div key={i} className="p-8 bg-slate-900 rounded-[40px] text-white flex flex-col items-center text-center space-y-8">
                         <div className="w-12 h-12 bg-[#C59B4E]/10 flex items-center justify-center text-[#C59B4E] rounded-full"><f.icon size={24} /></div>
-                        <h6 className="font-bold text-sm uppercase italic tracking-widest">{f.title}</h6>
-                        <p className="text-[10px] text-slate-400 leading-relaxed italic">{f.detail}</p>
+                        <h6 className="font-bold text-lg uppercase italic tracking-widest">{f.title}</h6>
+                        <p className="text-sm text-slate-400 leading-relaxed italic">{f.detail}</p>
                     </div>
                 ))}
             </div>
-            <div className="p-10 bg-indigo-50 rounded-[48px] border-l-8 border-l-[#1A7F7D] flex flex-col md:flex-row gap-8 items-center shadow-xl">
+            <div className="p-10 bg-indigo-50 rounded-[48px] border-l-8 border-l-[#1A7F7D] flex flex-col md:flex-row gap-10 items-center shadow-xl">
                 <Rocket size={48} className="text-[#1A7F7D] shrink-0" />
                 <div>
-                    <h5 className="font-bold text-slate-800 text-sm uppercase italic tracking-tighter mb-2">Registration Categories</h5>
-                    <p className="text-xs text-slate-500 leading-relaxed italic"><strong>Jeweller Outlets:</strong> Mandatory for every physical shop selling gold articles. <br /><strong>Assaying Centers:</strong> Third-party recognized labs that certify metal purity for jewelers.</p>
+                    <h5 className="font-bold text-slate-800 text-lg uppercase italic tracking-tighter mb-2">Registration Categories</h5>
+                    <p className="text-sm text-slate-500 leading-relaxed italic"><strong>Jeweller Outlets:</strong> Mandatory for every physical shop selling gold articles. <br /><strong>Assaying Centers:</strong> Third-party recognized labs that certify metal purity for jewelers.</p>
                 </div>
             </div>
         </div>
@@ -235,23 +235,23 @@ const FrameworkContent = () => (
 );
 
 const EligibilityDocs = () => (
-    <section id="hallmark-eligibility-docs" className="py-16 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-eligibility-docs" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Vault" title="Who Must Register?" description="Retailers, Manufacturers and Exporters of bullion/jewelry items." />
-            <div className="grid md:grid-cols-3 gap-6 mb-16">
+            <div className="grid md:grid-cols-3 gap-10 mb-16">
                 {['Jewellers & Retailers', 'Jewellery Manufacturers', 'Exporters & Importers'].map((t, i) => (
-                    <div key={i} className="p-6 bg-white rounded-3xl border border-slate-100 italic font-bold uppercase tracking-tight text-[#1A7F7D] text-xs shadow-sm shadow-slate-200">
+                    <div key={i} className="p-8 bg-white rounded-3xl border border-slate-100 italic font-bold uppercase tracking-tight text-[#1A7F7D] text-sm shadow-sm shadow-slate-200">
                         {t}
                     </div>
                 ))}
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {hallmarkDocs.map((doc, i) => (
-                    <div key={i} className="p-6 bg-white border border-slate-100 rounded-2xl flex gap-4 items-center shadow-sm">
+                    <div key={i} className="p-8 bg-white border border-slate-100 rounded-2xl flex gap-5 items-center shadow-sm">
                         <div className="w-10 h-10 bg-[#1A7F7D]/5 text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0"><doc.icon size={20} /></div>
                         <div className="text-left">
-                            <h6 className="font-bold text-slate-800 text-xs italic uppercase mb-1 tracking-tight">{doc.title}</h6>
-                            <p className="text-[10px] text-slate-400 italic font-medium">{doc.detail}</p>
+                            <h6 className="font-bold text-slate-800 text-lg italic uppercase mb-1 tracking-tight">{doc.title}</h6>
+                            <p className="text-sm text-slate-400 italic font-medium">{doc.detail}</p>
                         </div>
                     </div>
                 ))}
@@ -269,18 +269,18 @@ const ProcedureContent = () => (
                     <div key={idx} className="relative p-10 bg-slate-50 rounded-[50px] border border-slate-100 overflow-hidden group">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-[#1A7F7D]/5 rounded-bl-[100px] group-hover:scale-125 transition-all"></div>
                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-[#1A7F7D] font-bold shadow-md border border-slate-200">0{idx + 1}</div>
-                        <p className="text-xs text-slate-700 leading-relaxed font-bold italic uppercase tracking-tighter">{step}</p>
+                        <p className="text-sm text-slate-700 leading-relaxed font-bold italic uppercase tracking-tighter">{step}</p>
                     </div>
                 ))}
             </div>
-            <div className="mt-16 grid md:grid-cols-2 gap-8">
+            <div className="mt-16 grid md:grid-cols-2 gap-10">
                 <div className="p-8 bg-slate-900 text-white rounded-[40px] text-left border-b-4 border-b-[#C59B4E]">
-                    <h4 className="font-bold text-[#C59B4E] uppercase italic text-xs mb-4 flex items-center gap-2 tracking-widest leading-tight italic decoration-[#C59B4E] underline underline-offset-8"> Fire Assay Testing (Cupellation)</h4>
-                    <p className="text-[11px] text-slate-400 italic">Considered the global gold standard for purity testing. The metal is melted to separate impurities, leaving the 100% pure core for measurement.</p>
+                    <h4 className="font-bold text-[#C59B4E] uppercase italic text-lg mb-4 flex items-center gap-5 tracking-widest leading-tight italic decoration-[#C59B4E] underline underline-offset-8"> Fire Assay Testing (Cupellation)</h4>
+                    <p className="text-sm text-slate-400 italic">Considered the global gold standard for purity testing. The metal is melted to separate impurities, leaving the 100% pure core for measurement.</p>
                 </div>
                 <div className="p-8 bg-slate-900 text-white rounded-[40px] text-left border-b-4 border-b-[#C59B4E]">
-                    <h4 className="font-bold text-[#C59B4E] uppercase italic text-xs mb-4 flex items-center gap-2 tracking-widest leading-tight italic decoration-[#C59B4E] underline underline-offset-8"> XGF / XRF Rapid Testing</h4>
-                    <p className="text-[11px] text-slate-400 italic">A non-destructive method using X-ray tech to determine precious metal content instantly, perfect for high-volume initial screening.</p>
+                    <h4 className="font-bold text-[#C59B4E] uppercase italic text-lg mb-4 flex items-center gap-5 tracking-widest leading-tight italic decoration-[#C59B4E] underline underline-offset-8"> XGF / XRF Rapid Testing</h4>
+                    <p className="text-sm text-slate-400 italic">A non-destructive method using X-ray tech to determine precious metal content instantly, perfect for high-volume initial screening.</p>
                 </div>
             </div>
         </div>
@@ -291,24 +291,24 @@ const ComplianceNexusContent = () => (
     <section id="hallmark-compliance-content" className="py-20 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Integrity" title="Post-Registration Nexus" description="Continuous adherence to technical audits and record-keeping mandates." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {complianceNexus.map((c, i) => (
-                    <div key={i} className="p-8 bg-white rounded-3xl border border-slate-100 flex flex-col items-start gap-4 hover:shadow-xl transition-all h-full">
+                    <div key={i} className="p-8 bg-white rounded-3xl border border-slate-100 flex flex-col items-start gap-5 hover:shadow-xl transition-all h-full">
                         <div className="w-10 h-10 bg-[#1A7F7D]/5 text-[#1A7F7D] rounded-xl flex items-center justify-center shrink-0"><c.icon size={20} /></div>
-                        <h6 className="font-bold text-slate-800 text-xs mb-1 uppercase italic tracking-tighter leading-tight">{c.title}</h6>
-                        <p className="text-[10px] text-slate-500 italic leading-relaxed">{c.detail}</p>
+                        <h6 className="font-bold text-slate-800 text-lg mb-1 uppercase italic tracking-tighter leading-tight">{c.title}</h6>
+                        <p className="text-sm text-slate-500 italic leading-relaxed">{c.detail}</p>
                     </div>
                 ))}
             </div>
-            <div className="mt-12 p-10 bg-[#103B3E] rounded-[48px] text-white flex flex-col md:flex-row gap-8 items-center justify-between">
-                <div className="flex gap-6 items-center">
+            <div className="mt-12 p-10 bg-[#103B3E] rounded-[48px] text-white flex flex-col md:flex-row gap-10 items-center justify-between">
+                <div className="flex gap-10 items-center">
                     <Award className="text-[#C59B4E] shrink-0" size={48} />
                     <div>
                         <h5 className="font-bold text-[#C59B4E] uppercase italic tracking-widest mb-2 underline decoration-[#C59B4E] underline-offset-8">Bureau of Indian Standards Hub</h5>
-                        <p className="text-xs text-slate-400 italic">"Simplifying hallmark compliance for the Indian jewelry industry."</p>
+                        <p className="text-sm text-slate-400 italic">"Simplifying hallmark compliance for the Indian jewelry industry."</p>
                     </div>
                 </div>
-                <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-[11px] hover:bg-[#a37d35] transition-all">Talk to Bizzfiling expert</button>
+                <button className="px-10 py-5 bg-[#C59B4E] text-white rounded-full font-extrabold uppercase tracking-widest text-sm hover:bg-[#a37d35] transition-all">Talk to Bizzfiling expert</button>
             </div>
         </div>
     </section>
@@ -355,55 +355,41 @@ export default function HallmarkRegistrationPage() {
         <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-            {/* Hero */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            {/* Hero Section - Premium Style */}
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
                 <div className="absolute inset-0 z-0">
-                    <img src={BackgroundImageSrc} alt="Hallmark Hero Background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+                    <img src={BackgroundImageSrc} alt="Hallmark Registration" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
-                <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-                        <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-                            <div className="relative w-28 h-28 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-                                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2">
-                                    <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
-                                    <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">Hallmark <br /> Registration</span>
-                                    <span className="text-white text-[8px] uppercase mt-1 opacity-70">BIS CERTIFIED</span>
-                                </div>
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        <div className="w-full lg:w-3/5 space-y-8">
+                            <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                                <Award size={14} className="text-[#C59B4E]" />
+                                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official BIS Hallmark Jewelery Hub</span>
                             </div>
-                            <div className="space-y-4">
-                                <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1] font-serif italic tracking-tighter">
-                                    Bulllion <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic uppercase tracking-widest text-4xl md:text-6xl">Pure Purity</span>
-                                </h1>
-                                <div className="space-y-3 pt-2">
-                                    {hallmarkIntroBullets.map((bullet, i) => (
-                                        <div key={i} className="flex gap-3 text-slate-300">
-                                            <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                                            <p className="text-sm font-light leading-relaxed italic">{bullet}</p>
-                                        </div>
-                                    ))}
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                                Bullion <br className="hidden lg:block" />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Purity Certification</span>
+                            </h1>
+                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                                Ensure 100% purity with BIS hallmarking. Full support for jeweler registration, HUID compliance, and assaying center coordination.
+                            </p>
+                            <div className="flex gap-10 pt-2">
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <CheckCircle size={18} className="text-[#C59B4E]" /> HUID Mandatory
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-6 py-2 overflow-x-auto no-scrollbar w-full">
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">BIS</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Accredited</span>
-                                </div>
-                                <div className="h-10 w-[1px] bg-white/20"></div>
-                                <div className="flex flex-col shrink-0">
-                                    <span className="text-white text-3xl font-black italic tracking-tighter uppercase underline decoration-[#C59B4E]">HUID</span>
-                                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Standard Tag</span>
+                                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                                    <Gem size={18} className="text-[#C59B4E]" /> Premium Trust
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full max-w-sm lg:w-[400px]">
-                            <div className="bg-white rounded-[50px] shadow-3xl p-10 border border-white/5 relative overflow-hidden group">
-                                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C59B4E]/5 rounded-full blur-2xl group-hover:scale-150 transition-all"></div>
-                                <h2 className="text-2xl font-bold mb-1 text-center text-slate-800 tracking-tighter uppercase italic">Hallmark Now</h2>
-                                <p className="text-[11px] text-slate-400 mb-8 text-center uppercase tracking-widest font-bold">Official BIS Jeweller Hub</p>
-                                <LeadForm serviceName="Hallmark Registration" btnText="Apply Now" />
+                        <div className="w-full max-w-sm">
+                            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                                <div className="p-8 md:p-8">
+                                    <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Apply Now</h3>
+                                    <LeadForm serviceName="Hallmark Registration" btnText="Apply Now" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -411,13 +397,13 @@ export default function HallmarkRegistrationPage() {
             </section>
 
             {/* Navigation */}
-            <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+            <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-center gap-6 md:gap-12 py-0 min-w-max list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
                         {tabs.map((tab) => (
                             <li key={tab.id}>
                                 <button
-                                    className={`py-5 text-[11px] md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-widest ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-400 border-transparent hover:text-slate-700'}`}
+                                    className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                                     onClick={() => handleTabClick(tab.id)}
                                 >{tab.label}</button>
                             </li>
@@ -437,7 +423,7 @@ export default function HallmarkRegistrationPage() {
             <section id="hallmark-faqs-content" className="py-24 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Bullion Intelligence" description="Clearing compliance and registry protocols for purity Grade and BIS marking." />
-                    <div className="space-y-4 pt-10">
+                    <div className="space-y-8 pt-10">
                         {hallmarkFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
                     </div>
                 </div>

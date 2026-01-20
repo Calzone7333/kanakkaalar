@@ -19,7 +19,8 @@ import {
   Activity,
   Zap,
   Scale,
-  Check
+  Check,
+  ScrollText
 } from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
 
@@ -96,31 +97,31 @@ const usaFAQs = [
 // --- Reusable Components (Compact & Premium) ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-8 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-widest mb-2 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-2 text-xl md:text-2xl font-bold text-slate-800 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-[11px] md:text-xs max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
 );
 
 const FaqItem = ({ faq, isOpen, onClick }) => (
-  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-2
-     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg' : 'border-slate-50 bg-white text-slate-800 hover:border-[#1A7F7D]/30'}
-  `}>
-    <button className="flex items-center justify-between w-full p-4 text-left" onClick={onClick}>
-      <h3 className={`text-xs font-semibold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-4
+       ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
+    `}>
+    <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
+      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
       <div className="flex-shrink-0">
-        <ChevronDown size={14} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
+        <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
       </div>
     </button>
     <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-      <p className={`px-4 pb-4 text-[10px] leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>{faq.a}</p>
+      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
     </div>
   </div>
 );
@@ -128,30 +129,59 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sections ---
 
 const OverviewContent = () => (
-  <section id="overview-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Overview" title="US Company Formation" description="Establish your business in the world's most innovative market. US incorporation provides global prestige and access to top-tier investors." />
-      <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-slate-100 grid md:grid-cols-2 gap-8 items-center">
-        <div className="space-y-4">
-          <p className="text-slate-600 leading-relaxed text-xs">
-            With Bizzfiling, you can register your company in states like **Delaware, Wyoming, or Nevada** without leaving your home in India. We handle everything from the Secretary of State filings to IRS Tax IDs (EIN).
-          </p>
-          <ul className="space-y-2">
-            {["100% Online Process", "Registered Agent Included", "IRS EIN Support", "Bylaws & Operating Agreements"].map((item, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-[10px] font-bold text-slate-700">
-                <CheckCircle size={14} className="text-green-500" /> {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-center">
-            <h5 className="text-[#1A7F7D] font-bold text-lg leading-none">Delaware</h5>
-            <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-widest font-bold">VC Choice 1</p>
+  <section id="overview-content" className="py-20 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Global Gateway"
+        title="US Company Formation"
+        description="Establish your business in the world's most innovative market. US incorporation provides global prestige and access to top-tier investors."
+      />
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="space-y-8">
+          <div className="prose prose-slate prose-lg">
+            <p className="text-slate-600 leading-relaxed text-lg">
+              Through our streamlined platform, you can register your company in states like <span className="text-[#1A7F7D] font-bold">Delaware, Wyoming, or Nevada</span> fully remotely. We bridge the gap between Indian entrepreneurs and the US business ecosystem.
+            </p>
           </div>
-          <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 text-center">
-            <h5 className="text-[#C59B4E] font-bold text-lg leading-none">Wyoming</h5>
-            <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-widest font-bold">Privacy Hub</p>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {[
+              { text: "100% Online Process", icon: Rocket },
+              { text: "Registered Agent Included", icon: Shield },
+              { text: "IRS EIN Support", icon: FileText },
+              { text: "Bylaws & Agreements", icon: ScrollText }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-5 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#1A7F7D]/30 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#1A7F7D] shadow-sm">
+                  {item.icon ? <item.icon size={20} /> : <CheckCircle size={20} />}
+                </div>
+                <span className="text-sm font-bold text-slate-700">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-[#1A7F7D]/10 to-[#C59B4E]/10 rounded-[2rem] blur-2xl"></div>
+          <div className="relative grid grid-cols-2 gap-10">
+            <div className="space-y-8 pt-12">
+              <div className="p-8 bg-[#0F2D30] rounded-2xl text-white shadow-2xl transform hover:-translate-y-2 transition-transform">
+                <h5 className="text-[#C59B4E] font-bold text-2xl mb-2">Delaware</h5>
+                <p className="text-sm text-slate-300 font-medium leading-relaxed">The gold standard for VCs and tech startups globally.</p>
+              </div>
+              <div className="p-8 bg-white rounded-2xl shadow-xl border border-slate-100 transform hover:-translate-y-2 transition-transform">
+                <h5 className="text-[#1A7F7D] font-bold text-2xl mb-2">Nevada</h5>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">Top-tier asset protection and business privacy.</p>
+              </div>
+            </div>
+            <div className="space-y-8">
+              <div className="p-8 bg-white rounded-2xl shadow-xl border border-slate-100 transform hover:-translate-y-2 transition-transform">
+                <h5 className="text-[#1A7F7D] font-bold text-2xl mb-2">Wyoming</h5>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">The most cost-effective choice for LLC formation.</p>
+              </div>
+              <div className="p-8 bg-[#1A7F7D] rounded-2xl text-white shadow-2xl transform hover:-translate-y-2 transition-transform">
+                <Globe className="w-8 h-8 text-[#C59B4E] mb-4" />
+                <h5 className="font-bold text-xl leading-tight">Global Compliance</h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -160,17 +190,56 @@ const OverviewContent = () => (
 );
 
 const AdvantagesContent = () => (
-  <section id="advantages-content" className="py-12 bg-slate-50/50 scroll-mt-24">
+  <section id="advantages-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Advantages" title="Strength of the US Market" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        {usaAdvantages.map((adv, i) => (
-          <div key={i} className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm transition-all group hover:-translate-y-1">
-            <div className="w-10 h-10 bg-[#F0FDFA] rounded-full flex items-center justify-center mb-4 text-[#1A7F7D] group-hover:bg-[#1A7F7D] group-hover:text-white transition-all shadow-inner">
-              <adv.icon size={18} />
+      <SectionHeading subtitle="Advantages" title="Strength of the US Market" description="Why global entrepreneurs choose the United States as their business headquarters." />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {usaAdvantages.map((item, i) => (
+          <div
+            key={i}
+            className={`group relative rounded-2xl border p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col items-center text-center
+              ${i === 1
+                ? 'bg-[#0F2D30] border-[#0F2D30] text-white ring-4 ring-[#0F2D30]/10'
+                : 'bg-white border-slate-100 text-slate-800 hover:border-[#1A7F7D]/30'
+              }`}
+          >
+
+            {/* Hover Top Border */}
+            {i !== 1 && (
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#1A7F7D] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
+            )}
+
+            {/* Icon */}
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 transition-colors duration-300 shadow-inner group-hover:shadow-lg mt-2
+              ${i === 1
+                ? 'bg-white text-[#0F2D30]'
+                : 'bg-[#F0FDFA] text-[#1A7F7D] group-hover:bg-[#1A7F7D] group-hover:text-white'
+              }
+            `}>
+              {item.icon ? <item.icon size={36} strokeWidth={1.5} /> : <FileText size={36} strokeWidth={1.5} />}
             </div>
-            <h4 className="text-xs font-bold text-slate-800 mb-2">{adv.title}</h4>
-            <p className="text-slate-500 text-[10px] leading-relaxed">{adv.description}</p>
+
+            {/* Title */}
+            <h3 className={`text-xl font-bold mb-4 transition-colors ${i === 1 ? 'text-white' : 'text-slate-800 group-hover:text-[#1A7F7D]'}`}>
+              {item.title}
+            </h3>
+
+            {/* Description */}
+            <p className={`text-[15px] leading-relaxed mb-6 min-h-[80px] ${i === 1 ? 'text-slate-300' : 'text-slate-500'}`}>
+              {item.description}
+            </p>
+
+            {/* Read More Button */}
+            <div className="mt-auto">
+              <button className={`inline-flex items-center px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300
+                ${i === 1
+                  ? 'bg-[#1A7F7D] text-white hover:bg-[#156664] hover:shadow-lg'
+                  : 'bg-[#F0FDFA] text-[#1A7F7D] hover:bg-[#1A7F7D] hover:text-white'
+                }
+              `}>
+                Read More
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -179,22 +248,49 @@ const AdvantagesContent = () => (
 );
 
 const TypesContent = () => (
-  <section id="types-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Structures" title="LLC vs C-Corp" description="We help you choose the best structure for your scaling needs." />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {entityTypesData.map((type, i) => (
-          <div key={i} className="p-6 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl transition-all border-t-2 border-t-[#C59B4E]">
-            <h4 className="text-lg font-bold text-[#0F2D30] mb-2">{type.type}</h4>
-            <p className="text-slate-600 text-[10px] leading-relaxed mb-4">{type.description}</p>
-            <div className="space-y-2">
-              {type.key_points.map((point, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-[10px] font-bold text-slate-700">
-                  <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center text-green-600"><Check size={10} /></div>
-                  {point}
+  <section id="types-content" className="py-20 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Structures"
+        title="Choose Your Entity"
+        description="We help you choose the best structure for your scaling needs, whether you're a bootstrapper or raising capital."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {entityTypesData.map((item, i) => (
+          <div
+            key={i}
+            className={`flex flex-col rounded-3xl border p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2
+              ${i === 0
+                ? 'bg-[#0F2D30] border-[#0F2D30] text-white ring-4 ring-[#0F2D30]/10 shadow-xl'
+                : 'bg-white border-slate-100 text-slate-800'
+              }`}
+          >
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-inner
+              ${i === 0 ? 'bg-white/10 text-[#C59B4E]' : 'bg-[#F0FDFA] text-[#1A7F7D]'}`}
+            >
+              <Briefcase size={28} />
+            </div>
+            <h4 className={`text-2xl font-bold mb-4 ${i === 0 ? 'text-white' : 'text-slate-900'}`}>{item.type}</h4>
+            <p className={`text-sm leading-relaxed mb-8 flex-grow ${i === 0 ? 'text-slate-300' : 'text-slate-500'}`}>{item.description}</p>
+            <div className="space-y-8 pt-6 border-t border-white/10">
+              {item.key_points.map((point, idx) => (
+                <div key={idx} className="flex items-center gap-5">
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 
+                    ${i === 0 ? 'bg-[#1A7F7D]/40 text-white' : 'bg-green-100 text-green-600'}`}>
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span className={`text-sm font-bold ${i === 0 ? 'text-white/90' : 'text-slate-700'}`}>{point}</span>
                 </div>
               ))}
             </div>
+            <button className={`mt-10 py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all
+              ${i === 0
+                ? 'bg-[#C59B4E] text-[#0F2D30] hover:bg-[#B38A3E]'
+                : 'bg-slate-900 text-white hover:bg-slate-800'
+              }`}
+            >
+              Select {item.type.split(' ')[0]}
+            </button>
           </div>
         ))}
       </div>
@@ -203,47 +299,106 @@ const TypesContent = () => (
 );
 
 const ProcessContent = () => (
-  <section id="process-content" className="py-12 bg-slate-50 scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Timeline" title="Incorporation Process" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-        {usaProcessSteps.map((step, i) => (
-          <div key={i} className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm transition-all flex items-start gap-4">
-            <div className="w-8 h-8 flex-shrink-0 bg-[#0F2D30] text-[#C59B4E] rounded-full flex items-center justify-center font-bold text-xs shadow-md">
+  <section id="process-content" className="py-24 bg-slate-50 scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Step-by-Step"
+        title="Incorporation Process"
+        description="Our simplified four-phase journey to your US market entry."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-16 relative">
+        {/* Connection Line */}
+        <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-[120px] z-0"></div>
+
+        {usaProcessSteps.slice(0, 4).map((step, i) => (
+          <div key={i} className="relative z-10 flex flex-col items-center text-center group">
+            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-2xl font-black text-[#0F2D30] shadow-xl border-4 border-slate-50 group-hover:border-[#C59B4E] transition-all duration-500 mb-8 z-10">
               {i + 1}
             </div>
-            <div>
-              <h4 className="text-sm font-bold text-slate-800 mb-1">{step.title}</h4>
-              <p className="text-slate-500 text-[10px] leading-relaxed">{step.desc}</p>
-            </div>
+            <h4 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h4>
+            <p className="text-slate-500 text-[15px] leading-relaxed px-4">{step.desc}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-20 p-10 bg-[#0F2D30] rounded-[2.5rem] shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10">
+        <div className="space-y-8 text-center lg:text-left">
+          <h3 className="text-3xl font-extrabold text-white">Ready to Go Global?</h3>
+          <p className="text-slate-300 text-lg">Our experts are standing by to handle your US formation today.</p>
+        </div>
+        <button className="px-10 py-5 bg-[#C59B4E] text-[#0F2D30] rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-[#0F2D30]/50 hover:scale-105 active:scale-95 transition-all">
+          Launch in 48 Hours
+        </button>
       </div>
     </div>
   </section>
 );
 
 const DocumentsContent = () => (
-  <section id="documents-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <div className="flex flex-col lg:flex-row gap-8 items-center">
-        <div className="w-full lg:w-1/2">
-          <SectionHeading subtitle="Checklist" title="Document Requirements" align="left" />
-          <div className="grid sm:grid-cols-2 gap-3">
+  <section id="documents-content" className="py-24 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex flex-col lg:flex-row gap-20 items-stretch">
+        <div className="w-full lg:w-3/5">
+          <SectionHeading subtitle="Checklist" title="IP Requirements" align="left" />
+          <div className="grid sm:grid-cols-1 gap-10 mt-10">
             {usaDocuments.map((doc, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                <FileText size={12} className="text-[#C59B4E] flex-shrink-0" />
-                <p className="text-slate-700 font-bold text-[10px]">{doc}</p>
+              <div key={i} className="group flex items-center gap-10 p-8 bg-white rounded-2xl border border-slate-100 hover:border-[#1A7F7D]/30 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 bg-slate-50 group-hover:bg-[#F0FDFA] rounded-xl flex items-center justify-center text-[#1A7F7D] transition-colors">
+                  <FileText size={28} />
+                </div>
+                <div>
+                  <h5 className="text-lg font-bold text-slate-900">{doc}</h5>
+                  <p className="text-sm text-slate-500 font-medium">Original scanned copies required</p>
+                </div>
+                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                  <CheckCircle size={24} className="text-green-500" />
+                </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="w-full lg:w-1/2 bg-[#0F2D30] p-8 rounded-3xl text-white relative overflow-hidden">
-          <Shield className="w-10 h-10 text-[#C59B4E] mb-4 opacity-50 absolute -right-2 top-2 rotate-12" />
-          <h3 className="text-xl font-bold mb-2">Secure Registration</h3>
-          <p className="text-slate-300 mb-6 text-xs leading-relaxed">Your intellectual property is the heart of your US venture. We ensure all filings are done with bank-grade security and professional oversight.</p>
-          <button className="bg-[#C59B4E] text-[#0F2D30] px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-xl shadow-black/20">Ask an Expert</button>
+        <div className="w-full lg:w-2/5 flex flex-col">
+          <div className="flex-grow bg-[#0F2D30] p-10 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl flex flex-col items-center text-center justify-center">
+            <div className="absolute top-0 right-0 p-8">
+              <Shield size={120} className="text-white/5 rotate-12" />
+            </div>
+            <div className="w-24 h-24 bg-white/10 backdrop-blur rounded-3xl flex items-center justify-center mb-10 shadow-inner">
+              <Star size={48} className="text-[#C59B4E]" />
+            </div>
+            <h3 className="text-3xl font-extrabold mb-6">Premium Support</h3>
+            <p className="text-slate-300 mb-10 text-lg font-medium leading-relaxed">
+              Register with complete peace of mind. Our local US attorneys review every application for accuracy and compliance.
+            </p>
+            <div className="w-full space-y-8">
+              <button className="w-full bg-[#C59B4E] text-[#0F2D30] px-8 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20">
+                Book Fast-Track
+              </button>
+              <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">Available 24/7</p>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+);
+
+const TaxContent = () => (
+  <section id="tax-content" className="py-24 bg-slate-50/50 scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Compliance"
+        title="Ongoing Obligations"
+        description="Stay compliant with IRS and State regulators without the headache."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {usaTaxCompliance.map((item, i) => (
+          <div key={i} className="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 group text-center">
+            <div className="w-20 h-20 bg-[#F0FDFA] rounded-full flex items-center justify-center text-[#1A7F7D] mb-8 mx-auto border border-slate-50 group-hover:bg-[#1A7F7D] group-hover:text-white transition-all duration-500">
+              {item.icon ? <item.icon size={36} /> : <DollarSign size={36} />}
+            </div>
+            <h4 className="text-2xl font-bold text-slate-900 mb-4">{item.title}</h4>
+            <p className="text-slate-500 text-base font-medium leading-relaxed">{item.details}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -287,39 +442,39 @@ export default function USPage() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* Hero Section - Compact */}
-      <section className="relative w-full min-h-[450px] flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
         <div className="absolute inset-0 z-0">
-          <img src={BackgroundImageSrc} alt="USA Incorporation" className="w-full h-full object-cover" />
+          <img src={BackgroundImageSrc} alt="US Company Registration" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="w-full lg:w-3/5 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur rounded-full border border-white/20">
-                <Globe size={12} className="text-[#C59B4E]" />
-                <span className="text-white text-[9px] uppercase font-bold tracking-[0.2em]">Global Growth Hub</span>
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-3/5 space-y-8">
+              <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                <Globe size={14} className="text-[#C59B4E]" />
+                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Verified Global Business Support</span>
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                 USA Company <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Registration</span>
               </h1>
-              <p className="text-xs md:text-sm text-slate-300 max-w-lg font-light leading-relaxed">
-                Connect your business to the global market. Remote setup in Delaware & Wyoming. Access funding, prestige, and the US business ecosystem.
+              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                Connect your business to the global market. Remote setup in Delaware & Wyoming. Access funding, prestige, and the US business ecosystem. Connect with specialists for reliable US formation.
               </p>
-              <div className="flex gap-4 pt-2">
-                <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold">
-                  <Award size={14} className="text-[#C59B4E]" /> 5k+ US Formations
+              <div className="flex gap-10 pt-2">
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <CheckCircle size={18} className="text-[#C59B4E]" /> VC Support
                 </div>
-                <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold">
-                  <DollarSign size={14} className="text-[#C59B4E]" /> VC Support
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <Shield size={18} className="text-[#C59B4E]" /> 100% Tax Compliant
                 </div>
               </div>
             </div>
             <div className="w-full max-w-sm">
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-slate-800 text-center mb-4">Launch in USA</h3>
-                  <LeadForm serviceName="Company Registration in USA" btnText="Start My US Venture" />
+                <div className="p-8 md:p-8">
+                  <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Launch Now</h3>
+                  <LeadForm serviceName="Company Registration in USA" btnText="Start Registration" />
                 </div>
               </div>
             </div>
@@ -330,11 +485,11 @@ export default function USPage() {
       {/* Navigation */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-center gap-6 md:gap-10 overflow-x-auto no-scrollbar py-0">
+          <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
             {tabs.map((tab) => (
               <li key={tab.id}>
                 <button
-                  className={`py-4 text-[9px] font-extrabold uppercase tracking-widest border-b-2 transition-all ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
+                  className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                   onClick={() => handleTabClick(tab.id)}
                 >{tab.label}</button>
               </li>
@@ -349,12 +504,13 @@ export default function USPage() {
         <TypesContent />
         <ProcessContent />
         <DocumentsContent />
+        <TaxContent />
 
         {/* FAQ - Compact */}
-        <section id="faqs-content" className="py-16 bg-white scroll-mt-24">
-          <div className="max-w-2xl mx-auto px-4">
-            <SectionHeading subtitle="FAQ" title="Your USA Questions" />
-            <div className="mt-8">
+        <section id="faqs-content" className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <SectionHeading subtitle="FAQ" title="Your USA Questions" description="Answers to common questions about US incorporation and operations." />
+            <div className="space-y-8">
               {usaFAQs.map((f, i) => (
                 <FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />
               ))}

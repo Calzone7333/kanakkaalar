@@ -1,30 +1,76 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { orderAPI } from "@/lib/api";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     ShoppingBagIcon,
     CalendarIcon,
     CurrencyRupeeIcon,
     ChevronRightIcon,
     DocumentTextIcon,
-    ClockIcon,
-    CheckCircleIcon,
-    ExclamationCircleIcon
+    ClipboardDocumentCheckIcon,
+    MagnifyingGlassIcon,
+    FunnelIcon,
+    ArrowPathIcon
 } from "@heroicons/react/24/outline";
+
+const StatusBadge = ({ status }) => {
+    let styles = "bg-slate-100 text-slate-600 border-slate-200";
+    let label = status.replace(/_/g, ' ').toLowerCase();
+
+    switch (status) {
+        case 'PAYMENT_COMPLETED':
+        case 'COMPLETED':
+            styles = "bg-teal-50 text-teal-700 border-teal-200";
+            label = "Active";
+            break;
+        case 'DRAFT':
+            styles = "bg-slate-50 text-slate-500 border-slate-200";
+            label = "Draft";
+            break;
+        case 'PENDING_PAYMENT':
+        case 'PENDING':
+            styles = "bg-amber-50 text-amber-700 border-amber-200";
+            label = "Payment Pending";
+            break;
+        case 'PROCESSING':
+            styles = "bg-blue-50 text-blue-700 border-blue-200";
+            label = "Processing";
+            break;
+        case 'FAILED':
+        case 'CANCELLED':
+            styles = "bg-red-50 text-red-700 border-red-200";
+            label = "Failed";
+            break;
+        default:
+            break;
+    }
+
+    return (
+        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold border ${styles} capitalize tracking-wide`}>
+            {status === 'PAYMENT_COMPLETED' && <span className="w-1.5 h-1.5 rounded-full bg-teal-500 mr-2"></span>}
+            {label}
+        </span>
+    );
+};
 
 export default function MyOrdersPage() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         fetchOrders();
     }, []);
 
     const fetchOrders = async () => {
+        setLoading(true);
         try {
             const res = await orderAPI.myOrders();
-            setOrders(res.data || []);
+            // Sort by createdAt desc by default
+            const sorted = (res.data || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            setOrders(sorted);
         } catch (err) {
             console.error("Failed to fetch orders", err);
         } finally {
@@ -32,114 +78,177 @@ export default function MyOrdersPage() {
         }
     };
 
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'PAYMENT_COMPLETED': return 'bg-green-100 text-green-800 border-green-200';
-            case 'DRAFT': return 'bg-gray-100 text-gray-800 border-gray-200';
-            case 'PENDING': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'FAILED': return 'bg-red-100 text-red-800 border-red-200';
-            default: return 'bg-blue-100 text-blue-800 border-blue-200';
-        }
-    };
-
     const handleOrderClick = (order) => {
-        // If order is in draft/pending payment, go to the wizard flow to complete it
         if (order.status === 'DRAFT' || order.status === 'PENDING_PAYMENT') {
             navigate(`/dashboard/user/service-order?orderId=${order.id}`);
         } else {
-            // Otherwise go to the detail view
             navigate(`/dashboard/user/order/${order.id}`);
         }
     };
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
-        );
-    }
+    // Filter logic
+    const filteredOrders = orders.filter(o =>
+        o.serviceName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        String(o.id).includes(searchQuery)
+    );
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.05
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 15 },
+        visible: { opacity: 1, y: 0 }
+    };
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
-                    <p className="text-gray-500 mt-1">Track and manage your service applications</p>
-                </div>
-                <button
-                    onClick={() => navigate('/dashboard/user/servicehub')}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center shadow-sm"
-                >
-                    <ShoppingBagIcon className="w-5 h-5 mr-2" />
-                    New Service
-                </button>
-            </div>
+        <div className="min-h-screen bg-slate-50 p-6 md:p-10 font-sans">
+            <div className="max-w-5xl mx-auto space-y-8">
 
-            {orders.length === 0 ? (
-                <div className="text-center py-16 bg-white rounded-xl border border-dashed border-gray-300">
-                    <ShoppingBagIcon className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900">No orders found</h3>
-                    <p className="text-gray-500 mb-6">You haven't placed any service orders yet.</p>
+                {/* Header Section */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-bold text-[#003366] tracking-tight">My Orders</h1>
+                        <p className="text-slate-500 mt-1 text-sm">Manage and track your service applications.</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => navigate('/dashboard/user/servicehub')}
+                            className="flex items-center px-6 py-3 bg-[#003366] text-white rounded-xl font-semibold shadow-lg shadow-blue-900/10 hover:shadow-xl hover:bg-[#002244] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                        >
+                            <ShoppingBagIcon className="w-5 h-5 mr-2" />
+                            New Application
+                        </button>
+                    </div>
+                </div>
+
+                {/* Toolbar */}
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div className="relative w-full md:w-96">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Search orders..."
+                            className="block w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#003366]/20 focus:border-[#003366] transition-all shadow-sm"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
                     <button
-                        onClick={() => navigate('/dashboard/user/servicehub')}
-                        className="text-blue-600 font-medium hover:text-blue-800"
+                        onClick={fetchOrders}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-[#003366] transition-colors"
                     >
-                        Browse Services &rarr;
+                        <ArrowPathIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                        Refresh
                     </button>
                 </div>
-            ) : (
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {orders.map((order) => (
-                        <div
-                            key={order.id}
-                            onClick={() => handleOrderClick(order)}
-                            className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer group overflow-hidden"
-                        >
-                            <div className="p-6">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition">
-                                        <DocumentTextIcon className="w-6 h-6 text-blue-600" />
-                                    </div>
-                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(order.status)}`}>
-                                        {order.status.replace(/_/g, ' ')}
-                                    </span>
-                                </div>
 
-                                <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1" title={order.serviceName}>
-                                    {order.serviceName || "Service Order"}
-                                </h3>
-
-                                <div className="space-y-2 mb-6">
-                                    <div className="flex items-center text-sm text-gray-500">
-                                        <CurrencyRupeeIcon className="w-4 h-4 mr-2" />
-                                        <span>₹{order.totalAmount?.toLocaleString() || '0'}</span>
-                                    </div>
-                                    <div className="flex items-center text-sm text-gray-500">
-                                        <CalendarIcon className="w-4 h-4 mr-2" />
-                                        <span>{new Date(order.createdAt).toLocaleDateString()}</span>
-                                    </div>
-                                    <div className="flex items-center text-sm text-gray-500">
-                                        <ClockIcon className="w-4 h-4 mr-2" />
-                                        <span>ID: #{String(order.id).substring(0, 8)}...</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center text-blue-600 font-medium text-sm group-hover:translate-x-1 transition-transform">
-                                    View Details <ChevronRightIcon className="w-4 h-4 ml-1" />
-                                </div>
-                            </div>
-                            {/* Progress Bar (Mock) */}
-                            <div className="h-1 w-full bg-gray-100">
-                                <div
-                                    className={`h-full ${order.status === 'PAYMENT_COMPLETED' ? 'bg-green-500' : 'bg-blue-500'}`}
-                                    style={{ width: order.status === 'PAYMENT_COMPLETED' ? '40%' : '10%' }}
-                                />
-                            </div>
+                {/* Content Area */}
+                <div className="min-h-[400px]">
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center h-64 space-y-4">
+                            <div className="w-12 h-12 border-4 border-[#003366]/20 border-t-[#003366] rounded-full animate-spin"></div>
+                            <p className="text-slate-500 text-sm font-medium">Loading your orders...</p>
                         </div>
-                    ))}
+                    ) : filteredOrders.length === 0 ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200"
+                        >
+                            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <ShoppingBagIcon className="w-9 h-9 text-slate-300" />
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900 mb-2">No orders found</h3>
+                            <p className="text-slate-500 mb-8 max-w-xs mx-auto text-sm">
+                                {searchQuery ? "Try adjusting your search terms." : "You haven't placed any orders yet. Start your journey today!"}
+                            </p>
+                            {!searchQuery && (
+                                <button
+                                    onClick={() => navigate('/dashboard/user/servicehub')}
+                                    className="text-[#003366] font-bold hover:text-[#C59B4E] flex items-center justify-center mx-auto transition-colors"
+                                >
+                                    Browse Services <ChevronRightIcon className="w-4 h-4 ml-1" />
+                                </button>
+                            )}
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className="space-y-4"
+                        >
+                            <AnimatePresence>
+                                {filteredOrders.map((order) => (
+                                    <motion.div
+                                        key={order.id}
+                                        variants={itemVariants}
+                                        layout
+                                        onClick={() => handleOrderClick(order)}
+                                        className="group relative bg-white rounded-2xl p-5 shadow-sm border border-slate-100 hover:shadow-md hover:border-[#003366]/30 transition-all duration-300 cursor-pointer"
+                                    >
+                                        <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
+                                            {/* Icon Box */}
+                                            <div className="shrink-0">
+                                                <div className="w-12 h-12 rounded-xl bg-[#F0F4FF] flex items-center justify-center group-hover:bg-[#003366] transition-colors duration-300">
+                                                    <DocumentTextIcon className="w-6 h-6 text-[#003366] group-hover:text-white transition-colors" />
+                                                </div>
+                                            </div>
+
+                                            {/* Main Info */}
+                                            <div className="flex-grow min-w-0">
+                                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1">
+                                                    <h3 className="text-base md:text-lg font-bold text-slate-800 group-hover:text-[#003366] transition-colors truncate">
+                                                        {order.serviceName || "Untitled Service"}
+                                                    </h3>
+                                                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded border border-slate-200 font-mono">
+                                                        #{String(order.id).split('-')[0].toUpperCase()}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-4 text-xs text-slate-500">
+                                                    <div className="flex items-center">
+                                                        <CalendarIcon className="w-3.5 h-3.5 mr-1" />
+                                                        {new Date(order.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                                    </div>
+                                                    <div className="flex items-center text-slate-700 font-semibold bg-slate-50 px-2 py-0.5 rounded">
+                                                        <CurrencyRupeeIcon className="w-3.5 h-3.5 mr-1 text-slate-400" />
+                                                        {order.totalAmount?.toLocaleString() || '0'}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Side: Status & Action */}
+                                            <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto mt-4 md:mt-0 gap-4 md:gap-2">
+                                                <StatusBadge status={order.status} />
+
+                                                <div className="hidden md:flex items-center text-xs font-bold text-[#C59B4E] group-hover:translate-x-1 transition-transform">
+                                                    View Details <ChevronRightIcon className="w-3 h-3 ml-1" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Mobile Only: Action footer */}
+                                        <div className="mt-4 pt-3 border-t border-slate-50 flex md:hidden justify-end">
+                                            <div className="flex items-center text-xs font-bold text-[#C59B4E]">
+                                                View details <ChevronRightIcon className="w-3 h-3 ml-1" />
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 }

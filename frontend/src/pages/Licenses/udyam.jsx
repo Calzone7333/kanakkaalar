@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 import {
   ChevronDown,
   Zap,
@@ -39,9 +40,49 @@ const tabs = [
   { id: 'udyam-criteria-content', label: 'Criteria' },
   { id: 'udyam-documents-content', label: 'Documents' },
   { id: 'udyam-process-content', label: 'Process' },
+  { id: 'udyam-process-content', label: 'Process' },
+  { id: 'udyam-pricing-content', label: 'Pricing' },
   { id: 'udyam-schemes-renewal', label: 'Renewal' },
   { id: 'udyam-why-Bizzfiling', label: 'Why Us' },
   { id: 'udyam-faqs-content', label: 'FAQs' },
+];
+
+const udyamPlans = [
+  {
+    title: "Standard",
+    price: "₹1,999",
+    description: "Professional Filing Assistance.",
+    features: [
+      "MSME Udyam",
+      "GST Registration",
+      "GSTR-1 & 3B for 12 months (Upto 300 transactions)"
+    ],
+    isRecommended: false,
+  },
+  {
+    title: "Premium",
+    price: "₹16,399",
+    description: "Registration + GST Compliance.",
+    features: [
+      "MSME Udyam",
+      "GST Registration",
+      "GST Registration",
+      "GSTR-1 & 3B for 12 months (Upto 300 transactions)",
+      "ITR Filings for one financial year (upto 40 lakhs) - Rs. 2500"
+    ],
+    isRecommended: true,
+  },
+  {
+    title: "Elite",
+    price: "₹18,899",
+    description: "Complete Business Compliance.",
+    features: [
+      "Dedicated Account Manager",
+      "MSME Udyam Registration"
+    ],
+    isRecommended: false,
+    isPremium: true,
+  },
 ];
 
 const udyamIntroBullets = [
@@ -125,21 +166,21 @@ const udyamFAQs = [
 // --- Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
 );
 
 const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
-  <div className={`p-6 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
+  <div className={`p-8 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
     ${isHighlighted
       ? 'bg-gradient-to-br from-[#E8DCC2] to-[#D4B982] border-transparent shadow-lg transform -translate-y-1'
       : 'bg-white border-slate-100 hover:shadow-lg hover:border-[#1A7F7D]/30 shadow-sm'}
@@ -149,13 +190,13 @@ const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
     `}>
       {Icon ? <Icon className="w-5 h-5" /> : (isHighlighted ? <Star className="w-5 h-5" /> : <FileText className="w-5 h-5" />)}
     </div>
-    <h3 className={`text-base font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
+    <h3 className={`text-xl font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
       {title}
     </h3>
-    <p className={`text-xs leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
+    <p className={`text-sm leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
       {description}
     </p>
-    <div className={`flex items-center text-xs font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-2 transition-all
+    <div className={`flex items-center text-sm font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-5 transition-all
        ${isHighlighted ? 'text-[#5C4518]' : 'text-[#1A7F7D]'}
     `}>
       <span>Learn More</span>
@@ -172,7 +213,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
       className="flex items-center justify-between w-full p-4 text-left"
       onClick={onClick}
     >
-      <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+      <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
         {faq.q}
       </h3>
       <div className="flex-shrink-0">
@@ -182,7 +223,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
     >
-      <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+      <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
         {faq.a}
       </p>
     </div>
@@ -192,39 +233,39 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Content Sections ---
 
 const OverviewContent = () => (
-  <section id="udyam-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+  <section id="udyam-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Scale" title="What is Udyam Registration?" description="Legally recognized identification for Micro, Small, and Medium Enterprises in India." />
       <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
+        <div className="space-y-8">
           <p className="text-slate-600 leading-relaxed">
             <strong>Udyam Registration</strong> is a free and paperless process for officially registering MSMEs in India through the official Udyam portal. It is mandatory for all MSMEs as of 1 July 2020.
           </p>
           <p className="text-slate-600 leading-relaxed">
             Upon successful registration, businesses receive a permanent identification number, called the <strong>Udyam Registration Number (URN)</strong>, and the certificate is sent directly to the registered email ID.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Free & Paperless</span>
-            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Fully Online</span>
-            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">Instant URN</span>
+          <div className="flex flex-wrap gap-5">
+            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Free & Paperless</span>
+            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Fully Online</span>
+            <span className="px-4 py-2 bg-white rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Instant URN</span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+        <div className="grid grid-cols-2 gap-5">
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
             <CheckCircle className="w-8 h-8 text-[#1A7F7D] mb-3" />
-            <span className="text-xs font-bold text-slate-800">Self Declaration</span>
+            <span className="text-sm font-bold text-slate-800">Self Declaration</span>
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
             <Calculator className="w-8 h-8 text-[#1A7F7D] mb-3" />
-            <span className="text-xs font-bold text-slate-800">Income Tax Linked</span>
+            <span className="text-sm font-bold text-slate-800">Income Tax Linked</span>
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
             <Smartphone className="w-8 h-8 text-[#1A7F7D] mb-3" />
-            <span className="text-xs font-bold text-slate-800">Aadhaar Based</span>
+            <span className="text-sm font-bold text-slate-800">Aadhaar Based</span>
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
             <Globe className="w-8 h-8 text-[#1A7F7D] mb-3" />
-            <span className="text-xs font-bold text-slate-800">One Registration</span>
+            <span className="text-sm font-bold text-slate-800">One Registration</span>
           </div>
         </div>
       </div>
@@ -233,15 +274,15 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-  <section id="udyam-benefits-content" className="py-16 bg-white scroll-mt-24">
+  <section id="udyam-benefits-content" className="py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Advantages" title="Top MSME Benefits" description="Unlock government support and financial incentives for your business." />
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
         {udyamBenefits.map((item, i) => (
-          <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3 hover:shadow-lg transition-all">
+          <div key={i} className="p-8 bg-slate-50 rounded-2xl border border-slate-100 space-y-8 hover:shadow-lg transition-all">
             <div className="w-12 h-12 bg-white text-[#1A7F7D] rounded-xl flex items-center justify-center shadow-sm"><item.icon className="w-6 h-6" /></div>
-            <h5 className="font-bold text-slate-800 text-sm">{item.title}</h5>
-            <p className="text-[11px] text-slate-500 leading-relaxed">{item.detail}</p>
+            <h5 className="font-bold text-slate-800 text-lg">{item.title}</h5>
+            <p className="text-sm text-slate-500 leading-relaxed">{item.detail}</p>
           </div>
         ))}
       </div>
@@ -250,14 +291,14 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-  <section id="udyam-eligibility-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+  <section id="udyam-eligibility-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Eligibility" title="Who Can Apply?" description="Open to Micro, Small, and Medium Enterprises engaged in manufacturing or services." />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {eligibleEntities.map((entity, i) => (
-          <div key={i} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 hover:border-[#1A7F7D]/50 transition-all">
+          <div key={i} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-5 hover:border-[#1A7F7D]/50 transition-all">
             <Users className="w-4 h-4 text-[#1A7F7D]" />
-            <span className="text-xs font-semibold text-slate-700">{entity}</span>
+            <span className="text-sm font-semibold text-slate-700">{entity}</span>
           </div>
         ))}
       </div>
@@ -266,29 +307,29 @@ const EligibilityContent = () => (
 );
 
 const CriteriaContent = () => (
-  <section id="udyam-criteria-content" className="py-16 bg-white scroll-mt-24">
+  <section id="udyam-criteria-content" className="py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Criteria" title="Classification Limits" description="Based on Investment and Annual Turnover composite criteria." />
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-10">
         <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
-          <h4 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><Briefcase className="w-5 h-5 text-[#1A7F7D]" /> Manufacturing & Services</h4>
-          <ul className="space-y-4">
+          <h4 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-5"><Briefcase className="w-5 h-5 text-[#1A7F7D]" /> Manufacturing & Services</h4>
+          <ul className="space-y-8">
             {eligibilityCriteriaManufacturing.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-slate-600 italic">
+              <li key={i} className="flex items-start gap-5 text-sm text-slate-600 italic">
                 <CheckCircle className="w-4 h-4 text-[#1A7F7D] flex-shrink-0" />
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <div className="space-y-4">
-          <div className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#1A7F7D]">
+        <div className="space-y-8">
+          <div className="p-8 bg-white rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#1A7F7D]">
             <h6 className="font-bold text-slate-800 mb-2">Operating in India</h6>
-            <p className="text-xs text-slate-500">Business must be registered and operating within Indian borders.</p>
+            <p className="text-sm text-slate-500">Business must be registered and operating within Indian borders.</p>
           </div>
-          <div className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#1A7F7D]">
+          <div className="p-8 bg-white rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#1A7F7D]">
             <h6 className="font-bold text-slate-800 mb-2">GST Provisions</h6>
-            <p className="text-xs text-slate-500">Subject to standard GST registration thresholds and exemptions for small suppliers.</p>
+            <p className="text-sm text-slate-500">Subject to standard GST registration thresholds and exemptions for small suppliers.</p>
           </div>
         </div>
       </div>
@@ -297,15 +338,15 @@ const CriteriaContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="udyam-documents-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+  <section id="udyam-documents-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Paperwork" title="Required Documents & Fee" description="Udyam registration is free of cost on the official portal." />
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-10">
         {udyamDocuments.map((doc, i) => (
           <div key={i} className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm flex flex-col transition-all hover:scale-[1.02]">
             <div className="w-12 h-12 bg-slate-50 text-[#1A7F7D] rounded-xl flex items-center justify-center mb-6"><doc.icon className="w-6 h-6" /></div>
-            <h4 className="text-base font-bold text-slate-800 mb-2">{doc.title}</h4>
-            <p className="text-xs text-slate-500 leading-relaxed mb-4">{doc.detail}</p>
+            <h4 className="text-lg font-bold text-slate-800 mb-2">{doc.title}</h4>
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">{doc.detail}</p>
           </div>
         ))}
       </div>
@@ -322,17 +363,28 @@ const ProcessContent = () => (
   <section id="udyam-process-content" className="py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6 text-center">
       <SectionHeading subtitle="Journey" title="Step-by-Step Registration" description="Get your Udyam Registration Number (URN) entirely online." />
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-4 relative">
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-5 relative">
         {udyamRegistrationProcess.map((step, idx) => (
-          <div key={idx} className="space-y-4">
+          <div key={idx} className="space-y-8">
             <div className="w-14 h-14 bg-white border-2 border-[#1A7F7D] rounded-full flex items-center justify-center mx-auto shadow-lg relative transition-transform hover:skew-x-3">
               <span className="text-lg font-bold text-[#1A7F7D]">{idx + 1}</span>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#C59B4E] text-white rounded-full flex items-center justify-center text-[10px] font-bold ring-4 ring-white">✓</div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#C59B4E] text-white rounded-full flex items-center justify-center text-sm font-bold ring-4 ring-white">✓</div>
             </div>
-            <p className="text-[10px] text-slate-500 leading-relaxed px-2 line-clamp-3">{step}</p>
+            <p className="text-sm text-slate-500 leading-relaxed px-2 line-clamp-3">{step}</p>
           </div>
         ))}
       </div>
+    </div>
+  </section>
+);
+
+
+
+const UdyamPricingContent = () => (
+  <section id="udyam-pricing-content" className="py-20 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-4">
+      <SectionHeading subtitle="Investments" title="Registration Packages" description="Choose the plan that suits your business compliance needs." />
+      <PricingCards plans={udyamPlans} serviceName="Udyam Registration" />
     </div>
   </section>
 );
@@ -342,15 +394,15 @@ const SchemesRenewal = () => (
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading subtitle="Growth" title="Schemes & Renewal" description="Access critical MSME support systems post-registration." />
       <div className="grid md:grid-cols-2 gap-12">
-        <div className="space-y-6">
+        <div className="space-y-8">
           <h4 className="text-xl font-bold text-slate-800">Key Government Schemes</h4>
-          <div className="space-y-4">
+          <div className="space-y-8">
             {governmentSchemes.map((scheme, i) => (
-              <div key={i} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex gap-4">
+              <div key={i} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex gap-5">
                 <div className="w-10 h-10 bg-[#F0FDFA] text-[#1A7F7D] rounded-lg flex items-center justify-center flex-shrink-0"><scheme.icon size={20} /></div>
                 <div>
-                  <h5 className="font-bold text-slate-800 text-sm">{scheme.title}</h5>
-                  <p className="text-xs text-slate-500">{scheme.detail}</p>
+                  <h5 className="font-bold text-slate-800 text-base">{scheme.title}</h5>
+                  <p className="text-sm text-slate-500">{scheme.detail}</p>
                 </div>
               </div>
             ))}
@@ -358,10 +410,10 @@ const SchemesRenewal = () => (
         </div>
         <div className="bg-[#103B3E] p-10 rounded-3xl text-white">
           <h4 className="text-xl font-bold mb-6 text-[#C59B4E]">Renewal Process</h4>
-          <ul className="space-y-6">
+          <ul className="space-y-8">
             {udyamRenewalSteps.map((step, i) => (
-              <li key={i} className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-[#C59B4E] flex-shrink-0">{i + 1}</div>
+              <li key={i} className="flex gap-5">
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-[#C59B4E] flex-shrink-0">{i + 1}</div>
                 <p className="text-sm text-slate-400 italic leading-relaxed">{step}</p>
               </li>
             ))}
@@ -378,26 +430,26 @@ const WhyUsContent = () => (
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div className="order-2 lg:order-1">
           <SectionHeading subtitle="Expertise" title="Get Registered with Bizzfiling" description="Avoid filing errors and secure your certificate faster with our assisted services." align="left" />
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+          <div className="grid sm:grid-cols-2 gap-5">
+            <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100">
               <CheckCircle className="w-6 h-6 text-[#1A7F7D] mb-3" />
-              <h6 className="font-bold text-sm mb-1">Eligibility Check</h6>
-              <p className="text-[10px] text-slate-500">We verify your classification criteria before filing.</p>
+              <h6 className="font-bold text-lg mb-1">Eligibility Check</h6>
+              <p className="text-sm text-slate-500">We verify your classification criteria before filing.</p>
             </div>
-            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+            <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100">
               <Smartphone className="w-6 h-6 text-[#1A7F7D] mb-3" />
-              <h6 className="font-bold text-sm mb-1">100% Online</h6>
-              <p className="text-[10px] text-slate-500">Zero physical visits or manual paperwork required.</p>
+              <h6 className="font-bold text-lg mb-1">100% Online</h6>
+              <p className="text-sm text-slate-500">Zero physical visits or manual paperwork required.</p>
             </div>
-            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+            <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100">
               <Handshake className="w-6 h-6 text-[#1A7F7D] mb-3" />
-              <h6 className="font-bold text-sm mb-1">Expert Support</h6>
-              <p className="text-[10px] text-slate-500">Guidance on documentation and NIC code selection.</p>
+              <h6 className="font-bold text-lg mb-1">Expert Support</h6>
+              <p className="text-sm text-slate-500">Guidance on documentation and NIC code selection.</p>
             </div>
-            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+            <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100">
               <Zap className="w-6 h-6 text-[#1A7F7D] mb-3" />
-              <h6 className="font-bold text-sm mb-1">Full Transparency</h6>
-              <p className="text-[10px] text-slate-500">Real-time status updates and upfront communication.</p>
+              <h6 className="font-bold text-lg mb-1">Full Transparency</h6>
+              <p className="text-sm text-slate-500">Real-time status updates and upfront communication.</p>
             </div>
           </div>
         </div>
@@ -406,7 +458,7 @@ const WhyUsContent = () => (
           <Star className="w-16 h-16 text-[#C59B4E] mb-6 animate-pulse" />
           <h4 className="text-2xl font-bold text-white mb-4 italic font-serif">India's Trusted Partner for MSMEs</h4>
           <p className="text-slate-400 text-sm mb-8 italic">"Helping thousands of entrepreneurs scale with legal clarity."</p>
-          <button className="px-8 py-3 bg-[#C59B4E] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#a37d35] transition-all">Learn More</button>
+          <button className="px-8 py-3 bg-[#C59B4E] text-white rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[#a37d35] transition-all">Learn More</button>
         </div>
       </div>
     </div>
@@ -454,54 +506,41 @@ export default function UdyamRegistrationPage() {
     <div className="min-h-screen font-sans w-full overflow-x-hidden text-slate-900 selection:bg-[#1A7F7D] selection:text-white">
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
-      {/* Hero */}
-      <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+      {/* Hero Section - Compact Style */}
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
         <div className="absolute inset-0 z-0">
-          <img src={BackgroundImageSrc} alt="Udyam Hero Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+          <img src={BackgroundImageSrc} alt="Udyam Registration" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-            <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-              <div className="relative w-28 h-28 flex items-center justify-center">
-                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full border-2 border-[#C59B4E] flex flex-col items-center justify-center p-2">
-                  <Star className="fill-[#C59B4E] text-[#C59B4E]" size={12} />
-                  <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase mt-1">Udyam <br /> Registration</span>
-                  <span className="text-white text-[8px] uppercase mt-1 opacity-70">Expert Prep</span>
-                </div>
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-3/5 space-y-8">
+              <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                <Star size={14} className="text-[#C59B4E]" />
+                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">India's #1 Udyam Facilitation Portal</span>
               </div>
-              <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-serif italic">
-                  Get Your <br className="hidden lg:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic">Udyam Registration</span>
-                </h1>
-                <div className="space-y-3 pt-2">
-                  {udyamIntroBullets.map((bullet, i) => (
-                    <div key={i} className="flex gap-3 text-slate-300">
-                      <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                      <p className="text-sm font-light leading-relaxed italic">{bullet}</p>
-                    </div>
-                  ))}
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                Udyam Registration <br className="hidden lg:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">(Udyog Aadhaar)</span>
+              </h1>
+              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                Step into the formal economy with a permanent MSME identification. Unlock subsidies, tax exemptions, and government tender priority with our expert-led paperless filing.
+              </p>
+              <div className="flex gap-10 pt-2">
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <CheckCircle size={18} className="text-[#C59B4E]" /> Fast 24h Processing
                 </div>
-              </div>
-              <div className="flex items-center gap-4 py-2">
-                <div className="flex flex-col">
-                  <span className="text-white text-2xl font-bold italic uppercase tracking-tighter">Paperless</span>
-                  <span className="text-slate-400 text-[10px] uppercase tracking-wider">Process Design</span>
-                </div>
-                <div className="h-10 w-[1px] bg-white/20"></div>
-                <div className="flex flex-col">
-                  <span className="text-white text-2xl font-bold italic tracking-tighter">Instant</span>
-                  <span className="text-slate-400 text-[10px] uppercase tracking-wider">Aadhar Update</span>
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <Smartphone size={18} className="text-[#C59B4E]" /> OTP Based Filing
                 </div>
               </div>
             </div>
-            <div className="w-full max-w-md lg:w-[400px]">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-white/10">
-                <h2 className="text-2xl font-bold mb-2 text-center text-slate-800">Start Today</h2>
-                <p className="text-[11px] text-slate-500 mb-6 text-center">Let our specialists handle your MSME registration.</p>
-                <LeadForm serviceName="Udyam Registration" btnText="Get URN Now" />
+            <div className="w-full max-w-sm">
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                <div className="p-8 md:p-8">
+                  <h3 className="text-base md:text-xl font-bold text-slate-800 text-center mb-6">Register Udyam</h3>
+                  <LeadForm serviceName="Udyam Registration" btnText="Apply for Udyam" />
+                </div>
               </div>
             </div>
           </div>
@@ -509,13 +548,13 @@ export default function UdyamRegistrationPage() {
       </section>
 
       {/* Navigation */}
-      <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+      <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-center gap-8 md:gap-16 py-0 min-w-max list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
             {tabs.map((tab) => (
               <li key={tab.id}>
                 <button
-                  className={`py-4 text-xs md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-wider ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-700 border-transparent hover:text-[#0F4C49]'}`}
+                  className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                   onClick={() => handleTabClick(tab.id)}
                 >{tab.label}</button>
               </li>
@@ -530,17 +569,18 @@ export default function UdyamRegistrationPage() {
       <CriteriaContent />
       <DocumentsContent />
       <ProcessContent />
+      <UdyamPricingContent />
       <SchemesRenewal />
       <WhyUsContent />
 
-      <section id="udyam-faqs-content" className="py-24 bg-white scroll-mt-24">
+      <div id="udyam-faqs-content" className="pt-20 scroll-mt-24">
         <div className="max-w-4xl mx-auto px-6">
           <SectionHeading subtitle="FAQ" title="Udyam Guide" description="Everything you need to know about MSME registration." />
-          <div className="space-y-4">
+          <div className="space-y-8">
             {udyamFAQs.map((f, i) => (<FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

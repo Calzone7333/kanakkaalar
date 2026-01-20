@@ -143,7 +143,7 @@ export default function AdminExpertList() {
         if (expert.image) return `data:${expert.imageContentType};base64,${expert.image}`; // If we returned base64 string
         // But we are now returning bytes via an endpoint.
         // So we construct the URL.
-        const baseUrl = import.meta.env.VITE_API_URL || 'http://115.97.59.230:8081';
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://192.168.1.2:8081/api';
         return `${baseUrl}/api/experts/${expert.id}/image`;
     };
 

@@ -99,14 +99,14 @@ const ReviewBox = ({ score, reviews, source }) => (
     <div className="flex items-center mb-1 text-yellow-400">
       {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
     </div>
-    <p className="text-xs font-semibold text-white/80">{source}</p>
+    <p className="text-sm font-semibold text-white/80">{source}</p>
     <p className="mt-1 text-xl font-bold text-white">{score}</p>
-    <p className="text-xs text-white/90">{reviews}</p>
+    <p className="text-sm text-white/90">{reviews}</p>
   </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-  <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+  <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
     <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
     <div>
       <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -123,15 +123,29 @@ const ServiceIncludeBox = ({ title, detail, icon: Icon }) => (
   </div>
 );
 
+const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
+      {subtitle}
+    </span>
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      {title}
+    </h3>
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+      {description}
+    </p>
+  </div>
+);
+
 // --- TAB CONTENT COMPONENTS (DPR Content) ---
 
 const DPROverviewContent = () => (
   <section id="dpr-overview-content" className="py-12 scroll-mt-24">
-    <h2 className="mb-6 text-3xl font-bold text-gray-800">DPR (Detailed Project Report) - An Overview</h2>
-    <p className="max-w-4xl mb-4 text-lg text-gray-700">
+    <SectionHeading subtitle="Overview" title="DPR (Detailed Project Report)" description="A comprehensive document outlining all aspects of a proposed project, from conception to completion." />
+    <p className="max-w-4xl mx-auto mb-4 text-lg text-gray-700 text-center">
       **DPR stands for Detailed Project Report**. It is a comprehensive document that outlines all aspects of a proposed project, from conception to completion. It is used by various stakeholders, including investors, lenders, and government agencies, to assess the **feasibility and viability** of a project.
     </p>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
+    <p className="max-w-4xl mx-auto mb-8 text-lg text-gray-700 text-center">
       At Bizzfiling, we understand that a DPR is **essential for any business seeking financial assistance**, especially when applying for a bank loan. A well-prepared DPR significantly impacts your chances of securing the necessary funds to make your project a reality.
     </p>
   </section>
@@ -139,14 +153,14 @@ const DPROverviewContent = () => (
 
 const DPRBenefitsContent = () => (
   <section id="dpr-benefits-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-gray-800">Benefits of Choosing Bizzfiling for Your DPR</h3>
+    <SectionHeading subtitle="Benefits" title="Why Choose Bizzfiling" description="Maximize your chances of securing funds with our expert DPR services." />
 
-    <div className="space-y-4">
+    <div className="space-y-8">
       {dprBenefits.map((benefit, i) => {
         const [title, description] = benefit.split(':').map(s => s.trim());
         const Icon = i === 0 ? TrendingUp : i === 1 ? Clock : i === 2 ? FileText : i === 3 ? Target : Users;
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-blue-200 shadow-sm bg-blue-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-blue-200 shadow-sm bg-blue-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-xl font-bold text-gray-800">{title}</h4>
@@ -161,14 +175,11 @@ const DPRBenefitsContent = () => (
 
 const DPRDocumentsContent = () => (
   <section id="dpr-documents-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Documents Required</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      The documents required for a DPR vary, but the following are typically essential for any lender or investor to assess the project's scope and viability.
-    </p>
+    <SectionHeading subtitle="Checklist" title="Documents Required" description="Essential documentation typically required for lenders to assess project viability." />
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {dprDocuments.map((doc, i) => (
-        <div key={i} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div key={i} className="flex items-start gap-5 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
           <FileText className="flex-shrink-0 w-5 h-5 mt-1 text-red-500" />
           <p className="font-medium text-gray-700">{doc}</p>
         </div>
@@ -179,12 +190,9 @@ const DPRDocumentsContent = () => (
 
 const DPRServicesIncludeContent = () => (
   <section id="dpr-services-include-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Our DPR Service Includes</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      We provide a holistic service, covering every crucial aspect that banks and lending institutions evaluate, ensuring a comprehensive and robust project presentation.
-    </p>
+    <SectionHeading subtitle="Services" title="Our DPR Services" description="Holistic covering of every crucial aspect that banks and lending institutions evaluate." />
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       {dprServicesIncluded.map((item, i) => (
         <ServiceIncludeBox
           key={i}
@@ -198,17 +206,14 @@ const DPRServicesIncludeContent = () => (
 
 const DPRWhyBizzfiling = () => (
   <section id="dpr-why-Bizzfiling" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Why Bizzfiling?</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Our commitment goes beyond document preparation. We ensure your DPR is **strategically sound, compliant, and tailored** for maximum funding appeal.
-    </p>
+    <SectionHeading subtitle="Excellence" title="Why Bizzfiling?" description="We ensure your DPR is strategically sound, compliant, and tailored for maximum funding appeal." />
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {whyBizzfilingDPR.map((reason, i) => {
         const [title, description] = reason.split(':').map(s => s.trim());
         const Icon = i === 0 ? Lightbulb : i === 1 ? Target : Scale;
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-lg font-bold text-gray-800">{title}</h4>
@@ -219,11 +224,11 @@ const DPRWhyBizzfiling = () => (
       })}
     </div>
 
-    <div className="mt-12 p-6 bg-[#E6F0F6] rounded-xl border-l-4 border-amber-500 shadow-md">
-      <h4 className="flex items-center gap-2 mb-2 text-xl font-bold text-gray-800"><Handshake className="w-5 h-5 text-amber-500" /> Consult an Expert</h4>
-      <ul className="space-y-2 text-gray-700 list-none">
-        <li className="flex items-start gap-2"><ArrowRight className="flex-shrink-0 w-4 h-4 mt-1" /> All queries are clarified in **30 minutes**.</li>
-        <li className="flex items-start gap-2"><ArrowRight className="flex-shrink-0 w-4 h-4 mt-1" /> Provide ongoing support and guidance during the project implementation phase.</li>
+    <div className="mt-12 p-8 bg-[#E6F0F6] rounded-xl border-l-4 border-amber-500 shadow-md">
+      <h4 className="flex items-center gap-5 mb-2 text-xl font-bold text-gray-800"><Handshake className="w-5 h-5 text-amber-500" /> Consult an Expert</h4>
+      <ul className="space-y-8 text-gray-700 list-none">
+        <li className="flex items-start gap-5"><ArrowRight className="flex-shrink-0 w-4 h-4 mt-1" /> All queries are clarified in **30 minutes**.</li>
+        <li className="flex items-start gap-5"><ArrowRight className="flex-shrink-0 w-4 h-4 mt-1" /> Provide ongoing support and guidance during the project implementation phase.</li>
       </ul>
     </div>
   </section>
@@ -231,9 +236,9 @@ const DPRWhyBizzfiling = () => (
 
 const DPRFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   <section id="dpr-faqs-content" className="max-w-5xl py-12 mx-auto scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-center text-gray-800">FAQs on DPR (Detailed Project Report) Service</h3>
+    <SectionHeading subtitle="FAQ" title="DPR Guide" description="Frequently Asked Questions about Detailed Project Reports." />
 
-    <div className="space-y-4">
+    <div className="space-y-8">
       {faqs.map((f, i) => (
         <div key={i} className="overflow-hidden border border-gray-200 shadow-sm rounded-xl">
           <button
@@ -340,7 +345,7 @@ export default function DPRServicePage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -357,7 +362,7 @@ export default function DPRServicePage() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-sm leading-tight uppercase tracking-wider mb-1">
                       DPR<br />Project<br />Report
                     </span>
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -366,7 +371,7 @@ export default function DPRServicePage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   DETAILED PROJECT <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">REPORT (DPR)</span>
@@ -377,12 +382,12 @@ export default function DPRServicePage() {
                 </p>
               </div>
 
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                   <span>Bank Approved Format</span>
                 </div>
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Shield className="w-4 h-4 text-[#C59B4E]" />
                   <span>Expert Financials</span>
                 </div>
@@ -395,7 +400,7 @@ export default function DPRServicePage() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Your DPR</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                       Start your project loan journey!
                     </p>
                   </div>
@@ -411,7 +416,7 @@ export default function DPRServicePage() {
       {/* === Sticky Navigation === */}
       < div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100" >
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
             {dprTabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button

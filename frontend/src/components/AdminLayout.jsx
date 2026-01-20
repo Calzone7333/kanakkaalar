@@ -18,7 +18,8 @@ import {
   User,
   Menu,
   X,
-  Building
+  Building,
+  MessageSquare
 } from "lucide-react";
 
 // ✅ Import getUser from your auth utility
@@ -71,6 +72,7 @@ const AdminLayout = ({ children, logout }) => {
       ],
     },
     { path: "/dashboard/admin/attendance", label: "Attendance", Icon: Calendar },
+    { path: "/dashboard/admin/chat", label: "Collaboration", Icon: MessageSquare },
     { path: "/dashboard/admin/employees", label: "Employees", Icon: Users2 },
     { path: "/dashboard/admin/agents", label: "Agents", Icon: User },
     { path: "/dashboard/admin/performance", label: "Performance", Icon: TrendingUp },

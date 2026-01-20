@@ -104,14 +104,14 @@ const ReviewBox = ({ score, reviews, source }) => (
     <div className="flex items-center mb-1 text-yellow-400">
       {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
     </div>
-    <p className="text-xs font-semibold text-white/80">{source}</p>
+    <p className="text-sm font-semibold text-white/80">{source}</p>
     <p className="mt-1 text-xl font-bold text-white">{score}</p>
-    <p className="text-xs text-white/90">{reviews}</p>
+    <p className="text-sm text-white/90">{reviews}</p>
   </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-  <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+  <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
     <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
     <div>
       <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -121,7 +121,7 @@ const DetailItem = ({ title, description, icon: Icon }) => (
 );
 
 const ProcessStep = ({ stepNumber, step }) => (
-  <li className="flex items-start gap-4">
+  <li className="flex items-start gap-5">
     <div className="bg-[#022B50] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
       {stepNumber}
     </div>
@@ -129,20 +129,34 @@ const ProcessStep = ({ stepNumber, step }) => (
   </li>
 );
 
+const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
+      {subtitle}
+    </span>
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      {title}
+    </h3>
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+      {description}
+    </p>
+  </div>
+);
+
 
 // --- TAB CONTENT COMPONENTS (Pitch Deck Content) ---
 
 const PitchOverviewContent = () => (
   <section id="pitch-overview-content" className="py-12 scroll-mt-24">
-    <h2 className="mb-6 text-3xl font-bold text-gray-800">Investment Pitch Deck - an Overview</h2>
-    <p className="max-w-4xl mb-4 text-lg text-gray-700">
+    <SectionHeading subtitle="Overview" title="Investment Pitch Deck" description="An essential presentation used by startups to raise capital from investors." />
+    <p className="max-w-4xl mx-auto mb-4 text-lg text-gray-700 text-center">
       An **investment pitch deck** is a presentation used by startups to raise capital from investors. It typically includes **10-15 slides** that outline the company's problem, solution, market opportunity, team, traction, financials, and funding needs.
     </p>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
+    <p className="max-w-4xl mx-auto mb-8 text-lg text-gray-700 text-center">
       Pitch deck designs should be clean, professional, and visually appealing. The pitch deck for investors should be **tailored to the specific audience** (e.g., angel investors focus on high returns, VCs focus on scalability). A business pitch is a short presentation that summarises the key points of your investment pitch deck.
     </p>
 
-    <div className="p-6 bg-[#E6F0F6] rounded-xl border-l-4 border-[#022B50] shadow-md">
+    <div className="p-8 bg-[#E6F0F6] rounded-xl border-l-4 border-[#022B50] shadow-md">
       <p className="font-semibold text-gray-800">
         The cost of a pitch deck in India can vary depending on the complexity of the deck, the experience of the designer, and the number of revisions required. We offer competitive pricing with expert analysis.
       </p>
@@ -152,9 +166,9 @@ const PitchOverviewContent = () => (
 
 const PitchAdvantagesContent = () => (
   <section id="pitch-advantages-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-gray-800">Advantages of Having an Investor Pitch</h3>
+    <SectionHeading subtitle="Benefits" title="Why Have A Pitch Deck?" description="Crucial for convincing investors and securing equity funding." />
 
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid gap-10 md:grid-cols-3">
       <DetailItem
         title="Convince the Investors"
         description="Showcase your potential for success in an easily understandable presentation to bank executives, VCs, and private equity investors. Increase the potential investors' mental clarity."
@@ -176,12 +190,12 @@ const PitchAdvantagesContent = () => (
 
 const PitchContainContent = () => (
   <section id="pitch-contain-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">What Does a Business Pitch Contain?</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
+    <SectionHeading subtitle="Components" title="What Does It Contain?" description="A powerful pitch deck follows a standard narrative arc." />
+    <p className="max-w-4xl mx-auto mb-8 text-lg text-gray-700 text-center">
       A powerful pitch deck follows a standard narrative arc, guiding the investor from the problem to your solution, and finally to the massive potential of your business and team.
     </p>
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       {pitchDeckContent.map((item, i) => (
         <div key={i} className="p-5 bg-white border border-gray-200 rounded-lg shadow-sm">
           <item.icon className="w-6 h-6 mb-2 text-amber-500" />
@@ -195,14 +209,11 @@ const PitchContainContent = () => (
 
 const PitchProcessContent = () => (
   <section id="pitch-process-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Investment Pitch Deck Building Process</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Our process is structured to deliver an **investor-ready pitch deck** efficiently, combining deep business analysis with professional visual presentation.
-    </p>
+    <SectionHeading subtitle="Process" title="Building Process" description="Structured to deliver an investor-ready pitch deck efficiently." />
 
     <ol className="space-y-5 list-none border-l-2 border-[#022B50] pl-4 mb-12">
       {serviceProcessSteps.map((step, i) => (
-        <li key={i} className="flex items-start gap-4">
+        <li key={i} className="flex items-start gap-5">
           <div className="bg-[#022B50] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
             {step.days.split(' ')[0]}
           </div>
@@ -215,9 +226,9 @@ const PitchProcessContent = () => (
     </ol>
 
     <h4 className="mb-6 text-2xl font-bold text-gray-800">What Paperwork Is Necessary for an Investors Deck?</h4>
-    <div className="max-w-4xl space-y-3 text-gray-700">
+    <div className="max-w-4xl space-y-8 text-gray-700">
       {pitchDocuments.map((doc, i) => (
-        <li key={i} className="flex items-start gap-2 list-none">
+        <li key={i} className="flex items-start gap-5 list-none">
           <FileText className="flex-shrink-0 w-5 h-5 mt-1 text-red-500" />
           <span>**{doc.split('–')[0].trim()}** – {doc.split('–')[1].trim()}</span>
         </li>
@@ -228,10 +239,7 @@ const PitchProcessContent = () => (
 
 const PitchServicesContent = () => (
   <section id="pitch-services-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Our Services</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Creating a compelling investor pitch deck is crucial for startups seeking funding, and our service at Kanakkaalar is designed to assist you in this process. Our experts will guide you through the key areas below:
-    </p>
+    <SectionHeading subtitle="Services" title="Our Services" description="Detailed assistance for startups seeking funding." />
 
     <div className="mb-10 space-y-5">
       {KanakkaalarServices.map((service, i) => {
@@ -239,7 +247,7 @@ const PitchServicesContent = () => (
         const Icon = i === 0 ? FileText : i === 1 ? Users : Handshake;
         return (
           <div key={i} className="p-5 border border-blue-200 shadow-sm bg-blue-50 rounded-xl">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-5 mb-2">
               <Icon className="w-6 h-6 text-[#022B50] flex-shrink-0" />
               <h4 className="text-xl font-bold text-gray-800">{title}</h4>
             </div>
@@ -252,7 +260,7 @@ const PitchServicesContent = () => (
     <h4 className="mb-6 text-2xl font-bold text-gray-800">Attract Investors, Secure Funding, and Grow Your Startup</h4>
     <ol className="pl-4 space-y-5 list-none border-l-2 border-gray-400">
       {deckCreationSteps.map((step, i) => (
-        <li key={i} className="flex items-start gap-4">
+        <li key={i} className="flex items-start gap-5">
           <div className="flex items-center justify-center flex-shrink-0 text-sm font-bold text-white bg-gray-700 rounded-full w-7 h-7">
             {i + 1}
           </div>
@@ -265,17 +273,14 @@ const PitchServicesContent = () => (
 
 const PitchWhyKanakkaalar = () => (
   <section id="pitch-why-kanakkaalar" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Why Kanakkaalar for Your Investment Pitch Deck?</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      We go beyond just design. We ensure your pitch deck is **strategically sound, financially viable, and legally compliant**, setting you on the path to investment success.
-    </p>
+    <SectionHeading subtitle="Expertise" title="Why Kanakkaalar?" description="Strategically sound, financially viable, and legally compliant pitch decks." />
 
-    <div className="grid gap-6 sm:grid-cols-2">
+    <div className="grid gap-10 sm:grid-cols-2">
       {whyKanakkaalar.map((reason, i) => {
         const [title, description] = reason.split(':').map(s => s.trim());
         const Icon = i % 4 === 0 ? CheckCircle : i % 4 === 1 ? Scale : i % 4 === 2 ? Users : TrendingUp;
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-lg font-bold text-gray-800">{title}</h4>
@@ -290,9 +295,9 @@ const PitchWhyKanakkaalar = () => (
 
 const PitchFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   <section id="pitch-faqs-content" className="max-w-5xl py-12 mx-auto scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-center text-gray-800">FAQs on Investment Pitch Deck</h3>
+    <SectionHeading subtitle="FAQ" title="Pitch Guide" description="Frequently Asked Questions about Pitch Decks." />
 
-    <div className="space-y-4">
+    <div className="space-y-8">
       {faqs.map((f, i) => (
         <div key={i} className="overflow-hidden border border-gray-200 shadow-sm rounded-xl">
           <button
@@ -403,7 +408,7 @@ export default function PitchDeck() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -420,7 +425,7 @@ export default function PitchDeck() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-sm leading-tight uppercase tracking-wider mb-1">
                       Pitch<br />Deck<br />Services
                     </span>
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -429,7 +434,7 @@ export default function PitchDeck() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   Investment Pitch Deck <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">For Business</span>
@@ -440,12 +445,12 @@ export default function PitchDeck() {
                 </p>
               </div>
 
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                   <span>Verified Experts</span>
                 </div>
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Shield className="w-4 h-4 text-[#C59B4E]" />
                   <span>100% Confidential</span>
                 </div>
@@ -458,7 +463,7 @@ export default function PitchDeck() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Your Pitch Deck</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                       Enter details to start your investor journey!
                     </p>
                   </div>
@@ -474,7 +479,7 @@ export default function PitchDeck() {
       {/* === Sticky Navigation === */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
             {pitchDeckTabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button

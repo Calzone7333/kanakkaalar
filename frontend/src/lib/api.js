@@ -2,20 +2,24 @@ import axios from "axios";
 import { getAuth, clearAuth } from "./auth";
 
 // --- API Configuration ---
-// Use the environment variable if defined, otherwise default to relative '/api'
-// This ensures Nginx reverse proxy handles the routing correctly on production/mobile.
-const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
+const FAILOVER_URLS = [
+    "/api"
+];
+
+// Default to the first URL
+let currentBaseUrl = FAILOVER_URLS[0];
 
 // Create the Axios instance
 const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: currentBaseUrl,
     timeout: 15000, // 15 seconds timeout
     headers: {
         'Content-Type': 'application/json',
     }
 });
 
-console.log(`🚀 API Initialized with Base URL: ${BASE_URL}`);
+console.log(`🚀 API Initialized with Base URL: ${currentBaseUrl}`);
 
 // --- Interceptors ---
 
@@ -34,10 +38,38 @@ api.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle Auth Errors
+// Response Interceptor: Handle Auth Errors & Failovers
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
+    async (error) => {
+        const config = error.config;
+
+        // Handle Network Errors (Failover Logic)
+        if (!config._retry && (error.code === "ERR_NETWORK" || error.message === "Network Error")) {
+            const currentUrl = api.defaults.baseURL;
+            const currentIndex = FAILOVER_URLS.indexOf(currentUrl);
+
+            if (currentIndex !== -1 && currentIndex < FAILOVER_URLS.length - 1) {
+                config._retry = true; // Prevent infinite loops for the same request
+                const nextUrl = FAILOVER_URLS[currentIndex + 1];
+
+                console.warn(`⚠️ API Connection to ${currentUrl} failed. Switching to failover: ${nextUrl}`);
+
+                // Update the global instance default for future requests
+                api.defaults.baseURL = nextUrl;
+
+                // Update the config for this specific retry
+                config.baseURL = nextUrl;
+
+                // Reset the URL on the config to ensure axios uses the new baseURL
+                // (Axios merges baseURL and url, so we need to be careful)
+                // However, since we set baseURL on instance, simple retrying with new config should work 
+                // IF the url was relative.
+
+                return api(config);
+            }
+        }
+
         const status = error?.response?.status;
 
         // Handle Unauthorized / Forbidden
@@ -322,5 +354,25 @@ export const expertAPI = {
     update: (id, data) => api.put(`/experts/${id}`, data),
     delete: (id) => api.delete(`/experts/${id}`),
 };
+
+// Chat
+export const chatAPI = {
+    send: (payload) => {
+        const fd = new FormData();
+        fd.append("sender", payload.sender);
+        if (payload.recipient) fd.append("recipient", payload.recipient);
+        if (payload.groupId) fd.append("groupId", payload.groupId);
+        fd.append("content", payload.content || "");
+        if (payload.file) {
+            fd.append("file", payload.file);
+        }
+        return api.post("/chat/send", fd, { headers: { "Content-Type": "multipart/form-data" } });
+    },
+    history: (user1, user2) => api.get(`/chat/history?user1=${encodeURIComponent(user1)}&user2=${encodeURIComponent(user2)}`),
+    createGroup: (payload) => api.post("/chat/groups", payload),
+    myGroups: (email) => api.get(`/chat/my-groups?email=${encodeURIComponent(email)}`),
+    groupHistory: (groupId) => api.get(`/chat/group-history?groupId=${groupId}`),
+};
+
 
 export default api;

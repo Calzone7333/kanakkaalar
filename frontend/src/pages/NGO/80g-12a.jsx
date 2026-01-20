@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 // axios is kept for convention, though not used in frontend logic
 import axios from "axios";
 import {
@@ -23,14 +24,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/80g_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -43,6 +44,7 @@ const taxExemptionTabs = [
     { id: 'tax-exemption-benefits', label: 'Benefits' },
     { id: 'tax-exemption-documents', label: 'Documents Required' },
     { id: 'tax-exemption-procedure', label: 'Procedure' },
+    { id: 'tax-exemption-pricing', label: 'Pricing' },
     { id: 'tax-exemption-why', label: 'Why Bizzfiling' },
     { id: 'tax-exemption-faqs', label: 'FAQs' },
 ];
@@ -98,6 +100,53 @@ const whyBizzfiling = [
     "Error-Free Filing: Meticulous preparation and filing of documentation to achieve accurate submission in just 5 days.",
 ];
 
+const taxExemptionPlans = [
+    {
+        title: "12A Registration",
+        price: "₹6,999",
+        originalPrice: "₹9,999",
+        description: "Tax Exemption for NGO Income.",
+        features: [
+            "Provisional 12A Registration",
+            "Form 10A Filing",
+            "Document Verification",
+            "Follow-up with IT Dept",
+            "Final Order Procurement"
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "12A & 80G Combo",
+        price: "₹12,999",
+        originalPrice: "₹19,999",
+        description: "Complete Tax Benefit Package.",
+        features: [
+            "12A Registration (Income Exemption)",
+            "80G Registration (Donor Benefit)",
+            "Form 10A & 10AB Filing",
+            "Projected Balance Sheets",
+            "IT Query Resolution",
+            "Priority Processing"
+        ],
+        isRecommended: true,
+    },
+    {
+        title: "CSR & Compliance",
+        price: "₹18,999",
+        originalPrice: "₹25,999",
+        description: "For NGOs seeking Corporate Funding.",
+        features: [
+            "Includes 12A & 80G Combo",
+            "CSR-1 Registration",
+            "NITI Aayog (DARPAN) Reg",
+            "Grant Proposal Assistance",
+            "Dedicated Compliance Manager"
+        ],
+        isRecommended: false,
+        isPremium: true,
+    },
+];
+
 const exemptionFAQs = [
     { q: "What is an 80G certificate?", a: "It supports financial contributions to certain non-profit organizations. Donors can reduce the donated amount from their total income, resulting in a tax immunity, provided they furnish the donation receipt." },
     { q: "Why is 12A registration necessary?", a: "NGOs receive income, and without Section 12A registration, they must pay tax at formal rates on their surplus income. 12A provides a one-time tax exemption on this additional income." },
@@ -113,14 +162,14 @@ const ReviewBox = ({ score, reviews, source }) => (
         <div className="text-yellow-400 flex items-center mb-1">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
         </div>
-        <p className="text-xs font-semibold text-white/80">{source}</p>
+        <p className="text-sm font-semibold text-white/80">{source}</p>
         <p className="mt-1 font-bold text-xl text-white">{score}</p>
-        <p className="text-xs text-white/90">{reviews}</p>
+        <p className="text-sm text-white/90">{reviews}</p>
     </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-    <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+    <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
         <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
         <div>
             <h4 className="font-semibold text-lg text-gray-800 mb-1">{title}</h4>
@@ -130,17 +179,17 @@ const DetailItem = ({ title, description, icon: Icon }) => (
 );
 
 const DocumentBox = ({ document, requiredFor }) => (
-    <div className="flex items-start gap-3 p-4 bg-red-50 rounded-lg shadow-md border-l-4 border-red-500">
+    <div className="flex items-start gap-5 p-4 bg-red-50 rounded-lg shadow-md border-l-4 border-red-500">
         <FileText className="w-5 h-5 text-red-500 flex-shrink-0 mt-1" />
         <div>
             <p className="text-gray-800 font-medium">{document}</p>
-            <p className="text-xs text-gray-600 font-medium">{requiredFor}</p>
+            <p className="text-sm text-gray-600 font-medium">{requiredFor}</p>
         </div>
     </div>
 );
 
 const ProcedureStep = ({ stepNumber, step }) => (
-    <li className="flex items-start gap-4">
+    <li className="flex items-start gap-5">
         <div className="bg-[#022B50] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
             {stepNumber}
         </div>
@@ -159,20 +208,20 @@ const TaxExemptionOverview = () => (
                 description="Vital for any non-profit entity seeking financial legitimacy and tax advantages in India."
             />
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-10">
                 <div className="p-8 bg-slate-50 rounded-2xl shadow-sm border border-slate-100/50 hover:shadow-md transition-all">
-                    <h4 className="font-bold text-xl text-slate-800 mb-4 flex items-center gap-3">
+                    <h4 className="font-bold text-xl md:text-2xl text-slate-800 mb-4 flex items-center gap-5">
                         <div className="p-2 bg-[#E0F2F1] rounded-lg text-[#00695C]"><DollarSign className="w-6 h-6" /></div>
                         What Is an 80G Certificate?
                     </h4>
-                    <p className="text-slate-600 leading-relaxed">The 80G certificate benefits the **donor**. When a person donates to an 80G-certified charity, they are allowed to **reduce that amount from their total taxable income**, resulting in tax immunity.</p>
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">The 80G certificate benefits the **donor**. When a person donates to an 80G-certified charity, they are allowed to **reduce that amount from their total taxable income**, resulting in tax immunity.</p>
                 </div>
                 <div className="p-8 bg-slate-50 rounded-2xl shadow-sm border border-slate-100/50 hover:shadow-md transition-all">
-                    <h4 className="font-bold text-xl text-slate-800 mb-4 flex items-center gap-3">
+                    <h4 className="font-bold text-xl md:text-2xl text-slate-800 mb-4 flex items-center gap-5">
                         <div className="p-2 bg-[#E0F2F1] rounded-lg text-[#00695C]"><TrendingUp className="w-6 h-6" /></div>
                         About 12A Registration
                     </h4>
-                    <p className="text-slate-600 leading-relaxed">The 12A registration benefits the **NGO itself**. Entities with 12A registration are **free from paying tax on their surplus or additional income**, which must be reinvested for charitable purposes.</p>
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">The 12A registration benefits the **NGO itself**. Entities with 12A registration are **free from paying tax on their surplus or additional income**, which must be reinvested for charitable purposes.</p>
                 </div>
             </div>
         </div>
@@ -188,14 +237,14 @@ const TaxExemptionBenefits = () => (
                 description="Unlock significant benefits for your organization and donors."
             />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {exemptionBenefits.map((item, i) => (
                     <div key={i} className="bg-white rounded-xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all group">
                         <div className="w-12 h-12 rounded-lg bg-[#E0F2F1] flex items-center justify-center mb-6 group-hover:bg-[#B2DFDB] transition-colors">
                             <item.icon className="w-6 h-6 text-[#00695C]" />
                         </div>
-                        <h4 className="text-lg font-bold text-slate-800 mb-3">{item.title}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed">{item.detail}</p>
+                        <h4 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h4>
+                        <p className="text-slate-500 text-base leading-relaxed">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -230,23 +279,23 @@ const TaxExemptionDocuments = () => {
                 />
 
                 <h4 className="text-xl font-bold mb-6 text-slate-800">Common and Mandatory Documents</h4>
-                <div className="grid md:grid-cols-3 gap-6 mb-12">
+                <div className="grid md:grid-cols-3 gap-10 mb-12">
                     {commonDocs.map((doc, i) => (
-                        <div key={i} className="flex items-start gap-3 p-5 bg-slate-50 rounded-xl border border-slate-100">
+                        <div key={i} className="flex items-start gap-5 p-5 bg-slate-50 rounded-xl border border-slate-100">
                             <FileText className="w-5 h-5 text-[#00695C] flex-shrink-0 mt-0.5" />
-                            <p className="text-slate-700 text-sm font-medium">{doc}</p>
+                            <p className="text-slate-700 text-base font-medium">{doc}</p>
                         </div>
                     ))}
                 </div>
 
                 <h4 className="text-xl font-bold mb-6 text-slate-800">Specific Documents by Requirement</h4>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-10">
                     {specificDocs.map((doc, i) => (
-                        <div key={i} className="flex items-start gap-3 p-5 bg-slate-50 rounded-xl border border-slate-100">
+                        <div key={i} className="flex items-start gap-5 p-5 bg-slate-50 rounded-xl border border-slate-100">
                             <FileText className="w-5 h-5 text-[#00695C] flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-slate-800 text-sm font-bold mb-1">{doc.doc}</p>
-                                <p className="text-xs text-slate-500">{doc.req}</p>
+                                <p className="text-slate-800 text-base font-bold mb-1">{doc.doc}</p>
+                                <p className="text-sm text-slate-500">{doc.req}</p>
                             </div>
                         </div>
                     ))}
@@ -267,38 +316,51 @@ const TaxExemptionProcedure = () => (
 
             <div className="grid lg:grid-cols-2 gap-10">
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                    <h4 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-3">
+                    <h4 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-5">
                         <div className="p-2 bg-amber-50 rounded-lg text-amber-600"><FileText className="w-5 h-5" /></div>
                         Procedure for 80G
                     </h4>
-                    <ol className="space-y-6 relative border-l-2 border-slate-100 ml-3">
+                    <ol className="space-y-8 relative border-l-2 border-slate-100 ml-3">
                         {procedure80G.map((step, i) => (
                             <li key={i} className="ml-6 relative">
-                                <span className="absolute -left-[31px] top-0 flex items-center justify-center w-6 h-6 bg-white border-2 border-[#00695C] text-[#00695C] rounded-full text-xs font-bold">
+                                <span className="absolute -left-[31px] top-0 flex items-center justify-center w-6 h-6 bg-white border-2 border-[#00695C] text-[#00695C] rounded-full text-sm font-bold">
                                     {i + 1}
                                 </span>
-                                <p className="text-slate-600 text-sm leading-relaxed">{step}</p>
+                                <p className="text-slate-600 text-base leading-relaxed">{step}</p>
                             </li>
                         ))}
                     </ol>
                 </div>
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                    <h4 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-3">
+                    <h4 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-5">
                         <div className="p-2 bg-amber-50 rounded-lg text-amber-600"><FileText className="w-5 h-5" /></div>
                         Procedure for 12A
                     </h4>
-                    <ol className="space-y-6 relative border-l-2 border-slate-100 ml-3">
+                    <ol className="space-y-8 relative border-l-2 border-slate-100 ml-3">
                         {procedure12A.map((step, i) => (
                             <li key={i} className="ml-6 relative">
-                                <span className="absolute -left-[31px] top-0 flex items-center justify-center w-6 h-6 bg-white border-2 border-[#00695C] text-[#00695C] rounded-full text-xs font-bold">
+                                <span className="absolute -left-[31px] top-0 flex items-center justify-center w-6 h-6 bg-white border-2 border-[#00695C] text-[#00695C] rounded-full text-sm font-bold">
                                     {i + 1}
                                 </span>
-                                <p className="text-slate-600 text-sm leading-relaxed">{step}</p>
+                                <p className="text-slate-600 text-base leading-relaxed">{step}</p>
                             </li>
                         ))}
                     </ol>
                 </div>
             </div>
+        </div>
+    </section>
+);
+
+const TaxExemptionPricingContent = () => (
+    <section id="tax-exemption-pricing" className="py-20 scroll-mt-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading
+                subtitle="Pricing"
+                title="Registration Packages"
+                description="Affordable plans to make your NGO tax-exempt."
+            />
+            <PricingCards plans={taxExemptionPlans} serviceName="80G & 12A Registration" />
         </div>
     </section>
 );
@@ -312,18 +374,18 @@ const TaxExemptionWhyBizzfiling = () => (
                 description="Expert guidance for a seamless registration experience."
             />
 
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
                 {whyBizzfiling.map((service, i) => {
                     const [title, detail] = service.split(':').map(s => s.trim());
                     const Icon = i % 4 === 0 ? Lightbulb : i % 4 === 1 ? CheckCircle : i % 4 === 2 ? Handshake : Zap;
                     return (
-                        <div key={i} className="p-6 bg-slate-50 rounded-xl shadow-sm border border-slate-100 flex items-start gap-4 hover:-translate-y-1 transition-transform">
+                        <div key={i} className="p-8 bg-slate-50 rounded-xl shadow-sm border border-slate-100 flex items-start gap-5 hover:-translate-y-1 transition-transform">
                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[#00695C]">
                                 <Icon className="w-5 h-5" />
                             </div>
                             <div>
-                                <h4 className="font-bold text-lg text-slate-800 mb-2">{title}</h4>
-                                <p className="text-sm text-slate-600 leading-relaxed">{detail}</p>
+                                <h4 className="font-bold text-xl text-slate-800 mb-2">{title}</h4>
+                                <p className="text-base text-slate-600 leading-relaxed">{detail}</p>
                             </div>
                         </div>
                     );
@@ -346,14 +408,14 @@ const TaxExemptionFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                 description="Find answers to common queries about 80G and 12A registration."
             />
 
-            <div className="space-y-4">
+            <div className="space-y-8">
                 {faqs.map((f, i) => (
                     <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                         <button
                             className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                             onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                         >
-                            <span className="font-bold text-base md:text-lg pr-8">{f.q}</span>
+                            <span className="font-bold text-lg md:text-xl pr-8">{f.q}</span>
                             <ChevronDown
                                 className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                             />
@@ -364,7 +426,7 @@ const TaxExemptionFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                             transition={{ duration: 0.3 }}
                             style={{ overflow: 'hidden' }}
                         >
-                            <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                            <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                                 {f.a}
                             </div>
                         </motion.div>
@@ -450,7 +512,7 @@ export default function TaxExemptionRegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -463,7 +525,7 @@ export default function TaxExemptionRegistrationPage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -472,50 +534,50 @@ export default function TaxExemptionRegistrationPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Section 80G - 12A <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Secure **tax exemptions** and gain donor trust with 12A & 80G registration. Fast, secure, and fully guided process.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Eligibility Check for Tax Exemption</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Eligibility Check for Tax Exemption</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Preparation of Projected Balance Sheets</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Preparation of Projected Balance Sheets</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Filing of Form 10A / 10AB with Income Tax Dept</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Filing of Form 10A / 10AB with Income Tax Dept</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Resolution of Queries raised by CIT</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Resolution of Queries raised by CIT</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Verified Experts</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Zap className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Fast Approval</span>
                                 </div>
@@ -528,7 +590,7 @@ export default function TaxExemptionRegistrationPage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Fill the details below to register your NGO.
                                         </p>
                                     </div>
@@ -544,7 +606,7 @@ export default function TaxExemptionRegistrationPage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
                         {taxExemptionTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button
@@ -572,6 +634,7 @@ export default function TaxExemptionRegistrationPage() {
             <TaxExemptionBenefits />
             <TaxExemptionDocuments />
             <TaxExemptionProcedure />
+            <TaxExemptionPricingContent />
             <TaxExemptionWhyBizzfiling />
             <TaxExemptionFAQsContent faqs={exemptionFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
 

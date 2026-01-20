@@ -29,6 +29,22 @@ import { motion } from "framer-motion";
 // Using the SVG background from the "Lawyer" (Dashboard) design
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
 
+// --- REUSABLE COMPONENTS ---
+
+const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
+      {subtitle}
+    </span>
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      {title}
+    </h3>
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+      {description}
+    </p>
+  </div>
+);
+
 // --- STATIC DATA (From Fundraising) ---
 
 const fundRegTabs = [
@@ -37,6 +53,7 @@ const fundRegTabs = [
   { id: 'fund-types-content', label: 'Types' },
   { id: 'fund-stages-content', label: 'Stages' },
   { id: 'fund-documents-content', label: 'Documents' },
+  { id: 'fund-fees-content', label: 'Fees' },
   { id: 'fund-why-kanakkaalar', label: 'Why Kanakkaalar?' },
   { id: 'fund-faqs-content', label: 'FAQs' },
 ];
@@ -79,6 +96,15 @@ const complianceEssentials = [
   "IP, Trademark, and Licensing Documents (if relevant).",
 ];
 
+
+
+const fundFees = [
+  { category: "Seed Fundraising Audit", fee: "₹15,000 + GST", detail: "Initial assessment & readiness report" },
+  { category: "Pitch Deck Creation", fee: "₹25,000 + GST", detail: "End-to-end design & narrative building" },
+  { category: "Financial Model", fee: "₹30,000 + GST", detail: "5-year projections & valuation report" },
+  { category: "Investor Connect", fee: "Success Fee %", detail: "Percentage on raised capital (2% - 5%)" },
+];
+
 const KanakkaalarServices = [
   "Pitch Deck Creation – Investor-ready presentations that clearly present your business story and value.",
   "Financial Modeling – Develop accurate forecasts and ascertain realistic valuations.",
@@ -119,7 +145,7 @@ const resourceLinks = [
 
 const LawyerCard = ({ lawyer }) => ( // Kept for potential future use
   <motion.div
-    className="p-6 transition-shadow bg-white border-t-4 border-indigo-100 shadow-lg rounded-xl hover:shadow-xl"
+    className="p-8 transition-shadow bg-white border-t-4 border-indigo-100 shadow-lg rounded-xl hover:shadow-xl"
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
@@ -135,7 +161,7 @@ const LawyerCard = ({ lawyer }) => ( // Kept for potential future use
 );
 
 const StatPill = ({ count, label }) => ( // Kept for design consistency
-  <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-md">
+  <div className="flex items-center gap-5 px-4 py-2 bg-white rounded-lg shadow-md">
     <span className="text-[#222428] text-sm font-semibold tracking-wider">
       <span className="mr-1 font-bold">{count}</span>{label}
     </span>
@@ -143,7 +169,7 @@ const StatPill = ({ count, label }) => ( // Kept for design consistency
 );
 
 const ReviewBox = ({ score, reviews, source }) => ( // Kept for design consistency
-  <div className="bg-white/10 rounded-xl p-6 shadow-lg w-full max-w-[220px] flex flex-col items-center justify-center border border-white/20">
+  <div className="bg-white/10 rounded-xl p-8 shadow-lg w-full max-w-[220px] flex flex-col items-center justify-center border border-white/20">
     <div className="flex items-center mb-2 text-yellow-400">
       {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-yellow-400" />)}
     </div>
@@ -190,8 +216,8 @@ const ProcessStep = ({ stepNumber, step, isLast }) => ( // Kept for design consi
 );
 
 const BenefitItem = ({ title, description }) => ( // Kept for design consistency
-  <div className="p-6 transition-all duration-300 bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-lg hover:border-indigo-500 hover:-translate-y-1">
-    <div className="flex items-center gap-4 mb-4">
+  <div className="p-8 transition-all duration-300 bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-lg hover:border-indigo-500 hover:-translate-y-1">
+    <div className="flex items-center gap-5 mb-4">
       <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 bg-green-100 rounded-full">
         <CheckCircle className="w-6 h-6 text-green-600" />
       </div>
@@ -202,7 +228,7 @@ const BenefitItem = ({ title, description }) => ( // Kept for design consistency
 );
 
 const ExpertiseCard = ({ title }) => ( // Kept for design consistency
-  <div className="relative p-6 overflow-hidden transition bg-white shadow-lg rounded-2xl hover:shadow-xl">
+  <div className="relative p-8 overflow-hidden transition bg-white shadow-lg rounded-2xl hover:shadow-xl">
     <div className="relative z-10">
       <div className="flex items-start mb-4">
         <span className="text-indigo-600">
@@ -229,7 +255,7 @@ const ExpertiseCard = ({ title }) => ( // Kept for design consistency
 
 const ResourceLinkGroup = ({ title, items, icon: Icon }) => ( // Kept for footer design
   <div className="p-4 bg-white shadow-lg rounded-xl">
-    <h4 className="flex items-center gap-2 mb-3 text-xl font-bold text-gray-900">
+    <h4 className="flex items-center gap-5 mb-3 text-xl font-bold text-gray-900">
       {Icon && <Icon className="w-5 h-5 text-[#2E96FF]" />} {title}
     </h4>
     <div className="grid grid-cols-2 gap-x-4 gap-y-2">
@@ -250,7 +276,7 @@ const ResourceLinkGroup = ({ title, items, icon: Icon }) => ( // Kept for footer
 // --- REUSABLE COMPONENTS (Imported from Fundraising) ---
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-  <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+  <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
     <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
     <div>
       <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -264,9 +290,9 @@ const FundTypeTable = ({ data }) => (
     <table className="min-w-full divide-y divide-gray-200">
       <thead className="bg-[#E6F0F6]">
         <tr>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Funding Type</th>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Pros</th>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Cons</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Funding Type</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Pros</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Cons</th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
@@ -287,10 +313,10 @@ const FundStagesTable = ({ data }) => (
     <table className="min-w-full divide-y divide-gray-200">
       <thead className="bg-[#E6F0F6]">
         <tr>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Stage</th>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Round</th>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Fund Size (₹)</th>
-          <th className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">Typical Source</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Stage</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Round</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Fund Size (₹)</th>
+          <th className="px-6 py-3 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">Typical Source</th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
@@ -312,15 +338,13 @@ const FundStagesTable = ({ data }) => (
 
 const FundOverviewContent = () => (
   <section id="fund-overview-content" className="py-12 scroll-mt-24">
-    <h2 className="mb-6 text-3xl font-bold text-gray-800">Overview</h2>
-    <p className="max-w-4xl mb-4 text-lg text-gray-700">
-      Start-up fundraising is the activity of raising financial investment to fund business expansion, product development, or market penetration. This money can be sourced from **angel investors, venture capitalists, crowdfunding, or government grants**. Mismanagement of fundraising can result in compliance problems, forced equity dilution, or legal delays that can foul future investment prospects.
-    </p>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      At Kanakkaalar we assist fundraising with expert advice to guarantee **strategic planning, compliance with regulations, and improved long-term results** for startups.
-    </p>
+    <SectionHeading
+      subtitle="Fundraising Overview"
+      title="Overview"
+      description="Start-up fundraising is the activity of raising financial investment to fund business expansion, product development, or market penetration from sources like angel investors, venture capitalists, crowdfunding, or government grants. At Kanakkaalar we assist fundraising with expert advice to guarantee strategic planning, compliance with regulations, and improved long-term results."
+    />
 
-    <div className="p-6 bg-[#E6F0F6] rounded-xl border-l-4 border-[#022B50] shadow-md">
+    <div className="p-8 bg-[#E6F0F6] rounded-xl border-l-4 border-[#022B50] shadow-md">
       <h3 className="text-2xl font-bold mb-4 text-[#022B50]">What Is Fundraising for Startups?</h3>
       <p className="font-medium text-gray-800">
         Fundraising is an important aspect of developing a business startup, particularly in the case of startups as most startups do not have enough money. Startup entrepreneurs usually start with using personal funds or borrowing money from friends and relatives. This initial source of money, **pre-seed funding**, is used to test whether a business idea works and create a simple business model.
@@ -334,8 +358,12 @@ const FundOverviewContent = () => (
 
 const FundDefinitionContent = () => (
   <section id="fund-definition-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-8 text-3xl font-bold text-gray-800">Key Fundraising Aims</h3>
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <SectionHeading
+      subtitle="Objectives"
+      title="Key Fundraising Aims"
+      description="Maximize your growth potential by securing capital for expansion, product development, and market penetration."
+    />
+    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
       <DetailItem
         title="Business Expansion"
         description="Secure capital to enter new markets, acquire competitors, or increase production capacity."
@@ -372,22 +400,24 @@ const FundDefinitionContent = () => (
 
 const FundTypesContent = () => (
   <section id="fund-types-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Types of Startup Fundraising</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Startups can raise money in different ways, each appropriate for different requirements and stages of development. The following is a complete description of the types:
-    </p>
+    <SectionHeading
+      subtitle="Types"
+      title="Types of Startup Fundraising"
+      description="Startups can raise money in different ways, each appropriate for different requirements and stages of development."
+    />
     <FundTypeTable data={fundTypesData} />
   </section>
 );
 
 const FundStagesContent = () => (
   <section id="fund-stages-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Startup Funding Rounds & Stages</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Startup funding goes through different stages, each corresponding to business development and risk levels. These investment companies assess equity financing opportunities in exchange for equity share, facilitating fast growth and driving the selected growth trajectory. Here is a simplified categorisation:
-    </p>
+    <SectionHeading
+      subtitle="Stages"
+      title="Startup Funding Rounds"
+      description="Understanding the investment lifecycle from Pre-seed to Series C and beyond."
+    />
     <FundStagesTable data={fundStageData} />
-    <div className="max-w-4xl p-6 mt-8 border-l-4 border-green-500 shadow-md bg-green-50 rounded-xl">
+    <div className="max-w-4xl p-8 mt-8 border-l-4 border-green-500 shadow-md bg-green-50 rounded-xl">
       <h4 className="text-lg font-semibold text-gray-800">VC Value Addition</h4>
       <p className="text-sm text-gray-600">VCs provide not just capital but also strategic advice, legal support, and access to other potential investors. These collaborations refine the financial model, enhance marketing strategies, and make the company's competitive edge even better. With each round comes additional capital—and expectations. Select the appropriate funding round to fit your startup's current stage and objectives.</p>
     </div>
@@ -396,16 +426,17 @@ const FundStagesContent = () => (
 
 const FundDocumentsContent = () => (
   <section id="fund-documents-content" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Documents Required for Fundraising</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Pre-deal, VCs and angel investors need critical documents to consider and close the investment. These startup funding documents provide **legal certainty and investor confidence**.
-    </p>
-    <div className="grid gap-8 md:grid-cols-2">
+    <SectionHeading
+      subtitle="Documents"
+      title="Required Documents"
+      description="Pre-deal, VCs and angel investors need critical documents to consider and close the investment. These startup funding documents provide legal certainty and investor confidence."
+    />
+    <div className="grid gap-10 md:grid-cols-2">
       <div>
         <h4 className="text-2xl font-bold text-[#022B50] mb-4">Core Investment Documents:</h4>
-        <ul className="space-y-3 text-gray-700">
+        <ul className="space-y-8 text-gray-700">
           {mandatoryDocuments.map((doc, i) => (
-            <li key={i} className="flex items-start gap-2">
+            <li key={i} className="flex items-start gap-5">
               <FileText className="flex-shrink-0 w-5 h-5 mt-1 text-green-500" />
               <span>{doc}</span>
             </li>
@@ -417,9 +448,9 @@ const FundDocumentsContent = () => (
         <p className="mb-3 text-sm italic text-gray-600">
           Having these ready beforehand prevents delays, fosters trust, and facilitates easy closure of funding.
         </p>
-        <ul className="space-y-3 text-gray-700">
+        <ul className="space-y-8 text-gray-700">
           {complianceEssentials.map((doc, i) => (
-            <li key={i} className="flex items-start gap-2">
+            <li key={i} className="flex items-start gap-5">
               <Scale className="flex-shrink-0 w-5 h-5 mt-1 text-indigo-500" />
               <span>**{doc.split('(')[0].trim()}** ({doc.split('(').length > 1 ? doc.split('(')[1].slice(0, -1) : 'mandatory check'})</span>
             </li>
@@ -431,20 +462,37 @@ const FundDocumentsContent = () => (
       Kanakkaalar streamlines your fundraising process by having all necessary documents prepared for you, ranging from pitch decks to legal documents to make you **investor-ready** and **compliant with the law**.
     </p>
   </section>
+
+);
+
+const FundFeesContent = () => (
+  <section id="fund-fees-content" className="py-12 scroll-mt-24">
+    <SectionHeading subtitle="Investments" title="Service Fees & Charges" description="Transparent pricing for our fundraising support services." />
+    <div className="grid md:grid-cols-2 gap-10 mb-12">
+      {fundFees.map((f, i) => (
+        <div key={i} className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-8 hover:shadow-lg transition-all">
+          <span className="text-sm font-bold text-slate-400 tracking-widest uppercase">{f.category}</span>
+          <p className="text-3xl font-black text-[#1A7F7D] italic tracking-tighter underline decoration-[#C19A5B] decoration-4 underline-offset-8 mb-3">{f.fee}</p>
+          <p className="text-sm text-slate-500 font-bold italic uppercase">{f.detail}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 );
 
 const FundHowKanakkaalar = () => (
   <section id="fund-why-kanakkaalar" className="py-12 scroll-mt-24">
-    <h3 className="mb-6 text-3xl font-bold text-gray-800">Kanakkaalar Fundraising Support Services</h3>
-    <p className="max-w-4xl mb-8 text-lg text-gray-700">
-      Kanakkaalar provides a **360° fundraising solution** to Indian startups. This is how we assist you in preparing and raising capital legally and with confidence:
-    </p>
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <SectionHeading
+      subtitle="Our Services"
+      title="Kanakkaalar Support"
+      description="Kanakkaalar provides a 360° fundraising solution to Indian startups. This is how we assist you in preparing and raising capital legally and with confidence."
+    />
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {KanakkaalarServices.map((service, i) => {
         const [title, description] = service.split('–').map(s => s.trim());
         const Icon = i % 3 === 0 ? Lightbulb : i % 3 === 1 ? Handshake : FileText; // Simple icon variation
         return (
-          <div key={i} className="flex items-start gap-3 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
+          <div key={i} className="flex items-start gap-5 p-5 border border-indigo-200 shadow-sm bg-indigo-50 rounded-xl">
             <Icon className="w-6 h-6 text-[#022B50] mt-1 flex-shrink-0" />
             <div>
               <h4 className="mb-1 text-lg font-bold text-gray-800">{title}</h4>
@@ -464,7 +512,7 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
       {/* Left Column (Text updated for Fundraising) */}
       <div className="lg:col-span-5">
-        <div className="flex items-center gap-2 mb-4 font-semibold text-indigo-600">
+        <div className="flex items-center gap-5 mb-4 font-semibold text-indigo-600">
           <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
           <span>FAQ’s</span>
           <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
@@ -480,7 +528,7 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
       </div>
 
       {/* Right Column (Accordion from Dashboard design) */}
-      <div className="space-y-4 lg:col-span-7">
+      <div className="space-y-8 lg:col-span-7">
         {faqs.map((f, i) => (
           <div key={i} className="overflow-hidden bg-gray-100 rounded-lg">
             <button
@@ -591,7 +639,7 @@ export default function FundraisingPage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -608,7 +656,7 @@ export default function FundraisingPage() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-sm leading-tight uppercase tracking-wider mb-1">
                       Startup<br />Services<br />In India
                     </span>
                     <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -617,7 +665,7 @@ export default function FundraisingPage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   Fundraising for <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Startups</span>
@@ -628,12 +676,12 @@ export default function FundraisingPage() {
                 </p>
               </div>
 
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                   <span>Verified Experts</span>
                 </div>
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Shield className="w-4 h-4 text-[#C59B4E]" />
                   <span>Data Privacy</span>
                 </div>
@@ -646,7 +694,7 @@ export default function FundraisingPage() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Raise Funds Now</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                       Share your details to connect with investment experts!
                     </p>
                   </div>
@@ -662,7 +710,7 @@ export default function FundraisingPage() {
       {/* === Sticky Navigation === */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
             {fundRegTabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button
@@ -690,18 +738,19 @@ export default function FundraisingPage() {
           <FundTypesContent />
           <FundStagesContent />
           <FundDocumentsContent />
+          <FundFeesContent />
           <FundHowKanakkaalar />
           <FAQsContent faqs={fundFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
         </div>
       </div>
 
       {/* --- Resources & Links Footer Section --- */}
-      <section className="px-4 py-16 bg-[#F8FAFC] border-t border-slate-200 md:px-8">
+      <section className="px-4 py-20 bg-[#F8FAFC] border-t border-slate-200 md:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-12 text-3xl font-bold text-center text-slate-800 font-heading">
             Explore Our Resources
           </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {resourceLinks.map((group, i) => (
               <ResourceLinkGroup key={i} title={group.title} items={group.items} icon={group.icon} />
             ))}

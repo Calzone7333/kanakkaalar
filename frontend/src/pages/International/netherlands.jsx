@@ -14,7 +14,8 @@ import {
   Zap,
   Scale,
   Users,
-  Check
+  Check,
+  Rocket
 } from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
 
@@ -92,31 +93,31 @@ const nlFAQs = [
 // --- Reusable Components (Compact & Premium) ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-8 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-widest mb-2 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-2 text-xl md:text-2xl font-bold text-slate-800 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-xs md:text-sm max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
 );
 
 const FaqItem = ({ faq, isOpen, onClick }) => (
-  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-2
-     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30'}
-  `}>
-    <button className="flex items-center justify-between w-full p-4 text-left" onClick={onClick}>
-      <h3 className={`text-xs font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-4
+       ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
+    `}>
+    <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
+      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
       <div className="flex-shrink-0">
-        <ChevronDown size={14} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
+        <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
       </div>
     </button>
-    <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'} overflow-hidden`}>
-      <p className={`px-4 pb-4 text-[11px] leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>{faq.a}</p>
+    <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
     </div>
   </div>
 );
@@ -124,30 +125,112 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sections ---
 
 const OverviewContent = () => (
-  <section id="overview-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Overview" title="Netherlands Registration" description="Setting up a company in the Netherlands offers a gateway to Europe's largest economies. Known for its pro-business climate and strategic location." />
-      <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-slate-100">
-        <p className="text-slate-600 leading-relaxed text-sm">
-          The process is streamlined and can be done remotely, making it highly accessible for founders from India and around the world. Bizzfiling simplifies this journey, ensuring a compliant and efficient setup.
-        </p>
+  <section id="overview-content" className="py-20 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Innovation Gateway"
+        title="Dutch Business Setup"
+        description="Setting up a company in the Netherlands offers a gateway to Europe's largest economies through a pro-business climate and strategic location."
+      />
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="space-y-8">
+          <div className="prose prose-slate prose-lg">
+            <p className="text-slate-600 leading-relaxed text-lg">
+              The process is streamlined and can be done fully remotely. <span className="text-[#1A7F7D] font-bold">Bizzfiling</span> simplifies this journey, coordinating with Dutch civil-law notaries to ensure a compliant and efficient setup for global founders.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {[
+              { text: "100% Remote Setup", icon: Rocket },
+              { text: "EU Market Access", icon: Globe },
+              { text: "Notary Coordination", icon: Shield },
+              { text: "Tax Treaty Network", icon: Scale }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-5 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#1A7F7D]/30 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#1A7F7D] shadow-sm">
+                  {item.icon ? <item.icon size={20} /> : <CheckCircle size={20} />}
+                </div>
+                <span className="text-sm font-bold text-slate-700">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-[#1A7F7D]/10 to-[#C59B4E]/10 rounded-[2.5rem] blur-2xl"></div>
+          <div className="relative p-10 bg-[#0F2D30] rounded-[2.5rem] text-center text-white border-b-8 border-[#C59B4E] shadow-2xl">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 mb-6 backdrop-blur-sm border border-white/20">
+              <Briefcase className="w-10 h-10 text-[#C59B4E]" />
+            </div>
+            <h5 className="text-5xl font-black mb-2 tracking-tight">€0.01</h5>
+            <p className="text-sm text-[#C59B4E] uppercase tracking-[0.3em] font-black">Min Share Capital</p>
+            <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 gap-5">
+              <div className="text-left">
+                <p className="text-sm text-slate-400 font-bold uppercase mb-1">VAT Rating</p>
+                <p className="text-lg font-bold">Standard 21%</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-slate-400 font-bold uppercase mb-1">Economy</p>
+                <p className="text-lg font-bold">AAA Rated</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 );
 
 const AdvantagesContent = () => (
-  <section id="advantages-content" className="py-12 bg-slate-50/50 scroll-mt-24">
+  <section id="advantages-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Benefits" title="Strategic Advantages" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {nlAdvantages.map((adv, i) => (
-          <div key={i} className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm transition-all group">
-            <div className="w-10 h-10 bg-[#F0FDFA] rounded-lg flex items-center justify-center mb-4 text-[#1A7F7D] group-hover:bg-[#1A7F7D] group-hover:text-white transition-all">
-              <adv.icon size={20} />
+      <SectionHeading subtitle="Success" title="Strategic Advantages" description="Why global entrepreneurs choose the Netherlands as their gateway to Europe." />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {nlAdvantages.map((item, i) => (
+          <div
+            key={i}
+            className={`group relative rounded-2xl border p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col items-center text-center
+              ${i === 1
+                ? 'bg-[#0F2D30] border-[#0F2D30] text-white ring-4 ring-[#0F2D30]/10'
+                : 'bg-white border-slate-100 text-slate-800 hover:border-[#1A7F7D]/30'
+              }`}
+          >
+
+            {/* Hover Top Border */}
+            {i !== 1 && (
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#1A7F7D] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
+            )}
+
+            {/* Icon */}
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 transition-colors duration-300 shadow-inner group-hover:shadow-lg mt-2
+              ${i === 1
+                ? 'bg-white text-[#0F2D30]'
+                : 'bg-[#F0FDFA] text-[#1A7F7D] group-hover:bg-[#1A7F7D] group-hover:text-white'
+              }
+            `}>
+              {item.icon ? <item.icon size={36} strokeWidth={1.5} /> : <FileText size={36} strokeWidth={1.5} />}
             </div>
-            <h4 className="text-base font-bold text-slate-800 mb-2">{adv.title}</h4>
-            <p className="text-slate-500 text-[11px] leading-relaxed">{adv.description}</p>
+
+            {/* Title */}
+            <h3 className={`text-xl font-bold mb-4 transition-colors ${i === 1 ? 'text-white' : 'text-slate-800 group-hover:text-[#1A7F7D]'}`}>
+              {item.title}
+            </h3>
+
+            {/* Description */}
+            <p className={`text-[15px] leading-relaxed mb-6 min-h-[80px] ${i === 1 ? 'text-slate-300' : 'text-slate-500'}`}>
+              {item.description}
+            </p>
+
+            {/* Read More Button */}
+            <div className="mt-auto">
+              <button className={`inline-flex items-center px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300
+                ${i === 1
+                  ? 'bg-[#1A7F7D] text-white hover:bg-[#156664] hover:shadow-lg'
+                  : 'bg-[#F0FDFA] text-[#1A7F7D] hover:bg-[#1A7F7D] hover:text-white'
+                }
+              `}>
+                Read More
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -156,19 +239,38 @@ const AdvantagesContent = () => (
 );
 
 const TypesContent = () => (
-  <section id="types-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Structures" title="Entity Comparison" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {entityTypesDataNL.map((type, i) => (
-          <div key={i} className="p-6 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl transition-all border-t-2 border-t-[#C59B4E]">
-            <h4 className="text-lg font-bold text-[#0F2D30] mb-2">{type.type}</h4>
-            <p className="text-slate-600 text-[11px] leading-relaxed mb-4">{type.description}</p>
-            <div className="space-y-2">
-              {type.key_points.map((point, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-[10px] font-semibold text-slate-700">
-                  <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center text-green-600"><Check size={10} /></div>
-                  {point}
+  <section id="types-content" className="py-20 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Legal Forms"
+        title="Choose Your Dutch Entity"
+        description="Select the structure that aligns with your European growth objectives and liability needs."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {entityTypesDataNL.map((item, i) => (
+          <div
+            key={i}
+            className={`flex flex-col rounded-3xl border p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2
+              ${i === 0
+                ? 'bg-[#0F2D30] border-[#0F2D30] text-white ring-4 ring-[#0F2D30]/10 shadow-xl'
+                : 'bg-white border-slate-100 text-slate-800'
+              }`}
+          >
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-inner
+              ${i === 0 ? 'bg-white/10 text-[#C59B4E]' : 'bg-[#F0FDFA] text-[#1A7F7D]'}`}
+            >
+              <Briefcase size={28} />
+            </div>
+            <h4 className={`text-2xl font-bold mb-4 ${i === 0 ? 'text-white' : 'text-slate-900'}`}>{item.type}</h4>
+            <p className={`text-sm leading-relaxed mb-8 flex-grow ${i === 0 ? 'text-slate-300' : 'text-slate-500'}`}>{item.description}</p>
+            <div className="space-y-8 pt-6 border-t border-white/10">
+              {item.key_points.map((point, idx) => (
+                <div key={idx} className="flex items-center gap-5">
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 
+                    ${i === 0 ? 'bg-[#1A7F7D]/40 text-white' : 'bg-green-100 text-green-600'}`}>
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span className={`text-sm font-bold ${i === 0 ? 'text-white/90' : 'text-slate-700'}`}>{point}</span>
                 </div>
               ))}
             </div>
@@ -180,42 +282,79 @@ const TypesContent = () => (
 );
 
 const ProcessContent = () => (
-  <section id="process-content" className="py-12 bg-slate-50 scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Process" title="6-Step Guide" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+  <section id="process-content" className="py-24 bg-slate-50 scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Steps"
+        title="6-Phase Incorporation"
+        description="Our simplified roadmap to launching your Dutch venture."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16 relative">
         {nlProcessSteps.map((step, i) => (
-          <div key={i} className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm transition-all">
-            <div className="inline-block px-2 py-1 bg-[#0F2D30] text-[#C59B4E] rounded-md font-bold text-[10px] mb-2">Step {i + 1}</div>
-            <h4 className="text-sm font-bold text-slate-800 mb-1">{step.title}</h4>
-            <p className="text-slate-500 text-[10px] leading-relaxed">{step.desc}</p>
+          <div key={i} className="group flex flex-col items-center text-center p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-[#0F2D30] text-[#C59B4E] rounded-2xl flex items-center justify-center font-black text-xl mb-6 shadow-xl transform group-hover:rotate-6 transition-transform">
+              {i + 1}
+            </div>
+            <h4 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h4>
+            <p className="text-slate-500 text-[15px] leading-relaxed px-4">{step.desc}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-20 p-10 bg-[#0F2D30] rounded-[2.5rem] shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10">
+        <div className="space-y-8 text-center lg:text-left">
+          <h3 className="text-3xl font-extrabold text-white">EU Banking Partner?</h3>
+          <p className="text-slate-300 text-lg">We assist with opening accounts with leading Dutch and neo-banks.</p>
+        </div>
+        <button className="px-10 py-5 bg-[#C59B4E] text-[#0F2D30] rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-[#0F2D30]/50 hover:scale-105 active:scale-95 transition-all">
+          Get Started
+        </button>
       </div>
     </div>
   </section>
 );
 
 const DocumentsContent = () => (
-  <section id="documents-content" className="py-12 bg-white scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <div className="flex flex-col lg:flex-row gap-8 items-center">
-        <div className="w-full lg:w-1/2">
-          <SectionHeading subtitle="Documents" title="Required Files" align="left" />
-          <div className="space-y-2">
+  <section id="documents-content" className="py-24 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex flex-col lg:flex-row gap-20 items-stretch">
+        <div className="w-full lg:w-3/5">
+          <SectionHeading subtitle="Checklist" title="Dutch Requirements" align="left" />
+          <div className="grid sm:grid-cols-1 gap-10 mt-10">
             {requiredDocumentsNL.map((doc, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                <FileText size={14} className="text-[#C59B4E]" />
-                <p className="text-slate-700 font-medium text-[11px]">{doc}</p>
+              <div key={i} className="group flex items-center gap-10 p-8 bg-white rounded-2xl border border-slate-100 hover:border-[#1A7F7D]/30 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 bg-slate-50 group-hover:bg-[#F0FDFA] rounded-xl flex items-center justify-center text-[#1A7F7D] transition-colors">
+                  <FileText size={28} />
+                </div>
+                <div>
+                  <h5 className="text-lg font-bold text-slate-900">{doc}</h5>
+                  <p className="text-sm text-slate-500 font-medium">Legally verified copies</p>
+                </div>
+                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                  <CheckCircle size={24} className="text-green-500" />
+                </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="w-full lg:w-1/2 bg-[#0F2D30] p-8 rounded-3xl text-white relative">
-          <Award className="w-10 h-10 text-[#C59B4E] mb-4" />
-          <h3 className="text-xl font-bold mb-2">Expert Assistance</h3>
-          <p className="text-slate-300 mb-6 text-xs leading-relaxed">Our legal team specializes in international business law. We handle pre-incorporation checks and notary coordination.</p>
-          <button className="bg-[#C59B4E] text-[#0F2D30] px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-wider hover:opacity-90 transition-all">Get Free Consultation</button>
+        <div className="w-full lg:w-2/5 flex flex-col">
+          <div className="flex-grow bg-[#0F2D30] p-10 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl flex flex-col items-center text-center justify-center">
+            <div className="absolute top-0 right-0 p-8">
+              <Shield size={120} className="text-white/5 rotate-12" />
+            </div>
+            <div className="w-24 h-24 bg-white/10 backdrop-blur rounded-3xl flex items-center justify-center mb-10 shadow-inner">
+              <Star size={48} className="text-[#C59B4E]" />
+            </div>
+            <h3 className="text-3xl font-extrabold mb-6">Premium Advisory</h3>
+            <p className="text-slate-300 mb-10 text-lg font-medium leading-relaxed">
+              Every Dutch BV requires a civil-law notary. We handle all coordination and legalization of your international documents.
+            </p>
+            <div className="w-full space-y-8">
+              <button className="w-full bg-[#C59B4E] text-[#0F2D30] px-8 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20">
+                Talk to Dutch Expert
+              </button>
+              <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">Global EU Standards</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -223,17 +362,21 @@ const DocumentsContent = () => (
 );
 
 const TaxContent = () => (
-  <section id="tax-content" className="py-12 bg-slate-50/50 scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <SectionHeading subtitle="Compliance" title="Tax Obligations" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <section id="tax-content" className="py-24 bg-slate-50/50 scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <SectionHeading
+        subtitle="Compliance"
+        title="Tax Obligations"
+        description="Understanding your ongoing tax responsibilities within the Dutch fiscal framework."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {nlTaxCompliance.map((item, i) => (
-          <div key={i} className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 text-center">
-            <div className="w-12 h-12 bg-[#F0FDFA] rounded-full flex items-center justify-center text-[#1A7F7D] mb-4 mx-auto border border-slate-100 shadow-inner">
-              <item.icon size={24} />
+          <div key={i} className="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 group text-center">
+            <div className="w-20 h-20 bg-[#F0FDFA] rounded-full flex items-center justify-center text-[#1A7F7D] mb-8 mx-auto border border-slate-50 group-hover:bg-[#1A7F7D] group-hover:text-white transition-all duration-500">
+              {item.icon ? <item.icon size={36} /> : <DollarSign size={36} />}
             </div>
-            <h4 className="text-base font-bold text-slate-800 mb-2">{item.title}</h4>
-            <p className="text-slate-500 text-[10px] leading-relaxed">{item.details}</p>
+            <h4 className="text-2xl font-bold text-slate-900 mb-4">{item.title}</h4>
+            <p className="text-slate-500 text-base font-medium leading-relaxed">{item.details}</p>
           </div>
         ))}
       </div>
@@ -278,41 +421,39 @@ export default function NetherlandsPage() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* Hero Section - Compact */}
-      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
         <div className="absolute inset-0 z-0">
-          <img src={BackgroundImageSrc} alt="Netherlands" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 lg:via-[#0F2D30]/90 to-transparent z-10"></div>
+          <img src={BackgroundImageSrc} alt="Netherlands Company Registration" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="w-full lg:w-3/5 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur rounded-full border border-white/20">
-                <Globe size={12} className="text-[#C59B4E]" />
-                <span className="text-white text-[9px] uppercase font-bold tracking-[0.1em]">Netherlands Company Formation</span>
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-3/5 space-y-8">
+              <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                <Globe size={14} className="text-[#C59B4E]" />
+                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Verified EU Business Support</span>
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-white leading-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                 Business Setup in <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Netherlands</span>
               </h1>
-              <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
-                Launch in Europe's connected economy. 100% remote registration, business-friendly taxes, and EU market entry.
+              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                Launch in Europe's connected economy. 100% remote registration, business-friendly taxes, and EU market entry. Connect with specialists for reliable Dutch formation.
               </p>
-              <div className="flex gap-4 pt-2">
-                <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold">
-                  <CheckCircle size={14} className="text-[#C59B4E]" /> 100% Remote
+              <div className="flex gap-10 pt-2">
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <CheckCircle size={18} className="text-[#C59B4E]" /> 100% Remote
                 </div>
-                <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold">
-                  <Shield size={14} className="text-[#C59B4E]" /> Expert Advisor
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <Shield size={18} className="text-[#C59B4E]" /> Expert Advisor
                 </div>
               </div>
             </div>
             <div className="w-full max-w-sm">
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
-                <div className="bg-[#0F2D30] py-4 px-6 text-center border-b border-white/10">
-                  <h2 className="text-lg font-bold text-white leading-none">Book Consultation</h2>
-                </div>
-                <div className="p-6">
-                  <LeadForm serviceName="Company Registration in Netherlands" btnText="Talk to Expert" />
+                <div className="p-8 md:p-8">
+                  <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Launch Now</h3>
+                  <LeadForm serviceName="Company Registration in Netherlands" btnText="Start Registration" />
                 </div>
               </div>
             </div>
@@ -323,11 +464,11 @@ export default function NetherlandsPage() {
       {/* Sticky Navigation - Compact */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-center gap-6 md:gap-10 overflow-x-auto no-scrollbar py-0">
+          <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
             {tabs.map((tab) => (
-              <li key={tab.id} className="flex-shrink-0">
+              <li key={tab.id}>
                 <button
-                  className={`py-4 text-[10px] font-bold tracking-widest uppercase border-b-2 transition-all ${activeTab === tab.id ? 'text-[#0F2D30] border-[#0F2D30]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
+                  className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                   onClick={() => handleTabClick(tab.id)}
                 >{tab.label}</button>
               </li>
@@ -345,10 +486,10 @@ export default function NetherlandsPage() {
         <TaxContent />
 
         {/* FAQ Section - Compact */}
-        <section id="faqs-content" className="py-16 bg-white scroll-mt-24 border-t border-slate-50">
-          <div className="max-w-3xl mx-auto px-4">
-            <SectionHeading subtitle="FAQ" title="Common Questions" />
-            <div className="mt-8">
+        <section id="faqs-content" className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <SectionHeading subtitle="FAQ" title="Your Netherlands Questions" description="Answers to common questions about Dutch incorporation and operations." />
+            <div className="space-y-8">
               {nlFAQs.map((f, i) => (
                 <FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />
               ))}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 // axios is kept for convention, though not used in frontend logic
 import axios from "axios";
 import {
@@ -31,14 +32,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/section8_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -52,9 +53,67 @@ const section8Tabs = [
     { id: 'sec8-eligibility-content', label: 'Eligibility' },
     { id: 'sec8-documents-content', label: 'Documents' },
     { id: 'sec8-process-content', label: 'Process' },
+    { id: 'sec8-pricing-content', label: 'Pricing' },
     { id: 'sec8-compliance-law-content', label: 'Compliance & Law' },
     { id: 'sec8-why-Bizzfiling', label: 'Why Bizzfiling?' },
     { id: 'sec8-faqs-content', label: "FAQ's" },
+];
+
+const section8Plans = [
+    {
+        title: "Standard",
+        price: "₹4,999",
+        description: "Complete Section 8 Company Registration Package.",
+        features: [
+            "Expert assisted process",
+            "Guidance on choosing right NGO structure",
+            "Name suggestion",
+            "Name approval within 7 working days",
+            "SPICe+ form filling in 7 days*",
+            "Incorporation Certificate",
+            "Company PAN+TAN",
+            "Zero balance current account with up to 7% interest",
+            "DARPAN Registration Free 🎉"
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "Premium",
+        price: "₹5,999",
+        description: "Incorporation + 12A & 80G Registration.",
+        features: [
+            "Expert assisted process",
+            "DSC in just 24 hours",
+            "DIN for directors",
+            "Your company name is reserved in just 5 days",
+            "SPICe+ form filling in 7 days*",
+            "Incorporation Certificate",
+            "Company PAN+TAN",
+            "Zero balance current account with up to 7% interest",
+            "Section 80g in 14 days post NGO formation",
+            "Section 12A in 14 days post NGO formation",
+            "DARPAN Registration Free 🎉",
+            "CSR Filings",
+            "Accounting for one Financial year ( 0-300 Transactions)",
+            "Auditing for one Financial year (0-300 Transactions)",
+            "ITR filing for one Financial year",
+            "Transaction and Tax Advisory by a Professional Auditor"
+        ],
+        isRecommended: true,
+    },
+    {
+        title: "Elite",
+        price: "₹19,999",
+        description: "End-to-end setup including annual compliance.",
+        features: [
+            "Dedicated account manager",
+            "DSC in just 24 hours",
+            "DIN for directors",
+            "Your company name is reserved in just 3 days."
+        ],
+        isRecommended: false,
+        isPremium: true,
+    },
 ];
 
 const section8Overview = [
@@ -132,14 +191,14 @@ const ReviewBox = ({ score, reviews, source }) => (
         <div className="flex items-center mb-1 text-yellow-400">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
         </div>
-        <p className="text-xs font-semibold text-white/80">{source}</p>
+        <p className="text-sm font-semibold text-white/80">{source}</p>
         <p className="mt-1 text-xl font-bold text-white">{score}</p>
-        <p className="text-xs text-white/90">{reviews}</p>
+        <p className="text-sm text-white/90">{reviews}</p>
     </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-    <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+    <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
         <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
         <div>
             <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -168,7 +227,7 @@ const Section8OverviewContent = () => (
             />
 
             <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-                <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
+                <div className="space-y-8 text-slate-600 text-lg leading-relaxed">
                     <p>
                         A **Section 8 Company** is a non-profit organization incorporated under the **Companies Act, 2013** in India. It is established to promote charitable objectives like education, science, arts, or social welfare.
                     </p>
@@ -178,15 +237,15 @@ const Section8OverviewContent = () => (
                 </div>
                 <div className="bg-[#F8FAFC] p-8 rounded-2xl border border-slate-200">
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Primary Objectives</h4>
-                    <ul className="space-y-4">
+                    <ul className="space-y-8">
                         {section8Overview.map((item, i) => (
-                            <li key={i} className="flex items-start gap-3">
+                            <li key={i} className="flex items-start gap-5">
                                 <div className="p-2 bg-white rounded-lg shadow-sm text-[#00695C] border border-slate-100">
                                     <item.icon className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <span className="block font-bold text-slate-800 text-sm">{item.title}</span>
-                                    <span className="block text-xs text-slate-500">{item.detail}</span>
+                                    <span className="block font-bold text-slate-800 text-lg">{item.title}</span>
+                                    <span className="block text-base text-slate-500">{item.detail}</span>
                                 </div>
                             </li>
                         ))}
@@ -206,12 +265,12 @@ const Section8BenefitsContent = () => (
                 description="Combining the credibility of a company with non-profit advantages."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                 {section8Benefits.map((item, i) => (
-                    <div key={i} className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-[#00695C] transition-all group h-full">
+                    <div key={i} className="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-[#00695C] transition-all group h-full">
                         <item.icon className="w-8 h-8 mb-4 text-[#00695C] group-hover:scale-110 transition-transform" />
-                        <h4 className="mb-2 text-lg font-bold text-slate-800">{item.title}</h4>
-                        <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                        <h4 className="mb-2 text-xl font-bold text-slate-800">{item.title}</h4>
+                        <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -231,13 +290,13 @@ const Section8EligibilityContent = () => (
             <div className="grid md:grid-cols-2 gap-12">
                 <div className="bg-[#F8FDFC] p-8 rounded-2xl border border-[#E0F2F1]">
                     <h4 className="text-lg font-bold text-slate-800 mb-6">Core Requirements</h4>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {section8Eligibility.slice(0, 3).map((item, i) => (
-                            <div key={i} className="flex items-start gap-4">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#00695C] text-white flex items-center justify-center text-xs font-bold mt-1">{i + 1}</span>
+                            <div key={i} className="flex items-start gap-5">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#00695C] text-white flex items-center justify-center text-sm font-bold mt-1">{i + 1}</span>
                                 <div>
-                                    <h5 className="font-bold text-slate-800 text-sm mb-1">{item.title}</h5>
-                                    <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                                    <h5 className="font-bold text-slate-800 text-lg mb-1">{item.title}</h5>
+                                    <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -245,13 +304,13 @@ const Section8EligibilityContent = () => (
                 </div>
                 <div className="bg-[#fff] p-8 rounded-2xl border border-slate-100 shadow-sm">
                     <h4 className="text-lg font-bold text-slate-800 mb-6">Additional Conditions</h4>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {section8Eligibility.slice(3).map((item, i) => (
-                            <div key={i} className="flex items-start gap-4">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#00695C] text-white flex items-center justify-center text-xs font-bold mt-1">{i + 4}</span>
+                            <div key={i} className="flex items-start gap-5">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#00695C] text-white flex items-center justify-center text-sm font-bold mt-1">{i + 4}</span>
                                 <div>
-                                    <h5 className="font-bold text-slate-800 text-sm mb-1">{item.title}</h5>
-                                    <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                                    <h5 className="font-bold text-slate-800 text-lg mb-1">{item.title}</h5>
+                                    <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -271,33 +330,33 @@ const Section8DocumentsContent = () => (
                 description="Statutory forms and papers required for the SPICe+ process."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 mb-12">
                 {section8RequiredForms.map((item, i) => (
-                    <div key={i} className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+                    <div key={i} className="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
                         <item.icon className="w-8 h-8 mb-4 text-[#00695C]" />
-                        <h4 className="mb-2 text-lg font-bold text-slate-800">{item.form}</h4>
-                        <p className="text-sm text-slate-600 leading-relaxed">{item.purpose}</p>
+                        <h4 className="mb-2 text-xl font-bold text-slate-800">{item.form}</h4>
+                        <p className="text-base text-slate-600 leading-relaxed">{item.purpose}</p>
                     </div>
                 ))}
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
                 <h4 className="text-xl font-bold text-slate-800 mb-8 text-center">Additional Requirements</h4>
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-3 gap-10">
                     <div className="flex flex-col items-center text-center">
                         <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4"><Users className="w-6 h-6" /></div>
-                        <h5 className="font-bold text-slate-800 mb-2">Directors & Members</h5>
-                        <p className="text-xs text-slate-500 leading-relaxed">PAN (Mandatory), Aadhaar, Voter ID/Passport, Latest Residential Proof (Bill/Statement &lt; 2 months), DSC, DIN.</p>
+                        <h5 className="font-bold text-slate-800 text-lg mb-2">Directors & Members</h5>
+                        <p className="text-sm text-slate-500 leading-relaxed">PAN (Mandatory), Aadhaar, Voter ID/Passport, Latest Residential Proof (Bill/Statement &lt; 2 months), DSC, DIN.</p>
                     </div>
                     <div className="flex flex-col items-center text-center">
                         <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4"><MapPin className="w-6 h-6" /></div>
-                        <h5 className="font-bold text-slate-800 mb-2">Registered Office</h5>
-                        <p className="text-xs text-slate-500 leading-relaxed">Proof of Address (Sale Deed/Rent Agreement), NOC from owner, Latest Utility Bill (&lt; 2 months).</p>
+                        <h5 className="font-bold text-slate-800 text-lg mb-2">Registered Office</h5>
+                        <p className="text-sm text-slate-500 leading-relaxed">Proof of Address (Sale Deed/Rent Agreement), NOC from owner, Latest Utility Bill (&lt; 2 months).</p>
                     </div>
                     <div className="flex flex-col items-center text-center">
                         <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4"><DollarSign className="w-6 h-6" /></div>
-                        <h5 className="font-bold text-slate-800 mb-2">Financials</h5>
-                        <p className="text-xs text-slate-500 leading-relaxed">Proposed financial statements or projected income & expenditure for next 3 years.</p>
+                        <h5 className="font-bold text-slate-800 text-lg mb-2">Financials</h5>
+                        <p className="text-sm text-slate-500 leading-relaxed">Proposed financial statements or projected income & expenditure for next 3 years.</p>
                     </div>
                 </div>
             </div>
@@ -322,8 +381,8 @@ const Section8ProcessContent = () => (
                                 <span className="absolute flex items-center justify-center w-8 h-8 bg-[#00695C] rounded-full -left-4 ring-4 ring-white text-white font-bold text-sm">
                                     {i + 1}
                                 </span>
-                                <h3 className="font-bold text-slate-800 text-lg mb-2">Step {i + 1}</h3>
-                                <p className="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100 shadow-sm">
+                                <h3 className="font-bold text-slate-800 text-xl mb-2">Step {i + 1}</h3>
+                                <p className="text-slate-600 text-base leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100 shadow-sm">
                                     {step}
                                 </p>
                             </li>
@@ -333,25 +392,38 @@ const Section8ProcessContent = () => (
                 <div className="w-full md:w-1/2 space-y-8">
                     <div className="bg-[#F8FDFC] border border-[#E0F2F1] rounded-2xl p-8">
                         <h4 className="text-xl font-bold text-slate-800 mb-6">Types of Section 8 Companies</h4>
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                        <div className="space-y-8">
+                            <div className="flex items-start gap-5 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                                 <Briefcase className="w-5 h-5 text-[#00695C] mt-1" />
                                 <div>
-                                    <h5 className="font-bold text-slate-800 text-sm">Limited by Shares</h5>
-                                    <p className="text-xs text-slate-500 mt-1">Liability limited to unpaid share capital.</p>
+                                    <h5 className="font-bold text-slate-800 text-lg">Limited by Shares</h5>
+                                    <p className="text-sm text-slate-500 mt-1">Liability limited to unpaid share capital.</p>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                            <div className="flex items-start gap-5 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                                 <Shield className="w-5 h-5 text-[#00695C] mt-1" />
                                 <div>
-                                    <h5 className="font-bold text-slate-800 text-sm">Limited by Guarantee</h5>
-                                    <p className="text-xs text-slate-500 mt-1">Liability limited to guaranteed amount.</p>
+                                    <h5 className="font-bold text-slate-800 text-lg">Limited by Guarantee</h5>
+                                    <p className="text-sm text-slate-500 mt-1">Liability limited to guaranteed amount.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+);
+
+const Section8PricingContent = () => (
+    <section id="sec8-pricing-content" className="py-20 scroll-mt-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading
+                subtitle="Pricing"
+                title="Transparent Plans"
+                description="Affordable packages to kickstart your non-profit journey."
+            />
+            <PricingCards plans={section8Plans} serviceName="Section 8 Company" />
         </div>
     </section>
 );
@@ -365,52 +437,52 @@ const Section8ComplianceLawContent = () => (
                 description="Statutory obligations to maintain non-profit status."
             />
 
-            <div className="grid gap-8 lg:grid-cols-2 mb-12">
-                <div className="space-y-6">
+            <div className="grid gap-10 lg:grid-cols-2 mb-12">
+                <div className="space-y-8">
                     <h4 className="text-xl font-bold text-slate-800">Governing Laws</h4>
                     {section8LawAndCompliance.slice(0, 3).map((item, i) => (
-                        <div key={i} className="flex items-start gap-4 p-6 bg-white border border-slate-100 rounded-xl shadow-sm">
+                        <div key={i} className="flex items-start gap-5 p-8 bg-white border border-slate-100 rounded-xl shadow-sm">
                             <div className="p-3 bg-[#E0F2F1] rounded-lg text-[#00695C]">
                                 <item.icon className="w-6 h-6" />
                             </div>
                             <div>
-                                <h5 className="font-bold text-slate-800 text-lg mb-2">{item.title}</h5>
-                                <p className="text-sm text-slate-600 leading-relaxed">{item.details}</p>
+                                <h5 className="font-bold text-slate-800 text-xl mb-2">{item.title}</h5>
+                                <p className="text-base text-slate-600 leading-relaxed">{item.details}</p>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-8">
                     <h4 className="text-xl font-bold text-slate-800">Key Annual Compliances</h4>
                     <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm h-full">
-                        <ul className="space-y-6">
-                            <li className="flex items-start gap-3">
+                        <ul className="space-y-8">
+                            <li className="flex items-start gap-5">
                                 <Clock className="w-5 h-5 text-amber-500 mt-1" />
                                 <div>
-                                    <span className="block font-bold text-slate-800 text-sm">Annual Returns</span>
-                                    <span className="text-xs text-slate-500">Form AOC-4 (Financials) & MGT-7 (Annual Return) with ROC.</span>
+                                    <span className="block font-bold text-slate-800 text-base">Annual Returns</span>
+                                    <span className="text-sm text-slate-500">Form AOC-4 (Financials) & MGT-7 (Annual Return) with ROC.</span>
                                 </div>
                             </li>
-                            <li className="flex items-start gap-3">
+                            <li className="flex items-start gap-5">
                                 <FileText className="w-5 h-5 text-amber-500 mt-1" />
                                 <div>
-                                    <span className="block font-bold text-slate-800 text-sm">Audit & Tax</span>
-                                    <span className="text-xs text-slate-500">Statutory Audit by CA & ITR Filing (ITR-7).</span>
+                                    <span className="block font-bold text-slate-800 text-base">Audit & Tax</span>
+                                    <span className="text-sm text-slate-500">Statutory Audit by CA & ITR Filing (ITR-7).</span>
                                 </div>
                             </li>
-                            <li className="flex items-start gap-3">
+                            <li className="flex items-start gap-5">
                                 <Users className="w-5 h-5 text-amber-500 mt-1" />
                                 <div>
-                                    <span className="block font-bold text-slate-800 text-sm">Board Meetings</span>
-                                    <span className="text-xs text-slate-500">Minimum two board meetings per year.</span>
+                                    <span className="block font-bold text-slate-800 text-base">Board Meetings</span>
+                                    <span className="text-sm text-slate-500">Minimum two board meetings per year.</span>
                                 </div>
                             </li>
-                            <li className="flex items-start gap-3">
+                            <li className="flex items-start gap-5">
                                 <Banknote className="w-5 h-5 text-amber-500 mt-1" />
                                 <div>
-                                    <span className="block font-bold text-slate-800 text-sm">Funding Usage</span>
-                                    <span className="text-xs text-slate-500">Strict reinvestment of funds into objectives.</span>
+                                    <span className="block font-bold text-slate-800 text-base">Funding Usage</span>
+                                    <span className="text-sm text-slate-500">Strict reinvestment of funds into objectives.</span>
                                 </div>
                             </li>
                         </ul>
@@ -418,8 +490,8 @@ const Section8ComplianceLawContent = () => (
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto p-6 bg-red-50 border border-red-100 rounded-xl text-center">
-                <h4 className="flex items-center justify-center gap-2 mb-2 text-lg font-bold text-red-700">
+            <div className="max-w-4xl mx-auto p-8 bg-red-50 border border-red-100 rounded-xl text-center">
+                <h4 className="flex items-center justify-center gap-5 mb-2 text-lg font-bold text-red-700">
                     <Zap className="w-5 h-5" /> Non-Compliance Penalty
                 </h4>
                 <p className="text-sm text-red-600">
@@ -439,31 +511,31 @@ const Section8WhyBizzfiling = () => (
                 description="Your trusted partner for effortless Section 8 incorporation."
             />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 mb-12">
                 {section8WhyBizzfiling.map((service, i) => {
                     const [title, detail] = service.split(':').map(s => s.trim());
                     const Icon = i % 6 === 0 ? Users : i % 6 === 1 ? Smartphone : i % 6 === 2 ? Clock : i % 6 === 3 ? CheckCircle : i % 6 === 4 ? DollarSign : Landmark;
                     return (
-                        <div key={i} className="flex flex-col p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+                        <div key={i} className="flex flex-col p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
                             <div className="p-3 bg-indigo-50 rounded-lg w-fit text-indigo-600 mb-4">
                                 <Icon className="w-6 h-6" />
                             </div>
-                            <h4 className="text-lg font-bold text-slate-800 mb-2">{title}</h4>
-                            <p className="text-sm text-slate-600 leading-relaxed flex-grow">{detail}</p>
+                            <h4 className="text-xl font-bold text-slate-800 mb-2">{title}</h4>
+                            <p className="text-base text-slate-600 leading-relaxed flex-grow">{detail}</p>
                         </div>
                     );
                 })}
             </div>
 
             <div className="max-w-4xl mx-auto p-8 bg-[#FFF8E1] rounded-2xl border border-[#FFE082] text-center">
-                <h4 className="flex items-center justify-center gap-2 mb-4 text-xl font-bold text-amber-900">
+                <h4 className="flex items-center justify-center gap-5 mb-4 text-xl font-bold text-amber-900">
                     <DollarSign className="w-6 h-6 text-amber-600" />
                     Registration Fees
                 </h4>
                 <p className="text-amber-800 text-lg">
                     Approx. **₹15,000 - ₹25,000** (Total Cost). Our plans start from **₹999 + Govt. Fee**.
                 </p>
-                <p className="text-xs text-amber-700 mt-2">*Government fees vary by state and authorized capital.</p>
+                <p className="text-sm text-amber-700 mt-2">*Government fees vary by state and authorized capital.</p>
             </div>
         </div>
     </section>
@@ -477,14 +549,14 @@ const Section8FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
             description="Got questions? We have answers."
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-8">
             {faqs.map((f, i) => (
                 <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                     <button
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -495,7 +567,7 @@ const Section8FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         transition={{ duration: 0.3 }}
                         style={{ overflow: 'hidden' }}
                     >
-                        <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                        <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                             {f.a}
                         </div>
                     </motion.div>
@@ -580,7 +652,7 @@ export default function Section8RegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -593,7 +665,7 @@ export default function Section8RegistrationPage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -602,50 +674,50 @@ export default function Section8RegistrationPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Section 8 <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted Section 8 registration with **fast turnaround time**. **12A, 80G, FCRA** and compliance support included.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Name Approval & License under Section 8</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Name Approval & License under Section 8</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Drafting of MOA & AOA as per Companies Act</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Drafting of MOA & AOA as per Companies Act</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">DIN & DSC for Directors</span>
+                                        <span className="text-slate-200 text-base md:text-lg">DIN & DSC for Directors</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Incorporation Certificate & PAN/TAN</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Incorporation Certificate & PAN/TAN</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Fast Approval</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Zap className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Tax Exemptions</span>
                                 </div>
@@ -658,7 +730,7 @@ export default function Section8RegistrationPage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Start your Non-Profit journey today.
                                         </p>
                                     </div>
@@ -704,6 +776,7 @@ export default function Section8RegistrationPage() {
                     <Section8EligibilityContent />
                     <Section8DocumentsContent />
                     <Section8ProcessContent />
+                    <Section8PricingContent />
                     <Section8ComplianceLawContent />
                     <Section8WhyBizzfiling />
                     <Section8FAQsContent faqs={section8FAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

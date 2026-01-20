@@ -26,14 +26,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/compliance_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -124,14 +124,14 @@ const ReviewBox = ({ score, reviews, source }) => (
         <div className="flex items-center mb-1 text-yellow-400">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
         </div>
-        <p className="text-xs font-semibold text-white/80">{source}</p>
+        <p className="text-sm font-semibold text-white/80">{source}</p>
         <p className="mt-1 text-xl font-bold text-white">{score}</p>
-        <p className="text-xs text-white/90">{reviews}</p>
+        <p className="text-sm text-white/90">{reviews}</p>
     </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-    <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+    <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
         <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
         <div>
             <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -151,22 +151,22 @@ const ComplianceOverviewContent = () => (
                 description="Crucial requirements for transparency, accountability, and license maintenance."
             />
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-10 md:grid-cols-2">
                 <div className="p-8 bg-slate-50 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-800">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-800">
                         <div className="p-2 bg-[#E0F2F1] rounded-lg text-[#00695C]"><Briefcase className="w-6 h-6" /></div>
                         Corporate Structure
                     </h4>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 leading-relaxed text-base">
                         Governed by the Companies Act, ensuring a rigorous legal framework, unlike trusts or societies. Cannot use 'Limited' or 'Private Limited' in their name.
                     </p>
                 </div>
                 <div className="p-8 bg-slate-50 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-800">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-800">
                         <div className="p-2 bg-[#E0F2F1] rounded-lg text-[#00695C]"><TrendingUp className="w-6 h-6" /></div>
                         Tax Exemptions
                     </h4>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 leading-relaxed text-base">
                         Eligible for Section 12A and 80G benefits, which must be maintained through timely filing and adherence to fund utilization rules.
                     </p>
                 </div>
@@ -184,14 +184,14 @@ const ComplianceBenefitsContent = () => (
                 description="Unlock significant advantages including limited liability and tax benefits."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {complianceBenefits.map((item, i) => (
                     <div key={i} className="bg-white rounded-xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all group">
                         <div className="w-12 h-12 rounded-lg bg-[#E0F2F1] flex items-center justify-center mb-6 group-hover:bg-[#B2DFDB] transition-colors">
                             <item.icon className="w-6 h-6 text-[#00695C]" />
                         </div>
-                        <h4 className="text-lg font-bold text-slate-800 mb-3">{item.title}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed">{item.detail}</p>
+                        <h4 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h4>
+                        <p className="text-slate-500 text-base leading-relaxed">{item.detail}</p>
                     </div>
                 ))}
             </div>
@@ -209,11 +209,11 @@ const ComplianceDocumentsContent = () => (
             />
 
             <h4 className="mb-6 text-xl font-bold text-slate-800">Core Compliance Documents</h4>
-            <div className="grid gap-4 mb-12 md:grid-cols-3">
+            <div className="grid gap-5 mb-12 md:grid-cols-3">
                 {coreDocuments.map((doc, i) => (
-                    <div key={i} className="flex items-start gap-3 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-[#00695C] transition-colors">
+                    <div key={i} className="flex items-start gap-5 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-[#00695C] transition-colors">
                         <FileText className="flex-shrink-0 w-5 h-5 mt-0.5 text-[#00695C]" />
-                        <span className="text-sm font-medium text-slate-700">{doc}</span>
+                        <span className="text-base font-medium text-slate-700">{doc}</span>
                     </div>
                 ))}
             </div>
@@ -223,17 +223,17 @@ const ComplianceDocumentsContent = () => (
                 <table className="min-w-full divide-y divide-slate-200">
                     <thead className="bg-slate-50">
                         <tr>
-                            <th className="px-6 py-4 text-xs font-bold text-left text-slate-500 uppercase tracking-wider">Compliance Form</th>
-                            <th className="px-6 py-4 text-xs font-bold text-left text-slate-500 uppercase tracking-wider">Document/Act</th>
-                            <th className="px-6 py-4 text-xs font-bold text-left text-slate-500 uppercase tracking-wider">Statutory Deadline</th>
+                            <th className="px-6 py-4 text-sm font-bold text-left text-slate-500 uppercase tracking-wider">Compliance Form</th>
+                            <th className="px-6 py-4 text-sm font-bold text-left text-slate-500 uppercase tracking-wider">Document/Act</th>
+                            <th className="px-6 py-4 text-sm font-bold text-left text-slate-500 uppercase tracking-wider">Statutory Deadline</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-slate-200">
                         {complianceTimelines.map((row, i) => (
                             <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
-                                <td className="px-6 py-4 text-sm font-semibold text-slate-800">{row.title}</td>
-                                <td className="px-6 py-4 text-sm text-slate-600">{row.document}</td>
-                                <td className="px-6 py-4 text-sm font-medium text-[#00695C]">{row.deadline}</td>
+                                <td className="px-6 py-4 text-base font-semibold text-slate-800">{row.title}</td>
+                                <td className="px-6 py-4 text-base text-slate-600">{row.document}</td>
+                                <td className="px-6 py-4 text-base font-medium text-[#00695C]">{row.deadline}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -252,13 +252,13 @@ const ComplianceMandatoryContent = () => (
                 description="Non-negotiable compliances to ensure accountability and avoid penalties."
             />
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-10 md:grid-cols-2">
                 {mandatoryChecklist.map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-5 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+                    <div key={i} className="flex items-center gap-5 p-5 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
                         <div className="w-8 h-8 rounded-full bg-[#E0F2F1] text-[#00695C] flex items-center justify-center flex-shrink-0">
                             <CheckCircle className="w-5 h-5" />
                         </div>
-                        <span className="text-sm font-medium text-slate-700 leading-relaxed">{item}</span>
+                        <span className="text-base font-medium text-slate-700 leading-relaxed">{item}</span>
                     </div>
                 ))}
             </div>
@@ -275,20 +275,20 @@ const ComplianceEventContent = () => (
                 description="Requirements triggered by specific changes or financial activities."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-16">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 mb-16">
                 {eventBasedCompliances.map((item, i) => (
-                    <div key={i} className="p-6 bg-slate-50 border border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-all">
+                    <div key={i} className="p-8 bg-slate-50 border border-slate-100 shadow-sm rounded-2xl hover:shadow-md transition-all">
                         <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#00695C] mb-4">
                             <item.icon className="w-5 h-5" />
                         </div>
-                        <h4 className="mb-2 text-lg font-bold text-slate-800">{item.title}</h4>
-                        <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                        <h4 className="mb-2 text-xl font-bold text-slate-800">{item.title}</h4>
+                        <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                     </div>
                 ))}
             </div>
 
             <h4 className="text-xl font-bold text-slate-800 mb-6 border-l-4 border-[#00695C] pl-4">Post-Incorporation Essentials</h4>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-10">
                 {[
                     "Obtain Section 12AA and Section 80G registration from the Income Tax Department.",
                     "Ensure strict compliance with the MoA regarding the reinvestment of funds.",
@@ -296,7 +296,7 @@ const ComplianceEventContent = () => (
                 ].map((text, i) => (
                     <div key={i} className="p-5 bg-[#F8FDFC] border border-[#E0F2F1] rounded-xl text-center">
                         <CheckCircle className="w-6 h-6 text-[#00695C] mx-auto mb-3" />
-                        <p className="text-sm text-slate-700">{text}</p>
+                        <p className="text-base text-slate-700">{text}</p>
                     </div>
                 ))}
             </div>
@@ -313,17 +313,17 @@ const CompliancePenaltiesContent = () => (
                 description="Consequences of non-compliance for the company and its directors."
             />
 
-            <div className="grid gap-6 mb-12 md:grid-cols-2">
+            <div className="grid gap-10 mb-12 md:grid-cols-2">
                 {penaltyDetails.map((item, i) => (
-                    <div key={i} className="p-6 bg-white rounded-xl shadow-sm border border-red-100 hover:shadow-md transition-all group">
-                        <div className="flex items-start gap-4">
+                    <div key={i} className="p-8 bg-white rounded-xl shadow-sm border border-red-100 hover:shadow-md transition-all group">
+                        <div className="flex items-start gap-5">
                             <div className="p-2 bg-red-50 rounded-lg text-red-500 group-hover:bg-red-100 transition-colors">
                                 <AlertTriangle className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="mb-2 text-lg font-bold text-slate-800">{item.form}</h4>
-                                <p className="text-sm font-medium text-slate-600 mb-2">{item.penalty}</p>
-                                {item.date !== "N/A" && <span className="inline-block py-1 px-2 rounded-md bg-slate-100 text-slate-500 text-xs font-semibold">{item.date}</span>}
+                                <h4 className="mb-2 text-xl font-bold text-slate-800">{item.form}</h4>
+                                <p className="text-base font-medium text-slate-600 mb-2">{item.penalty}</p>
+                                {item.date !== "N/A" && <span className="inline-block py-1 px-2 rounded-md bg-slate-100 text-slate-500 text-sm font-semibold">{item.date}</span>}
                             </div>
                         </div>
                     </div>
@@ -336,26 +336,26 @@ const CompliancePenaltiesContent = () => (
                     <table className="min-w-full divide-y divide-slate-100">
                         <thead>
                             <tr className="bg-slate-50">
-                                <th className="px-4 py-3 text-xs font-bold text-left text-slate-500 uppercase">Form No</th>
-                                <th className="px-4 py-3 text-xs font-bold text-left text-slate-500 uppercase">Compliance</th>
-                                <th className="px-4 py-3 text-xs font-bold text-left text-slate-500 uppercase">Deadline</th>
+                                <th className="px-4 py-3 text-sm font-bold text-left text-slate-500 uppercase">Form No</th>
+                                <th className="px-4 py-3 text-sm font-bold text-left text-slate-500 uppercase">Compliance</th>
+                                <th className="px-4 py-3 text-sm font-bold text-left text-slate-500 uppercase">Deadline</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             <tr>
-                                <td className="px-4 py-3 text-sm font-bold text-slate-800">AOC-4</td>
-                                <td className="px-4 py-3 text-sm text-slate-600">Financial Statements</td>
-                                <td className="px-4 py-3 text-sm font-bold text-red-600">30 Days after AGM</td>
+                                <td className="px-4 py-3 text-base font-bold text-slate-800">AOC-4</td>
+                                <td className="px-4 py-3 text-base text-slate-600">Financial Statements</td>
+                                <td className="px-4 py-3 text-base font-bold text-red-600">30 Days after AGM</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-3 text-sm font-bold text-slate-800">MGT-7</td>
-                                <td className="px-4 py-3 text-sm text-slate-600">Annual Return</td>
-                                <td className="px-4 py-3 text-sm font-bold text-red-600">60 Days after AGM</td>
+                                <td className="px-4 py-3 text-base font-bold text-slate-800">MGT-7</td>
+                                <td className="px-4 py-3 text-base text-slate-600">Annual Return</td>
+                                <td className="px-4 py-3 text-base font-bold text-red-600">60 Days after AGM</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-3 text-sm font-bold text-slate-800">ITR-7</td>
-                                <td className="px-4 py-3 text-sm text-slate-600">Income Tax</td>
-                                <td className="px-4 py-3 text-sm font-bold text-red-600">30 September</td>
+                                <td className="px-4 py-3 text-base font-bold text-slate-800">ITR-7</td>
+                                <td className="px-4 py-3 text-base text-slate-600">Income Tax</td>
+                                <td className="px-4 py-3 text-base font-bold text-red-600">30 September</td>
                             </tr>
                         </tbody>
                     </table>
@@ -374,18 +374,18 @@ const ComplianceWhyBizzfiling = () => (
                 description="Specialized support to ensure smooth functioning and legal adherence."
             />
 
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+            <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                 {whyBizzfiling.map((service, i) => {
                     const [title, detail] = service.includes(':') ? service.split(':').map(s => s.trim()) : [service.split('.')[0].trim(), service.split('.').slice(1).join('.').trim()];
                     const Icon = i % 4 === 0 ? Lightbulb : i % 4 === 1 ? Briefcase : i % 4 === 2 ? Clock : Zap;
                     return (
-                        <div key={i} className="flex items-start gap-4 p-6 bg-slate-50 border border-slate-100 shadow-sm rounded-xl hover:-translate-y-1 transition-transform">
+                        <div key={i} className="flex items-start gap-5 p-8 bg-slate-50 border border-slate-100 shadow-sm rounded-xl hover:-translate-y-1 transition-transform">
                             <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#00695C] flex-shrink-0">
                                 <Icon className="w-5 h-5" />
                             </div>
                             <div>
-                                <h4 className="mb-2 text-lg font-bold text-slate-800">{title}</h4>
-                                <p className="text-sm text-slate-600 leading-relaxed">{detail}</p>
+                                <h4 className="mb-2 text-xl font-bold text-slate-800">{title}</h4>
+                                <p className="text-base text-slate-600 leading-relaxed">{detail}</p>
                             </div>
                         </div>
                     );
@@ -403,14 +403,14 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
             description="Find answers to common queries about Section 8 compliance."
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-8">
             {faqs.map((f, i) => (
                 <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                     <button
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -421,7 +421,7 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         transition={{ duration: 0.3 }}
                         style={{ overflow: 'hidden' }}
                     >
-                        <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                        <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                             {f.a}
                         </div>
                     </motion.div>
@@ -506,7 +506,7 @@ export default function Section8CompliancePage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -519,7 +519,7 @@ export default function Section8CompliancePage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -528,50 +528,50 @@ export default function Section8CompliancePage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Section 8 <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Compliance</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert support to manage all **legal and compliance** needs for your Section 8 company. End-to-end help with timely filings.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Filing of AOC-4 (Financials) & MGT-7 (Annual Return)</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Filing of AOC-4 (Financials) & MGT-7 (Annual Return)</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Appointment of Auditor (ADT-1)</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Appointment of Auditor (ADT-1)</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Director KYC & Report Preparation</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Director KYC & Report Preparation</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Holding Requirement for AGM & Board Meetings</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Holding Requirement for AGM & Board Meetings</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Audit Ready</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Zap className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Fast Filings</span>
                                 </div>
@@ -584,7 +584,7 @@ export default function Section8CompliancePage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Stay compliant with our expert help.
                                         </p>
                                     </div>
@@ -600,7 +600,7 @@ export default function Section8CompliancePage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
                         {complianceTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

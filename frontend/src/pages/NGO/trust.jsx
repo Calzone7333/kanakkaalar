@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 // axios is kept for convention, though not used in frontend logic
 import axios from "axios";
 import {
@@ -25,14 +26,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/trust_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -45,7 +46,9 @@ const trustTabs = [
     { id: 'trust-types-benefits-content', label: 'Types & Benefits' },
     { id: 'trust-who-register-content', label: 'Who Should Register' },
     { id: 'trust-documents-content', label: 'Trust Deed & Docs' },
-    { id: 'trust-process-content', label: 'Step-by-Step Process' },
+    { id: 'trust-documents-content', label: 'Trust Deed & Docs' },
+    { id: 'trust-process-content', label: 'Process' },
+    { id: 'trust-pricing-content', label: 'Pricing' },
     { id: 'trust-mistakes-content', label: 'Common Mistakes' },
     { id: 'trust-why-Bizzfiling', label: 'How Bizzfiling' },
     { id: 'trust-faqs-content', label: "FAQ's" },
@@ -105,7 +108,7 @@ const trustRegistrationProcess = [
     "Choose Name: Must be distinct and comply with the Emblems and Names Act.",
     "Select Settlor and Trustees: Must be Indian residents; minimum two trustees.",
     "Draft Trust Deed: Prepare on non-judicial stamp paper with all necessary clauses.",
-    "Submit to Registrar: Along with PAN, address proof, ID proof, etc., to the relevant Registrar/Charity Commissioner.",
+    "Submit to Register: Along with PAN, address proof, ID proof, etc., to the relevant Registrar/Charity Commissioner.",
     "Obtain Trust Registration Certificate: Once approved, the formal legal certificate is issued.",
     "Open Bank Account: In the name of the registered trust for financial management.",
 ];
@@ -139,6 +142,54 @@ const trustFAQs = [
     { q: "How long does it take to register a trust in India?", a: "The time taken depends on the state and registrar's workload, but typically ranges from **7 to 14 working days** after the submission of the notarized/registered trust deed." },
 ];
 
+const trustPlans = [
+    {
+        title: "Standard",
+        price: "₹3,499",
+        description: "Drafting & Guidance for small private trusts.",
+        features: [
+            "Expert assisted process",
+            "+",
+            "Draft of Trust deed in just 72 hours*",
+            "Submission of trust deed in 5 days",
+            "Trust certificate in 7 days",
+            "Company PAN+TAN",
+            "Instant zero balance current A/c"
+        ],
+        isRecommended: false,
+    },
+    {
+        title: "Premium",
+        price: "₹10,499",
+        description: "End-to-end registration service including government liaison.",
+        features: [
+            "Everything in Starter package",
+            "+",
+            "Section 80g & 12A in 14 days post business formation",
+            "DARPAN Registration",
+            "CSR Filings"
+        ],
+        isRecommended: true,
+    },
+    {
+        title: "Elite",
+        price: "₹10,499",
+        description: "Registration + 12A & 80G Tax Exemption setup.",
+        features: [
+            "Everything in Standard package",
+            "Dedicated account manager",
+            "Accounting for one financial year",
+            "( 0-300 Transactions)",
+            "Auditing for one Financial year",
+            "(0-300 Transactions)",
+            "IT filing for one Financial year",
+            "Transaction and Tax Advisory by a Professional Auditor"
+        ],
+        isRecommended: false,
+        isPremium: true,
+    },
+];
+
 // --- REUSABLE COMPONENTS ---
 
 
@@ -163,21 +214,21 @@ const TrustOverviewContent = () => (
 
                 <div className="bg-[#F8FDFC] border border-[#E0F2F1] rounded-2xl p-8">
                     <h4 className="text-xl font-bold text-slate-800 mb-6 text-center">Governing Acts</h4>
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-3 gap-10">
                         <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
                             <Landmark className="w-8 h-8 text-[#00695C] mb-3" />
                             <h5 className="font-bold text-slate-800 text-sm mb-2">Indian Trusts Act, 1882</h5>
-                            <p className="text-xs text-slate-500">Applicable mainly to private trusts.</p>
+                            <p className="text-sm text-slate-500">Applicable mainly to private trusts.</p>
                         </div>
                         <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
                             <FileText className="w-8 h-8 text-[#00695C] mb-3" />
                             <h5 className="font-bold text-slate-800 text-sm mb-2">Charitable & Religious Trusts Act, 1920</h5>
-                            <p className="text-xs text-slate-500">Pertains to public charitable and religious trusts.</p>
+                            <p className="text-sm text-slate-500">Pertains to public charitable and religious trusts.</p>
                         </div>
                         <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
                             <TrendingUp className="w-8 h-8 text-[#00695C] mb-3" />
                             <h5 className="font-bold text-slate-800 text-sm mb-2">Income Tax Act, 1961</h5>
-                            <p className="text-xs text-slate-500">Governs tax exemptions (12A & 80G).</p>
+                            <p className="text-sm text-slate-500">Governs tax exemptions (12A & 80G).</p>
                         </div>
                     </div>
                 </div>
@@ -198,14 +249,14 @@ const TrustTypesBenefitsContent = () => (
             <div className="space-y-16">
                 <div>
                     <h4 className="text-2xl font-bold text-slate-800 mb-8 text-center">Types of Trusts</h4>
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                         {trustTypes.map((item, i) => (
-                            <div key={i} className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all group">
+                            <div key={i} className="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all group">
                                 <div className="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-[#00695C] mb-4 group-hover:bg-[#00695C] group-hover:text-white transition-colors">
                                     <item.icon className="w-6 h-6" />
                                 </div>
-                                <h4 className="font-bold text-slate-800 mb-2">{item.title}</h4>
-                                <p className="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+                                <h4 className="font-bold text-slate-800 mb-2 text-xl">{item.title}</h4>
+                                <p className="text-base text-slate-600 leading-relaxed">{item.detail}</p>
                             </div>
                         ))}
                     </div>
@@ -213,15 +264,15 @@ const TrustTypesBenefitsContent = () => (
 
                 <div>
                     <h4 className="text-2xl font-bold text-slate-800 mb-8 text-center">Why Register a Trust?</h4>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                         {trustBenefits.map((benefit, i) => (
-                            <div key={i} className="flex gap-4 p-5 bg-white border border-slate-100 rounded-xl shadow-sm">
+                            <div key={i} className="flex gap-5 p-5 bg-white border border-slate-100 rounded-xl shadow-sm">
                                 <div className="flex-shrink-0">
                                     <benefit.icon className="w-6 h-6 text-[#00695C]" />
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-slate-800 text-sm mb-1">{benefit.title}</h5>
-                                    <p className="text-xs text-slate-500 leading-relaxed">{benefit.detail}</p>
+                                    <h5 className="font-bold text-slate-800 text-lg mb-1">{benefit.title}</h5>
+                                    <p className="text-sm md:text-base text-slate-500 leading-relaxed">{benefit.detail}</p>
                                 </div>
                             </div>
                         ))}
@@ -245,13 +296,13 @@ const TrustWhoShouldRegisterContent = () => (
                 <p className="text-center text-slate-600 mb-8 text-lg">
                     Registration is suitable for a wide range of individuals and groups aiming to manage assets or run public welfare projects under a legally structured fiduciary relationship.
                 </p>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-5">
                     {trustWhoShouldRegister.map((item, i) => (
-                        <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:border-[#00695C] transition-colors">
+                        <div key={i} className="flex items-center gap-5 p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:border-[#00695C] transition-colors">
                             <div className="w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 text-[#00695C]">
                                 <Users className="w-5 h-5" />
                             </div>
-                            <span className="text-slate-700 font-medium">{item}</span>
+                            <span className="text-slate-700 font-medium text-lg">{item}</span>
                         </div>
                     ))}
                 </div>
@@ -272,15 +323,15 @@ const TrustDocumentsContent = () => (
             <div className="grid lg:grid-cols-2 gap-12">
                 {/* Trust Deed & Clauses */}
                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-                    <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-5">
                         <FileText className="text-[#00695C]" /> The Trust Deed
                     </h4>
-                    <p className="text-slate-600 mb-6 text-sm">
+                    <p className="text-slate-600 mb-6 text-base">
                         The trust deed is the legal backbone, outlining the terms, structure, objectives, and responsibilities. It must be prepared on non-judicial stamp paper.
                     </p>
-                    <ul className="space-y-3">
+                    <ul className="space-y-8">
                         {trustDeedKeyClauses.map((clause, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                            <li key={i} className="flex items-start gap-5 text-base text-slate-700">
                                 <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                                 <span><strong className="text-slate-900">{clause.split(':')[0]}:</strong> {clause.split(':')[1]}</span>
                             </li>
@@ -292,14 +343,14 @@ const TrustDocumentsContent = () => (
                     {/* Key Parties */}
                     <div>
                         <h4 className="text-xl font-bold text-slate-800 mb-4">Key Parties</h4>
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid sm:grid-cols-2 gap-5">
                             {trustKeyParties.map((party, i) => (
                                 <div key={i} className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-                                    <div className="flex items-center gap-3 mb-2">
+                                    <div className="flex items-center gap-5 mb-2">
                                         <party.icon className="w-5 h-5 text-[#00695C]" />
-                                        <h5 className="font-bold text-slate-800 text-sm">{party.title}</h5>
+                                        <h5 className="font-bold text-slate-800 text-lg">{party.title}</h5>
                                     </div>
-                                    <p className="text-xs text-slate-500">{party.detail}</p>
+                                    <p className="text-sm text-slate-500">{party.detail}</p>
                                 </div>
                             ))}
                         </div>
@@ -310,13 +361,13 @@ const TrustDocumentsContent = () => (
                         <h4 className="text-xl font-bold text-slate-800 mb-4">Required Documents</h4>
                         <div className="bg-white rounded-xl border border-slate-100 shadow-sm divide-y divide-slate-100">
                             {trustDocuments.map((doc, i) => (
-                                <div key={i} className="p-4 flex items-center gap-4">
+                                <div key={i} className="p-4 flex items-center gap-5">
                                     <div className="bg-red-50 text-red-500 p-2 rounded-lg">
                                         <doc.icon className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <p className="font-bold text-slate-800 text-sm">{doc.title}</p>
-                                        <p className="text-xs text-slate-500">{doc.detail}</p>
+                                        <p className="font-bold text-slate-800 text-lg">{doc.title}</p>
+                                        <p className="text-sm text-slate-500">{doc.detail}</p>
                                     </div>
                                 </div>
                             ))}
@@ -346,14 +397,27 @@ const TrustProcessContent = () => (
                                 {i + 1}
                             </div>
 
-                            <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-xl border border-slate-100 bg-white shadow-sm">
-                                <h4 className="font-bold text-slate-800 mb-1">{step.split(':')[0]}</h4>
-                                <p className="text-sm text-slate-500">{step.split(':')[1] || step}</p>
+                            <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-8 rounded-xl border border-slate-100 bg-white shadow-sm">
+                                <h4 className="font-bold text-slate-800 mb-1 text-xl">{step.split(':')[0]}</h4>
+                                <p className="text-base text-slate-500">{step.split(':')[1] || step}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+        </div>
+    </section>
+);
+
+const TrustPricingContent = () => (
+    <section id="trust-pricing-content" className="py-20 scroll-mt-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+            <SectionHeading
+                subtitle="Pricing"
+                title="Trust Registration Packages"
+                description="Transparent pricing for your peace of mind."
+            />
+            <PricingCards plans={trustPlans} serviceName="Trust Registration" />
         </div>
     </section>
 );
@@ -366,15 +430,15 @@ const TrustMistakesContent = () => (
                 title="Common Mistakes"
                 description="Pitfalls to avoid during registration."
             />
-            <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+            <div className="grid gap-10 md:grid-cols-2 max-w-5xl mx-auto">
                 {trustCommonMistakes.map((mistake, i) => (
-                    <div key={i} className="flex items-start gap-4 p-6 bg-white border border-yellow-200 shadow-sm rounded-xl">
+                    <div key={i} className="flex items-start gap-5 p-8 bg-white border border-yellow-200 shadow-sm rounded-xl">
                         <div className="p-2 bg-yellow-100 rounded-lg text-yellow-600 flex-shrink-0">
                             <Lightbulb className="w-6 h-6" />
                         </div>
                         <div>
-                            <h4 className="mb-1 text-lg font-bold text-slate-800">{mistake.split(':')[0]}</h4>
-                            <p className="text-sm text-slate-600 leading-relaxed">{mistake.split(':')[1] ? mistake.split(':')[1].trim() : ""}</p>
+                            <h4 className="mb-1 text-xl font-bold text-slate-800">{mistake.split(':')[0]}</h4>
+                            <p className="text-base text-slate-600 leading-relaxed">{mistake.split(':')[1] ? mistake.split(':')[1].trim() : ""}</p>
                         </div>
                     </div>
                 ))}
@@ -392,32 +456,18 @@ const TrustWhyBizzfiling = () => (
                 description="Simplifying your Trust journey."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-16">
                 {trustBizzfilingServices.map((item, i) => (
-                    <div key={i} className="p-6 bg-[#F8FAFC] border border-slate-100 rounded-xl text-center group hover:shadow-lg transition-all">
+                    <div key={i} className="p-8 bg-[#F8FAFC] border border-slate-100 rounded-xl text-center group hover:shadow-lg transition-all">
                         <div className="w-12 h-12 mx-auto bg-white rounded-full shadow-sm flex items-center justify-center text-[#00695C] mb-4 group-hover:scale-110 transition-transform">
                             <item.icon className="w-6 h-6" />
                         </div>
-                        <h4 className="font-bold text-slate-800 mb-2">{item.step}</h4>
-                        <p className="text-sm text-slate-500">{item.detail}</p>
+                        <h4 className="font-bold text-slate-800 mb-2 text-xl">{item.step}</h4>
+                        <p className="text-base text-slate-500">{item.detail}</p>
                     </div>
                 ))}
             </div>
 
-            <div className="bg-[#F0F4F8] rounded-2xl p-8 max-w-4xl mx-auto">
-                <h4 className="text-2xl font-bold text-slate-800 mb-8 text-center">Registration Packages</h4>
-                <div className="grid md:grid-cols-2 gap-8">
-                    {trustBizzfilingPackages.map((pkg, i) => (
-                        <div key={i} className={`p-6 rounded-xl border-2 ${i === 1 ? 'bg-white border-[#00695C] shadow-lg relative' : 'bg-slate-50 border-slate-200'}`}>
-                            {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#00695C] text-white px-3 py-1 text-xs font-bold rounded-full">Recommended</span>}
-                            <h5 className="text-lg font-bold text-slate-900 mb-2">{pkg.name}</h5>
-                            <div className="text-3xl font-extrabold text-[#00695C] mb-4">{pkg.cost}</div>
-                            <p className="text-sm text-slate-600 leading-relaxed">{pkg.detail}</p>
-                        </div>
-                    ))}
-                </div>
-                <p className="text-center text-xs text-slate-400 mt-6">*Stamp duty and state-specific fees extra.</p>
-            </div>
         </div>
     </section>
 );
@@ -430,14 +480,14 @@ const TrustFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                 title="Frequently Asked Questions"
                 description="Expert answers to common queries."
             />
-            <div className="max-w-3xl mx-auto space-y-4">
+            <div className="max-w-3xl mx-auto space-y-8">
                 {faqs.map((f, i) => (
                     <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                         <button
                             className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                             onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                         >
-                            <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+                            <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
                             <ChevronDown
                                 className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                             />
@@ -448,7 +498,7 @@ const TrustFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                             transition={{ duration: 0.3 }}
                             style={{ overflow: 'hidden' }}
                         >
-                            <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                            <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                                 {f.a}
                             </div>
                         </motion.div>
@@ -534,7 +584,7 @@ export default function TrustRegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -547,7 +597,7 @@ export default function TrustRegistrationPage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -556,50 +606,50 @@ export default function TrustRegistrationPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Trust Registration <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Online India</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** trust registration preparation process. All paperwork and filings handled by **legal professionals**.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Professional Drafting of Trust Deed by Legal Experts</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Professional Drafting of Trust Deed by Legal Experts</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Registration with Local Sub-Registrar</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Registration with Local Sub-Registrar</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Assistance with PAN Card Application for Trust</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Assistance with PAN Card Application for Trust</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Guidance on 12A & 80G Tax Exemption</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Guidance on 12A & 80G Tax Exemption</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Fast Approval</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Zap className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Tax Exemptions</span>
                                 </div>
@@ -612,7 +662,7 @@ export default function TrustRegistrationPage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Start your Trust Registration today.
                                         </p>
                                     </div>
@@ -655,6 +705,7 @@ export default function TrustRegistrationPage() {
                 <TrustWhoShouldRegisterContent />
                 <TrustDocumentsContent />
                 <TrustProcessContent />
+                <TrustPricingContent />
                 <TrustMistakesContent />
                 <TrustWhyBizzfiling />
                 <TrustFAQsContent faqs={trustFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

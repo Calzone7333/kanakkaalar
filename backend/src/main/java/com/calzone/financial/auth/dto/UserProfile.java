@@ -1,8 +1,10 @@
 package com.calzone.financial.auth.dto;
 
 /**
- * Data Transfer Object (DTO) for safely sending user profile information to the frontend.
- * This object does not include sensitive information like password or image binary data.
+ * Data Transfer Object (DTO) for safely sending user profile information to the
+ * frontend.
+ * This object does not include sensitive information like password or image
+ * binary data.
  */
 public class UserProfile {
     private Long id;
@@ -10,16 +12,18 @@ public class UserProfile {
     private String email;
     private String phone;
     private boolean hasProfileImage;
+    private String role;
 
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String fullName, String email, String phone, boolean hasProfileImage) {
+    public UserProfile(Long id, String fullName, String email, String phone, boolean hasProfileImage, String role) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.hasProfileImage = hasProfileImage;
+        this.role = role;
     }
 
     // ==================== Getters ====================
@@ -37,6 +41,10 @@ public class UserProfile {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public boolean getHasProfileImage() {
@@ -58,6 +66,10 @@ public class UserProfile {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setHasProfileImage(boolean hasProfileImage) {

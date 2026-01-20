@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
+import PricingCards from "../../components/PricingCards";
 import {
   ChevronDown,
   Zap,
@@ -19,12 +20,14 @@ import {
   Shield,
   FileCheck,
   Award,
+  Lock,
   Search,
   Timer,
   FilePenLine,
   Rocket,
   UserCheck,
-  Activity
+  Activity,
+  ShieldCheck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
@@ -59,19 +62,19 @@ const dscBenefitsList = [
 
 const dscClassesData = [
   {
-    class: "Class 1 DSC",
+    class: "Individual DSC",
     uses: "Personal use, email validation, low-risk transactions, basic document signing.",
     verification: "Verified against basic consumer databases.",
     security: "Basic Security",
   },
   {
-    class: "Class 2 DSC",
+    class: "Organization DSC",
     uses: "Organizational use, e-filing (ITR/ROC), company registration, audit reports, business operations.",
     verification: "Verified against trusted, pre-verified databases (moderate security).",
     security: "Medium Security",
   },
   {
-    class: "Class 3 DSC",
+    class: "DGFT / Combo DSC",
     uses: "High-security transactions: e-tendering, e-procurement, high-value transactions, GST filings, physical verification.",
     verification: "Requires in-person/video identity verification with Registration Authority (RA).",
     security: "High Security",
@@ -133,10 +136,40 @@ const dscRenewalProcess = [
   "Step 6: Installation and Download of the Renewed DSC onto the new USB token.",
 ];
 
-const dscFeesData = [
-  { class: "Class 1 DSC", usage: "Personal use, email validation, low-risk transactions", cost: "₹500 to ₹1,500", validity: "1 year" },
-  { class: "Class 2 DSC", usage: "Business use, e-filing, company registration, ITR filing", cost: "₹1,000 to ₹2,000", validity: "1 to 2 years" },
-  { class: "Class 3 DSC", usage: "High-security transactions (e-tendering, e-procurement, GST)", cost: "₹1,350 to ₹3,000", validity: "1 to 3 years" },
+const plans = [
+    {
+        "title": "Individual DSC",
+        "price": "₹2,000",
+        "description": "Low security, email signing, personal use. - Valid for 2 Years",
+        "features": [
+            "Email Signing",
+            "Personal Identification",
+            "Basic Assurance"
+        ],
+        "isRecommended": false
+    },
+    {
+        "title": "Organization DSC",
+        "price": "₹3,000",
+        "description": "Income Tax, ROC, GST, Employee PF. - Valid for 2 Years",
+        "features": [
+            "Tax Filing",
+            "Company Registration",
+            "Director Authentication"
+        ],
+        "isRecommended": true
+    },
+    {
+        "title": "DGFT / Combo DSC",
+        "price": "₹5,000",
+        "description": "E-tenders, E-procurement, Import/Export (DGFT). - Valid for 2 Years",
+        "features": [
+            "Tender Bidding",
+            "DGFT Portal",
+            "High Assurance Vetted"
+        ],
+        "isRecommended": false
+    }
 ];
 
 const dscFAQs = [
@@ -151,21 +184,21 @@ const dscFAQs = [
 // --- Premium Design Components ---
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-10 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1.5 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-semibold text-[11px] uppercase tracking-widest mb-3 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
 );
 
 const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
-  <div className={`p-6 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
+  <div className={`p-8 rounded-xl border transition-all duration-300 flex flex-col items-start h-full group
     ${isHighlighted
       ? 'bg-gradient-to-br from-[#E8DCC2] to-[#D4B982] border-transparent shadow-lg transform -translate-y-1'
       : 'bg-white border-slate-100 hover:shadow-lg hover:border-[#1A7F7D]/30 shadow-sm'}
@@ -175,13 +208,13 @@ const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
     `}>
       {Icon ? <Icon className="w-5 h-5" /> : (isHighlighted ? <Star className="w-5 h-5" /> : <FileText className="w-5 h-5" />)}
     </div>
-    <h3 className={`text-base font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
+    <h3 className={`text-xl font-bold mb-2 ${isHighlighted ? 'text-[#5C4518]' : 'text-slate-800'}`}>
       {title}
     </h3>
-    <p className={`text-xs leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
+    <p className={`text-sm leading-relaxed mb-4 flex-grow ${isHighlighted ? 'text-[#5C4518]/80' : 'text-slate-500'}`}>
       {description}
     </p>
-    <div className={`flex items-center text-xs font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-2 transition-all
+    <div className={`flex items-center text-sm font-bold uppercase tracking-wider mt-auto cursor-pointer group-hover:gap-5 transition-all
        ${isHighlighted ? 'text-[#5C4518]' : 'text-[#1A7F7D]'}
     `}>
       <span>Learn More</span>
@@ -191,26 +224,17 @@ const ServiceCard = ({ title, description, isHighlighted, icon: Icon }) => (
 );
 
 const FaqItem = ({ faq, isOpen, onClick }) => (
-  <div className={`border rounded-lg transition-all duration-300 overflow-hidden
-     ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg' : 'border-slate-200 bg-white text-slate-800 hover:border-[#1A7F7D]/50'}
-  `}>
-    <button
-      className="flex items-center justify-between w-full p-4 text-left"
-      onClick={onClick}
-    >
-      <h3 className={`text-sm font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
-        {faq.q}
-      </h3>
+  <div className={`border rounded-xl transition-all duration-300 overflow-hidden mb-4
+       ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
+    `}>
+    <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
+      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
       <div className="flex-shrink-0">
-        {isOpen ? <ChevronDown className="w-4 h-4 text-white rotate-180 transition-transform" /> : <ChevronDown className="w-4 h-4 text-slate-400 transition-transform" />}
+        <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
       </div>
     </button>
-    <div
-      className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
-    >
-      <p className={`px-4 pb-4 text-xs leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
-        {faq.a}
-      </p>
+    <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
     </div>
   </div>
 );
@@ -218,39 +242,55 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-  <section id="dsc-overview-content" className="py-16 bg-slate-50/50 scroll-mt-24">
-    <div className="max-w-7xl mx-auto px-4">
+  <section id="dsc-overview-content" className="py-24 bg-white scroll-mt-24">
+    <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Overview"
         title="Electronic Infrastructure for Digital Trust"
-        description="Legally recognized under the Information Technology Act 2000, DSC ensures security and data integrity."
+        description="Legally recognized under the Information Technology Act 2000, DSC ensures end-to-end security and data integrity."
       />
-      <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div className="space-y-6">
-          <p className="text-slate-600 leading-relaxed">
-            A <strong>Digital Signature Certificate (DSC)</strong> is an electronic equivalent of a physical signature. Issued by a <strong>Certifying Authority (CA)</strong>, it allows you to securely authenticate your identity while signing electronic documents.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex items-start gap-4 hover:border-[#1A7F7D]/30 transition-all">
-              <Shield className="w-6 h-6 text-[#1A7F7D] flex-shrink-0" />
-              <div>
-                <h4 className="font-bold text-slate-800 text-sm">Legally Valid</h4>
-                <p className="text-xs text-slate-500">Under IT Act 2000</p>
+      <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
+        <div className="space-y-8">
+          <div className="prose prose-slate prose-lg">
+            <p className="text-slate-600 leading-relaxed text-lg">
+              A <span className="text-[#1A7F7D] font-bold">Digital Signature Certificate (DSC)</span> is the electronic equivalent of a physical signature, issued by licensed Certifying Authorities. It provides the highest level of trust and security for digital workflows.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {[
+              { text: "Legally Valid (IT Act 2000)", icon: Shield },
+              { text: "Tamper-Proof Signing", icon: Lock },
+              { text: "Instant Multi-party Execution", icon: Zap },
+              { text: "Paperless & Eco-friendly", icon: Globe }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-5 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#1A7F7D]/30 transition-colors shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#1A7F7D] shadow-inner">
+                  <item.icon size={20} />
+                </div>
+                <span className="text-sm font-bold text-slate-700">{item.text}</span>
               </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-[#1A7F7D]/10 to-[#C59B4E]/10 rounded-[2.5rem] blur-2xl"></div>
+          <div className="relative p-10 bg-[#0F2D30] rounded-[2.5rem] text-center text-white border-b-8 border-[#C59B4E] shadow-2xl">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 mb-6 backdrop-blur-sm border border-white/20">
+              <FileSignature className="w-10 h-10 text-[#C59B4E]" />
             </div>
-            <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex items-start gap-4 hover:border-[#1A7F7D]/30 transition-all">
-              <Zap className="w-6 h-6 text-[#1A7F7D] flex-shrink-0" />
-              <div>
-                <h4 className="font-bold text-slate-800 text-sm">Instant Signing</h4>
-                <p className="text-xs text-slate-500">Fast & Paperless</p>
+            <h5 className="text-5xl font-black mb-2 tracking-tight">100%</h5>
+            <p className="text-sm text-[#C59B4E] uppercase tracking-[0.3em] font-black">Digital Workflow</p>
+            <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 gap-5">
+              <div className="text-left">
+                <p className="text-sm text-slate-400 font-bold uppercase mb-1">Standard</p>
+                <p className="text-lg font-bold italic font-serif leading-none">Class 3</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-slate-400 font-bold uppercase mb-1">Status</p>
+                <p className="text-lg font-bold leading-none">Govt Approved</p>
               </div>
             </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {dscBenefitsList.slice(1, 5).map((item, i) => (
-            <ServiceCard key={i} title={item.title} description={item.details} icon={item.icon} />
-          ))}
         </div>
       </div>
     </div>
@@ -258,14 +298,14 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-  <section id="dsc-benefits-content" className="py-16 bg-white scroll-mt-24">
+  <section id="dsc-benefits-content" className="py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 text-center">
       <SectionHeading
         subtitle="Benefits"
         title="Why You Need a DSC"
         description="Experience the power of secure digital transactions."
       />
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-10">
         {dscBenefitsList.map((item, i) => (
           <div key={i} className="flex flex-col items-center p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition-all h-full group">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:bg-[#1A7F7D] group-hover:text-white transition-all duration-300">
@@ -281,14 +321,14 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-  <section id="dsc-eligibility-content" className="py-16 bg-slate-50/50 scroll-mt-24">
+  <section id="dsc-eligibility-content" className="py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Eligibility"
         title="Who Can Benefit?"
         description="Available for individuals, organizations, and foreign applicants."
       />
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-10">
         {dscEligibilitySections.map((section, i) => (
           <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-lg transition-all">
             <div className="w-12 h-12 bg-[#F0FDFA] text-[#1A7F7D] rounded-xl flex items-center justify-center mb-6">
@@ -296,10 +336,10 @@ const EligibilityContent = () => (
             </div>
             <h4 className="text-lg font-bold text-slate-800 mb-3">{section.title}</h4>
             <p className="text-sm text-slate-500 mb-6 flex-grow">{section.content}</p>
-            <div className="space-y-2">
-              <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Common Uses</h5>
+            <div className="space-y-8">
+              <h5 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Common Uses</h5>
               {section.useCases.map((use, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-xs text-slate-600">
+                <div key={idx} className="flex items-center gap-5 text-sm text-slate-600">
                   <CheckCircle className="w-3 h-3 text-[#1A7F7D]" />
                   <span>{use}</span>
                 </div>
@@ -313,23 +353,23 @@ const EligibilityContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="dsc-documents-content" className="py-16 bg-white scroll-mt-24">
+  <section id="dsc-documents-content" className="py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Documents"
         title="Quick Checklist"
         description="Collate these digital versions for a smooth registration."
       />
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-10">
         {dscDocumentsList.map((category, i) => (
           <div key={i} className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm flex flex-col transition-all hover:scale-[1.02]">
-            <h4 className="text-base font-bold text-slate-800 mb-6 flex items-center gap-3">
-              <span className="w-8 h-8 rounded-full bg-[#1A7F7D] text-white flex items-center justify-center text-xs">{i + 1}</span>
+            <h4 className="text-base font-bold text-slate-800 mb-6 flex items-center gap-5">
+              <span className="w-8 h-8 rounded-full bg-[#1A7F7D] text-white flex items-center justify-center text-sm">{i + 1}</span>
               {category.title}
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-8">
               {category.docs.map((doc, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-slate-600 text-sm">
+                <li key={idx} className="flex items-start gap-5 text-slate-600 text-sm">
                   <FileCheck className="w-4 h-4 text-[#C59B4E] flex-shrink-0" />
                   <span>{doc}</span>
                 </li>
@@ -347,7 +387,7 @@ const ProcedureContent = () => (
     <div className="absolute top-0 right-0 w-64 h-64 bg-[#C59B4E]/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
     <div className="max-w-7xl mx-auto px-6 relative z-10">
       <div className="text-center mb-16">
-        <span className="text-[#C59B4E] font-bold text-xs uppercase tracking-widest mb-3 block">Roadmap</span>
+        <span className="text-[#C59B4E] font-bold text-sm uppercase tracking-widest mb-3 block">Roadmap</span>
         <h3 className="text-3xl font-bold mb-4">Registration Procedure</h3>
         <p className="text-slate-400 text-sm max-w-xl mx-auto italic">Step-by-step guidance to secure your digital identity.</p>
       </div>
@@ -365,7 +405,7 @@ const ProcedureContent = () => (
       </div>
       <div className="mt-16 pt-16 border-t border-white/5 grid md:grid-cols-3 gap-12 sm:px-12">
         {dscProcedureSteps.slice(4).map((step, idx) => (
-          <div key={idx} className="flex gap-4 items-start">
+          <div key={idx} className="flex gap-5 items-start">
             <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#1A7F7D]/20 border border-[#1A7F7D]/30 flex items-center justify-center font-bold text-[#C59B4E]">{idx + 5}</div>
             <p className="text-sm text-slate-300 italic">{step}</p>
           </div>
@@ -373,11 +413,11 @@ const ProcedureContent = () => (
       </div>
       <div className="mt-20 p-8 bg-white/5 rounded-3xl border border-white/10 text-center">
         <h4 className="text-xl font-bold text-white mb-4">Renewal Is Easy Too!</h4>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-10">
           {dscRenewalProcess.slice(0, 3).map((r, i) => (
-            <div key={i} className="flex items-center gap-3 text-left">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#C59B4E]/20 text-[#C59B4E] flex items-center justify-center font-bold text-xs">{i + 1}</div>
-              <p className="text-xs text-slate-400">{r}</p>
+            <div key={i} className="flex items-center gap-5 text-left">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#C59B4E]/20 text-[#C59B4E] flex items-center justify-center font-bold text-sm">{i + 1}</div>
+              <p className="text-sm text-slate-400">{r}</p>
             </div>
           ))}
         </div>
@@ -394,37 +434,10 @@ const FeesContent = () => (
         title="Simple & Transparent Pricing"
         description="Choose the right class for your needs."
       />
-      <div className="grid md:grid-cols-3 gap-8">
-        {dscFeesData.map((plan, i) => (
-          <div key={i} className={`p-8 rounded-3xl border transition-all duration-300 flex flex-col h-full
-            ${i === 2 ? 'bg-[#F0FDFA] border-[#1A7F7D] shadow-xl relative scale-105 z-10' : 'bg-white border-slate-100 hover:shadow-lg'}
-          `}>
-            {i === 2 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1A7F7D] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Recommended</span>}
-            <h4 className="text-xl font-bold text-slate-800 mb-2">{plan.class}</h4>
-            <p className="text-xs text-slate-500 mb-6">{plan.usage}</p>
-            <div className="mb-8">
-              <span className="text-4xl font-extrabold text-slate-900">{plan.cost}</span>
-              <span className="text-slate-400 text-sm ml-2">/ {plan.validity}</span>
-            </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              <li className="flex items-start gap-3 text-xs text-slate-600">
-                <CheckCircle className="w-4 h-4 text-[#1A7F7D] flex-shrink-0" />
-                <span>Verified Identity Verification</span>
-              </li>
-              <li className="flex items-start gap-3 text-xs text-slate-600">
-                <CheckCircle className="w-4 h-4 text-[#1A7F7D] flex-shrink-0" />
-                <span>USB Token Compatibility</span>
-              </li>
-              <li className="flex items-start gap-3 text-xs text-slate-600">
-                <CheckCircle className="w-4 h-4 text-[#1A7F7D] flex-shrink-0" />
-                <span>Legally Binding Digital Proof</span>
-              </li>
-            </ul>
-            <button className="w-full py-4 bg-[#1A7F7D] hover:bg-[#146361] text-white rounded-xl font-bold text-xs uppercase transition-all shadow-md">Get Started</button>
-          </div>
-        ))}
+      <div className="grid md:grid-cols-3 gap-10">
+        <PricingCards plans={plans} serviceName="DSC Registration" />
       </div>
-      <p className="mt-8 text-center text-xs text-slate-400 italic italic">Note: Additional costs include USB Token (₹500–₹1,000) and 18% GST.</p>
+      <p className="mt-8 text-center text-sm text-slate-400 italic italic">Note: Additional costs include USB Token (₹500–₹1,000) and 18% GST.</p>
     </div>
   </section>
 );
@@ -443,29 +456,29 @@ const RoleContent = () => (
           <h4 className="text-2xl font-bold mb-6 text-[#C59B4E]">PKI Infrastructure</h4>
           <p className="text-sm text-slate-400 leading-relaxed mb-6">Public Key Infrastructure (PKI) provides the foundation for digital signatures, enabling secure data exchange through asymmetric encryption (Public & Private Keys).</p>
           <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-            <p className="text-xs italic text-slate-500">"The private key is kept secret with the certificate holder, while the public key is used for verification."</p>
+            <p className="text-sm italic text-slate-500">"The private key is kept secret with the certificate holder, while the public key is used for verification."</p>
           </div>
         </div>
-        <div className="space-y-6">
-          <div className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-4">
+        <div className="space-y-8">
+          <div className="p-8 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-5">
             <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0"><Lock className="w-6 h-6" /></div>
             <div>
               <h5 className="font-bold text-slate-800 text-base mb-1">Advanced Encryption</h5>
-              <p className="text-xs text-slate-500">Readable data is transformed into ciphertext, accessible only to corresponding key holders.</p>
+              <p className="text-sm text-slate-500">Readable data is transformed into ciphertext, accessible only to corresponding key holders.</p>
             </div>
           </div>
-          <div className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-4">
+          <div className="p-8 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-5">
             <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0"><ShieldCheck className="w-6 h-6" /></div>
             <div>
               <h5 className="font-bold text-slate-800 text-base mb-1">Hardware Security (HSM)</h5>
-              <p className="text-xs text-slate-500">Sensitive keys are stored in tamper-resistant physical modules for maximum protection.</p>
+              <p className="text-sm text-slate-500">Sensitive keys are stored in tamper-resistant physical modules for maximum protection.</p>
             </div>
           </div>
-          <div className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-4">
+          <div className="p-8 rounded-2xl border border-slate-100 bg-white hover:border-[#1A7F7D]/30 transition-all flex gap-5">
             <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center flex-shrink-0"><Activity className="w-6 h-6" /></div>
             <div>
               <h5 className="font-bold text-slate-800 text-base mb-1">Revocation Control (CRL)</h5>
-              <p className="text-xs text-slate-500">Compromised certificates are instantly added to global databases (CRL) to prevent misuse.</p>
+              <p className="text-sm text-slate-500">Compromised certificates are instantly added to global databases (CRL) to prevent misuse.</p>
             </div>
           </div>
         </div>
@@ -474,13 +487,7 @@ const RoleContent = () => (
   </section>
 );
 
-const Lock = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-)
 
-const ShieldCheck = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></svg>
-)
 
 // --- Main Component ---
 
@@ -524,56 +531,40 @@ export default function DSCRegistration() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* === Hero === */}
-      <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
-        <div className="absolute inset-0 z-0 h-full w-full">
-          <img src={BackgroundImageSrc} alt="DSC Hero Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/90 to-[#0F2D30]/40 lg:to-transparent z-10"></div>
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+        <div className="absolute inset-0 z-0">
+          <img src={BackgroundImageSrc} alt="DSC Registration" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
-
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2 flex flex-col items-start space-y-8">
-              <div className="relative w-28 h-28 flex items-center justify-center">
-                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl animate-pulse"></div>
-                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full flex flex-col items-center justify-center border-2 border-[#C59B4E] shadow-2xl">
-                  <Star size={12} className="fill-[#C59B4E] text-[#C59B4E] mb-1" />
-                  <span className="text-[#C59B4E] font-bold text-[10px] text-center leading-tight uppercase">Digital<br />Signature</span>
-                  <div className="w-8 h-[1px] bg-[#C59B4E]/30 my-1"></div>
-                  <span className="text-white text-[8px] uppercase tracking-wider opacity-70">Verified CA</span>
-                </div>
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-3/5 space-y-8">
+              <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
+                <FileSignature size={14} className="text-[#C59B4E]" />
+                <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Govt Licensed Certifying Authority Partner</span>
               </div>
-
-              <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-serif italic">
-                  Register Your <br className="hidden lg:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4] not-italic">Digital Signature (DSC)</span>
-                </h1>
-                <div className="space-y-3 pt-2">
-                  {dscIntroBullets.map((bullet, i) => (
-                    <div key={i} className="flex gap-3 text-slate-300">
-                      <CheckCircle className="w-5 h-5 text-[#C59B4E] flex-shrink-0" />
-                      <p className="text-sm font-light leading-relaxed">{bullet}</p>
-                    </div>
-                  ))}
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                Digital Signature <br className="hidden lg:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Certificate (DSC)</span>
+              </h1>
+              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                Obtain Class 3 DSC for ITR, GST, ROC filings, and e-tendering. Fully paperless process with instant video verification. Secure your digital identity today.
+              </p>
+              <div className="flex gap-10 pt-2">
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <CheckCircle size={18} className="text-[#C59B4E]" /> Class 3 Support
                 </div>
-              </div>
-
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-[11px] font-bold uppercase tracking-widest pt-4">
-                <div className="flex items-center gap-2"><Briefcase className="w-4 h-4 text-[#C59B4E]" /> Paperless & Fast</div>
-                <div className="h-4 w-[1px] bg-white/20"></div>
-                <div className="flex items-center gap-2"><Scale className="w-4 h-4 text-[#C59B4E]" /> IT Act Verified</div>
+                <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
+                  <Shield size={18} className="text-[#C59B4E]" /> 100% Tax Compliant
+                </div>
               </div>
             </div>
-
-            {/* Right Form Card */}
-            <div className="w-full max-w-md lg:w-[400px] relative z-30">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-white/10 group hover:border-[#1A7F7D]/20 transition-all duration-500">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-slate-900 mb-2">Class 3 DSC Registration</h2>
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest">Starting at Just ₹1,350*</p>
+            <div className="w-full max-w-sm">
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+                <div className="p-8 md:p-8">
+                  <h3 className="text-xl font-bold text-slate-800 text-center mb-6">Launch Now</h3>
+                  <LeadForm serviceName="Digital Signature Certificate" btnText="Apply for DSC" />
                 </div>
-                <LeadForm serviceName="DSC Registration" btnText="Apply Now" />
               </div>
             </div>
           </div>
@@ -581,19 +572,15 @@ export default function DSCRegistration() {
       </section>
 
       {/* === Sticky Navigation === */}
-      <div className="sticky top-20 lg:top-24 z-40 bg-white border-b border-slate-100 shadow-sm overflow-x-auto no-scrollbar">
+      <div className="sticky top-20 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-center gap-8 md:gap-16 py-0 min-w-max list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 overflow-x-auto no-scrollbar py-0">
             {tabs.map((tab) => (
               <li key={tab.id}>
                 <button
-                  className={`py-4 text-xs md:text-sm font-bold border-b-[3px] transition-all uppercase tracking-wider
-                     ${activeTab === tab.id ? 'text-[#0F4C49] border-[#0F4C49]' : 'text-slate-700 border-transparent hover:text-[#0F4C49]'}
-                   `}
+                  className={`py-5 text-sm md:text-sm font-bold uppercase tracking-widest border-b-[3px] transition-all whitespace-nowrap ${activeTab === tab.id ? 'text-[#0F2D30] border-[#C59B4E]' : 'text-slate-400 border-transparent hover:text-[#0F2D30]'}`}
                   onClick={() => handleTabClick(tab.id)}
-                >
-                  {tab.label}
-                </button>
+                >{tab.label}</button>
               </li>
             ))}
           </ul>
@@ -617,7 +604,7 @@ export default function DSCRegistration() {
             title="Common Questions"
             description="Expert answers to your Digital Signature queries."
           />
-          <div className="space-y-4">
+          <div className="space-y-8">
             {dscFAQs.map((f, i) => (
               <FaqItem key={i} faq={f} isOpen={faqOpen === i} onClick={() => setFaqOpen(faqOpen === i ? null : i)} />
             ))}

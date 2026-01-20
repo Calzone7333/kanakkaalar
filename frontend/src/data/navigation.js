@@ -7,6 +7,7 @@ const NAV = {
 
   // Business Setup - Company Registration
   '/BusinessSetup/plc': { title: 'Private Limited Company', category: 'Company Registration' },
+  '/BusinessSetup/public-ltd': { title: 'Public Limited Company', category: 'Company Registration' },
   '/BusinessSetup/llp': { title: 'Limited Liability Partnership', category: 'Company Registration' },
   '/BusinessSetup/opc': { title: 'One Person Company', category: 'Company Registration' },
   '/BusinessSetup/sp': { title: 'Sole Proprietorship', category: 'Company Registration' },

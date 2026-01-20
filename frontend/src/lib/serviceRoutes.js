@@ -5,6 +5,7 @@ export const importMap = {
     '/ConsultanExpert/talkToIP': () => import('../pages/ConsultanExpert/talkToIP.jsx'),
 
     '/BusinessSetup/plc': () => import('../pages/BusinessSetup/plc.jsx'),
+    '/BusinessSetup/public-ltd': () => import('../pages/BusinessSetup/public-ltd.jsx'),
     '/BusinessSetup/llp': () => import('../pages/BusinessSetup/llp.jsx'),
     '/BusinessSetup/opc': () => import('../pages/BusinessSetup/opc.jsx'),
     '/BusinessSetup/sp': () => import('../pages/BusinessSetup/sp.jsx'),

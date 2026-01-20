@@ -29,14 +29,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/compliance_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-    <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-        <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+    <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+        <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -125,14 +125,14 @@ const ReviewBox = ({ score, reviews, source }) => (
         <div className="flex items-center mb-1 text-yellow-400">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400" />)}
         </div>
-        <p className="text-xs font-semibold text-white/80">{source}</p>
+        <p className="text-sm font-semibold text-white/80">{source}</p>
         <p className="mt-1 text-xl font-bold text-white">{score}</p>
-        <p className="text-xs text-white/90">{reviews}</p>
+        <p className="text-sm text-white/90">{reviews}</p>
     </div>
 );
 
 const DetailItem = ({ title, description, icon: Icon }) => (
-    <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
+    <div className="flex items-start gap-5 p-4 bg-white rounded-lg shadow-md border-l-4 border-[#022B50]">
         <Icon className="w-5 h-5 text-[#022B50] mt-1 flex-shrink-0" />
         <div>
             <h4 className="mb-1 text-lg font-semibold text-gray-800">{title}</h4>
@@ -152,19 +152,19 @@ const ComplianceOverviewContent = () => (
                 description="Meeting all regulatory requirements to maintain legal status and funding eligibility."
             />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                     { title: "NGO Darpan", desc: "Mandatory for government funding access.", icon: Landmark },
                     { title: "CSR-1 Filing", desc: "For NGOs receiving corporate CSR funds.", icon: Briefcase },
                     { title: "Tax Revalidation", desc: "80G & 12A renewal every 5 years.", icon: TrendingUp },
                     { title: "Annual Returns", desc: "Mandatory annual filing (10BD, AOC-4).", icon: FileText },
                 ].map((item, i) => (
-                    <div key={i} className="p-6 bg-slate-50 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all text-center">
+                    <div key={i} className="p-8 bg-slate-50 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all text-center">
                         <div className="w-12 h-12 rounded-lg bg-[#E0F2F1] text-[#00695C] flex items-center justify-center mx-auto mb-4">
                             <item.icon className="w-6 h-6" />
                         </div>
-                        <h4 className="font-bold text-lg text-slate-900 mb-2">{item.title}</h4>
-                        <p className="text-sm text-slate-500">{item.desc}</p>
+                        <h4 className="font-bold text-lg md:text-xl text-slate-900 mb-2">{item.title}</h4>
+                        <p className="text-base text-slate-500">{item.desc}</p>
                     </div>
                 ))}
             </div>
@@ -181,20 +181,20 @@ const ComplianceDarpanSection = () => (
                 description="Critical registrations for government funding and corporate sponsorships."
             />
 
-            <div className="grid gap-8 lg:grid-cols-2">
+            <div className="grid gap-10 lg:grid-cols-2">
                 {/* NGO Darpan */}
                 <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-900">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-900">
                         <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600"><Landmark className="w-5 h-5" /></div>
                         NGO Darpan Registration
                     </h4>
                     <p className="mb-6 text-slate-600 leading-relaxed">
                         Operated by the Ministry of Rural Development, this portal is mandatory for NGOs receiving government funding. Completing registration is crucial for credibility.
                     </p>
-                    <h5 className="mb-3 font-bold text-slate-800 text-sm uppercase tracking-wide">Required Documents:</h5>
-                    <ul className="space-y-3">
+                    <h5 className="mb-3 font-bold text-slate-800 text-base uppercase tracking-wide">Required Documents:</h5>
+                    <ul className="space-y-8">
                         {darpanDocuments.slice(0, 5).map((doc, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                            <li key={i} className="flex items-start gap-5 text-base text-slate-600">
                                 <CheckCircle className="flex-shrink-0 w-4 h-4 mt-0.5 text-indigo-500" />
                                 {doc}
                             </li>
@@ -204,23 +204,23 @@ const ComplianceDarpanSection = () => (
 
                 {/* CSR-1 Registration */}
                 <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <h4 className="flex items-center gap-3 mb-4 text-xl font-bold text-slate-900">
+                    <h4 className="flex items-center gap-5 mb-4 text-xl font-bold text-slate-900">
                         <div className="p-2 bg-green-50 rounded-lg text-green-600"><Briefcase className="w-5 h-5" /></div>
                         CSR-1 Registration
                     </h4>
-                    <p className="mb-6 text-slate-600 leading-relaxed">
+                    <p className="mb-6 text-slate-600 leading-relaxed text-base">
                         Mandatory for all NGOs receiving **Corporate Social Responsibility (CSR) funds**. File Form CSR-1 with the MCA as soon as possible.
                     </p>
-                    <h5 className="mb-3 font-bold text-slate-800 text-sm uppercase tracking-wide">Required Documents:</h5>
-                    <ul className="space-y-3">
+                    <h5 className="mb-3 font-bold text-slate-800 text-base uppercase tracking-wide">Required Documents:</h5>
+                    <ul className="space-y-8">
                         {csr1Details.documents.map((doc, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                            <li key={i} className="flex items-start gap-5 text-base text-slate-600">
                                 <CheckCircle className="flex-shrink-0 w-4 h-4 mt-0.5 text-green-500" />
                                 {doc}
                             </li>
                         ))}
                     </ul>
-                    <div className="mt-6 p-4 bg-slate-50 rounded-lg text-xs font-semibold text-slate-500 border border-slate-100">
+                    <div className="mt-6 p-4 bg-slate-50 rounded-lg text-sm font-semibold text-slate-500 border border-slate-100">
                         Timeline: Registration usually done within **one week** of submission.
                     </div>
                 </div>
@@ -238,20 +238,20 @@ const ComplianceTaxRevalidation = () => (
                 description="Mandatory re-validation under Sections 80G and 12A for all existing NGOs."
             />
 
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid gap-10 md:grid-cols-2">
                 <div className="p-8 bg-slate-50 border border-slate-100 shadow-sm rounded-2xl">
                     <h4 className="mb-6 text-xl font-bold text-slate-800 border-b border-slate-200 pb-2">Timeline and Process</h4>
-                    <div className="space-y-4 text-slate-700">
-                        <p className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm"><Clock className="w-5 h-5 flex-shrink-0 text-[#00695C]" /> Process takes up to **three months**.</p>
-                        <p className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm"><Calendar className="w-5 h-5 flex-shrink-0 text-[#00695C]" /> Re-validate every **5 years**.</p>
-                        <p className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm"><AlertTriangle className="w-5 h-5 flex-shrink-0 text-amber-500" /> Apply **six months before** expiry.</p>
+                    <div className="space-y-8 text-slate-700 text-base">
+                        <p className="flex items-center gap-5 p-3 bg-white rounded-lg shadow-sm"><Clock className="w-5 h-5 flex-shrink-0 text-[#00695C]" /> Process takes up to **three months**.</p>
+                        <p className="flex items-center gap-5 p-3 bg-white rounded-lg shadow-sm"><Calendar className="w-5 h-5 flex-shrink-0 text-[#00695C]" /> Re-validate every **5 years**.</p>
+                        <p className="flex items-center gap-5 p-3 bg-white rounded-lg shadow-sm"><AlertTriangle className="w-5 h-5 flex-shrink-0 text-amber-500" /> Apply **six months before** expiry.</p>
                     </div>
                 </div>
                 <div className="p-8 bg-slate-50 border border-slate-100 shadow-sm rounded-2xl">
                     <h4 className="mb-6 text-xl font-bold text-slate-800 border-b border-slate-200 pb-2">Required Documents</h4>
-                    <ul className="space-y-3">
+                    <ul className="space-y-8">
                         {taxRevalidationDetails.documents.slice(0, 5).map((doc, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 bg-white p-3 rounded-lg shadow-sm">
+                            <li key={i} className="flex items-start gap-5 text-base text-slate-600 bg-white p-3 rounded-lg shadow-sm">
                                 <FileText className="flex-shrink-0 w-4 h-4 mt-0.5 text-[#00695C]" />
                                 {doc}
                             </li>
@@ -273,14 +273,14 @@ const ComplianceTaxForms = () => (
             />
 
             <h4 className="mb-8 text-xl font-bold text-center text-slate-800">Consequences of Non-filing Form 10BD</h4>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-10 md:grid-cols-3">
                 {form10BDConsequences.map((item, i) => (
-                    <div key={i} className="p-6 border border-red-100 shadow-sm bg-red-50/50 rounded-xl hover:shadow-md transition-all">
+                    <div key={i} className="p-8 border border-red-100 shadow-sm bg-red-50/50 rounded-xl hover:shadow-md transition-all">
                         <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4 text-red-500">
                             <item.icon className="w-6 h-6" />
                         </div>
-                        <h4 className="mb-2 text-lg font-bold text-slate-800">{item.title}</h4>
-                        <p className="text-sm font-medium text-slate-600 leading-relaxed">{item.penalty}</p>
+                        <h4 className="mb-2 text-xl font-bold text-slate-800">{item.title}</h4>
+                        <p className="text-base font-medium text-slate-600 leading-relaxed">{item.penalty}</p>
                     </div>
                 ))}
             </div>
@@ -297,13 +297,13 @@ const ComplianceSec8Annual = () => (
                 description="Strict annual compliances under the Companies Act, 2013 for Section 8 companies."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {section8Compliances.map((compliance, i) => (
-                    <div key={i} className="flex items-center gap-4 p-5 bg-slate-50 border border-slate-100 rounded-xl hover:shadow-md transition-all">
+                    <div key={i} className="flex items-center gap-5 p-5 bg-slate-50 border border-slate-100 rounded-xl hover:shadow-md transition-all">
                         <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#00695C]">
                             <Briefcase className="w-5 h-5" />
                         </div>
-                        <span className="font-semibold text-slate-700 text-sm">{compliance}</span>
+                        <span className="font-semibold text-slate-700 text-lg">{compliance}</span>
                     </div>
                 ))}
             </div>
@@ -320,18 +320,18 @@ const ComplianceWhyBizzfiling = () => (
                 description="Expert lawyers and CAs to enable your seamless transition to fully compliant status."
             />
 
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {ngoWhyBizzfiling.map((service, i) => {
                     const [title, detail] = service.includes(':') ? service.split(':').map(s => s.trim()) : [service.split('.')[0].trim(), service.split('.').slice(1).join('.').trim()];
                     const Icon = i % 5 === 0 ? Users : i % 5 === 1 ? Handshake : i % 5 === 2 ? Zap : i % 5 === 3 ? DollarSign : Lightbulb;
                     return (
-                        <div key={i} className="flex items-start gap-4 p-6 border border-slate-100 shadow-sm bg-white rounded-xl hover:-translate-y-1 transition-transform">
+                        <div key={i} className="flex items-start gap-5 p-8 border border-slate-100 shadow-sm bg-white rounded-xl hover:-translate-y-1 transition-transform">
                             <div className="w-10 h-10 rounded-full bg-[#E0F2F1] text-[#00695C] flex items-center justify-center flex-shrink-0">
                                 <Icon className="w-5 h-5" />
                             </div>
                             <div>
-                                <h4 className="mb-2 text-lg font-bold text-slate-800">{title}</h4>
-                                <p className="text-sm text-slate-600 leading-relaxed">{detail}</p>
+                                <h4 className="mb-2 text-xl font-bold text-slate-800">{title}</h4>
+                                <p className="text-base text-slate-600 leading-relaxed">{detail}</p>
                             </div>
                         </div>
                     );
@@ -349,14 +349,14 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
             description="Answers to frequent questions about NGO compliance complications."
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-8">
             {faqs.map((f, i) => (
                 <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
                     <button
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -367,7 +367,7 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         transition={{ duration: 0.3 }}
                         style={{ overflow: 'hidden' }}
                     >
-                        <div className="px-5 py-5 text-slate-600 bg-white text-sm leading-relaxed border-t border-slate-100">
+                        <div className="px-5 py-5 text-slate-600 bg-white text-base leading-relaxed border-t border-slate-100">
                             {f.a}
                         </div>
                     </motion.div>
@@ -452,7 +452,7 @@ export default function NGOCompliancePage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -465,7 +465,7 @@ export default function NGOCompliancePage() {
                                         <div className="flex justify-center gap-0.5 mb-1.5">
                                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                                         </div>
-                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                                        <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                                             Legal<br />Services<br />In India
                                         </span>
                                         <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -474,50 +474,50 @@ export default function NGOCompliancePage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-8">
                                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     NGO Compliance <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Services</span>
                                 </h1>
 
-                                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Ensure 100% compliance for your NGO with expert legal guidance. We handle 12A, 80G, CSR-1, and annual filings efficiently.
                                 </p>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-start gap-3">
+                                <div className="space-y-8 mb-8">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Review of Annual Activities & Financials</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Review of Annual Activities & Financials</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Filing of Income Tax Returns (ITR-7)</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Filing of Income Tax Returns (ITR-7)</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Maintenance of Minutes Books & Statutory Registers</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Maintenance of Minutes Books & Statutory Registers</span>
                                     </div>
-                                    <div className="flex items-start gap-3">
+                                    <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-sm md:text-base">Consultation on FCRA & CSR Compliance</span>
+                                        <span className="text-slate-200 text-base md:text-lg">Consultation on FCRA & CSR Compliance</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Audit Ready</span>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Shield className="w-4 h-4 text-[#C59B4E]" />
                                     <span>Risk Free</span>
                                 </div>
@@ -530,7 +530,7 @@ export default function NGOCompliancePage() {
                                 <div className="p-4 md:p-8">
                                     <div className="text-center mb-4 md:mb-6">
                                         <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                                        <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                                        <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                                             Fill the form to start your compliance check.
                                         </p>
                                     </div>
@@ -546,7 +546,7 @@ export default function NGOCompliancePage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
                         {complianceTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // Assuming these imports are available from your main component file
 // import logo2 from "../assets1/img/logo-2.svg"; 
 import footerBg2 from "../assets1/img/footer-bg-2.svg";
+import logo from "../assets1/img/kanakkaalar_logo.png";
 
 
 /* FooterSection with Read More toggle functionality and original design classes */
@@ -159,9 +160,9 @@ export default function Footer() {
             {/* Widget 1: Brand, Text, and Socials */}
             <div className="cs_footer_widget cs_text_widget">
               <div className="cs_brand cs_mb_32">
-                <span className="cs_fs_24 cs_semibold cs_white_color">
-                  Kanakkaalar
-                </span>
+                <Link to="/" className="cs_brand_link">
+                  <img src={logo} alt="Kanakkaalar" className="h-20 w-auto object-contain bg-white rounded-md p-1" />
+                </Link>
               </div>
               <p className="cs_mb_32">
                 Legal service provider in India. Reliable and expert services

@@ -31,14 +31,14 @@ import { motion } from "framer-motion";
 import BackgroundImageSrc from "../../assets/ngo_hero_bg.png"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
-  <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-    <span className="inline-block py-1 px-3 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-[10px] uppercase tracking-wider mb-2 border border-[#B2DFDB]">
+  <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
+    <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-3 text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-sm md:text-base max-w-2xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -148,7 +148,7 @@ const NGOOverviewContent = () => (
         title="NGO Registration Online"
         description="Understanding the legal structures for non-profits in India."
       />
-      <div className="max-w-4xl mx-auto text-center space-y-6">
+      <div className="max-w-4xl mx-auto text-center space-y-8">
         <p className="text-lg text-slate-600 leading-relaxed">
           Non-Governmental Organisation (<strong>NGO</strong>) registration in India involves various legal structures:{" "}
           <strong>Society</strong> (Societies Registration Act, 1860, min 7 members),{" "}
@@ -176,7 +176,7 @@ const NGORoleEligibilityContent = () => (
 
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 mb-12">
         <h4 className="text-xl font-bold text-slate-800 mb-6">Primary Roles of NGOs</h4>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {ngoRoles.map((item, i) => (
             <div key={i} className="p-5 bg-[#F8FDFC] border border-[#E0F2F1] rounded-xl hover:shadow-md transition-all">
               <item.icon className="w-6 h-6 text-[#00695C] mb-3" />
@@ -189,9 +189,9 @@ const NGORoleEligibilityContent = () => (
 
       <div className="bg-[#fff] rounded-2xl border border-slate-100 shadow-sm p-8">
         <h4 className="text-xl font-bold text-slate-800 mb-6">Eligibility Criteria</h4>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-10">
           {ngoEligibility.map((item, i) => (
-            <div key={i} className="flex items-start gap-4 p-4 bg-slate-50 border border-slate-100 rounded-lg">
+            <div key={i} className="flex items-start gap-5 p-4 bg-slate-50 border border-slate-100 rounded-lg">
               <CheckCircle className="flex-shrink-0 w-5 h-5 mt-1 text-[#00695C]" />
               <span className="text-sm text-slate-700 leading-relaxed font-medium">{item}</span>
             </div>
@@ -211,9 +211,9 @@ const NGOActsClassificationContent = () => (
         description="Governing laws and operational types of NGOs."
       />
 
-      <div className="grid gap-6 md:grid-cols-3 mb-16">
+      <div className="grid gap-10 md:grid-cols-3 mb-16">
         {ngoActs.map((item, i) => (
-          <div key={i} className="p-6 bg-[#F8FAFC] border border-slate-200 rounded-xl relative overflow-hidden group hover:border-[#00695C] transition-all">
+          <div key={i} className="p-8 bg-[#F8FAFC] border border-slate-200 rounded-xl relative overflow-hidden group hover:border-[#00695C] transition-all">
             <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
               <item.icon className="w-24 h-24 text-[#00695C]" />
             </div>
@@ -229,9 +229,9 @@ const NGOActsClassificationContent = () => (
       </div>
 
       <h4 className="text-2xl font-bold text-slate-800 mb-8 text-center">NGO Classification</h4>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {ngoClassification.map((item, i) => (
-          <div key={i} className="p-5 bg-white border border-slate-100 shadow-sm rounded-xl hover:shadow-md transition-all flex items-start gap-3 group">
+          <div key={i} className="p-5 bg-white border border-slate-100 shadow-sm rounded-xl hover:shadow-md transition-all flex items-start gap-5 group">
             <div className="mt-1 p-1 bg-amber-50 rounded text-amber-600 group-hover:bg-amber-100 transition-colors">
               <ArrowRight className="w-4 h-4" />
             </div>
@@ -258,15 +258,15 @@ const NGODocumentsProcessContent = () => (
       <div className="grid md:grid-cols-2 gap-12">
         <div className="space-y-8">
           <h4 className="text-xl font-bold text-slate-800">Required Documents</h4>
-          <div className="grid gap-4">
+          <div className="grid gap-5">
             {ngoDocuments.map((doc, i) => (
-              <div key={i} className="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
+              <div key={i} className="flex items-start gap-5 p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
                 <div className="p-2 bg-red-50 text-red-500 rounded-lg">
                   <doc.icon className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="font-bold text-slate-800 text-sm">{doc.title}</p>
-                  <p className="text-xs text-slate-500 mt-1">{doc.details}</p>
+                  <p className="text-sm text-slate-500 mt-1">{doc.details}</p>
                 </div>
               </div>
             ))}
@@ -301,9 +301,9 @@ const NGOBenefitsFundingContent = () => (
         description="Why register and how to sustain your NGO."
       />
 
-      <div className="grid gap-6 md:grid-cols-3 mb-16">
+      <div className="grid gap-10 md:grid-cols-3 mb-16">
         {ngoBenefits.map((benefit, i) => (
-          <div key={i} className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all text-center group">
+          <div key={i} className="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all text-center group">
             <div className="w-12 h-12 bg-[#F8FDFC] rounded-full flex items-center justify-center text-[#00695C] mx-auto mb-4 group-hover:scale-110 transition-transform">
               <benefit.icon className="w-6 h-6" />
             </div>
@@ -314,12 +314,12 @@ const NGOBenefitsFundingContent = () => (
       </div>
 
       <div className="bg-[#FFF8E1] border border-[#FFE082] rounded-2xl p-8 max-w-4xl mx-auto">
-        <h4 className="text-center text-xl font-bold text-amber-900 mb-6 flex items-center justify-center gap-2">
+        <h4 className="text-center text-xl font-bold text-amber-900 mb-6 flex items-center justify-center gap-5">
           <Handshake className="w-6 h-6" /> Ways to Raise Funds
         </h4>
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-5">
           {fundRaisingWays.map((way, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white/60 p-3 rounded-lg">
+            <div key={i} className="flex items-center gap-5 bg-white/60 p-3 rounded-lg">
               <CheckCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
               <span className="text-sm font-medium text-amber-900">{way.split(':')[0]}</span>
             </div>
@@ -339,9 +339,9 @@ const NGOWhyBizzfiling = () => (
         description="Simplifying your NGO journey from registration to compliance."
       />
 
-      <div className="grid gap-6 md:grid-cols-3 mb-12">
+      <div className="grid gap-10 md:grid-cols-3 mb-12">
         {ngoBizzfilingSteps.map((item, i) => (
-          <div key={i} className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+          <div key={i} className="p-8 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-all">
             <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center font-bold text-lg mb-4">
               {i + 1}
             </div>
@@ -351,10 +351,10 @@ const NGOWhyBizzfiling = () => (
         ))}
       </div>
 
-      <div className="max-w-3xl mx-auto text-center p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+      <div className="max-w-3xl mx-auto text-center p-8 bg-white border border-slate-200 rounded-xl shadow-sm">
         <p className="text-slate-500 text-sm mb-2 uppercase tracking-widest font-bold">Estimated Cost</p>
         <h4 className="text-3xl font-bold text-[#00695C] mb-2">Starts from ₹ 7,499 + Service Tax</h4>
-        <p className="text-xs text-slate-400">*Excluding government fees</p>
+        <p className="text-sm text-slate-400">*Excluding government fees</p>
       </div>
     </div>
   </section>
@@ -369,7 +369,7 @@ const NGOFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
         description="Expert answers to common queries."
       />
 
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-3xl mx-auto space-y-8">
         {faqs.map((f, i) => (
           <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${faqOpen === i ? 'border-[#00695C] shadow-lg' : 'border-slate-200 hover:border-[#00695C]/50'}`}>
             <button
@@ -473,7 +473,7 @@ export default function NGORegistrationPage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -486,7 +486,7 @@ export default function NGORegistrationPage() {
                     <div className="flex justify-center gap-0.5 mb-1.5">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} size={8} className="fill-[#C59B4E] text-[#C59B4E]" />)}
                     </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-[10px] leading-tight uppercase tracking-wider mb-1">
+                    <span className="block text-[#C59B4E] font-serif font-bold text-[9px] lg:text-sm leading-tight uppercase tracking-wider mb-1">
                       Legal<br />Services<br />In India
                     </span>
                     <div className="w-12 lg:w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
@@ -495,7 +495,7 @@ export default function NGORegistrationPage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-8">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   NGO Registration <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Online India</span>
@@ -505,26 +505,26 @@ export default function NGORegistrationPage() {
                   Register your NGO as a **Society, Trust, or Section 8 Company** with expert assistance. Get **NGO-Darpan ID**, **FCRA Eligibility**, and full compliance support.
                 </p>
 
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3">
+                <div className="space-y-8 mb-8">
+                  <div className="flex items-start gap-5">
                     <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                       <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                     </div>
                     <span className="text-slate-200 text-sm md:text-base">Complete MOA, Bylaws & Trust Deed Drafting by Experts</span>
                   </div>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-5">
                     <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                       <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                     </div>
                     <span className="text-slate-200 text-sm md:text-base">Application Filing with ROC / Charity Commissioner</span>
                   </div>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-5">
                     <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                       <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                     </div>
                     <span className="text-slate-200 text-sm md:text-base">Assistance with PAN, TAN & Bank Account Opening</span>
                   </div>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-5">
                     <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                       <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                     </div>
@@ -533,12 +533,12 @@ export default function NGORegistrationPage() {
                 </div>
               </div>
 
-              <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium pt-2">
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                   <span>Fast Approval</span>
                 </div>
-                <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-5.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                   <Zap className="w-4 h-4 text-[#C59B4E]" />
                   <span>Tax Exemptions</span>
                 </div>
@@ -551,7 +551,7 @@ export default function NGORegistrationPage() {
                 <div className="p-4 md:p-8">
                   <div className="text-center mb-4 md:mb-6">
                     <h2 className="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2">Get Started</h2>
-                    <p className="text-slate-500 text-[10px] md:text-xs px-2 leading-relaxed">
+                    <p className="text-slate-500 text-sm md:text-sm px-2 leading-relaxed">
                       Start your NGO journey today.
                     </p>
                   </div>

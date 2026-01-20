@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { X, Menu, ChevronDown, ArrowRight, LogOut } from "lucide-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { getAuth, clearAuth } from "../lib/auth";
-import logo from "../assets1/img/Logo.png";
+import logo from "../assets1/img/kanakkaalar_logo.png";
 import headerShape from "../assets1/img/header-shape.svg";
 
 // --- Navigation Data ---
@@ -28,6 +28,7 @@ const navLinks = [
     dropdown: {
       'Company Registration': [
         { label: 'Private Limited Company', href: '/BusinessSetup/plc' },
+        { label: 'Public Limited Company', href: '/BusinessSetup/public-ltd' },
         { label: 'Limited Liability Partnership', href: '/BusinessSetup/llp' },
         { label: 'One Person Company', href: '/BusinessSetup/opc' },
         { label: 'Sole Proprietorship', href: '/BusinessSetup/sp' },
@@ -358,7 +359,7 @@ export default function Header() {
 
     setMenuConfig({
       content,
-      position: { top: 80, left }, // Fixed top matching header height
+      position: { top: 90, left }, // Fixed top matching header height
       width,
       isMegaMenu,
     });
@@ -377,15 +378,19 @@ export default function Header() {
 
   // --- Mobile Handlers ---
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false); // Explicit close
   const toggleMobileSubmenu = (id) => {
     setExpandedMobileItem(expandedMobileItem === id ? null : id);
   };
+
+  // --- Profile Menu Handlers ---
+  const closeProfileMenu = () => setShowProfileMenu(false);
 
   // --- Logout Handler ---
   const handleLogout = () => {
     clearAuth();
     setUser(null);
-    setShowProfileMenu(false);
+    closeProfileMenu();
     window.dispatchEvent(new Event("auth:update"));
     navigate("/");
   };
@@ -402,7 +407,7 @@ export default function Header() {
           top: 0,
           width: "100%",
           zIndex: 9000,
-          height: '80px',
+          height: '90px',
           boxShadow: showHeader ? "0 4px 20px rgba(0,0,0,0.04)" : "none",
           borderBottom: '1px solid rgba(0,0,0,0.05)'
         }}
@@ -417,11 +422,15 @@ export default function Header() {
 
             {/* 1. Logo */}
             <div className="relative z-10 flex-shrink-0 flex items-center">
-              <Link to="/" aria-label="Home" className="block">
-                <img src={logo} alt="Kanakkaalar" className="h-10 md:h-12 w-auto object-contain" />
+              <Link
+                to="/"
+                aria-label="Home"
+                className="block"
+                onClick={closeMobileMenu}
+              >
+                <img src={logo} alt="Kanakkaalar" className="h-16 md:h-20 w-auto object-contain" />
               </Link>
             </div>
-
             {/* 2. Desktop Nav */}
             <div className="hidden lg:flex flex-grow justify-center items-center h-full px-4">
               <ul className="list-none flex items-center gap-1 xl:gap-4 h-full">
@@ -487,12 +496,14 @@ export default function Header() {
                       <Link
                         to="/dashboard/user/account"
                         className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
+                        onClick={closeProfileMenu}
                       >
                         Account Settings
                       </Link>
                       <Link
                         to="/dashboard"
                         className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
+                        onClick={closeProfileMenu}
                       >
                         Dashboard
                       </Link>
@@ -539,7 +550,7 @@ export default function Header() {
       <div
         className={`fixed inset-0 bg-white z-[8999] overflow-y-auto transition-transform duration-300 lg:hidden
         ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        style={{ paddingTop: "80px" }}
+        style={{ paddingTop: "90px" }}
       >
         <div className="container mx-auto px-4 pb-20">
           <div className="flex flex-col space-y-2 mt-4">
@@ -562,7 +573,7 @@ export default function Header() {
                   <MobileSubMenu
                     dropdown={item.dropdown}
                     isMegaMenu={item.isMegaMenu}
-                    onLinkClick={toggleMobileMenu}
+                    onLinkClick={closeMobileMenu}
                   />
                 </div>
               </div>
@@ -574,14 +585,14 @@ export default function Header() {
               <Link
                 to="/login"
                 className="flex items-center justify-center py-3.5 font-bold uppercase border border-slate-200 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
-                onClick={toggleMobileMenu}
+                onClick={closeMobileMenu}
               >
                 Login
               </Link>
               <Link
                 to="/signup"
                 className="flex items-center justify-center py-3.5 font-bold text-white uppercase rounded-xl shadow-md bg-[#1A7F7D]"
-                onClick={toggleMobileMenu}
+                onClick={closeMobileMenu}
               >
                 Sign Up
               </Link>
@@ -608,19 +619,19 @@ export default function Header() {
               <Link
                 to="/dashboard/user/account"
                 className="block w-full py-3 px-4 text-center text-sm font-bold text-slate-700 border border-slate-200 rounded-xl hover:bg-slate-50"
-                onClick={toggleMobileMenu}
+                onClick={closeMobileMenu}
               >
                 My Account
               </Link>
               <Link
                 to="/dashboard"
                 className="block w-full py-3 px-4 text-center text-sm font-bold text-white rounded-xl bg-[#1A7F7D]"
-                onClick={toggleMobileMenu}
+                onClick={closeMobileMenu}
               >
                 Dashboard
               </Link>
               <button
-                onClick={() => { handleLogout(); toggleMobileMenu(); }}
+                onClick={() => { handleLogout(); closeMobileMenu(); }}
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-red-600 border border-red-200 rounded-xl hover:bg-red-50"
               >
                 <LogOut size={16} />

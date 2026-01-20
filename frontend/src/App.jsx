@@ -48,6 +48,7 @@ const EmployeeContactPage = React.lazy(() => import("./pages/Dashboard/EmployeeD
 const EmployeeCompanyPage = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/EmployeeCompanyPage"));
 const EmployeeCalendarPage = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/EmployeeCalendarPage"));
 const EmployeeLeads = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/EmployeeLeads"));
+const EmployeeChat = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/EmployeeChat"));
 
 const AdminAgents = React.lazy(() => import("./pages/Dashboard/AdminDSB/AdminAgents"));
 
@@ -84,6 +85,7 @@ import ServiceLoader from "./pages/ServiceLoader";
 import CheckoutModal from "./components/CheckoutModal";
 
 import ChatBot from "./components/ChatBot";
+import ScrollToTop from "./components/ScrollToTop";
 
 /* ---------------------- Auth ---------------------- */
 import { getAuth, clearAuth } from "./lib/auth";
@@ -140,7 +142,6 @@ export default function App() {
   useEffect(() => {
     // Always show loader briefly on route change to indicate activity
     setPageLoading(true);
-    window.scrollTo(0, 0);
 
     // Ensure loader is hidden after a short delay
     const timer = setTimeout(() => {
@@ -164,6 +165,7 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden w-full max-w-full">
       <PageLoader show={pageLoading} />
+      <ScrollToTop />
 
 
       {/* Header should not show on Dashboard or Auth pages */}
@@ -248,6 +250,7 @@ export default function App() {
               <Route path="experts" element={<AdminExpertList />} />
               <Route path="deals" element={<AdminDeals />} />
               <Route path="attendance" element={<AdminAttendance />} />
+              <Route path="chat" element={<EmployeeChat />} />
               <Route path="performance" element={<AdminPerformance />} />
               <Route path="sales-reports" element={<AdminSalesReports />} />
               <Route path="reports" element={<AdminReports />} />
@@ -281,6 +284,7 @@ export default function App() {
               <Route path="contact" element={<EmployeeContactPage />} />
               <Route path="company" element={<EmployeeCompanyPage />} />
               <Route path="calendar" element={<EmployeeCalendarPage />} />
+              <Route path="chat" element={<EmployeeChat />} />
               {/* CRM Routes */}
               <Route path="crm/leads" element={<EmployeeLeads />} />
               <Route path="crm/deals" element={<AdminDeals />} />
