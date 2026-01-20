@@ -87,15 +87,9 @@ jobs:
           # Cleanup
           sudo rm -rf /home/ubuntu/kanakkaalar_temp
 
-          # 3. Restart Services (Robust Check)
+          # 3. Restart Services
           echo "Restarting Backend Service..."
-          if sudo pm2 describe kanakkaalar-backend > /dev/null; then
-              sudo pm2 restart kanakkaalar-backend
-          else
-              sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
-          fi
+          sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
           
-          # Save PM2 list so it auto-resurrects on reboot
           sudo pm2 save
-          
           echo "Kanakkaalar Deployment Complete!"
