@@ -45,7 +45,6 @@ export default function Signup() {
       if (profileImage) formData.append("profileImage", profileImage);
 
       await authAPI.signup(formData);
-      await authAPI.requestEmailOtp({ email });
       toast.success("Signup successful! Verify your email.");
       nav(`/verify-otp?email=${encodeURIComponent(email)}`);
     } catch (err) {
