@@ -14,15 +14,8 @@ public class WebConfig {
         // Allow credentials (cookies, authorization headers)
         config.setAllowCredentials(true);
         // Allow the frontend development server origin
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("http://115.97.59.230:5173");
-        config.addAllowedOrigin("http://192.168.1.18:5173");
-        config.addAllowedOrigin("http://192.168.1.2:5173");
-        config.addAllowedOrigin("http://192.168.1.3:5173");
-        config.addAllowedOrigin("http://192.168.1.4:5173");
-        // Add production domains
-        config.addAllowedOrigin("https://kanakkaalar.com");
-        config.addAllowedOrigin("https://www.kanakkaalar.com");
+        // Allow all origins specifically to fix 403
+        config.addAllowedOriginPattern("*");
         // Allow all headers and HTTP methods
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
