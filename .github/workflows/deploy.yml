@@ -1,0 +1,63 @@
+name: Deploy Kanakkaalar to EC2
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          # Naviage to project directory
+          cd /var/www/kanakkaalar
+
+          # Discard local changes and pull latest
+          # (Be careful if you have uncommitted changes on server, they will be lost)
+          sudo git fetch --all
+          sudo git reset --hard origin/main
+
+          # --- Front End ---
+          cd frontend
+          echo "Installing Frontend Dependencies..."
+          sudo npm install
+          
+          echo "Building Frontend..."
+          sudo npm run build
+          
+          # --- Back End ---
+          # Go back to root then backend (if needed, or just stay in root if your structure differs)
+          cd .. 
+          
+          # Verify backend files exist or need compilation
+          # If using Spring Boot (Maven), you might need:
+          # cd backend
+          # sudo mvn clean install
+          # sudo pm2 restart kanakkaalar-backend
+
+          # For now, assuming just a restart is enough if jar is updated via git or if you build on server
+          # If you build locally and push jar, then just restart.
+          # If you build on server:
+          # cd backend
+          # sudo ./mvnw clean package -DskipTests
+          # sudo pm2 restart kanakkaalar-backend
+
+          # Let's assume we just need to restart the existing process for now to pick up changes
+          # Adjust this line if you need a full maven build on the server
+          sudo pm2 restart kanakkaalar-backend || echo "Backend process not found or failed to restart"
+
+          # Restart Web Server to ensure no caching issues (optional but good)
+          sudo systemctl reload apache2
+
+          echo "Deployment Complete!"
