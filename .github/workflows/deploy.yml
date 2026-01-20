@@ -13,47 +13,31 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # --- SETUP & BUILD BACKEND ---
-    - name: Set up JDK 17
+    - name: Build Backend (Java 17)
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
+    - run: cd backend && mvn clean package -DskipTests
 
-    - name: Build Backend with Maven
-      run: |
-        cd backend
-        mvn clean package -DskipTests
-
-    # --- SETUP & BUILD FRONTEND ---
-    - name: Set up Node.js 20
+    - name: Build Frontend (Node 20)
       uses: actions/setup-node@v3
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
-
-    - name: Build Frontend
-      run: |
+    - run: |
         cd frontend
         npm install
         npm run build
 
-    # --- PREPARE SERVER ---
-    - name: Prepare Server Directory
+    - name: Prepare Server
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        timeout: 60s
-        script: |
-          mkdir -p /home/ubuntu/kanakkaalar_temp
-          chmod 777 /home/ubuntu/kanakkaalar_temp
+        script: mkdir -p /home/ubuntu/kanakkaalar_temp && chmod 777 /home/ubuntu/kanakkaalar_temp
 
-    # --- DEPLOY TO EC2 ---
-    - name: Deploy Artifacts (SCP)
+    - name: Upload Artifacts
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.HOST }}
@@ -61,48 +45,36 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: "backend/target/*.jar,frontend/dist/**"
         target: "/home/ubuntu/kanakkaalar_temp"
-        strip_components: 0
         timeout: 300s
 
-    - name: Switch Artifacts & Restart
+    - name: Deploy & Restart Background Services
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         timeout: 120s
-        command_timeout: 30m
         script: |
           set -e
-          echo "Deploying Kanakkaalar..."
+          echo "Deploying..."
           
-          # 1. Update Backend
-          # Ensure target directory exists
+          # Backend
           sudo mkdir -p /var/www/kanakkaalar/backend/target
-          
-          # Copy jar file
           sudo cp -f /home/ubuntu/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
           
-          # 2. Update Frontend
+          # Frontend
           sudo rm -rf /var/www/kanakkaalar/frontend/dist/*
           sudo mkdir -p /var/www/kanakkaalar/frontend/dist
           sudo cp -r /home/ubuntu/kanakkaalar_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
           
-          # Cleanup
-          sudo rm -rf /home/ubuntu/kanakkaalar_temp
+          rm -rf /home/ubuntu/kanakkaalar_temp
 
-          # 3. Restart Services
-          echo "Restarting Backend Service..."
+          # Restart Backend (PM2 handles background execution)
+          echo "Restarting Backend..."
           sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
+          sudo pm2 save # Save current process list
           
-          sudo pm2 save
-          
-          # 4. SSL Renewal Check
-          # Attempt to renew certificates if close to expiry
-          echo "Checking SSL Certificates..."
-          sudo certbot renew --quiet || echo "Certbot check skipped"
-          
-          # Reload Apache to pick up any changes
+          # Ensure Apache serves new frontend
           sudo systemctl reload apache2
           
-          echo "Kanakkaalar Deployment Complete!"
+          echo "Done!"
