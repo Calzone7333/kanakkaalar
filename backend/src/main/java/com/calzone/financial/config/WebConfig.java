@@ -20,6 +20,9 @@ public class WebConfig {
         config.addAllowedOrigin("http://192.168.1.2:5173");
         config.addAllowedOrigin("http://192.168.1.3:5173");
         config.addAllowedOrigin("http://192.168.1.4:5173");
+        // Add production domains
+        config.addAllowedOrigin("https://kanakkaalar.com");
+        config.addAllowedOrigin("https://www.kanakkaalar.com");
         // Allow all headers and HTTP methods
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
