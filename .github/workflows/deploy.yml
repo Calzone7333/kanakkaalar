@@ -48,18 +48,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         timeout: 60s
-        command_timeout: 60m
         script: |
-          # Use sudo to force clean, but be explicit
-          echo "Cleaning up temp directory..."
-          if [ -d "/home/ubuntu/deploy_temp" ]; then
-            sudo rm -rf /home/ubuntu/deploy_temp
-          fi
-          
-          echo "Creating temp directory..."
-          mkdir -p /home/ubuntu/deploy_temp
-          chmod 777 /home/ubuntu/deploy_temp
-          echo "Preparation Done"
+          mkdir -p /home/ubuntu/kanakkaalar_temp
+          chmod 777 /home/ubuntu/kanakkaalar_temp
 
     # --- DEPLOY TO EC2 ---
     - name: Deploy Artifacts (SCP)
@@ -69,10 +60,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         source: "backend/target/*.jar,frontend/dist/**"
-        target: "/home/ubuntu/deploy_temp"
+        target: "/home/ubuntu/kanakkaalar_temp"
         strip_components: 0
-        timeout: 300s # 5 minutes
-        command_timeout: 30m
+        timeout: 300s
 
     - name: Switch Artifacts & Restart
       uses: appleboy/ssh-action@v1.0.3
@@ -84,21 +74,28 @@ jobs:
         command_timeout: 30m
         script: |
           set -e
-          echo "Deploying from temp..."
+          echo "Deploying Kanakkaalar..."
           
           # 1. Update Backend
-          sudo cp -f /home/ubuntu/deploy_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
+          sudo cp -f /home/ubuntu/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
           
           # 2. Update Frontend
           sudo rm -rf /var/www/kanakkaalar/frontend/dist/*
           sudo mkdir -p /var/www/kanakkaalar/frontend/dist
-          sudo cp -r /home/ubuntu/deploy_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
+          sudo cp -r /home/ubuntu/kanakkaalar_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
           
           # Cleanup
-          sudo rm -rf /home/ubuntu/deploy_temp
+          sudo rm -rf /home/ubuntu/kanakkaalar_temp
 
-          # 3. Restart Services
-          echo "Restarting Services..."
-          sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
+          # 3. Restart Services (Robust Check)
+          echo "Restarting Backend Service..."
+          if sudo pm2 describe kanakkaalar-backend > /dev/null; then
+              sudo pm2 restart kanakkaalar-backend
+          else
+              sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
+          fi
           
-          echo "Deployment Complete!"
+          # Save PM2 list so it auto-resurrects on reboot
+          sudo pm2 save
+          
+          echo "Kanakkaalar Deployment Complete!"
