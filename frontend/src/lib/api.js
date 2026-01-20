@@ -11,7 +11,8 @@ const FAILOVER_URLS = [
 let currentBaseUrl = FAILOVER_URLS[0];
 
 // Create the Axios instance
-baseURL: currentBaseUrl,
+const api = axios.create({
+    baseURL: currentBaseUrl,
     timeout: 15000, // 15 seconds timeout
 });
 
