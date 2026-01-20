@@ -77,6 +77,10 @@ jobs:
           echo "Deploying Kanakkaalar..."
           
           # 1. Update Backend
+          # Ensure target directory exists
+          sudo mkdir -p /var/www/kanakkaalar/backend/target
+          
+          # Copy jar file
           sudo cp -f /home/ubuntu/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
           
           # 2. Update Frontend
@@ -92,4 +96,13 @@ jobs:
           sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
           
           sudo pm2 save
+          
+          # 4. SSL Renewal Check
+          # Attempt to renew certificates if close to expiry
+          echo "Checking SSL Certificates..."
+          sudo certbot renew --quiet || echo "Certbot check skipped"
+          
+          # Reload Apache to pick up any changes
+          sudo systemctl reload apache2
+          
           echo "Kanakkaalar Deployment Complete!"
