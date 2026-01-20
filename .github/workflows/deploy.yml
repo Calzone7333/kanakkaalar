@@ -59,6 +59,11 @@ jobs:
           echo "Deploying..."
           
           # Backend
+          echo "Stopping and cleaning old backend..."
+          sudo pm2 stop kanakkaalar-backend || true
+          sudo pm2 delete kanakkaalar-backend || true
+          sudo rm -f /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
+          
           sudo mkdir -p /var/www/kanakkaalar/backend/target
           sudo cp -f /home/ubuntu/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
           
@@ -69,10 +74,10 @@ jobs:
           
           rm -rf /home/ubuntu/kanakkaalar_temp
 
-          # Restart Backend (PM2 handles background execution)
-          echo "Restarting Backend..."
-          sudo pm2 restart kanakkaalar-backend || sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
-          sudo pm2 save # Save current process list
+          # Start Backend
+          echo "Starting Backend..."
+          sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
+          sudo pm2 save
           
           # Ensure Apache serves new frontend
           sudo systemctl reload apache2
