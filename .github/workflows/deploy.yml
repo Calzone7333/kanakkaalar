@@ -30,7 +30,7 @@ jobs:
     - name: Set up Node.js 20
       uses: actions/setup-node@v3
       with:
-        node-version: '20' # UPDATED to Node 20 to fix engine compatibility warnings
+        node-version: '20'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
@@ -47,12 +47,19 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        timeout: 30s
+        timeout: 60s
+        command_timeout: 60m
         script: |
-          # Ensure temp dir exists and is clean/writable
-          sudo rm -rf /home/ubuntu/deploy_temp
+          # Use sudo to force clean, but be explicit
+          echo "Cleaning up temp directory..."
+          if [ -d "/home/ubuntu/deploy_temp" ]; then
+            sudo rm -rf /home/ubuntu/deploy_temp
+          fi
+          
+          echo "Creating temp directory..."
           mkdir -p /home/ubuntu/deploy_temp
           chmod 777 /home/ubuntu/deploy_temp
+          echo "Preparation Done"
 
     # --- DEPLOY TO EC2 ---
     - name: Deploy Artifacts (SCP)
@@ -64,7 +71,8 @@ jobs:
         source: "backend/target/*.jar,frontend/dist/**"
         target: "/home/ubuntu/deploy_temp"
         strip_components: 0
-        timeout: 120s  # Increased timeout
+        timeout: 300s # 5 minutes
+        command_timeout: 30m
 
     - name: Switch Artifacts & Restart
       uses: appleboy/ssh-action@v1.0.3
@@ -72,7 +80,8 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        timeout: 60s
+        timeout: 120s
+        command_timeout: 30m
         script: |
           set -e
           echo "Deploying from temp..."
@@ -82,12 +91,11 @@ jobs:
           
           # 2. Update Frontend
           sudo rm -rf /var/www/kanakkaalar/frontend/dist/*
-          # Ensure target dir exists
           sudo mkdir -p /var/www/kanakkaalar/frontend/dist
           sudo cp -r /home/ubuntu/deploy_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
           
           # Cleanup
-          rm -rf /home/ubuntu/deploy_temp
+          sudo rm -rf /home/ubuntu/deploy_temp
 
           # 3. Restart Services
           echo "Restarting Services..."
