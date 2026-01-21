@@ -57,7 +57,9 @@ export default function Login() {
       const isInvalid =
         status === 401 || /invalid|incorrect|credentials|not found/i.test(errMsg);
       setShowResetLink(isInvalid);
-      if (/email not verified/i.test(errMsg)) setShowResendVerification(true);
+      if (/email not verified/i.test(errMsg)) {
+        return nav(`/verify-otp?email=${encodeURIComponent(email)}`);
+      }
     } finally {
       setLoading(false);
     }
