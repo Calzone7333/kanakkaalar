@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { X, Menu, ChevronDown, ArrowRight, LogOut } from "lucide-react";
+import { X, Menu, ChevronDown, ArrowRight, LogOut, LayoutDashboard } from "lucide-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { getAuth, clearAuth } from "../lib/auth";
 import { userAPI } from "../lib/api";
@@ -486,57 +486,52 @@ export default function Header() {
                   </Link>
                 </div>
               ) : (
-                <div className="hidden lg:flex items-center gap-4 relative" data-profile-menu>
+                <div className="hidden lg:flex items-center gap-3 relative" data-profile-menu>
+                  {/* Display Name Separately (Not Clickable) */}
+                  <span className="text-sm font-semibold text-slate-700 max-w-[150px] truncate cursor-default">
+                    {user.name || user.fullName || "User"}
+                  </span>
+
+                  {/* Profile Image Trigger (Clickable) */}
                   <button
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
-                    className="flex items-center gap-3 px-2 py-1.5 rounded-full hover:bg-slate-50 transition-all border border-transparent hover:border-slate-200"
+                    className="flex items-center justify-center transition-transform hover:scale-105 focus:outline-none relative z-50"
                     data-profile-menu
                   >
                     {user.profileBlobUrl ? (
                       <img
                         src={user.profileBlobUrl}
                         alt={user.name || user.fullName}
-                        className="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-sm"
+                        className="w-10 h-10 rounded-full object-cover shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                       />
                     ) : user.profileImageUrl ? (
                       <img
                         src={user.profileImageUrl}
                         alt={user.name || user.fullName}
-                        className="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-sm"
+                        className="w-10 h-10 rounded-full object-cover shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                       />
                     ) : (
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#1A7F7D] to-[#23938D] text-white flex items-center justify-center text-sm font-bold shadow-sm">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1A7F7D] to-[#23938D] text-white flex items-center justify-center text-sm font-bold shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                         {(user.name || user.fullName || "U")[0].toUpperCase()}
                       </div>
                     )}
-                    <ChevronDown size={14} className={`text-slate-400 transition-transform duration-300 ${showProfileMenu ? "rotate-180" : ""}`} />
                   </button>
 
                   {/* Profile Dropdown Menu */}
                   {showProfileMenu && (
-                    <div className="absolute top-full right-0 mt-3 w-56 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                      <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
-                        <p className="text-sm font-bold text-slate-800 truncate">{user.name || user.fullName || "User"}</p>
-                        <p className="text-xs text-slate-500 truncate">{user.email}</p>
-                      </div>
-                      <Link
-                        to="/dashboard/user/account"
-                        className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
-                        onClick={closeProfileMenu}
-                      >
-                        Account Settings
-                      </Link>
+                    <div className="absolute top-full right-0 mt-2 w-52 bg-white border border-slate-100 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                       <Link
                         to="/dashboard"
-                        className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
                         onClick={closeProfileMenu}
                       >
+                        <LayoutDashboard size={16} />
                         Dashboard
                       </Link>
-                      <div className="h-px bg-slate-100 my-1"></div>
+                      <div className="h-px bg-slate-100 my-0"></div>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                        className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors flex items-center gap-3"
                       >
                         <LogOut size={16} />
                         Sign Out
