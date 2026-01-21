@@ -76,6 +76,7 @@ jobs:
 
           # Start Backend
           echo "Starting Backend..."
+          sudo fuser -k 8081/tcp || true
           sudo pm2 start "java -jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar" --name kanakkaalar-backend
           sudo pm2 save
           
