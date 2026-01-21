@@ -157,6 +157,8 @@ export default function App() {
     location.pathname === "/signup" ||
     location.pathname.startsWith("/verify-otp") ||
     location.pathname === "/company-setup" ||
+    location.pathname === "/forgot-password" ||
+    location.pathname.startsWith("/reset-password") ||
     location.pathname === "/ConsultanExpert/talkToIP" ||
     location.pathname.startsWith("/dashboard");
 
