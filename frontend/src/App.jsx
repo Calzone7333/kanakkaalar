@@ -155,6 +155,8 @@ export default function App() {
   const hideLayout =
     location.pathname === "/login" ||
     location.pathname === "/signup" ||
+    location.pathname.startsWith("/verify-otp") ||
+    location.pathname === "/company-setup" ||
     location.pathname === "/ConsultanExpert/talkToIP" ||
     location.pathname.startsWith("/dashboard");
 

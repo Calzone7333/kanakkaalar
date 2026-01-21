@@ -64,54 +64,84 @@ export default function VerifyEmail() {
   };
 
   return (
-    <div className="max-w-md p-6 mx-auto bg-white rounded shadow">
-      <h2 className="mb-4 text-xl font-semibold">Verify Email</h2>
-      <form onSubmit={verify}>
-        <label className="block text-sm font-medium text-slate-700">
-          Email
-        </label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 mt-2 border rounded"
-          placeholder="you@domain.com"
-        />
-        <label className="block mt-4 text-sm font-medium text-slate-700">
-          OTP Code
-        </label>
-        <input
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          className="w-full px-3 py-2 mt-2 border rounded"
-          placeholder="6-digit code"
-        />
-        <button
-          disabled={loading}
-          className="mt-4 w-full bg-[#003366] text-white py-2 rounded"
-        >
-          {loading ? "Verifying..." : "Verify"}
-        </button>
+    <div className="flex items-center justify-center min-h-screen bg-slate-50 relative p-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-slate-100 relative">
+        <h2 className="mb-2 text-2xl font-bold text-center text-[#003366]">Verify Email 📧</h2>
+        <p className="mb-6 text-sm text-center text-slate-500">
+          We've sent a code to <span className="font-semibold text-slate-700">{email}</span>.
+          Enter it below to verify your account.
+        </p>
 
-        <div className="flex items-center justify-between gap-4 mt-3">
-          <button
-            type="button"
-            onClick={resendOtp}
-            disabled={loading || resendCooldown > 0}
-            className={`flex-1 py-2 rounded border text-sm ${resendCooldown > 0 ? 'bg-gray-100 text-gray-500 border-gray-200' : 'bg-white text-[#003366] border-[#003366] hover:bg-blue-50'}`}
-          >
-            {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend OTP'}
-          </button>
+        <form onSubmit={verify} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Email Address
+            </label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#003366] focus:border-transparent outline-none transition-all bg-slate-50"
+              placeholder="you@domain.com"
+              disabled
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Verification Code (OTP)
+            </label>
+            <input
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#003366] focus:border-transparent outline-none transition-all text-center text-2xl tracking-[0.5em] font-bold text-[#003366]"
+              placeholder="• • • • • •"
+              maxLength={6}
+            />
+          </div>
 
           <button
-            type="button"
-            onClick={() => nav('/login')}
-            className="flex-1 py-2 text-sm bg-white border border-gray-200 rounded"
+            disabled={loading}
+            className="w-full bg-[#003366] text-white py-3 rounded-xl font-semibold shadow-md hover:bg-[#002244] active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Back to Login
+            {loading ? "Verifying..." : "Verify Account"}
           </button>
-        </div>
-      </form>
-      {message && <div className="mt-3 text-sm text-slate-600">{message}</div>}
+
+          <div className="flex flex-col gap-3 pt-2">
+            <button
+              type="button"
+              onClick={resendOtp}
+              disabled={loading || resendCooldown > 0}
+              className={`w-full py-2 text-sm font-medium transition-colors ${resendCooldown > 0
+                  ? "text-slate-400 cursor-not-allowed"
+                  : "text-[#003366] hover:text-[#002244] hover:underline"
+                }`}
+            >
+              {resendCooldown > 0
+                ? `Resend code in 00:${resendCooldown.toString().padStart(2, "0")}`
+                : "Didn't receive code? Resend"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => nav("/login")}
+              className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
+            >
+              ← Back to Login
+            </button>
+          </div>
+        </form>
+
+        {message && (
+          <div
+            className={`mt-6 p-3 rounded-lg text-sm text-center font-medium animate-pulse ${message.toLowerCase().includes("success") || message.toLowerCase().includes("verified")
+                ? "bg-green-50 text-green-700 border border-green-100"
+                : "bg-red-50 text-red-700 border border-red-100"
+              }`}
+          >
+            {message}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
