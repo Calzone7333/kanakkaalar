@@ -20,7 +20,6 @@ import com.calzone.financial.lead.LeadRepository;
 import com.calzone.financial.lead.dto.LeadResponse;
 import com.calzone.financial.order.OrderRepository;
 import com.calzone.financial.casemgmt.CaseRepository;
-import com.calzone.financial.lead.Lead;
 import com.calzone.financial.order.Order;
 
 @Service
@@ -31,7 +30,6 @@ public class AdminService {
     private final PasswordEncoder passwordEncoder;
     private final LeadRepository leadRepository;
     private final OrderRepository orderRepository;
-    private final CaseRepository caseRepository;
     private final com.calzone.financial.lead.LeadService leadService;
     private final com.calzone.financial.deal.DealRepository dealRepository;
 
@@ -47,7 +45,6 @@ public class AdminService {
         this.passwordEncoder = passwordEncoder;
         this.leadRepository = leadRepository;
         this.orderRepository = orderRepository;
-        this.caseRepository = caseRepository;
         this.leadService = leadService;
         this.dealRepository = dealRepository;
     }
@@ -203,12 +200,10 @@ public class AdminService {
         List<User> allEmployees = listEmployees();
         long total = allEmployees.size();
         long active = allEmployees.stream().filter(User::isEnabled).count();
-        long inactive = total - active;
-
         return Map.of(
                 "totalEmployees", total,
-                "activeEmployees", total, // Mock: assuming all are active for now
-                "inactiveEmployees", 0L);
+                "activeEmployees", active,
+                "inactiveEmployees", total - active);
     }
 
     @Transactional(readOnly = true)

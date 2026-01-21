@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { X, Menu, ChevronDown, ArrowRight, LogOut } from "lucide-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { getAuth, clearAuth } from "../lib/auth";
+import { userAPI } from "../lib/api";
 import logo from "../assets1/img/kanakkaalar_logo.png";
 import headerShape from "../assets1/img/header-shape.svg";
 
@@ -296,7 +297,26 @@ export default function Header() {
     const authData = getAuth();
     if (authData && authData.user) {
       setUser(authData.user);
+
+      // Load Profile Image matching Dashboard logic
+      (async () => {
+        try {
+          const resp = await userAPI.profileImage();
+          const blob = resp.data;
+          if (blob instanceof Blob && blob.size > 0) {
+            const url = URL.createObjectURL(blob);
+            setUser(u => ({ ...u, profileBlobUrl: url }));
+          }
+        } catch (e) {
+          // Silent fail
+        }
+      })();
     }
+
+    // Cleanup blob URL
+    return () => {
+      if (user?.profileBlobUrl) URL.revokeObjectURL(user.profileBlobUrl);
+    };
   }, []);
 
   // --- Close Profile Menu on Outside Click ---
@@ -472,10 +492,16 @@ export default function Header() {
                     className="flex items-center gap-3 px-2 py-1.5 rounded-full hover:bg-slate-50 transition-all border border-transparent hover:border-slate-200"
                     data-profile-menu
                   >
-                    {user.profileImageUrl ? (
+                    {user.profileBlobUrl ? (
+                      <img
+                        src={user.profileBlobUrl}
+                        alt={user.name || user.fullName}
+                        className="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-sm"
+                      />
+                    ) : user.profileImageUrl ? (
                       <img
                         src={user.profileImageUrl}
-                        alt={user.name}
+                        alt={user.name || user.fullName}
                         className="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-sm"
                       />
                     ) : (
@@ -600,10 +626,16 @@ export default function Header() {
           ) : (
             <div className="mt-8 pt-6 border-t border-slate-100 space-y-4">
               <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                {user.profileImageUrl ? (
+                {user.profileBlobUrl ? (
+                  <img
+                    src={user.profileBlobUrl}
+                    alt={user.name || user.fullName}
+                    className="w-12 h-12 rounded-full object-cover border border-slate-200"
+                  />
+                ) : user.profileImageUrl ? (
                   <img
                     src={user.profileImageUrl}
-                    alt={user.name}
+                    alt={user.name || user.fullName}
                     className="w-12 h-12 rounded-full object-cover border border-slate-200"
                   />
                 ) : (

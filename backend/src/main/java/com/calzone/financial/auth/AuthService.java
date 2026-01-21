@@ -32,8 +32,7 @@ public class AuthService {
             JwtService jwtService,
             EmailVerificationService emailVerificationService,
             NotificationService notificationService,
-            com.calzone.financial.lead.LeadRepository leadRepository
-    ) {
+            com.calzone.financial.lead.LeadRepository leadRepository) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtService = jwtService;
@@ -48,8 +47,7 @@ public class AuthService {
             String password,
             String fullName,
             String phone,
-            MultipartFile profileImage
-    ) {
+            MultipartFile profileImage) {
         // Check if email already exists
         if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already exists");
@@ -141,27 +139,26 @@ public class AuthService {
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("user", Map.of(
-            "id", user.getId(),
-            "fullName", user.getFullName(),
-            "email", user.getEmail(),
-            "phone", user.getPhone(),
-            "role", role,
-            "hasProfileImage", user.hasProfileImage()
-        ));
+                "id", user.getId(),
+                "fullName", user.getFullName(),
+                "email", user.getEmail(),
+                "phone", user.getPhone(),
+                "role", role,
+                "hasProfileImage", user.hasProfileImage()));
 
         return response;
     }
 
     // ==================== GET CURRENT USER ====================
     public User getCurrentUser() {
-        org.springframework.security.core.Authentication authentication = 
-            org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
-        
-        if (authentication == null || !authentication.isAuthenticated() || 
-            authentication.getPrincipal().equals("anonymousUser")) {
+        org.springframework.security.core.Authentication authentication = org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() ||
+                authentication.getPrincipal().equals("anonymousUser")) {
             throw new IllegalStateException("No authenticated user found");
         }
-        
+
         String email = authentication.getName();
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalStateException("User not found: " + email));
