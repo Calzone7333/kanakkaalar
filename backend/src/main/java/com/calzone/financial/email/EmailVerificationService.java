@@ -33,14 +33,15 @@ public class EmailVerificationService {
     @Value("${spring.mail.username:}")
     private String fromEmail;
 
-    public EmailVerificationService(VerificationCodeRepository repo, JavaMailSender mailSender, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public EmailVerificationService(VerificationCodeRepository repo, JavaMailSender mailSender,
+            UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.repo = repo;
         this.mailSender = mailSender;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    // ✅ FIX: Removed @Transactional from this field. 
+    // ✅ FIX: Removed @Transactional from this field.
     @Value("${app.mail.return-code:false}")
     private boolean returnCode;
 
@@ -69,20 +70,25 @@ public class EmailVerificationService {
             message.setFrom(fromEmail);
         }
         message.setSubject("Verify your email for Calzone Financial");
-        message.setText("Your verification code is: " + code + "\nThis code expires in " + TTL.toMinutes() + " minutes.");
+        message.setText(
+                "Your verification code is: " + code + "\nThis code expires in " + TTL.toMinutes() + " minutes.");
         try {
             mailSender.send(message);
-        } catch (MailException e) {
+        } catch (Exception e) {
             System.err.println("Failed to send email to " + email + ": " + e.getMessage());
+            e.printStackTrace(); // Print full stack for debugging
             if (returnCode) {
                 // In debug mode return the code so frontend can show it
                 return code;
             }
-            // Throwing a public error to the client lets them know the email service failed.
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to send verification email. Please check server logs.");
+            // Throwing a public error to the client lets them know the email service
+            // failed.
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Failed to send verification email. Please check server logs.");
         }
         // In debug mode return the code
-        if (returnCode) return code;
+        if (returnCode)
+            return code;
         return null;
     }
 
