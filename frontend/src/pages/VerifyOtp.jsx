@@ -53,8 +53,12 @@ export default function VerifyEmail() {
     if (resendCooldown > 0) return;
     setLoading(true);
     try {
-      await authAPI.requestEmailOtp({ email });
-      setMessage("Verification code sent to your email.");
+      const res = await authAPI.requestEmailOtp({ email });
+      if (res.data?.code) {
+        setMessage(`Verification code sent (Dev: ${res.data.code})`);
+      } else {
+        setMessage("Verification code sent to your email.");
+      }
       setResendCooldown(30); // 30 seconds cooldown
     } catch (err) {
       setMessage(err?.response?.data?.error || "Could not send OTP. Try again later.");
