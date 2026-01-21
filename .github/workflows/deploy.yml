@@ -76,7 +76,7 @@ jobs:
 
           # Start Backend
           echo "Starting Backend..."
-          sudo pm2 start /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar --name kanakkaalar-backend -- port 8081
+          sudo pm2 start "java -jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar" --name kanakkaalar-backend
           sudo pm2 save
           
           # Ensure Apache serves new frontend
