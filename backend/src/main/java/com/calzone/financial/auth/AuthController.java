@@ -61,6 +61,17 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<?> google(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        try {
+            Map<String, Object> res = authService.loginGoogle(token);
+            return ResponseEntity.ok(res);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", e.getMessage()));
+        }
+    }
+
     // Request an email OTP. Returns code in response only when service is
     // configured for debug return.
     @PostMapping("/request-email-otp")

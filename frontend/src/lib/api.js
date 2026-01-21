@@ -89,6 +89,7 @@ api.interceptors.response.use(
 export const authAPI = {
     signup: (payload) => api.post("/auth/signup", payload),
     login: (payload) => api.post("/auth/login", payload),
+    loginGoogle: (token) => api.post("/auth/google", { token }),
     loginPhone: (payload) => api.post("/auth/login-phone", payload),
     verifyPhone: (payload) => api.post("/auth/verify-phone", payload),
     requestEmailOtp: (payload) => api.post("/auth/request-email-otp", payload),
@@ -371,5 +372,14 @@ export const chatAPI = {
     groupHistory: (groupId) => api.get(`/chat/group-history?groupId=${groupId}`),
 };
 
+
+// Service Items Management (Dynamic Service Hub)
+export const serviceItemAPI = {
+    getActiveGrouped: () => api.get("/service-items/active-grouped"),
+    getAll: () => api.get("/service-items/all"),
+    create: (payload) => api.post("/service-items", payload),
+    update: (id, payload) => api.put(`/service-items/${id}`, payload),
+    delete: (id) => api.delete(`/service-items/${id}`),
+};
 
 export default api;

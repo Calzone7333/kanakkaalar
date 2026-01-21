@@ -51,6 +51,7 @@ const EmployeeLeads = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/Emp
 const EmployeeChat = React.lazy(() => import("./pages/Dashboard/EmployeeDSB/EmployeeChat"));
 
 const AdminAgents = React.lazy(() => import("./pages/Dashboard/AdminDSB/AdminAgents"));
+const AdminServices = React.lazy(() => import("./pages/Dashboard/AdminDSB/AdminServices"));
 
 /* ---------------------- Admin Modules ---------------------- */
 const AdminEmployees = React.lazy(() => import("./pages/Dashboard/AdminDSB/AdminEmployees"));
@@ -251,6 +252,7 @@ export default function App() {
               <Route path="leads" element={<AdminLeads />} />
               <Route path="employees" element={<AdminEmployees />} />
               <Route path="agents" element={<AdminAgents />} />
+              <Route path="services" element={<AdminServices />} />
               <Route path="experts" element={<AdminExpertList />} />
               <Route path="deals" element={<AdminDeals />} />
               <Route path="attendance" element={<AdminAttendance />} />

@@ -19,7 +19,8 @@ import {
   Menu,
   X,
   Building,
-  MessageSquare
+  MessageSquare,
+  Layers // Added Layers
 } from "lucide-react";
 
 // ✅ Import getUser from your auth utility
@@ -78,6 +79,7 @@ const AdminLayout = ({ children, logout }) => {
     { path: "/dashboard/admin/performance", label: "Performance", Icon: TrendingUp },
     { path: "/dashboard/admin/sales-reports", label: "Sales Reports", Icon: BarChart },
     { path: "/dashboard/admin/orders", label: "Orders", Icon: ShoppingCart },
+    { path: "/dashboard/admin/services", label: "Services Hub", Icon: Layers }, // Added Services Hub
     { path: "/dashboard/admin/experts", label: "Experts", Icon: User },
     { path: "/dashboard/admin/reports", label: "Reports", Icon: FileText },
   ];

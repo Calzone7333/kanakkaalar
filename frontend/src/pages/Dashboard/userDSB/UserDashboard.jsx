@@ -125,15 +125,15 @@ export default function UserDashboard() {
   }, [user, nav]);
 
   const navItems = [
-    { to: "/dashboard/user/home", label: "Home", icon: <Home size={20} /> },
-    { to: "/dashboard/user/compliances", label: "Compliances", icon: <ShieldCheck size={20} /> },
-    { to: "/dashboard/user/company", label: "Company", icon: <Building size={20} /> },
-    { to: "/dashboard/user/documents", label: "Documents", icon: <FolderOpen size={20} /> },
-    { to: "/dashboard/user/servicehub", label: "Service Hub", icon: <Monitor size={20} /> },
-    { to: "/dashboard/user/my-orders", label: "My Orders", icon: <ShoppingBag size={20} /> },
-    { to: "/dashboard/user/calendar", label: "Calendar", icon: <Calendar size={20} /> },
+    { to: "/dashboard/user/home", label: "Home", icon: <Home size={18} /> },
+    { to: "/dashboard/user/compliances", label: "Compliances", icon: <ShieldCheck size={18} /> },
+    { to: "/dashboard/user/company", label: "Company", icon: <Building size={18} /> },
+    { to: "/dashboard/user/documents", label: "Documents", icon: <FolderOpen size={18} /> },
+    { to: "/dashboard/user/servicehub", label: "Service Hub", icon: <Monitor size={18} /> },
+    { to: "/dashboard/user/my-orders", label: "My Orders", icon: <ShoppingBag size={18} /> },
+    { to: "/dashboard/user/calendar", label: "Calendar", icon: <Calendar size={18} /> },
     // Reports removed as per request
-    { to: "/dashboard/user/consult", label: "Consult", icon: <Headphones size={20} /> },
+    { to: "/dashboard/user/consult", label: "Consult", icon: <Headphones size={18} /> },
   ];
 
   const getCurrentLabel = () => {
@@ -152,16 +152,16 @@ export default function UserDashboard() {
       {/* Sidebar */}
       <aside className={`sidebar ${menuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="sidebar-logo">
-          <div className="flex items-center gap-2">
-            <MenuIcon size={28} className="text-blue-400" />
-            <span>MyApp Panel</span>
+          <div className="flex items-center gap-3">
+            <MenuIcon size={24} className="text-[#2E96FF]" />
+            <span>Kanakkaalar</span>
           </div>
           {/* Mobile Close Button */}
           <button
-            className="text-gray-400 hover:text-white lg:hidden"
+            className="text-gray-400 hover:text-gray-600 lg:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LogOut size={24} className="rotate-180" /> {/* Reusing Icon for Close X look or import X */}
+            <LogOut size={20} className="rotate-180" />
           </button>
         </div>
         <nav className="sidebar-nav">

@@ -141,24 +141,24 @@ export default function CompliancesPage() {
       <div className="max-w-7xl mx-auto space-y-6">
 
         {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl shadow-sm border border-slate-100">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <FileText className="w-6 h-6 text-indigo-600" />
+            <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-indigo-600" />
               Compliances
             </h1>
-            <p className="mt-1 text-sm text-slate-500">Track and manage your statutory obligations.</p>
+            <p className="mt-1 text-xs text-slate-500">Track and manage your statutory obligations.</p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
               {['all', 'work', 'other'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${activeCategory === cat
-                      ? "bg-white text-indigo-600 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${activeCategory === cat
+                    ? "bg-white text-indigo-600 shadow-sm"
+                    : "text-slate-500 hover:text-slate-700"
                     }`}
                 >
                   {cat === 'all' ? 'All' : cat === 'work' ? 'Work Based' : 'Other'}
@@ -214,35 +214,35 @@ export default function CompliancesPage() {
                   <div
                     key={it.id}
                     onClick={() => setSelectedId(it.id)}
-                    className={`p-4 cursor-pointer transition-all hover:bg-slate-50 ${selectedId === it.id ? "bg-indigo-50/50 border-l-4 border-indigo-500" : "border-l-4 border-transparent"
+                    className={`p-3 cursor-pointer transition-all hover:bg-slate-50 border-b border-slate-50 last:border-0 ${selectedId === it.id ? "bg-indigo-50/40 border-l-[3px] border-l-indigo-500" : "border-l-[3px] border-l-transparent"
                       }`}
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className={`font-medium text-sm ${selectedId === it.id ? "text-indigo-900" : "text-slate-900"}`}>
+                    <div className="flex justify-between items-start mb-1.5">
+                      <h3 className={`font-semibold text-xs ${selectedId === it.id ? "text-indigo-900" : "text-slate-800"}`}>
                         {it.name}
                       </h3>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium ${getStatusColor(it.status)}`}>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded border font-semibold ${getStatusColor(it.status)}`}>
                         {it.status}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-4 text-xs text-slate-500 mb-2">
+                    <div className="flex items-center gap-3 text-[10px] text-slate-500 mb-1.5">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
+                        <Calendar className="w-3 h-3 text-slate-400" />
                         {new Date(it.dueDate).toLocaleDateString()}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Briefcase className="w-3 h-3" />
+                        <Briefcase className="w-3 h-3 text-slate-400" />
                         {it.frequency}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400 flex items-center gap-1">
+                      <span className="text-[10px] text-slate-400 flex items-center gap-1">
                         <User className="w-3 h-3" />
                         {it.assignee}
                       </span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded border ${getPriorityColor(it.priority)}`}>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded border font-medium ${getPriorityColor(it.priority)}`}>
                         {it.priority}
                       </span>
                     </div>
@@ -270,41 +270,41 @@ export default function CompliancesPage() {
           {/* Details Section */}
           <section className="lg:col-span-7">
             {selected ? (
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden sticky top-6">
+              <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden sticky top-6">
                 {/* Header */}
-                <div className="p-6 border-b border-slate-100 flex justify-between items-start bg-slate-50/30">
+                <div className="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50/30">
                   <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className={`text-xs font-medium px-2.5 py-1 rounded-md border ${getPriorityColor(selected.priority)}`}>
-                        {selected.priority} Priority
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${getPriorityColor(selected.priority)}`}>
+                        {selected.priority}
                       </span>
-                      <span className="text-xs text-slate-500 uppercase tracking-wider font-medium">
-                        {selected.category} Compliance
+                      <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+                        {selected.category}
                       </span>
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900">{selected.name}</h2>
+                    <h2 className="text-lg font-bold text-slate-900 leading-tight">{selected.name}</h2>
                   </div>
 
                   <div className="flex gap-2">
                     <button className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-                      <Download className="w-5 h-5" />
+                      <Download className="w-4 h-4" />
                     </button>
                     <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                      <MoreVertical className="w-5 h-5" />
+                      <MoreVertical className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-8">
+                <div className="p-5 space-y-6">
                   {/* Status Card */}
                   <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-full ${selected.status === 'Completed' ? 'bg-emerald-100 text-emerald-600' :
-                          selected.status === 'In Progress' ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-500'
+                        selected.status === 'In Progress' ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-500'
                         }`}>
-                        {selected.status === 'Completed' ? <CheckCircle className="w-5 h-5" /> :
-                          selected.status === 'In Progress' ? <Clock className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
+                        {selected.status === 'Completed' ? <CheckCircle className="w-4 h-4" /> :
+                          selected.status === 'In Progress' ? <Clock className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
                       </div>
                       <div>
                         <p className="text-sm font-medium text-slate-900">Current Status</p>
@@ -313,9 +313,9 @@ export default function CompliancesPage() {
                     </div>
                     <button
                       onClick={() => toggleComplete(selected.id)}
-                      className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${selected.status === "Completed"
-                          ? "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-                          : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200"
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${selected.status === "Completed"
+                        ? "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
+                        : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200"
                         }`}
                     >
                       {selected.status === "Completed" ? "Mark as Pending" : "Mark as Completed"}
@@ -324,63 +324,63 @@ export default function CompliancesPage() {
 
                   {/* Description */}
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 mb-2">Description</h3>
+                    <h3 className="text-xs font-bold text-slate-900 mb-1.5 uppercase tracking-wide">Description</h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
                       {selected.description}
                     </p>
                   </div>
 
                   {/* Details Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl border border-slate-100 bg-white">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="p-3 rounded-lg border border-slate-100 bg-white">
                       <div className="flex items-center gap-2 text-slate-400 mb-1">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-xs font-medium uppercase">Due Date</span>
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase">Due Date</span>
                       </div>
-                      <p className="text-slate-900 font-medium">{new Date(selected.dueDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      <p className="text-slate-900 font-medium text-sm">{new Date(selected.dueDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                     </div>
 
-                    <div className="p-4 rounded-xl border border-slate-100 bg-white">
+                    <div className="p-3 rounded-lg border border-slate-100 bg-white">
                       <div className="flex items-center gap-2 text-slate-400 mb-1">
-                        <User className="w-4 h-4" />
-                        <span className="text-xs font-medium uppercase">Assignee</span>
+                        <User className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase">Assignee</span>
                       </div>
-                      <p className="text-slate-900 font-medium">{selected.assignee}</p>
+                      <p className="text-slate-900 font-medium text-sm">{selected.assignee}</p>
                     </div>
 
-                    <div className="p-4 rounded-xl border border-slate-100 bg-white">
+                    <div className="p-3 rounded-lg border border-slate-100 bg-white">
                       <div className="flex items-center gap-2 text-slate-400 mb-1">
-                        <Briefcase className="w-4 h-4" />
-                        <span className="text-xs font-medium uppercase">Frequency</span>
+                        <Briefcase className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase">Frequency</span>
                       </div>
-                      <p className="text-slate-900 font-medium">{selected.frequency}</p>
+                      <p className="text-slate-900 font-medium text-sm">{selected.frequency}</p>
                     </div>
 
-                    <div className="p-4 rounded-xl border border-slate-100 bg-white">
+                    <div className="p-3 rounded-lg border border-slate-100 bg-white">
                       <div className="flex items-center gap-2 text-slate-400 mb-1">
-                        <FileText className="w-4 h-4" />
-                        <span className="text-xs font-medium uppercase">Documents</span>
+                        <FileText className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase">Documents</span>
                       </div>
-                      <p className="text-indigo-600 font-medium text-sm cursor-pointer hover:underline">View Attached Files</p>
+                      <p className="text-indigo-600 font-medium text-xs cursor-pointer hover:underline">View Attached Files</p>
                     </div>
                   </div>
 
                   {/* Actions */}
                   <div className="flex gap-3 pt-4 border-t border-slate-100">
-                    <button className="flex-1 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+                    <button className="flex-1 px-3 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
                       Add Note
                     </button>
-                    <button className="flex-1 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+                    <button className="flex-1 px-3 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
                       Upload Document
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="h-full flex flex-col items-center justify-center text-slate-400 p-12 bg-white rounded-2xl border border-slate-100 border-dashed">
-                <FileText className="w-16 h-16 mb-4 text-slate-200" />
-                <p className="text-lg font-medium text-slate-600">No Item Selected</p>
-                <p className="text-sm">Select a compliance item to view details</p>
+              <div className="h-full flex flex-col items-center justify-center text-slate-400 p-12 bg-white rounded-xl border border-slate-100 border-dashed">
+                <FileText className="w-12 h-12 mb-3 text-slate-200" />
+                <p className="text-base font-semibold text-slate-600">No Item Selected</p>
+                <p className="text-xs">Select a compliance item to view details</p>
               </div>
             )}
           </section>

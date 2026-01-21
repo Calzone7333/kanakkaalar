@@ -97,7 +97,7 @@ export default function HomePage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
-            Welcome back, <span className="text-blue-600">{user?.firstName || "User"}</span>!
+            Welcome back, <span className="text-[#2E96FF]">{user?.fullName || "User"}</span>!
           </h1>
           <p className="text-gray-500 text-sm mt-1">Here is an overview of your business activities.</p>
         </div>

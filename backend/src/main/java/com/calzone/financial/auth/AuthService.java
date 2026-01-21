@@ -163,4 +163,91 @@ public class AuthService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalStateException("User not found: " + email));
     }
+
+    // ==================== GOOGLE LOGIN ====================
+    public Map<String, Object> loginGoogle(String token) {
+        try {
+            // Verify Access Token with Google userinfo endpoint
+            java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+            java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create("https://www.googleapis.com/oauth2/v3/userinfo"))
+                    .header("Authorization", "Bearer " + token)
+                    .GET()
+                    .build();
+
+            java.net.http.HttpResponse<String> response = client.send(request,
+                    java.net.http.HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 200) {
+                throw new IllegalArgumentException("Invalid Google Token");
+            }
+
+            // Parse JSON
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            com.fasterxml.jackson.databind.JsonNode root = mapper.readTree(response.body());
+
+            String email = root.get("email").asText();
+            String name = root.has("name") ? root.get("name").asText() : email;
+
+            // Check if user exists
+            User user = userRepository.findByEmail(email).orElse(null);
+
+            if (user == null) {
+                // Create new user
+                user = User.builder()
+                        .email(email)
+                        .fullName(name)
+                        .password(encoder.encode(java.util.UUID.randomUUID().toString())) // Random password
+                        .phone("") // Phone unknown, user can update later
+                        .emailVerified(true) // Google verified
+                        .build();
+
+                userRepository.save(user);
+
+                // Create Lead for this user
+                try {
+                    com.calzone.financial.lead.Lead lead = new com.calzone.financial.lead.Lead();
+                    lead.setName(name);
+                    lead.setEmail(email);
+                    lead.setStatus("New");
+                    lead.setService("Signup (Google)");
+                    leadRepository.save(lead);
+                } catch (Exception e) {
+                    LOGGER.error("Failed to create lead for new google user: {}", email, e);
+                }
+
+                notificationService.createNotification("New user signup via Google: " + email);
+            } else {
+                if (!user.getEmailVerified()) {
+                    user.setEmailVerified(true);
+                    userRepository.save(user);
+                }
+            }
+
+            // Generate JWT token
+            String jwtToken = jwtService.generateToken(user);
+
+            // Extract role
+            String role = "USER";
+            if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+                role = user.getRoles().iterator().next().getName();
+            }
+
+            // Build response
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("token", jwtToken);
+            resp.put("user", Map.of(
+                    "id", user.getId(),
+                    "fullName", user.getFullName(),
+                    "email", user.getEmail(),
+                    "phone", user.getPhone() != null ? user.getPhone() : "",
+                    "role", role,
+                    "hasProfileImage", user.hasProfileImage()));
+
+            return resp;
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Google Login Failed: " + e.getMessage());
+        }
+    }
 }

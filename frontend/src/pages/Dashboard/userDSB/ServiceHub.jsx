@@ -11,187 +11,10 @@ import {
     XMarkIcon
 } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/24/solid'; // distinct style for checkmarks
-import { servicesData } from "../../../data/servicePricing";
-import { serviceHubAPI, processAPI } from "../../../lib/api";
-import { getAuth } from "../../../lib/auth";
+import { serviceHubAPI, processAPI, serviceItemAPI } from "../../../lib/api"; // Added serviceItemAPI
 
-// ===========================================
-// STATIC DATA
-// ===========================================
-
-const tabData = {
-    "Licenses/Registrations": {
-        "Business Essentials": [
-            { title: "GST Registration", desc: "Price: ₹999 | Duration: 3-7 Days", to: "/compliances/gst", categoryKey: "licenses" },
-            { title: "MSME Registration", desc: "Price: ₹499 | Duration: 1-2 Days", to: "/Licenses/msme", categoryKey: "licenses" },
-            { title: "Udyam Registration", desc: "Price: ₹499 | Duration: 1-2 Days", to: "/Licenses/udyam", categoryKey: "licenses" },
-            { title: "Food License", desc: "Price: ₹1,499 | Duration: 3-7 Days", to: "/licenses/fssai", categoryKey: "licenses" },
-            { title: "Digital Signature (DSC)", desc: "Price: ₹999 | Duration: 30 Mins", to: "/licenses/dsc", categoryKey: "licenses" },
-            { title: "Trade License", desc: "Price: ₹3,000 | Duration: 1 hr", to: "/licenses/trade", categoryKey: "licenses" }
-        ],
-        "Labour Compliance": [
-            { title: "PF/ESI Registration", desc: "Price: ₹3,999 | Duration: 5-7 Days", to: "/compliances/pf-esi", categoryKey: "licenses" },
-            { title: "Professional Tax Registration", desc: "Price: ₹1,500 | Duration: 30 mins", to: "/compliances/professional-tax", categoryKey: "licenses" },
-            { title: "Shops & Establishment License", desc: "Price: ₹2,500 | Duration: 45 mins", to: "/licenses/shop", categoryKey: "licenses" },
-            { title: "CLRA Registration", desc: "Price: ₹4,999 | Duration: 15-20 Days", to: "/licenses/clra", categoryKey: "licenses" }
-        ],
-        "Export Business": [
-            { title: "Import Export Code (IEC)", desc: "Price: ₹1,999 | Duration: 2-3 Days", to: "/licenses/iec", categoryKey: "licenses" },
-            { title: "AD Code Registration", desc: "Price: ₹2,999 | Duration: 3-5 Days", to: "/licenses/adcode", categoryKey: "licenses" },
-            { title: "Spice Board Registration", desc: "Price: ₹4,999 | Duration: 10-15 Days", to: "/licenses/spice-board", categoryKey: "licenses" },
-            { title: "FIEO Registration", desc: "Price: ₹5,999 | Duration: 7-10 Days", to: "/licenses/fieo", categoryKey: "licenses" },
-            { title: "APEDA Registration", desc: "Contact Expert to Get Price", to: "/licenses/apeda", categoryKey: "licenses" }
-        ],
-        "Quality & Standards": [
-            { title: "ISO Certification", desc: "Price: ₹1,999 | Duration: 3-5 Days", to: "/licenses/iso", categoryKey: "licenses" },
-            { title: "Hallmark Registration", desc: "Price: ₹14,999 | Duration: 15-20 Days", to: "/licenses/hallmark", categoryKey: "licenses" },
-            { title: "BIS Registration", desc: "Price: ₹24,999 | Duration: 20-30 Days", to: "/licenses/bis", categoryKey: "licenses" },
-            { title: "Legal Metrology", desc: "Price: ₹9,999 | Duration: 30-45 Days", to: "/licenses/legal-metrology", categoryKey: "licenses" },
-            { title: "Drug & Cosmetic License", desc: "Price: ₹29,999 | Duration: 45-60 Days", to: "/licenses/drug-license", categoryKey: "licenses" }
-        ],
-        "Other": [
-            { title: "Liquor License", desc: "Price: ₹49,999 | Duration: 45-60 Days", to: "/licenses/liquor-license", categoryKey: "licenses" },
-            { title: "IRDAI Registration", desc: "Price: ₹24,999 | Duration: 60-90 Days", to: "/licenses/irdai", categoryKey: "licenses" },
-            { title: "Customs Clearance", desc: "On Request", to: "/licenses/customs-clearance", categoryKey: "licenses" }
-        ]
-    },
-    "Trademark/IP": {
-        "Trademark": [
-            { title: "Trademark Registration", desc: "Price: ₹7,500", to: "/ip/trademark-registration", categoryKey: "ip" },
-            { title: "Respond to Trademark Objection", desc: "Price: ₹10,000", to: "/ip/trademark-objection", categoryKey: "ip" },
-            { title: "Trademark Hearing Service", desc: "Contact Expert to Get Price", to: "/ip/trademark-hearing", categoryKey: "ip" },
-            { title: "Renewal of Trademark", desc: "Contact Expert to Get Price", to: "/ip/trademark-renewal", categoryKey: "ip" },
-            { title: "International Trademark", desc: "Price: ₹35,000 | Duration: 6-12 Months", to: "/ip/international-trademark", categoryKey: "ip" }
-        ],
-        "Copyright": [
-            { title: "Copyright Music", desc: "Contact Expert to Get Price", to: "/ip/copyright-music", categoryKey: "ip" }
-        ],
-        "Patent": [
-            { title: "Patent Search", desc: "Contact Expert to Get Price", to: "/ip/patent-search", categoryKey: "ip" },
-            { title: "Provisional Patent Application", desc: "Contact Expert to Get Price", to: "/ip/provisional-patent", categoryKey: "ip" },
-            { title: "Patent Registration", desc: "Contact Expert to Get Price", to: "/ip/patent-registration", categoryKey: "ip" }
-        ],
-        "Infringement": [
-            { title: "Patent Infringement", desc: "Contact Expert to Get Price", to: "/ip/patent-infringement", categoryKey: "ip" }
-        ]
-    },
-    "Company Change": {
-        "Company Name/Management": [
-            { title: "Change Company Name", desc: "Price: ₹4,999 | Duration: 30 Days", to: "/company/change-name", categoryKey: "company" },
-            { title: "Change Objectives", desc: "Price: ₹3,499 | Duration: 3-4 Days", to: "/company/change-objectives", categoryKey: "company" },
-            { title: "Add/Remove Director", desc: "Price: ₹1,999 | Duration: 3-4 Days", to: "/company/director-change", categoryKey: "company" },
-            { title: "Appointment of a Director/Partner", desc: "Price: ₹1,999 | Duration: 30 mins", to: "/company/appoint-director", categoryKey: "company" },
-            { title: "Removal of a Director/Partner", desc: "Price: ₹1,999 | Duration: 30 mins", to: "/company/remove-director", categoryKey: "company" },
-            { title: "Change Address (Same City)", desc: "Price: ₹1,500 | Duration: 3-4 Days", to: "/company/change-address-city", categoryKey: "company" },
-            { title: "Change Address (Different State)", desc: "Price: ₹7,500 | Duration: 30 Days", to: "/company/change-address-state", categoryKey: "company" }
-        ],
-        "Capital & Share Services": [
-            { title: "Transfer Shares", desc: "Price: ₹4,999 | Duration: 3-4 Days", to: "/company/transfer-shares", categoryKey: "company" },
-            { title: "Increase Auth Capital", desc: "Price: ₹4,999 | Duration: 3-4 Days", to: "/company/change-capital", categoryKey: "company" },
-            { title: "Wind Up Company", desc: "Price: ₹14,999 | Duration: 3-6 Months", to: "/closure/company-closure", categoryKey: "company" }
-        ],
-        "Business Upgrades": [
-            { title: "Convert Sole to Pvt Ltd", desc: "Price: ₹9,999 | Duration: 7-10 Days", to: "/company/sole-to-private", categoryKey: "company" },
-            { title: "Convert Partnership into a Private Limited company", desc: "Price: ₹9,999 | Duration: 2-3 hrs", to: "/company/partnership-to-private", categoryKey: "company" },
-            { title: "Convert LLP to Pvt Ltd", desc: "Price: ₹9,999 | Duration: 10-15 Days", to: "/company/llp-to-private", categoryKey: "company" }
-        ]
-    },
-    "Taxation & Compliance": {
-        "Direct & Indirect Tax": [
-            { title: "GST Registration", desc: "Price: ₹999 | Duration: 3-7 Days", to: "/compliances/gst", categoryKey: "tax" },
-            { title: "GST Return Filing", desc: "Price: ₹499/mo | Duration: Monthly", to: "/tax/gst-filing", categoryKey: "tax" },
-            { title: "ITR Filing (Business)", desc: "Price: ₹2,499 | Duration: 3-5 Days", to: "/tax/itr-filing-business", categoryKey: "tax" },
-            { title: "ITR Filing (Salaried)", desc: "Price: ₹999 | Duration: 2-3 Days", to: "/tax/itr-filing-salaried", categoryKey: "tax" },
-            { title: "TDS Return Filing", desc: "Price: ₹1,499/qtr | Duration: Quarterly", to: "/tax/tds-filing", categoryKey: "tax" },
-            { title: "GSTR Filings", desc: "Price: ₹699 | Duration: 30 mins", to: "/tax/gstr-filings", categoryKey: "tax" }
-        ],
-        "RoC/Secretarial Compliance": [
-            { title: "Annual Compliance for PVT", desc: "Price: ₹24,500", to: "/roc/annual-pvt", categoryKey: "tax" },
-            { title: "Annual Compliance for LLP", desc: "Price: ₹10,999", to: "/roc/annual-llp", categoryKey: "tax" },
-            { title: "Director KYC(DIR-3) Filing", desc: "Price: ₹499 | Duration: 20 mins", to: "/roc/dir-3-filing", categoryKey: "tax" }
-        ],
-        "Labour Compliance": [
-            { title: "PF/ESI Registration", desc: "Price: ₹3,999 | Duration: 5-7 Days", to: "/compliances/pf-esi", categoryKey: "tax" },
-            { title: "PF & ESI Filings", desc: "Price: ₹1,000", to: "/labour/pf-esi", categoryKey: "tax" },
-            { title: "Professional Tax Filings", desc: "Price: ₹2,500 | Duration: 30 mins", to: "/labour/professional-tax", categoryKey: "tax" },
-            { title: "Payroll Processing", desc: "Price: ₹99/emp | Duration: Monthly", to: "/labour/payroll", categoryKey: "tax" }
-        ],
-        "Accounting & Financial Management": [
-            { title: "Audit of a Company", desc: "Price: ₹7,500", to: "/accounting/audit", categoryKey: "tax" },
-        ],
-        "Business Expansion": [
-            { title: "Due Deligence", desc: "Price: ₹2,500", to: "/business/due-diligence", categoryKey: "tax" },
-            { title: "Pitch Deck Service", desc: "Price: ₹4,999 | Duration: 5-7 Days", to: "/business/pitch-deck", categoryKey: "tax" },
-            { title: "Business Loan", desc: "Price: 2% of Loan | Duration: 15-30 Days", to: "/business/loan", categoryKey: "tax" },
-            { title: "DPR Service", desc: "Price: ₹24,999 | Duration: 10-15 Days", to: "/business/dpr", categoryKey: "tax" }
-        ]
-    },
-    "New Business/Closure": {
-        "Business Registration": [
-            { title: "Private Limited Company", desc: "Price: ₹6,999 | Duration: 7-14 Days", to: "/formation/private-ltd", categoryKey: "formation" },
-            { title: "Public Limited Company", desc: "Price: ₹19,999 | Duration: 15-20 Days", to: "/formation/public-ltd", categoryKey: "formation" },
-            { title: "Limited Liability Partnership", desc: "Price: ₹3,999 | Duration: 10-15 Days", to: "/formation/llp", categoryKey: "formation" },
-            { title: "One Person Company", desc: "Price: ₹5,999 | Duration: 7-14 Days", to: "/formation/opc", categoryKey: "formation" },
-            { title: "Sole Proprietorship", desc: "Price: ₹1,499 | Duration: 3-5 Days", to: "/formation/sole-proprietorship", categoryKey: "formation" },
-            { title: "Nidhi Company", desc: "Price: ₹19,999 | Duration: 20-30 Days", to: "/formation/nidhi", categoryKey: "formation" },
-            { title: "Producer Company", desc: "Price: ₹24,999 | Duration: 20-30 Days", to: "/formation/producer", categoryKey: "formation" },
-            { title: "Partnership Firm", desc: "Price: ₹1,999 | Duration: 5-7 Days", to: "/formation/partnership", categoryKey: "formation" },
-            { title: "Startup India Registration", desc: "Price: ₹1,999 | Duration: 15-20 Days", to: "/formation/startup-india", categoryKey: "formation" }
-        ],
-        "International Business Setup": [
-            { title: "US Incorporation", desc: "Price: ₹29,999 | Duration: 15-20 Days", to: "/formation/us-inc", categoryKey: "formation" },
-            { title: "Singapore Incorporation", desc: "Price: ₹1,49,999 | Duration: 10-15 Days", to: "/formation/singapore-inc", categoryKey: "formation" },
-            { title: "UK Incorporation", desc: "Price: ₹19,999 | Duration: 3-5 Days", to: "/formation/uk-inc", categoryKey: "formation" },
-            { title: "Netherlands Incorporation", desc: "Price: ₹6,50,000 | Duration: 20-30 Days", to: "/formation/netherlands-inc", categoryKey: "formation" },
-            { title: "Hong Kong Company", desc: "Price: ₹1,80,000 | Duration: 15-20 Days", to: "/formation/hongkong-inc", categoryKey: "formation" },
-            { title: "Dubai Incorporation", desc: "Price: ₹4,50,000 | Duration: 15-20 Days", to: "/formation/dubai-inc", categoryKey: "formation" }
-        ],
-        "NGO Registration": [
-            { title: "Section 8 Company", desc: "Price: ₹12,999 | Duration: 15-20 Days", to: "/formation/section8", categoryKey: "formation" },
-            { title: "Trust Registration", desc: "Price: ₹9,999 | Duration: 10-15 Days", to: "/formation/trust", categoryKey: "formation" },
-            { title: "Society Registration", desc: "Price: ₹9,999 | Duration: 15-20 Days", to: "/formation/society", categoryKey: "formation" },
-            { title: "Darpan Registration", desc: "Price: ₹1,999 | Duration: 5-7 Days", to: "/formation/darpan", categoryKey: "formation" },
-            { title: "80G & 12A Registration", desc: "Price: ₹9,999 | Duration: 2-3 Months", to: "/formation/80g-12a", categoryKey: "formation" },
-            { title: "FCRA Registration", desc: "Price: ₹14,999 | Duration: 3-6 Months", to: "/formation/fcra", categoryKey: "formation" },
-            { title: "CSR-1 Filing", desc: "Price: ₹1,999 | Duration: 3-5 Days", to: "/formation/csr1", categoryKey: "formation" }
-        ],
-        "Closure/Cancellation": [
-            { title: "Company Closure Service", desc: "Price: ₹3,999", to: "/closure/company-closure", categoryKey: "closure" },
-            { title: "GST Cancellation Service", desc: "Price: ₹2,499", to: "/closure/gst-cancellation", categoryKey: "closure" }
-        ]
-    },
-    "Legal Agreements": {
-        "Contracts & Agreements": [
-            { title: "NDA", desc: "Contact Expert to Get Price", to: "/legal/nda", categoryKey: "legal" },
-            { title: "Master Service Agreement", desc: "Price: ₹2,000", to: "/legal/msa", categoryKey: "legal" },
-            { title: "Franchise Agreement", desc: "Price: ₹2,000", to: "/legal/franchise", categoryKey: "legal" },
-            { title: "Joint Venture Agreement", desc: "Price: ₹2,000", to: "/legal/joint-venture", categoryKey: "legal" },
-            { title: "Founders Agreements", desc: "Price: ₹2,000", to: "/legal/founders", categoryKey: "legal" },
-            { title: "Consultancy Services Agreement", desc: "Price: ₹1,000", to: "/legal/consultancy", categoryKey: "legal" },
-            { title: "Employment Agreement", desc: "Price: ₹1,000", to: "/legal/employment", categoryKey: "legal" },
-            { title: "Service Contract", desc: "Price: ₹1,000", to: "/legal/service-contract", categoryKey: "legal" }
-        ],
-        "Notices": [
-            { title: "Legal Notice", desc: "Price: ₹1,499", to: "/legal/legal-notice", categoryKey: "legal" },
-            { title: "Cheque Bounce Notice", desc: "Price: ₹2,500", to: "/legal/cheque-bounce", categoryKey: "legal" },
-            { title: "Recovery of Dues", desc: "Price: ₹1,000", to: "/legal/recovery", categoryKey: "legal" }
-        ],
-        "Policy": [
-            { title: "Terms of Service and Privacy Policy", desc: "Price: ₹1,500", to: "/legal/policies", categoryKey: "legal" }
-        ]
-    },
-    "Expert Consultation": {
-        "Talk to Expert": [
-            { title: "Talk to a Lawyer", desc: "Price: ₹499 | Duration: 30 Mins", to: "/consult/lawyer", categoryKey: "legal" },
-            { title: "Talk to a CA", desc: "Price: ₹499 | Duration: 30 Mins", to: "/consult/ca", categoryKey: "tax" },
-            { title: "Talk to a CS", desc: "Price: ₹499 | Duration: 30 Mins", to: "/consult/cs", categoryKey: "company" },
-            { title: "Talk to IP Expert", desc: "Price: ₹999 | Duration: 30 Mins", to: "/consult/ip", categoryKey: "ip" }
-        ]
-    }
-};
-
-const defaultTab = "Licenses/Registrations";
-const tabKeys = Object.keys(tabData);
+// Remove static tabData
+// const tabData = { ... } 
 
 // ===========================================
 // 1. ComplianceCardSmall Component
@@ -227,29 +50,14 @@ const ComplianceCardSmall = ({ title, desc, to, categoryKey, onClick }) => (
     </div>
 );
 
-
-// ===========================================
-// 2. Detail Drawer Component Utilities
-// ===========================================
-
-const DetailBlock = ({ title, content, icon: Icon }) => (
-    <div className="flex items-start p-4 space-x-3 border border-gray-100 rounded-lg bg-gray-50">
-        <Icon className="w-6 h-6 text-[#2E96FF] flex-shrink-0 mt-0.5" />
-        <div>
-            <h4 className="font-semibold text-gray-800">{title}</h4>
-            <p className="mt-1 text-sm text-gray-600">{content}</p>
-        </div>
-    </div>
-);
-
 const PricingPlans = ({ plans, serviceTitle, serviceDesc }) => {
     if (!plans) return null;
     const navigate = useNavigate();
 
     const tiers = [
-        { key: 'standard', name: 'Standard', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
-        { key: 'premium', name: 'Premium', color: 'text-white', bg: 'bg-[#2E96FF]', border: 'border-[#2E96FF]', isPopular: true },
-        { key: 'elite', name: 'Elite', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' }
+        { key: 'standard', name: 'Starter', color: 'text-slate-600', accent: 'bg-white', border: 'border-slate-200' },
+        { key: 'premium', name: 'Professional', color: 'text-white', accent: 'bg-[#F0F9FF]', border: 'border-[#2E96FF]', isPopular: true },
+        { key: 'elite', name: 'Enterprise', color: 'text-amber-700', accent: 'bg-white', border: 'border-slate-200' }
     ];
 
     const handlePlanSelect = (planKey, planPrice) => {
@@ -263,55 +71,60 @@ const PricingPlans = ({ plans, serviceTitle, serviceDesc }) => {
     };
 
     return (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 items-start">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 items-stretch">
             {tiers.map(tier => {
                 const plan = plans[tier.key];
                 if (!plan) return null;
                 return (
                     <div
                         key={tier.key}
-                        className={`relative flex flex-col p-6 rounded-2xl transition-all duration-300 ${tier.isPopular
-                            ? 'border-2 border-[#2E96FF] shadow-xl scale-105 z-10 bg-white'
-                            : 'border border-gray-200 bg-white hover:border-gray-300 hover:shadow-lg'
-                            }`}
+                        className={`relative flex flex-col p-6 rounded-xl transition-all duration-300 border ${tier.border} ${tier.accent} hover:shadow-lg hover:-translate-y-1`}
                     >
                         {tier.isPopular && (
-                            <div className="absolute top-0 right-0 left-0 flex justify-center -mt-3">
-                                <span className="bg-[#003366] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                                    Most Popular
+                            <div className="absolute top-0 right-0">
+                                <span className="bg-[#2E96FF] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl uppercase tracking-wider">
+                                    Popular
                                 </span>
                             </div>
                         )}
 
-                        <h4 className={`text-sm font-bold uppercase tracking-wider mb-2 ${tier.key === 'premium' ? 'text-[#2E96FF]' : 'text-gray-500'}`}>
-                            {tier.name}
-                        </h4>
-
-                        <div className="mb-6 flex items-baseline">
-                            <span className="text-3xl font-extrabold text-[#003366]">₹{plan.price?.toLocaleString()}</span>
+                        <div className="mb-6">
+                            <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${tier.isPopular ? 'text-[#2E96FF]' : 'text-slate-500'}`}>
+                                {tier.name}
+                            </h4>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-bold text-slate-800 tracking-tight">
+                                    ₹{plan.price?.toLocaleString()}
+                                </span>
+                                <span className="text-xs font-medium text-slate-400">/ service</span>
+                            </div>
                         </div>
 
                         <ul className="flex-1 mb-8 space-y-3">
                             {plan.features?.length > 0 ? (
                                 plan.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start text-sm text-gray-600">
-                                        <CheckIcon className={`w-5 h-5 mt-0.5 mr-3 flex-shrink-0 ${tier.key === 'premium' ? 'text-[#2E96FF]' : 'text-green-500'}`} />
-                                        <span className="leading-5">{feature}</span>
+                                    <li key={idx} className="flex items-start gap-3">
+                                        <div className="mt-1 w-4 h-4 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                                            <CheckIcon className="w-3 h-3" strokeWidth={3} />
+                                        </div>
+                                        <span className="text-sm font-medium text-slate-600 leading-snug">
+                                            {feature}
+                                        </span>
                                     </li>
                                 ))
                             ) : (
-                                <li className="text-sm italic text-gray-400">Standard features included.</li>
+                                <li className="text-sm italic text-slate-400">Standard implementation included.</li>
                             )}
                         </ul>
 
                         <button
                             onClick={() => handlePlanSelect(tier.key, plan.price)}
-                            className={`w-full py-3 text-sm font-bold rounded-xl transition-colors duration-200 ${tier.isPopular
-                                ? 'bg-[#2E96FF] text-white hover:bg-[#2579cd] shadow-md hover:shadow-lg'
-                                : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                            className={`w-full py-2.5 text-sm font-bold rounded-lg transition-colors border ${tier.isPopular
+                                ? 'bg-[#2E96FF] text-white border-[#2E96FF] hover:bg-[#2579cd]'
+                                : 'bg-white text-slate-700 border-slate-200 hover:border-[#2E96FF] hover:text-[#2E96FF]'
                                 }`}
                         >
-                            Select {tier.name}
+                            Select Plan
                         </button>
                     </div>
                 )
@@ -489,238 +302,55 @@ const getServiceSpecificContent = (service) => {
 
     const processDetails = processStepData[service.categoryKey] || processStepData.licenses;
 
-    // Pricing Match Logic
-    const pricingService = servicesData.find(s => s.name.toLowerCase().trim() === service.title.toLowerCase().trim()) ||
-        servicesData.find(s => s.name.toLowerCase().includes(service.title.toLowerCase()) || service.title.toLowerCase().includes(s.name.toLowerCase()));
-
     let pricingSection = null;
-    if (pricingService && pricingService.plans && (pricingService.plans.standard || pricingService.plans.premium)) {
+    // Check if any valid plan exists (Standard, Premium, or Elite)
+    const hasPlans = service.plans && (service.plans.standard || service.plans.premium || service.plans.elite);
+
+    if (hasPlans) {
         pricingSection = {
             id: 'pricing_group',
             title: 'Pricing Plans',
             content: (
                 <div className="space-y-6">
                     <h3 className="text-xl font-bold text-[#003366]">Transparent Pricing</h3>
-                    <PricingPlans plans={pricingService.plans} serviceTitle={service.title} serviceDesc={service.desc} />
+                    <PricingPlans plans={service.plans} serviceTitle={service.title} serviceDesc={service.desc} />
+                </div>
+            )
+        };
+    } else {
+        // Fallback for services without specific plans (e.g. "Contact Expert")
+        pricingSection = {
+            id: 'pricing_group',
+            title: 'Get Started',
+            content: (
+                <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
+                    <h3 className="text-xl font-bold text-[#003366] mb-2">Interested in this service?</h3>
+                    <p className="text-gray-600 mb-6 max-w-lg mx-auto">
+                        Our experts are ready to assist you with {service.title}. Get a personalized quote and guidance tailored to your business needs.
+                    </p>
+                    <button
+                        onClick={() => {
+                            const params = new URLSearchParams({
+                                title: service.title,
+                                desc: service.desc || 'Custom Service Request',
+                                plan: 'custom',
+                                price: '0' // Flag for custom pricing
+                            });
+                            navigate(`/dashboard/user/service-order?${params.toString()}`);
+                        }}
+                        className="px-8 py-3 bg-[#2E96FF] text-white font-bold rounded-xl shadow-lg hover:bg-[#2579cd] hover:shadow-xl transition-all"
+                    >
+                        Request Consultation / Quote
+                    </button>
+                    <p className="mt-4 text-xs text-gray-500">
+                        No immediate payment required. We will contact you to discuss details.
+                    </p>
                 </div>
             )
         };
     }
 
-    if (service.title === "GST Registration") {
-        return {
-            isSpecific: true,
-            sections: [
-                {
-                    id: 'overview_group',
-                    title: 'Overview',
-                    content: (
-                        <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                                <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed text-base">
-                                    <h4 className="text-xl font-bold text-gray-900 mb-4">About GST Registration</h4>
-                                    <p>
-                                        Every business or corporation that buys and sells goods or services has to register for GST if they cross the threshold. The threshold limit is Rs.40 lakhs for goods and Rs.20 lakhs for services in normal states.
-                                    </p>
-                                    <p className="mt-4">
-                                        With us, you can register for GST electronically and get your GSTIN easily in a few simple steps.
-                                    </p>
-                                </div>
-                                <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
-                                    <h5 className="font-bold text-[#003366] mb-4 flex items-center">
-                                        <ShieldCheckIcon className="w-5 h-5 mr-2" />
-                                        Compliance Authority
-                                    </h5>
-                                    <div className="text-3xl font-extrabold text-[#2E96FF] mb-1">CBIC</div>
-                                    <div className="text-sm text-gray-500">Government of India</div>
-
-                                    <div className="mt-6 pt-6 border-t border-blue-100 text-sm font-medium text-gray-700">
-                                        <span className="block mb-1 text-gray-500 text-xs uppercase tracking-wider">Average Timeline</span>
-                                        3-7 Working Days
-                                    </div>
-                                </div>
-                            </div>    {/* 1.1 Benefits */}
-                            <div className="mt-8">
-                                <h4 className="pb-6 text-xl font-bold text-gray-900">Why Register GST?</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 text-2xl">⚖️</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Legal Shield</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Avoid penalties, seize legal protection, and operate worry-free.</p>
-                                    </div>
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4 text-2xl">🏦</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Banking Access</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Open current accounts and access business loans with ease.</p>
-                                    </div>
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 text-2xl">💸</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Input Credit</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Reduce costs by claiming tax credit on your business purchases.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ),
-                },
-                ...(pricingSection ? [pricingSection] : []),
-                {
-                    id: 'process_docs_group',
-                    title: 'Process & Documents',
-                    content: (
-                        <div className="space-y-8">
-                            {/* 2.1 Documents Required */}
-                            <div>
-                                <h4 className="pb-6 text-xl font-bold text-gray-900">Required Documents</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                    {[
-                                        "Company PAN",
-                                        "Incorporation Cert",
-                                        "Board Resolution",
-                                        "Directors' PAN",
-                                        "Passport Photos",
-                                        "Email & Mobile",
-                                        "Aadhar Card",
-                                        "Director's DSC"
-                                    ].map((doc, i) => (
-                                        <div key={i} className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl border border-gray-200 text-center h-full hover:border-[#2E96FF] transition-colors">
-                                            <DocumentMagnifyingGlassIcon className="w-8 h-8 text-[#2E96FF] mb-3 opacity-80" />
-                                            <span className="text-sm font-semibold text-gray-700">{doc}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* 2.2 Deliverables */}
-                            <div className="mt-8 bg-[#003366] rounded-2xl p-6 text-white relative overflow-hidden">
-                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-                                    <div className="bg-white/10 p-4 rounded-full">
-                                        <CheckCircleIcon className="w-12 h-12 text-green-400" />
-                                    </div>
-                                    <div className="flex-1 text-center md:text-left">
-                                        <h4 className="text-xl font-bold mb-2">Your Deliverables</h4>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-blue-100 text-sm">
-                                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></span>GSTIN Number</li>
-                                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></span>HSN / SAC Codes</li>
-                                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></span>Login Credentials</li>
-                                            <li className="flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></span>30-Day Support</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ),
-                },
-            ],
-        };
-    } else if (service.title === "MSME Registration") {
-        return {
-            isSpecific: true,
-            sections: [
-                {
-                    id: 'overview_group',
-                    title: '1. Overview',
-                    content: (
-                        <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                                <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed text-base">
-                                    <h4 className="text-xl font-bold text-gray-900 mb-4">About MSME Registration</h4>
-                                    <p>
-                                        Small scale businesses play a vital role in the economy. Registering under the **MSME Act** (Udyog Aadhaar) unlocks numerous government benefits, subsidies, and protection for your business.
-                                    </p>
-                                    <p className="mt-4">
-                                        Whether you are a manufacturer or service provider, get your certificate easily and access the growth engine of the Indian economy.
-                                    </p>
-                                </div>
-                                <div className="bg-orange-50 rounded-2xl p-6 border border-orange-100">
-                                    <h5 className="font-bold text-orange-900 mb-4 flex items-center">
-                                        <ShieldCheckIcon className="w-5 h-5 mr-2" />
-                                        Govt. Initiative
-                                    </h5>
-                                    <div className="text-3xl font-extrabold text-[#2E96FF] mb-1">MoMSME</div>
-                                    <div className="text-sm text-gray-500">Ministry of MSME</div>
-
-                                    <div className="mt-6 pt-6 border-t border-orange-100 text-sm font-medium text-gray-700">
-                                        <span className="block mb-1 text-gray-500 text-xs uppercase tracking-wider">Validity</span>
-                                        Lifetime Validity
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* 1.1 Benefits */}
-                            <div className="mt-8">
-                                <h4 className="pb-6 text-xl font-bold text-gray-900">MSME Benefits</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 text-2xl">📉</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Lower Rates</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Concession on electricity bills and lower interest rates on bank loans.</p>
-                                    </div>
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4 text-2xl">💼</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Collateral Free</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Easier access to collateral-free loans under government credit guarantee schemes.</p>
-                                    </div>
-                                    <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                                        <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 text-2xl">🚀</div>
-                                        <h5 className="font-bold text-gray-900 mb-2">Subsidies</h5>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Avail subsidies on patent registration, ISO certification, and more.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ),
-                },
-                ...(pricingSection ? [pricingSection] : []),
-                {
-                    id: 'process_docs_group',
-                    title: '2. Process & Documents',
-                    content: (
-                        <div className="space-y-8">
-                            {/* 2.1 Documents Required */}
-                            <div>
-                                <h4 className="pb-6 text-xl font-bold text-gray-900">Required Documents</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                    {[
-                                        "Aadhar Card (Applicant)",
-                                        "PAN Card (Applicant)",
-                                        "Company PAN (if applicable)",
-                                        "Business Address Proof",
-                                        "Bank Account Details",
-                                        "NIC Code (Business Activity)",
-                                        "Investment Details",
-                                        "Turnover Details"
-                                    ].map((doc, i) => (
-                                        <div key={i} className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl border border-gray-200 text-center h-full hover:border-orange-200 transition-colors">
-                                            <DocumentMagnifyingGlassIcon className="w-8 h-8 text-orange-400 mb-3 opacity-80" />
-                                            <span className="text-sm font-semibold text-gray-700">{doc}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* 2.2 Deliverables */}
-                            <div className="mt-8 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl p-6 text-white relative overflow-hidden">
-                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-                                    <div className="bg-white/20 p-4 rounded-full">
-                                        <CheckCircleIcon className="w-12 h-12 text-white" />
-                                    </div>
-                                    <div className="flex-1 text-center md:text-left">
-                                        <h4 className="text-xl font-bold mb-2">Deliverables</h4>
-                                        <p className="text-orange-50 leading-relaxed text-sm">
-                                            You will receive the official <strong>Udyam Registration Certificate</strong> (MSME Certificate) directly to your email. This certificate is valid for a lifetime.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ),
-                },
-            ],
-        };
-    }
-
-    // --- Restructure Generic Content for all other services ---
+    // --- Generic Content for ALL services - NEAT & COMPACT REDESIGN ---
     return {
         isSpecific: false,
         sections: [
@@ -728,30 +358,53 @@ const getServiceSpecificContent = (service) => {
                 id: 'overview_group',
                 title: 'Overview',
                 content: (
-                    <div className="space-y-3">
-                        {/* 1.2 Description */}
-                        <h3 className="pb-4 text-xl font-bold text-[#003366]">About this Service</h3>
-                        <p className="text-sm leading-relaxed text-gray-600">
-                            This service helps businesses like yours fulfill regulatory requirements related to{" "}
-                            <strong>{service.title}</strong>. Our experts ensure a smooth, transparent, and compliant
-                            process from start to finish, letting you focus on your core business.
-                        </p>
+                    <div className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                            <div className="text-slate-600 leading-relaxed text-sm">
+                                <h4 className="text-lg font-bold text-slate-800 mb-4 tracking-tight">Professional Analysis</h4>
+                                <p className="font-medium">
+                                    {service.description || `Experience high-end professional assistance for your ${service.title}. Our dedicated team meticulously handles every detail to ensure 100% compliance and expedited delivery.`}
+                                </p>
+                            </div>
+                            <div className="bg-blue-50/50 rounded-xl p-6 border border-blue-100 shadow-sm">
+                                <h5 className="font-bold text-[#003366] mb-4 flex items-center text-xs uppercase tracking-wider">
+                                    <ShieldCheckIcon className="w-4 h-4 mr-2 text-[#2E96FF]" />
+                                    Executive Highlights
+                                </h5>
+                                <div className="text-2xl font-bold text-[#2E96FF] mb-2 tracking-tight">
+                                    {service.priceDescription ? `₹${service.priceDescription.replace(/[^0-9]/g, '')}` : 'Professional Quote'}
+                                </div>
+                                <div className="text-[10px] font-bold text-slate-400 border-b border-blue-100 pb-4 mb-4">BASE SERVICE FEE</div>
 
-                        {/* 1.1 Benefits */}
-                        <h4 className="pt-3 pb-1 text-base font-semibold text-gray-700 border-b border-gray-100">
-                            Key Benefits
-                        </h4>
-                        <ul className="ml-4 space-y-1 text-xs text-gray-600 list-disc list-inside">
-                            <li>
-                                Ensures <strong>legal compliance</strong> and avoids penalties.
-                            </li>
-                            <li>
-                                Builds <strong>credibility</strong> and trust with customers and partners.
-                            </li>
-                            <li>
-                                Facilitates smoother <strong>business operations</strong> and expansion.
-                            </li>
-                        </ul>
+                                {service.duration && (
+                                    <div className="text-sm font-bold text-slate-700">
+                                        <span className="block mb-1 text-slate-400 text-[10px] font-bold uppercase tracking-wider">Turnaround</span>
+                                        <div className="flex items-center gap-2 text-slate-900">
+                                            <ClockIcon className="w-4 h-4 text-amber-500" />
+                                            {service.duration}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Key Benefits */}
+                        <div>
+                            <h4 className="text-lg font-bold text-slate-800 mb-6 tracking-tight">Strategic Advantages</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {[
+                                    { emoji: '⚖️', label: 'Compliance', desc: 'Maintained at the highest regulatory standards.', color: 'emerald' },
+                                    { emoji: '⚡', label: 'Precision', desc: 'Expert-led execution with zero error tolerance.', color: 'blue' },
+                                    { emoji: '🔒', label: 'Security', desc: 'Enterprise-grade data protection protocol.', color: 'indigo' }
+                                ].map((benefit, i) => (
+                                    <div key={i} className="p-6 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all group">
+                                        <div className={`w-10 h-10 bg-${benefit.color}-50 rounded-lg flex items-center justify-center mb-4 text-xl`}>{benefit.emoji}</div>
+                                        <h5 className="font-bold text-slate-900 mb-2 text-sm">{benefit.label}</h5>
+                                        <p className="text-xs text-slate-500 leading-relaxed font-medium">{benefit.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )
             },
@@ -762,69 +415,47 @@ const getServiceSpecificContent = (service) => {
                 content: (
                     <div className="space-y-8">
                         {/* Process Steps */}
-
                         <div>
-                            <h4 className="pb-6 text-xl font-bold text-gray-900">How It Works</h4>
-                            <div className="relative pl-4 space-y-8">
-                                <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#2E96FF] to-transparent"></div>
+                            <h4 className="text-lg font-bold text-slate-800 mb-8 tracking-tight">The Roadmap</h4>
+                            <div className="relative pl-5 space-y-8">
+                                <div className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-slate-100 rounded-full"></div>
                                 {processDetails.map((step, index) => (
                                     <div key={index} className="relative pl-10 group">
-                                        <div className="absolute left-0 top-0 w-10 h-10 rounded-full bg-white border-2 border-[#2E96FF] flex items-center justify-center z-10 shadow-sm group-hover:scale-110 transition-transform">
-                                            <step.icon className="w-5 h-5 text-[#2E96FF]" />
+                                        <div className="absolute left-0 top-0 w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center z-10 shadow-sm group-hover:border-[#2E96FF] group-hover:text-[#2E96FF] transition-all duration-300">
+                                            <step.icon className="w-5 h-5" />
                                         </div>
-                                        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                            <h4 className="text-lg font-bold text-gray-900">{step.title}</h4>
-                                            <p className="mt-2 text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+                                        <div className="pt-1">
+                                            <h4 className="text-sm font-bold text-slate-900 mb-1">{step.title}</h4>
+                                            <p className="text-xs text-slate-500 leading-relaxed font-medium">{step.desc}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* 2.1 Documents Required */}
-                        <div className="pt-8">
-                            <h4 className="pb-6 text-xl font-bold text-gray-900">
-                                Documents Required
-                            </h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {/* Documents Required */}
+                        <div className="pt-4">
+                            <h4 className="text-lg font-bold text-slate-800 mb-6 tracking-tight">Essential Documentation</h4>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {[
-                                    "Proof of Identity",
-                                    "Proof of Address (Business)",
-                                    "Proof of Address (Directors)",
-                                    "Registration Documents",
-                                    "MOA / AOA (if applicable)",
-                                    "Bank Statement / Cancelled Cheque"
+                                    "Certificate of Identity",
+                                    "Proof of Registered Address",
+                                    "Business Authorization Letters",
+                                    "Financial Statements"
                                 ].map((doc, i) => (
-                                    <div key={i} className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#2E96FF] hover:bg-blue-50 transition-all cursor-default">
-                                        <DocumentMagnifyingGlassIcon className="w-6 h-6 text-[#2E96FF] mr-3 shrink-0" />
-                                        <span className="text-sm font-semibold text-gray-700">{doc}</span>
+                                    <div key={i} className="flex items-center p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#2E96FF] hover:bg-white hover:shadow-sm transition-all group cursor-default">
+                                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#2E96FF] mr-3 shadow-sm group-hover:bg-[#2E96FF] group-hover:text-white transition-all">
+                                            <DocumentMagnifyingGlassIcon className="w-4 h-4" />
+                                        </div>
+                                        <span className="text-xs font-semibold text-slate-700">{doc}</span>
                                     </div>
                                 ))}
                             </div>
-                            <p className="mt-4 text-xs text-gray-500 italic flex items-center">
-                                <span className="bg-blue-100 text-blue-600 rounded-full w-4 h-4 flex items-center justify-center text-[10px] mr-2 font-bold">i</span>
-                                Specific document checklist will be shared after consultation.
-                            </p>
-                        </div>
-
-                        {/* 2.2 Deliverables */}
-                        <div className="pt-8">
-                            <h4 className="pb-6 text-xl font-bold text-gray-900">
-                                What You Receive
-                            </h4>
-                            <div className="bg-gradient-to-br from-[#003366] to-[#004e9a] rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-                                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-white/10 blur-xl"></div>
-                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-                                    <div className="bg-white/20 p-4 rounded-full backdrop-blur-sm">
-                                        <CheckCircleIcon className="w-10 h-10 text-green-300" />
-                                    </div>
-                                    <div className="text-center md:text-left">
-                                        <h5 className="text-xl font-bold mb-2">Complete Success Kit</h5>
-                                        <p className="text-blue-100 leading-relaxed max-w-xl">
-                                            You will receive the final official certificate, government filing receipts, and access to 30 days of expert post-service consultation.
-                                        </p>
-                                    </div>
-                                </div>
+                            <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex items-start gap-3">
+                                <div className="w-6 h-6 rounded-full bg-amber-200 flex items-center justify-center text-amber-900 font-bold text-xs shrink-0">i</div>
+                                <p className="text-xs text-amber-900 font-medium leading-relaxed mt-0.5">
+                                    A precise personalized document checklist will be compiled and shared by your assigned expert following the initial consultation.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -847,7 +478,7 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
         };
     }, []);
 
-    const { sections, isSpecific } = getServiceSpecificContent(service);
+    const { sections } = getServiceSpecificContent(service);
     const navigate = useNavigate();
 
     // State and Refs for Navigation
@@ -855,36 +486,29 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
     const sectionRefs = useRef({});
     const contentRef = useRef(null);
 
-    const drawerVariants = {
-        hidden: { y: "100%", transition: { type: "spring", stiffness: 300, damping: 30 } },
-        visible: { y: 0, transition: { type: "spring", stiffness: 300, damping: 30 } },
+    const modalVariants = {
+        hidden: { opacity: 0, scale: 0.95, y: 20 },
+        visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 25 } },
     };
 
-    // Function to handle click and smooth scroll
     const scrollToSection = (id) => {
         const element = sectionRefs.current[id];
         if (element && contentRef.current) {
-            // Calculate scroll position relative to the scrollable container's top
             const offset = element.offsetTop;
-            // Desktop: Little offset for padding; Mobile: Account for sticky header
             const isMobile = window.innerWidth < 768;
-            const scrollOffset = isMobile ? 120 : 30; // Reduced offset for desktop as no sticky header overlay
-
+            const scrollOffset = isMobile ? 140 : 40;
             contentRef.current.scrollTo({ top: offset - scrollOffset, behavior: 'smooth' });
             setActiveSectionId(id);
         }
     };
 
-    // Intersection Observer for Scroll Tracking
     useEffect(() => {
         if (!contentRef.current || sections.length === 0) return;
-
         const observerOptions = {
             root: contentRef.current,
-            rootMargin: '-20% 0px -60% 0px', // Adjusted for better triggering in sidebar layout
+            rootMargin: '-20% 0px -60% 0px',
             threshold: 0,
         };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -892,91 +516,95 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
                 }
             });
         }, observerOptions);
-
         const currentRefs = sectionRefs.current;
         const elements = sections.map(s => currentRefs[s.id]).filter(Boolean);
-
         elements.forEach(el => observer.observe(el));
-
         return () => elements.forEach(el => observer.unobserve(el));
     }, [sections, service.title]);
 
     return (
         <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-[#001529]/40 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
         >
             <motion.div
-                className="w-full h-full bg-gray-50 relative flex flex-col md:flex-row overflow-hidden shadow-2xl"
-                variants={drawerVariants}
+                className="w-full max-w-6xl h-full max-h-[90vh] bg-white relative flex flex-col md:flex-row overflow-hidden shadow-[0_32px_64px_-12px_rgba(0,0,0,0.25)] rounded-[2rem]"
+                variants={modalVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* =======================
-                    SIDEBAR (Desktop Only)
-                   ======================= */}
-                <div className="hidden md:flex w-80 bg-white border-r border-gray-200 flex-col shrink-0 z-20 h-full">
-                    {/* Sidebar Header */}
-                    <div className="p-8 pb-4">
-                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#2E96FF] mb-4">
-                            <DocumentMagnifyingGlassIcon className="w-6 h-6" />
+                {/* --- Sidebar (Desktop) --- */}
+                <div className="hidden md:flex w-64 bg-slate-50 border-r border-slate-100 flex-col shrink-0 h-full">
+                    <div className="p-6">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-[#2E96FF] mb-4">
+                            <ShieldCheckIcon className="w-6 h-6" />
                         </div>
-                        <h2 className="text-2xl font-extrabold text-[#003366] leading-tight">
+                        <h2 className="text-lg font-bold text-gray-800 leading-tight">
                             {service.title}
                         </h2>
-                        <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mt-2">Service Details</p>
+                        <div className="mt-2 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                            <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Expert Verified</span>
+                        </div>
                     </div>
 
-                    {/* Sidebar Navigation */}
-                    <nav className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
+                    <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1">
                         {sections.map((section) => (
                             <button
                                 key={section.id}
                                 onClick={() => scrollToSection(section.id)}
-                                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center group
+                                className={`w-full text-left px-4 py-2.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center group
                                     ${activeSectionId === section.id
-                                        ? "bg-[#2E96FF]/10 text-[#2E96FF]"
-                                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                                        ? "bg-white text-[#2E96FF] shadow-sm ring-1 ring-slate-200"
+                                        : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
                                     }`}
                             >
-                                <span className={`w-1.5 h-1.5 rounded-full mr-3 transition-colors ${activeSectionId === section.id ? 'bg-[#2E96FF]' : 'bg-gray-300 group-hover:bg-gray-400'}`}></span>
+                                <span className={`w-1.5 h-1.5 rounded-full mr-3 transition-all duration-300 ${activeSectionId === section.id ? 'bg-[#2E96FF]' : 'bg-slate-300 group-hover:bg-slate-400'}`}></span>
                                 {section.title}
                             </button>
                         ))}
                     </nav>
 
+                    <div className="p-4 mt-auto">
+                        <div className="bg-slate-800 rounded-xl p-3 text-white">
+                            <p className="text-[10px] font-bold opacity-60 uppercase mb-0.5">Need help?</p>
+                            <p className="text-[11px] font-medium leading-relaxed">Our experts are available for a 1:1 call.</p>
+                        </div>
+                    </div>
                 </div>
 
-                {/* =======================
-                    MOBILE HEADER (Visible < md)
-                   ======================= */}
-                <div className="md:hidden sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm shrink-0">
+                {/* --- Mobile Header --- */}
+                <div className="md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-100 shrink-0">
                     <div className="flex items-center justify-between p-4">
-                        <h2 className="text-lg font-bold text-[#003366] truncate pr-4">
-                            {service.title}
-                        </h2>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-[#2E96FF]">
+                                <ShieldCheckIcon className="w-5 h-5" />
+                            </div>
+                            <h2 className="text-base font-bold text-gray-800 truncate max-w-[200px]">
+                                {service.title}
+                            </h2>
+                        </div>
                         <button
                             onClick={onClose}
-                            className="p-2 bg-gray-50 rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500"
+                            className="w-8 h-8 flex items-center justify-center bg-slate-50 rounded-full text-slate-400 hover:bg-slate-100"
                         >
                             <XMarkIcon className="w-5 h-5" />
                         </button>
                     </div>
-                    {/* Mobile Horizontal Nav */}
-                    <nav className="flex overflow-x-auto px-4 pb-0 hide-scrollbar space-x-6 border-t border-gray-50">
+                    <nav className="flex overflow-x-auto px-4 pb-0 hide-scrollbar space-x-6">
                         {sections.map((section) => (
                             <button
                                 key={section.id}
                                 onClick={() => scrollToSection(section.id)}
-                                className={`py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors
+                                className={`py-3 text-[11px] font-bold uppercase tracking-wider border-b-2 whitespace-nowrap transition-all
                                     ${activeSectionId === section.id
                                         ? "text-[#2E96FF] border-[#2E96FF]"
-                                        : "text-gray-500 border-transparent"
+                                        : "text-slate-400 border-transparent"
                                     }`}
                             >
                                 {section.title}
@@ -985,68 +613,75 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
                     </nav>
                 </div>
 
-
-                {/* =======================
-                    MAIN CONTENT AREA
-                   ======================= */}
-                <div className="flex-1 relative flex flex-col h-full bg-gray-50 min-w-0">
-                    {/* Desktop Close Button (Floating) */}
+                {/* --- Main Content --- */}
+                <div className="flex-1 relative flex flex-col h-full bg-white">
+                    {/* Desktop Close Button */}
                     <button
                         onClick={onClose}
-                        className="hidden md:flex absolute top-6 right-8 z-50 p-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-gray-400 hover:text-red-500 hover:border-red-200 transition-all shadow-sm hover:shadow-md"
+                        className="hidden md:flex absolute top-6 right-6 z-50 w-8 h-8 items-center justify-center bg-slate-50 text-slate-400 rounded-full hover:bg-red-50 hover:text-red-500 transition-all group border border-slate-100"
                     >
-                        <XMarkIcon className="w-6 h-6" />
+                        <XMarkIcon className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                     </button>
 
-                    {/* Scrollable Container */}
                     <div ref={contentRef} className="flex-1 overflow-y-auto scroll-smooth">
-                        <div className="p-4 md:p-10 max-w-5xl mx-auto space-y-8 pb-32 md:pb-12">
-                            {/* Service Snapshot Strip */}
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-wrap gap-6 items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600">
-                                        <BanknotesIcon className="w-6 h-6" />
+                        <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-8 pb-32">
+                            {/* Stats Summary Strip */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-emerald-500">
+                                        <BanknotesIcon className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">Starting Price</div>
-                                        <div className="text-lg font-bold text-gray-900">{service.desc.split('|')[0] || "Custom"}</div>
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">Investment</div>
+                                        <div className="text-sm font-bold text-slate-800 leading-none">
+                                            {service.desc?.split('|')[0] || "Consultation"}
+                                        </div>
                                     </div>
                                 </div>
 
-                                {service.desc.includes('|') && (
-                                    <div className="w-px h-10 bg-gray-100 hidden sm:block"></div>
-                                )}
-
-                                {service.desc.includes('|') && (
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-pink-50 flex items-center justify-center text-pink-600">
-                                            <ClockIcon className="w-6 h-6" />
+                                {service.duration && (
+                                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-amber-500">
+                                            <ClockIcon className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">Duration</div>
-                                            <div className="text-lg font-bold text-gray-900">{service.desc.split('|')[1]}</div>
+                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">Timeline</div>
+                                            <div className="text-sm font-bold text-slate-800 leading-none">{service.duration}</div>
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            {/* Render Sections */}
+                            {/* Main Body Sections */}
                             {sections.map((section) => (
                                 <div
                                     key={section.id}
                                     id={section.id}
                                     ref={(el) => (sectionRefs.current[section.id] = el)}
-                                    className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 scroll-mt-6"
+                                    className="scroll-mt-10"
                                 >
-                                    {section.title !== '1. Overview' && section.title !== 'Overview' && (
-                                        <h3 className="text-lg font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">{section.title}</h3>
+                                    {section.title !== 'Overview' && (
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <h3 className="text-lg font-bold text-slate-900 tracking-tight">{section.title}</h3>
+                                            <div className="h-px flex-1 bg-slate-100"></div>
+                                        </div>
                                     )}
-                                    <div className="text-base text-gray-700">
+                                    <div className="text-slate-600">
                                         {section.content}
                                     </div>
                                 </div>
                             ))}
                         </div>
+                    </div>
+
+                    {/* Footer / CTA - Mobile Only (Floating) */}
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl border-t border-slate-100 flex gap-3 z-50">
+                        <button
+                            onClick={() => scrollToSection('pricing_group')}
+                            className="flex-1 py-4 bg-[#2E96FF] text-white text-sm font-black rounded-2xl shadow-lg shadow-blue-200"
+                        >
+                            View Pricing
+                        </button>
                     </div>
                 </div>
             </motion.div>
@@ -1060,41 +695,75 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
 // ===========================================
 
 export default function ServicesHub() {
-    const [activeTab, setActiveTab] = useState(defaultTab);
-    const [activeSubTab, setActiveSubTab] = useState(
-        Object.keys(tabData[defaultTab])[0] || ""
-    );
-    const [selectedService, setSelectedService] = useState(null);
-    const navigate = useNavigate(); // Assume react-router-dom is correctly configured
+    const navigate = useNavigate();
+    const location = useLocation();
     const tabNavRef = useRef(null);
     const tabRefs = useRef({});
 
+    // State for dynamic data
+    const [serviceData, setServiceData] = useState({});
+    const [loadingServices, setLoadingServices] = useState(true);
+    const [error, setError] = useState(null);
+
+    const tabKeys = useMemo(() => Object.keys(serviceData), [serviceData]);
+
+    // Initialize State
+    const [activeTab, setActiveTab] = useState("");
+    const [activeSubTab, setActiveSubTab] = useState("");
+    const [selectedService, setSelectedService] = useState(null);
+
+    // Fetch data
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                setLoadingServices(true);
+                const response = await serviceItemAPI.getActiveGrouped();
+                setServiceData(response.data);
+            } catch (err) {
+                console.error("Failed to load services:", err);
+                setError("Failed to load services. Please try again later.");
+            } finally {
+                setLoadingServices(false);
+            }
+        };
+        fetchServices();
+    }, []);
+
+    // Initialize active tab when data is loaded
+    useEffect(() => {
+        if (tabKeys.length > 0 && (!activeTab || !tabKeys.includes(activeTab))) {
+            setActiveTab(tabKeys[0]);
+        }
+    }, [tabKeys, activeTab]);
+
     // Effect to reset sub-tab when main tab changes
     useEffect(() => {
-        const firstSubTab = Object.keys(tabData[activeTab])[0];
-        if (firstSubTab) {
-            setActiveSubTab(firstSubTab);
+        if (activeTab && serviceData[activeTab]) {
+            const subCats = Object.keys(serviceData[activeTab]);
+            if (subCats.length > 0) {
+                setActiveSubTab(subCats[0]);
+            } else {
+                setActiveSubTab("");
+            }
         } else {
             setActiveSubTab("");
         }
         setSelectedService(null);
-    }, [activeTab]);
-
-    const location = useLocation(); // Make sure to import this
+    }, [activeTab, serviceData]);
 
     // Effect to check location state for incoming service requests
     useEffect(() => {
-        if (location.state?.serviceTitle) {
+        if (location.state?.serviceTitle && Object.keys(serviceData).length > 0) {
             const requestedService = location.state.serviceTitle.toLowerCase().trim();
 
-            // Search through tabData to find the matching service
-            for (const [tabKey, subTabs] of Object.entries(tabData)) {
+            // Search through serviceData to find the matching service
+            for (const [tabKey, subTabs] of Object.entries(serviceData)) {
                 for (const [subTabKey, services] of Object.entries(subTabs)) {
                     if (Array.isArray(services)) {
                         const match = services.find(s =>
-                            s.title.toLowerCase().trim() === requestedService ||
-                            s.title.toLowerCase().includes(requestedService) ||
-                            requestedService.includes(s.title.toLowerCase())
+                            (s.name && s.name.toLowerCase().trim() === requestedService) ||
+                            (s.title && s.title.toLowerCase().trim() === requestedService) ||
+                            (s.title && s.title.toLowerCase().includes(requestedService))
                         );
 
                         if (match) {
@@ -1102,16 +771,13 @@ export default function ServicesHub() {
                             setActiveSubTab(subTabKey);
                             // Optionally auto-open the detail drawer
                             setSelectedService(match);
-
-                            // Clear state so it doesn't persist on refresh if desired (optional)
-                            // window.history.replaceState({}, document.title)
                             return; // Stop searching once found
                         }
                     }
                 }
             }
         }
-    }, [location.state]);
+    }, [location.state, serviceData]);
 
     // Effect for smooth scrolling the main tab navigation bar
     useEffect(() => {
@@ -1137,7 +803,7 @@ export default function ServicesHub() {
     // Flatten all services for search
     const allServices = useMemo(() => {
         const services = [];
-        Object.entries(tabData).forEach(([category, subCats]) => {
+        Object.entries(serviceData).forEach(([category, subCats]) => {
             Object.entries(subCats).forEach(([subCat, items]) => {
                 items.forEach(item => {
                     services.push({ ...item, category, subCat });
@@ -1145,49 +811,65 @@ export default function ServicesHub() {
             });
         });
         return services;
-    }, []);
+    }, [serviceData]);
 
-    const subTabs = Object.keys(tabData[activeTab] || {});
+    const subTabs = Object.keys(serviceData[activeTab] || {});
     const contentKey = `${activeTab}-${activeSubTab}`;
 
     // Determine which data to display: Search Results OR Current Tab Data
     const baseData = searchTerm
-        ? allServices.filter(s =>
-            s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            s.desc.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        : (tabData[activeTab]?.[activeSubTab] || []);
+        ? allServices.filter(s => {
+            const matchesName = (s.name && s.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (s.title && s.title.toLowerCase().includes(searchTerm.toLowerCase()));
+            const matchesDesc = (s.description && s.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (s.desc && s.desc.toLowerCase().includes(searchTerm.toLowerCase()));
+            return matchesName || matchesDesc;
+        })
+        : (serviceData[activeTab]?.[activeSubTab] || []);
 
-    // Dynamic Pricing Integration (Applied to whatever data is being displayed)
+    // Dynamic Pricing Integration
     const displayedData = baseData.map(item => {
-        const pricingService = servicesData.find(s =>
-            s.name.toLowerCase().trim() === item.title.toLowerCase().trim() ||
-            s.name.toLowerCase().includes(item.title.toLowerCase()) ||
-            item.title.toLowerCase().includes(s.name.toLowerCase())
-        );
+        let plans = null;
+        try {
+            if (item.pricingPlans) {
+                if (typeof item.pricingPlans === 'object' && item.pricingPlans !== null) {
+                    plans = item.pricingPlans;
+                } else {
+                    plans = JSON.parse(item.pricingPlans);
+                    if (typeof plans === 'string') {
+                        plans = JSON.parse(plans);
+                    }
+                }
 
-        if (pricingService) {
-            let price = null;
-            // Try standard, then premium, then elite to find a starting price
-            if (pricingService.plans?.standard?.price) price = pricingService.plans.standard.price;
-            else if (pricingService.plans?.premium?.price) price = pricingService.plans.premium.price;
-            else if (pricingService.plans?.elite?.price) price = pricingService.plans.elite.price;
-
-            if (price !== null) {
-                const durationStr = pricingService.time ? ` | Duration: ${pricingService.time}` : "";
-                return {
-                    ...item,
-                    // Update description with real price and time
-                    desc: `Price: ₹${price.toLocaleString()}${durationStr}`
-                };
-            } else {
-                // If plans exist but all prices are null (e.g., custom services)
-                if (pricingService.plans && Object.values(pricingService.plans).every(p => !p || !p.price)) {
-                    return { ...item, desc: "Contact Expert to Get Price" };
+                if (plans) {
+                    ['standard', 'premium', 'elite'].forEach(tier => {
+                        if (plans[tier] && !Array.isArray(plans[tier].features)) {
+                            plans[tier].features = [];
+                        }
+                    });
                 }
             }
+        } catch (e) {
+            console.error("Error parsing pricingPlans for " + item.name, e);
         }
-        return item;
+
+        let priceVal = null;
+        if (plans && plans.standard && plans.standard.price) {
+            priceVal = `₹${plans.standard.price.toLocaleString()}`;
+        } else if (item.priceDescription) {
+            priceVal = `₹${item.priceDescription.replace(/[^0-9]/g, '')}`;
+        }
+
+        return {
+            ...item,
+            title: item.name || item.title,
+            desc: item.desc || item.description || "",
+            price: priceVal || "Contact",
+            duration: item.duration || "Express",
+            plans: plans,
+            to: item.route || `/dashboard/user/service-order?title=${encodeURIComponent(item.name || item.title)}`,
+            categoryKey: item.categoryKey || "licenses"
+        };
     });
     const placeholdersCount = Math.max(0, 10 - displayedData.length);
 
@@ -1200,6 +882,30 @@ export default function ServicesHub() {
         // This opens the ServiceDetailDrawer popup
         setSelectedService(service);
     };
+
+    if (loadingServices) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2E96FF]"></div>
+                <span className="ml-4 text-gray-500 font-medium">Loading Services Hub...</span>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+                <div className="text-red-500 text-xl mb-2">⚠️</div>
+                <p className="text-gray-800 font-medium">{error}</p>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="mt-4 px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm text-slate-700 transition"
+                >
+                    Retry
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div className="font-sans antialiased">
@@ -1242,9 +948,9 @@ export default function ServicesHub() {
                                 key={tab}
                                 ref={el => tabRefs.current[tab] = el}
                                 onClick={() => handleTabChange(tab)}
-                                className={`flex-shrink-0 pb-3 px-4 md:px-6 text-sm md:text-base font-medium transition-colors border-b-2
+                                className={`flex-shrink-0 pb-3 px-4 md:px-5 text-xs md:text-sm font-semibold transition-colors border-b-2
                                     ${activeTab === tab
-                                        ? "text-[#2E96FF] border-[#2E96FF] font-semibold"
+                                        ? "text-[#2E96FF] border-[#2E96FF]"
                                         : "text-gray-500 border-transparent hover:text-gray-800 hover:border-gray-300"
                                     }`}
                             >
@@ -1261,10 +967,10 @@ export default function ServicesHub() {
                             <button
                                 key={sub}
                                 onClick={() => setActiveSubTab(sub)}
-                                className={`py-2 px-3 md:px-4 text-xs sm:text-sm rounded-full transition-colors duration-200
+                                className={`py-1.5 px-3 text-[11px] md:text-xs rounded-full transition-colors duration-200 font-semibold border
                                     ${activeSubTab === sub
-                                        ? "bg-[#2E96FF] text-white font-semibold shadow-md"
-                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                        ? "bg-[#2E96FF] text-white border-[#2E96FF] shadow-sm"
+                                        : "bg-white text-gray-600 border-gray-200 hover:border-blue-200 hover:bg-blue-50/50"
                                     }`}
                             >
                                 {sub}
@@ -1283,7 +989,7 @@ export default function ServicesHub() {
                 {/* 3. Grid Content */}
 
                 {/* 3. Grid Content with Framer Motion Transition and Uniform Card Height */}
-                <div className="mt-6">
+                <div className="mt-8">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={contentKey}
@@ -1291,32 +997,38 @@ export default function ServicesHub() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
-                            className="grid items-stretch grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 md:gap-6"
+                            className="grid items-stretch grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
                         >
                             {Array.isArray(displayedData) && displayedData.length > 0 ? (
                                 displayedData.map((service, i) => (
                                     <motion.div
                                         key={service.title}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2, delay: i * 0.05 }}
-                                        className="flex"
+                                        transition={{ duration: 0.4, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
+                                        className="flex h-full"
                                     >
                                         <ComplianceCardSmall
                                             {...service}
-                                            onClick={handleCardClick}
+                                            onClick={() => handleCardClick(service)}
                                         />
                                     </motion.div>
                                 ))
                             ) : (
-                                <p className="text-gray-500 col-span-full">
-                                    No services available for this category.
-                                </p>
+                                <div className="col-span-full py-20 flex flex-col items-center justify-center text-center">
+                                    <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-6">
+                                        <DocumentMagnifyingGlassIcon className="w-10 h-10" />
+                                    </div>
+                                    <h3 className="text-xl font-black text-slate-900 mb-2">No results found</h3>
+                                    <p className="text-slate-500 max-w-xs font-medium">
+                                        We couldn't find any services matching your current selection or search terms.
+                                    </p>
+                                </div>
                             )}
 
                             {/* Placeholder divs for consistent grid layout */}
                             {Array.from({ length: placeholdersCount }).map((_, i) => (
-                                <div key={`placeholder-${i}`} className="hidden lg:block" />
+                                <div key={`placeholder-${i}`} className="hidden xl:block" />
                             ))}
                         </motion.div>
                     </AnimatePresence>

@@ -129,10 +129,17 @@ if (import.meta.env.DEV) {
   }
 })();
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+// ⚠️ USING A PUBLIC DEMO ID - MIGHT HIT RATE LIMITS OR ORIGIN ERRORS
+const GOOGLE_CLIENT_ID = "411875773518-g3froafd9i5osq2p2gr01gllrcujhsjg.apps.googleusercontent.com";
+
 // ✅ Render Application
 createRoot(document.getElementById("root")).render(
-  <HashRouter>
-    <GlobalInit />
-    <App />
-  </HashRouter>
+  <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    <HashRouter>
+      <GlobalInit />
+      <App />
+    </HashRouter>
+  </GoogleOAuthProvider>
 );

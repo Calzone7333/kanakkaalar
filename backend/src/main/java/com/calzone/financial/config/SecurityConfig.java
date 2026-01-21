@@ -48,6 +48,10 @@ public class SecurityConfig {
                         // Require authentication for service hub endpoints
                         .requestMatchers("/api/servicehub/**").authenticated()
 
+                        // Service Items (Content Management)
+                        .requestMatchers(HttpMethod.GET, "/api/service-items/active-grouped").authenticated()
+                        .requestMatchers("/api/service-items/**").hasRole("ADMIN")
+
                         // --- Fallback Rules ---
                         // Secure all other API endpoints by default
                         .requestMatchers("/api/**").authenticated()

@@ -139,8 +139,8 @@ export default function DocumentsPage() {
       {/* 1. Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">My Documents</h1>
-          <p className="text-gray-500 mt-1">Securely store and manage your business documents.</p>
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">My Documents</h1>
+          <p className="text-gray-500 text-sm mt-1">Securely store and manage your business documents.</p>
         </div>
         <button
           onClick={handleRefresh}
@@ -152,36 +152,36 @@ export default function DocumentsPage() {
       </div>
 
       {/* 2. Upload Area */}
-      <div className="bg-white rounded-2xl border-2 border-dashed border-gray-200 p-8 flex flex-col items-center justify-center text-center hover:border-blue-400 transition-colors group relative">
+      <div className="bg-white rounded-xl border border-dashed border-gray-300 p-6 flex flex-col items-center justify-center text-center hover:border-blue-400 transition-colors group relative shadow-sm">
         <input
           type="file"
           multiple
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
           onChange={handleFileSelect}
         />
-        <div className="bg-blue-50 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
-          <CloudArrowUpIcon className="w-8 h-8 text-blue-600" />
+        <div className="bg-blue-50 p-3 rounded-full mb-3 group-hover:scale-105 transition-transform duration-300">
+          <CloudArrowUpIcon className="w-6 h-6 text-[#2E96FF]" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900">
-          {files.length > 0 ? `${files.length} file(s) selected` : "Upload a new document"}
+        <h3 className="text-sm font-bold text-gray-900">
+          {files.length > 0 ? `${files.length} file(s) selected` : "Upload Documents"}
         </h3>
-        <p className="text-gray-500 text-sm mt-1 max-w-sm">
-          {files.length > 0 ? "Click 'Upload Now' below to save to server." : "Drag and drop your files here, or click to browse."}
+        <p className="text-gray-400 text-xs mt-1 max-w-xs">
+          {files.length > 0 ? "Click 'Upload Now' below to save." : "Drag & drop files or click to browse."}
         </p>
 
         {files.length > 0 && (
-          <div className="mt-6 z-20 relative">
+          <div className="mt-4 z-20 relative">
             <button
               onClick={handleUpload}
               disabled={uploading}
-              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+              className="px-5 py-2 bg-[#2E96FF] hover:bg-blue-600 text-white font-bold text-xs rounded-lg shadow-sm transition-all flex items-center gap-2 disabled:opacity-50"
             >
-              {uploading ? <ArrowPathIcon className="w-4 h-4 animate-spin" /> : <CloudArrowUpIcon className="w-5 h-5" />}
+              {uploading ? <ArrowPathIcon className="w-3.5 h-3.5 animate-spin" /> : <CloudArrowUpIcon className="w-4 h-4" />}
               {uploading ? 'Uploading...' : 'Upload Now'}
             </button>
             <button
               onClick={() => setFiles([])}
-              className="mt-3 text-sm text-red-500 hover:underline block w-full"
+              className="mt-2 text-xs text-red-500 hover:text-red-700 font-medium block w-full"
             >
               Cancel
             </button>
@@ -227,36 +227,36 @@ export default function DocumentsPage() {
             {searchQuery && <p className="text-sm text-gray-400 mt-1">Try a different search term.</p>}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredDocs.map((doc) => (
-              <div key={doc.id} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between h-full">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-indigo-50 rounded-lg text-indigo-600">
-                    <DocumentTextIcon className="w-6 h-6" />
+              <div key={doc.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group flex flex-col justify-between h-full">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="p-2.5 bg-indigo-50 rounded-lg text-indigo-600">
+                    <DocumentTextIcon className="w-5 h-5" />
                   </div>
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => handleDownload(doc)}
-                      className="p-1.5 hover:bg-gray-100 rounded-md text-gray-500 hover:text-blue-600 transition"
+                      className="p-1.5 hover:bg-gray-100 rounded-md text-gray-500 hover:text-[#2E96FF] transition"
                       title="Download"
                     >
-                      <ArrowDownTrayIcon className="w-5 h-5" />
+                      <ArrowDownTrayIcon className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(doc.id, doc.filename)}
-                      className="p-1.5 hover:bg-gray-100 rounded-md text-gray-500 hover:text-red-600 transition"
+                      className="p-1.5 hover:bg-gray-100 rounded-md text-gray-500 hover:text-red-500 transition"
                       title="Delete"
                     >
-                      <TrashIcon className="w-5 h-5" />
+                      <TrashIcon className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 truncate mb-1" title={doc.filename}>{doc.filename}</h3>
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <h3 className="font-bold text-gray-800 text-sm truncate mb-1" title={doc.filename}>{doc.filename}</h3>
+                  <div className="flex items-center gap-2 text-[10px] text-gray-400 font-medium">
                     <span>{formatFileSize(doc.sizeBytes)}</span>
-                    <span>•</span>
+                    <span className="text-gray-300">•</span>
                     <span>{new Date(doc.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>

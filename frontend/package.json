@@ -83,5 +83,9 @@
       "target": "dmg",
       "icon": "electron/icon.png"
     }
+  },
+  "dependencies": {
+    "@react-oauth/google": "^0.13.4",
+    "jwt-decode": "^4.0.0"
   }
 }

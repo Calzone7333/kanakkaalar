@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { setAuth } from "../lib/auth";
 import AppBackButton from "../components/AppBackButton";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -113,6 +114,34 @@ export default function Login() {
     }
   };
 
+  // 🔹 Google Login
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        setLoading(true);
+        const r = await authAPI.loginGoogle(tokenResponse.access_token);
+        setAuth(r.data);
+        window.dispatchEvent(new Event("auth:update"));
+        const role = r.data.user?.role || "USER";
+
+        if (location.state?.redirectTo && role === "USER") {
+          return nav(location.state.redirectTo, { replace: true, state: location.state });
+        }
+
+        if (role === "ADMIN") nav("/dashboard/admin", { replace: true });
+        else if (role === "EMPLOYEE") nav("/dashboard/employee", { replace: true });
+        else if (role === "AGENT") nav("/dashboard/agent", { replace: true });
+        else nav("/dashboard/user", { replace: true });
+
+      } catch (err) {
+        setMessage(err?.response?.data?.message || "Google Login Failed");
+      } finally {
+        setLoading(false);
+      }
+    },
+    onError: () => setMessage("Google Login Failed"),
+  });
+
   return (
     <div className="flex items-center justify-center min-h-screen relative">
       <AppBackButton />
@@ -120,17 +149,17 @@ export default function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full max-w-md p-8 bg-white shadow-2xl rounded-2xl"
+        className="relative w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl"
       >
-        <h2 className="mb-6 text-3xl font-bold text-center text-[#003366]">
+        <h2 className="mb-6 text-2xl font-bold text-center text-[#156664]">
           Welcome Back 👋
         </h2>
 
         {/* Toggle Buttons */}
         <div className="flex gap-2 mb-6">
           <button
-            className={`flex-1 py-2 rounded-lg font-medium transition ${mode === "password"
-              ? "bg-[#003366] text-white shadow-md"
+            className={`flex-1 py-1.5 rounded-lg text-sm font-medium transition ${mode === "password"
+              ? "bg-[#156664] text-white shadow-md"
               : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             onClick={() => {
@@ -142,8 +171,8 @@ export default function Login() {
             Email Login
           </button>
           <button
-            className={`flex-1 py-2 rounded-lg font-medium transition ${mode === "phone"
-              ? "bg-[#003366] text-white shadow-md"
+            className={`flex-1 py-1.5 rounded-lg text-sm font-medium transition ${mode === "phone"
+              ? "bg-[#156664] text-white shadow-md"
               : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             onClick={() => {
@@ -164,18 +193,18 @@ export default function Login() {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 30 }}
-              className="space-y-4"
+              className="space-y-3"
               autoComplete="on"
             >
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-xs font-medium text-slate-700">
                   Email
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full border border-slate-300 px-3 py-2 rounded-lg focus:ring-[#003366] focus:border-[#003366] outline-none"
+                  className="mt-1 w-full border border-slate-300 px-3 py-2 text-sm rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none"
                   placeholder="you@example.com"
                   name="username"
                   autoComplete="username"
@@ -184,14 +213,14 @@ export default function Login() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-xs font-medium text-slate-700">
                   Password
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full border border-slate-300 px-3 py-2 rounded-lg focus:ring-[#003366] focus:border-[#003366] outline-none"
+                  className="mt-1 w-full border border-slate-300 px-3 py-2 text-sm rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none"
                   placeholder="Your password"
                   name="current-password"
                   autoComplete="current-password"
@@ -202,7 +231,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#003366] text-white py-2 rounded-lg transition-all hover:bg-[#002244] disabled:bg-slate-400 shadow-md"
+                className="w-full bg-[#156664] text-white py-2 rounded-lg transition-all hover:bg-[#11504f] disabled:bg-slate-400 shadow-md"
               >
                 {loading ? "Signing in..." : "Sign in"}
               </button>
@@ -215,17 +244,17 @@ export default function Login() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -30 }}
-              className="space-y-4"
+              className="space-y-3"
             >
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-xs font-medium text-slate-700">
                   Phone
                 </label>
                 <input
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   disabled={otpSent}
-                  className={`mt-1 w-full border border-slate-300 px-3 py-2 rounded-lg focus:ring-[#003366] focus:border-[#003366] outline-none ${otpSent ? "bg-slate-50" : ""
+                  className={`mt-1 w-full border border-slate-300 px-3 py-2 text-sm rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none ${otpSent ? "bg-slate-50" : ""
                     }`}
                   placeholder="e.g. 9876543210"
                 />
@@ -233,7 +262,7 @@ export default function Login() {
 
               {otpSent && (
                 <>
-                  <label className="block text-sm font-medium text-slate-700">
+                  <label className="block text-xs font-medium text-slate-700">
                     Enter OTP
                   </label>
                   <input
@@ -242,12 +271,12 @@ export default function Login() {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     maxLength="6"
-                    className="w-full border border-slate-300 px-3 py-2 rounded-lg focus:ring-[#003366] focus:border-[#003366] outline-none text-center text-2xl tracking-widest"
+                    className="w-full border border-slate-300 px-3 py-2 rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none text-center text-xl tracking-widest"
                     placeholder="000000"
                   />
                   {generatedOtp && (
                     <div className="p-3 text-sm text-center text-blue-800 border border-blue-200 rounded-lg bg-blue-50">
-                      OTP: <span className="font-bold text-[#003366]">{generatedOtp}</span>
+                      OTP: <span className="font-bold text-[#156664]">{generatedOtp}</span>
                     </div>
                   )}
                 </>
@@ -256,7 +285,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#003366] text-white py-2 rounded-lg transition-all hover:bg-[#002244] disabled:bg-slate-400 shadow-md"
+                className="w-full bg-[#156664] text-white py-2 rounded-lg transition-all hover:bg-[#11504f] disabled:bg-slate-400 shadow-md"
               >
                 {loading
                   ? otpSent
@@ -276,7 +305,7 @@ export default function Login() {
                     setGeneratedOtp(null);
                     setMessage(null);
                   }}
-                  className="w-full border border-[#003366] text-[#003366] py-2 rounded-lg transition-all hover:bg-blue-50"
+                  className="w-full border border-[#156664] text-[#156664] py-2 rounded-lg transition-all hover:bg-blue-50"
                 >
                   Use Different Phone
                 </button>
@@ -284,6 +313,17 @@ export default function Login() {
             </motion.form>
           )}
         </AnimatePresence>
+
+        <div className="relative flex items-center justify-center mb-4 mt-6">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100"></div></div>
+          <span className="relative bg-white px-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">or</span>
+        </div>
+
+        {/* Social Login */}
+        <button onClick={() => googleLogin()} type="button" className="w-full flex items-center justify-center gap-2 border border-slate-200 py-2 rounded-lg hover:bg-slate-50 transition-all text-xs font-bold text-slate-700 mb-2">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="G" className="w-4 h-4 text-purple-600" />
+          Sign in with Google
+        </button>
 
         {message && (
           <motion.div
@@ -299,7 +339,7 @@ export default function Login() {
               <div className="mt-3 text-sm">
                 <Link
                   to={`/forgot-password?email=${encodeURIComponent(email)}`}
-                  className="text-[#003366] font-medium hover:underline"
+                  className="text-[#156664] font-medium hover:underline"
                 >
                   Forgot password? Reset here
                 </Link>
