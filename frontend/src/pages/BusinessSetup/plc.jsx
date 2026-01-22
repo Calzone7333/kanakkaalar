@@ -66,8 +66,7 @@ const pvtPlans = [
             "DIN for Directors",
             "DSC for 2 Directors",
             "Company PAN+TAN",
-            "MSME registration Free",
-            "INC 20A filling"
+            "MSME registration Free"
         ],
         isRecommended: true,
     },
@@ -82,6 +81,7 @@ const pvtPlans = [
             "DIN for Directors",
             "DSC for 2 Directors",
             "Company PAN+TAN",
+            "INC 20A filing",
             "MSME registration Free",
             "ADT 1 filing"
         ],

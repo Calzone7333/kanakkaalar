@@ -50,35 +50,37 @@ const spPlans = [
     {
         title: "Standard",
         price: "₹1,499",
-        description: "Ideal for small vendors and home-based businesses starting small.",
+        description: "Focus on essential GST identity for your business.",
+        features: [
+            "Expert assisted process",
+            "GST registration"
+        ],
+        isRecommended: false,
+        isPremium: false,
+    },
+    {
+        title: "Premium",
+        price: "₹10,799",
+        description: "Comprehensive package with MSME and one-year GST filing support.",
         features: [
             "Expert assisted process",
             "GST registration",
             "MSME registration (Udyam)",
             "GST filing for one financial year (upto 300 transactions)"
         ],
-        isRecommended: false,
+        isRecommended: true,
+        isPremium: false,
     },
     {
-        title: "Premium",
-        price: "₹10,799",
-        description: "Perfect for shops and service providers needing GST portal access.",
+        title: "Elite",
+        price: "₹16,499",
+        description: "The ultimate solo business plan with higher transaction volume and ITR support.",
         features: [
             "Expert assisted process",
             "GST registration",
             "MSME registration (Udyam)",
             "GST filing for one financial year (upto 500 transactions)",
             "ITR filing turnover upto 40 lakh"
-        ],
-        isRecommended: true,
-    },
-    {
-        title: "Elite",
-        price: "₹16,499",
-        description: "Complete peace of mind for an entire year of business operation.",
-        features: [
-            "Expert assisted process",
-            "GST registration"
         ],
         isRecommended: false,
         isPremium: true,

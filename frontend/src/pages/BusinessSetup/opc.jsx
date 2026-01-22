@@ -46,16 +46,13 @@ const opcPlans = [
     {
         title: "Standard",
         price: "₹4,999",
-        description: "Perfect for budding entrepreneurs ready to formalize their solo venture.",
+        description: "Essential package for solo entrepreneurs starting out.",
         features: [
             "Your company name is filed in just 4 - 7 days",
-            "Your company name is filed in just 2 - 3 days*",
             "SPICe+ form filing in 21 days*",
             "Incorporation Certificate in 40 days",
             "Company PAN+TAN",
-            "DIN for directors",
-            "DIN for directors",
-            "MSME registration"
+            "DIN for directors"
         ],
         isRecommended: false,
         isPremium: false,
@@ -63,18 +60,16 @@ const opcPlans = [
     {
         title: "Premium",
         price: "₹5,499",
-        description: "Faster processing for entrepreneurs who want to start quickly.",
+        description: "Faster processing with additional business registrations.",
         features: [
             "Expert assisted process",
-            "Your company name is filed in just 1 - 2 days*",
+            "Your company name is filed in just 2 - 3 days*",
             "DSC in just 3 - 4 days",
             "SPICe+ form filing in 10 days*",
             "Incorporation Certificate in 14 - 21 days",
             "Company PAN+TAN",
             "DIN for directors",
-            "MSME registration",
-            "Form 20A filing",
-            "ADT 1 filing"
+            "MSME registration"
         ],
         isRecommended: true,
         isPremium: false,
@@ -82,13 +77,18 @@ const opcPlans = [
     {
         title: "Elite",
         price: "₹7,999",
-        description: "Complete solution including incorporation + 1-year annual compliance.",
+        description: "Complete fast-track solution including specialized filings.",
         features: [
             "Expert assisted process",
+            "Your company name is filed in just 1 - 2 days*",
             "DSC in just 1 - 2 days",
             "SPICe+ form filing in 5 days*",
             "Incorporation Certificate in 10 - 17 days",
-            "Company PAN+TAN"
+            "Company PAN+TAN",
+            "DIN for directors",
+            "MSME registration",
+            "Form 20A filing",
+            "ADT 1 filing"
         ],
         isRecommended: false,
         isPremium: true,

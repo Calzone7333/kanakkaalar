@@ -47,7 +47,7 @@ const llpPlans = [
     {
         title: "Standard",
         price: "₹4,999",
-        description: "Ideal for small teams starting their professional journey.",
+        description: "Essential package for small business startups.",
         features: [
             "Expert assisted process",
             "Your company name is reserved in just 2 - 4 days",
@@ -58,13 +58,13 @@ const llpPlans = [
             "Company PAN+TAN",
             "DIN for directors"
         ],
-        isRecommended: true,
+        isRecommended: false,
         isPremium: false,
     },
     {
         title: "Premium",
         price: "₹5,499",
-        description: "Priority processing for those who need to start immediately.",
+        description: "Faster processing with digital kit for immediate operations.",
         features: [
             "Expert assisted process",
             "Your company name is reserved in just 24 hours*",
@@ -73,21 +73,16 @@ const llpPlans = [
             "LLP Incorporation Certificate",
             "LLP agreement form filing done in 7 days(Post Incorporation)",
             "Company PAN+TAN",
-            "Digital welcome kit that includes a checklist of all post-incorporation compliances",
-            "DIN for directors",
-            "Form 8 & 11 filing(One year)",
-            "DIR 3 KYC (For 2 directors)",
-            "One Year Income Tax filing(Upto turnover of 20 lakhs)",
-            "Accounting & Bookeeping(Upto 100 transactions)",
-            "Financial statement preparation"
+            "Digital welcome kit that includes a checklist of all post-incorporation",
+            "DIN for directors"
         ],
-        isRecommended: false,
+        isRecommended: true,
         isPremium: false,
     },
     {
         title: "Elite",
         price: "₹15,000",
-        description: "Complete solution including LLP incorporation + 1-year annual compliance.",
+        description: "Comprehensive elite package with 1-year compliance support.",
         features: [
             "Expert assisted process",
             "Your company name is reserved in just 24 hours*",
@@ -97,7 +92,12 @@ const llpPlans = [
             "LLP agreement form filing done in 14 days(Post Incorporation)",
             "Company PAN+TAN",
             "DIN for directors",
-            "30-minute call with a senior CA/CS for your business planning"
+            "30-minute call with a senior CA/CS for your business planning",
+            "Form 8 & 11 filing(One year)",
+            "DIR 3 KYC (For 2 directors)",
+            "One Year Income Tax filing(Upto turnover of 20 lakhs)",
+            "Accounting & Bookkeeping(Upto 100 transactions)",
+            "Financial statement preparation"
         ],
         isRecommended: false,
         isPremium: true,

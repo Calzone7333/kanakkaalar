@@ -46,45 +46,47 @@ const partnershipPlans = [
     {
         title: "Standard",
         price: "₹4,999",
-        description: "Perfect for partners who just need a legally sound agreement.",
+        description: "Essential setup for partners with a professional deed.",
         features: [
             "Expert assisted process",
             "Partnership deed drafting in 3 days",
-            "Deed submission to the local registar on your behalf",
+            "Deed submission to the local registrar on your behalf",
             "PAN Card",
-            "Zero balance current account with 7% interest",
-            "GSTR-1 & 3B for 12 months(Up to 300 transactions)",
             "Zero balance current account with 7% interest"
         ],
         isRecommended: false,
+        isPremium: false,
     },
     {
         title: "Premium",
         price: "₹20,898",
-        description: "Includes official registration with the Registrar of Firms (RoF).",
+        description: "Complete tax and banking setup for active business operations.",
         features: [
             "Expert assisted process",
             "Partnership deed drafting in 3 days",
-            "Deed submission to the local registar on your behalf",
+            "Deed submission to the local registrar on your behalf",
+            "PAN Card",
+            "GST registration",
+            "GSTR-1 & 3B for 12 months(Up to 300 transactions)",
+            "Zero balance current account with 7% interest"
+        ],
+        isRecommended: true,
+        isPremium: false,
+    },
+    {
+        title: "Elite",
+        price: "₹30,398",
+        description: "Dedicated support with brand protection and annual tax filing.",
+        features: [
+            "Dedicated account manager",
+            "Partnership deed drafting in 3 days",
+            "Deed submission to the local registrar on your behalf",
             "PAN Card",
             "GST registration",
             "GSTR-1 & 3B for 12 months(Up to 300 transactions)",
             "Zero balance current account with 7% interest",
             "Trademark Registration for your Brand",
             "ITR Filing for one financial year (Up to 40 lakhs)"
-        ],
-        isRecommended: true,
-    },
-    {
-        title: "Elite",
-        price: "₹30,398",
-        description: "End-to-end setup including trademark protection.",
-        features: [
-            "Dedicated account manager",
-            "Partnership deed drafting in 3 days",
-            "Deed submission to the local registar on your behalf",
-            "PAN Card",
-            "GST registration"
         ],
         isRecommended: false,
         isPremium: true,
