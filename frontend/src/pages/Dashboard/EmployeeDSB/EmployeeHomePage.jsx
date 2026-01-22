@@ -106,7 +106,7 @@ export default function EmployeeHomePage() {
                 {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            <h1 className="text-3xl md:text-3xl font-bold mb-2">
               Welcome back, {employee?.fullName?.split(' ')[0] || "Employee"}! 👋
             </h1>
             <p className="text-purple-100 text-lg max-w-xl">

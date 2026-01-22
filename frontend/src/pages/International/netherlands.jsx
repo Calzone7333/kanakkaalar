@@ -97,10 +97,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -111,13 +111,13 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
        ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
     `}>
     <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
-      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+      <h3 className={`text-sm md:text-base font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
       <div className="flex-shrink-0">
         <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
       </div>
     </button>
     <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
+      <p className={`px-6 pb-6 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
     </div>
   </div>
 );
@@ -125,14 +125,14 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sections ---
 
 const OverviewContent = () => (
-  <section id="overview-content" className="py-20 bg-white scroll-mt-24">
+  <section id="overview-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Innovation Gateway"
         title="Dutch Business Setup"
         description="Setting up a company in the Netherlands offers a gateway to Europe's largest economies through a pro-business climate and strategic location."
       />
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="grid lg:grid-cols-2 gap-10 items-center">
         <div className="space-y-8">
           <div className="prose prose-slate prose-lg">
             <p className="text-slate-600 leading-relaxed text-lg">
@@ -161,7 +161,7 @@ const OverviewContent = () => (
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 mb-6 backdrop-blur-sm border border-white/20">
               <Briefcase className="w-10 h-10 text-[#C59B4E]" />
             </div>
-            <h5 className="text-5xl font-black mb-2 tracking-tight">€0.01</h5>
+            <h5 className="text-3xl font-black mb-2 tracking-tight">€0.01</h5>
             <p className="text-sm text-[#C59B4E] uppercase tracking-[0.3em] font-black">Min Share Capital</p>
             <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 gap-5">
               <div className="text-left">
@@ -181,7 +181,7 @@ const OverviewContent = () => (
 );
 
 const AdvantagesContent = () => (
-  <section id="advantages-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="advantages-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Success" title="Strategic Advantages" description="Why global entrepreneurs choose the Netherlands as their gateway to Europe." />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -239,7 +239,7 @@ const AdvantagesContent = () => (
 );
 
 const TypesContent = () => (
-  <section id="types-content" className="py-20 bg-white scroll-mt-24">
+  <section id="types-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Legal Forms"
@@ -282,14 +282,14 @@ const TypesContent = () => (
 );
 
 const ProcessContent = () => (
-  <section id="process-content" className="py-24 bg-slate-50 scroll-mt-24">
+  <section id="process-content" className="py-16 md:py-20 bg-slate-50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Steps"
         title="6-Phase Incorporation"
         description="Our simplified roadmap to launching your Dutch venture."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16 relative">
         {nlProcessSteps.map((step, i) => (
           <div key={i} className="group flex flex-col items-center text-center p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="w-16 h-16 bg-[#0F2D30] text-[#C59B4E] rounded-2xl flex items-center justify-center font-black text-xl mb-6 shadow-xl transform group-hover:rotate-6 transition-transform">
@@ -314,9 +314,9 @@ const ProcessContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="documents-content" className="py-24 bg-white scroll-mt-24">
+  <section id="documents-content" className="py-16 md:py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
-      <div className="flex flex-col lg:flex-row gap-20 items-stretch">
+      <div className="flex flex-col lg:flex-row gap-12 items-stretch">
         <div className="w-full lg:w-3/5">
           <SectionHeading subtitle="Checklist" title="Dutch Requirements" align="left" />
           <div className="grid sm:grid-cols-1 gap-10 mt-10">
@@ -362,7 +362,7 @@ const DocumentsContent = () => (
 );
 
 const TaxContent = () => (
-  <section id="tax-content" className="py-24 bg-slate-50/50 scroll-mt-24">
+  <section id="tax-content" className="py-16 md:py-20 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Compliance"
@@ -421,23 +421,23 @@ export default function NetherlandsPage() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* Hero Section - Compact */}
-      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
         <div className="absolute inset-0 z-0">
           <img src={BackgroundImageSrc} alt="Netherlands Company Registration" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="w-full lg:w-3/5 space-y-8">
               <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                 <Globe size={14} className="text-[#C59B4E]" />
                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Verified EU Business Support</span>
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                 Business Setup in <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Netherlands</span>
               </h1>
-              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+              <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                 Launch in Europe's connected economy. 100% remote registration, business-friendly taxes, and EU market entry. Connect with specialists for reliable Dutch formation.
               </p>
               <div className="flex gap-10 pt-2">
@@ -486,7 +486,7 @@ export default function NetherlandsPage() {
         <TaxContent />
 
         {/* FAQ Section - Compact */}
-        <section id="faqs-content" className="py-20 bg-white">
+        <section id="faqs-content" className="py-12 md:py-16 bg-white">
           <div className="max-w-4xl mx-auto px-6">
             <SectionHeading subtitle="FAQ" title="Your Netherlands Questions" description="Answers to common questions about Dutch incorporation and operations." />
             <div className="space-y-8">

@@ -163,7 +163,7 @@ export default function MyOrdersPage() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200"
+                            className="text-center py-16 md:py-20 bg-white rounded-3xl border border-dashed border-slate-200"
                         >
                             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <ShoppingBagIcon className="w-9 h-9 text-slate-300" />

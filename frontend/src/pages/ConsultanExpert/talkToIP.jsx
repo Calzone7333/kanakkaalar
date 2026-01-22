@@ -188,13 +188,13 @@ export default function TalkToIP() {
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12">
+                    <div className="flex flex-col lg:flex-row items-center gap-8">
                         <div className="w-full lg:w-3/5 space-y-6">
                             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Shield size={12} className="text-[#C59B4E]" />
                                 <span className="text-white text-[9px] uppercase font-bold tracking-[0.2em]">Intellectual Property Protection</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-white leading-tight">
+                            <h1 className="text-3xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Talk to an <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">IP Expert</span>
                             </h1>

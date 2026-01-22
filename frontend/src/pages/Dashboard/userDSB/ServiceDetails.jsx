@@ -72,7 +72,7 @@ const ServiceDetail = () => {
                                 <ShieldCheckIcon className="w-3.5 h-3.5" />
                                 Verified Service
                             </div>
-                            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
+                            <h2 className="text-3xl md:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
                                 {price}
                             </h2>
                             <p className="text-lg text-slate-300 leading-relaxed font-light">

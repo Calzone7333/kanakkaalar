@@ -73,6 +73,6 @@ const GradientBox = ({ text, className }) => (
       rounded-[20px] shadow-lg backdrop-blur-sm text-gray-900 
       hover:scale-105 transition-transform duration-300 ${className}`}
     >
-        <span className="text-sm font-bold sm:text-base md:text-lg">{text}</span>
+        <span className="text-sm font-bold sm:text-sm md:text-base">{text}</span>
     </div>
 );

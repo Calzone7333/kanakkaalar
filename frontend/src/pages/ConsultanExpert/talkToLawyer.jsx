@@ -54,10 +54,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -232,7 +232,7 @@ const ProcessContent = () => {
                   <FilePenLine className="w-full h-full" strokeWidth={1.2} />
                 </div>
                 <h4 className="text-2xl font-bold text-slate-800 mb-3">Fill Details</h4>
-                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Submit your case details and documents securely.</p>
+                <p className="text-sm md:text-base text-slate-500 leading-relaxed">Submit your case details and documents securely.</p>
               </div>
               {/* Number Badge */}
               <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
@@ -251,7 +251,7 @@ const ProcessContent = () => {
                   <Rocket className="w-full h-full" strokeWidth={1.2} />
                 </div>
                 <h4 className="text-2xl font-bold text-slate-800 mb-3">Analysis</h4>
-                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Our experts review your case for the best approach.</p>
+                <p className="text-sm md:text-base text-slate-500 leading-relaxed">Our experts review your case for the best approach.</p>
               </div>
             </div>
 
@@ -262,7 +262,7 @@ const ProcessContent = () => {
                   <FileText className="w-full h-full" strokeWidth={1.2} />
                 </div>
                 <h4 className="text-2xl font-bold text-slate-800 mb-3">Consultation</h4>
-                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Connect with a lawyer via video or audio call.</p>
+                <p className="text-sm md:text-base text-slate-500 leading-relaxed">Connect with a lawyer via video or audio call.</p>
               </div>
               {/* Number Badge */}
               <div className="w-12 h-12 rounded-full bg-[#1F4B4E] text-white flex items-center justify-center font-bold text-lg shadow-md mt-6 md:mt-12 relative z-20 ring-4 ring-white">
@@ -281,7 +281,7 @@ const ProcessContent = () => {
                   <UserCheck className="w-full h-full" strokeWidth={1.2} />
                 </div>
                 <h4 className="text-2xl font-bold text-slate-800 mb-3">Resolution</h4>
-                <p className="text-base md:text-lg text-slate-500 leading-relaxed">Get specific advice and documents to resolve your issue.</p>
+                <p className="text-sm md:text-base text-slate-500 leading-relaxed">Get specific advice and documents to resolve your issue.</p>
               </div>
             </div>
 
@@ -324,8 +324,8 @@ const BenefitsContent = () => (
             <div className="mx-auto w-12 h-12 mb-4 text-[#1A7F7D] group-hover:scale-110 transition-transform">
               <item.icon className="w-10 h-10 mx-auto" strokeWidth={1.2} />
             </div>
-            <h4 className="text-lg md:text-xl font-bold text-slate-800 mb-3">{item.title}</h4>
-            <p className="text-slate-500 text-base md:text-lg max-w-[260px] mx-auto leading-relaxed">{item.desc}</p>
+            <h4 className="text-sm md:text-base font-bold text-slate-800 mb-3">{item.title}</h4>
+            <p className="text-slate-500 text-sm md:text-base max-w-[260px] mx-auto leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -383,7 +383,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
       className="flex items-center justify-between w-full p-6 text-left"
       onClick={onClick}
     >
-      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+      <h3 className={`text-sm md:text-base font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
         {faq.q}
       </h3>
       <div className="flex-shrink-0">
@@ -393,7 +393,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
     >
-      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>
+      <p className={`px-6 pb-6 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>
         {faq.a}
       </p>
     </div>
@@ -447,7 +447,7 @@ export default function TalkToLawyer() {
       `}</style>
 
       {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-      <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+      <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 w-full h-full z-0">
           <img
@@ -460,7 +460,7 @@ export default function TalkToLawyer() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -487,12 +487,12 @@ export default function TalkToLawyer() {
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   Online Lawyer <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Consultation</span>
                 </h1>
 
-                <p className="text-sm md:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Get your legal queries resolved with expert lawyers via call or video. Fast, secure, and confidential consultation starting at just <span className="text-[#C59B4E] font-semibold">₹399</span>.
                 </p>
               </div>
@@ -531,7 +531,7 @@ export default function TalkToLawyer() {
       {/* === Sticky Navigation === */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-8 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
             {tabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button

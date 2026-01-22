@@ -29,10 +29,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -164,7 +164,7 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (FCRA Registration Content) ---
 
 const FCRAOverviewContent = () => (
-    <section id="fcra-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="fcra-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -172,8 +172,8 @@ const FCRAOverviewContent = () => (
                 description="Legally enabling NGOs to accept foreign contributions in India."
             />
 
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-8 text-slate-600 text-lg md:text-xl leading-relaxed">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-8 text-slate-600 text-sm md:text-base leading-relaxed">
                     <p>
                         The **Foreign Contribution Regulation Act (FCRA) Registration** allows organizations engaged in cultural, economic, educational, religious, or social activities to **legally accept foreign contributions**.
                     </p>
@@ -197,7 +197,7 @@ const FCRAOverviewContent = () => (
 );
 
 const FCRAPurposeBenefits = () => (
-    <section id="fcra-purpose-benefits" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="fcra-purpose-benefits" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Purpose & Benefits"
@@ -235,7 +235,7 @@ const FCRAPurposeBenefits = () => (
 );
 
 const FCRAEligibilityContent = () => (
-    <section id="fcra-eligibility-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="fcra-eligibility-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Eligibility"
@@ -243,7 +243,7 @@ const FCRAEligibilityContent = () => (
                 description="Requirements to apply for permanent FCRA registration."
             />
 
-            <div className="grid gap-12 lg:grid-cols-2">
+            <div className="grid gap-8 lg:grid-cols-2">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Eligibility Criteria</h4>
                     <div className="space-y-8">
@@ -277,7 +277,7 @@ const FCRAEligibilityContent = () => (
 );
 
 const FCRATypesContent = () => (
-    <section id="fcra-types-content" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="fcra-types-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Types"
@@ -323,7 +323,7 @@ const FCRATypesContent = () => (
 );
 
 const FCRAPlProcessContent = () => (
-    <section id="fcra-process-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="fcra-process-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Process"
@@ -331,7 +331,7 @@ const FCRAPlProcessContent = () => (
                 description="Step-by-step guide and bank account requirements."
             />
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-8">Process Steps (Form FC-3A)</h4>
                     <ol className="relative border-l border-slate-200 space-y-8 ml-3">
@@ -367,7 +367,7 @@ const FCRAPlProcessContent = () => (
 );
 
 const FCRARenewalCompliance = () => (
-    <section id="fcra-renewal-compliance" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="fcra-renewal-compliance" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Compliance"
@@ -418,7 +418,7 @@ const FCRARenewalCompliance = () => (
 );
 
 const FCRAPRoPenalties = () => (
-    <section id="fcra-prohibitions-penalties" className="py-20 scroll-mt-24 bg-white">
+    <section id="fcra-prohibitions-penalties" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Caution"
@@ -426,7 +426,7 @@ const FCRAPRoPenalties = () => (
                 description="Strict guidelines and consequences for FCRA violations."
             />
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-6">Prohibited Activities</h4>
                     <ul className="space-y-8">
@@ -461,7 +461,7 @@ const FCRAPRoPenalties = () => (
 );
 
 const FCRAWhyBizzfiling = () => (
-    <section id="fcra-why-Bizzfiling" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="fcra-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -491,7 +491,7 @@ const FCRAWhyBizzfiling = () => (
 );
 
 const FCRAFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="fcra-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="fcra-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -505,7 +505,7 @@ const FCRAFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -589,7 +589,7 @@ export default function FCRARegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -601,7 +601,7 @@ export default function FCRARegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -624,12 +624,12 @@ export default function FCRARegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     FCRA <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert assisted **FC-3A filing** and full guidance on the **FCRA registration in India**. Understand **eligibility, benefits, checklist**, and types of FCRA registration.
                                 </p>
 
@@ -638,25 +638,25 @@ export default function FCRARegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Analysis of Foreign Contribution Eligibility</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Analysis of Foreign Contribution Eligibility</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Opening of FCRA Bank Account (SBI New Delhi)</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Opening of FCRA Bank Account (SBI New Delhi)</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Filing of Form FC-3A/FC-3B online</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Filing of Form FC-3A/FC-3B online</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Reply to Ministry of Home Affairs (MHA) Queries</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Reply to Ministry of Home Affairs (MHA) Queries</span>
                                     </div>
                                 </div>
                             </div>
@@ -695,7 +695,7 @@ export default function FCRARegistrationPage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
                         {fcraTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

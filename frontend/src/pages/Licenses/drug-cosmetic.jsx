@@ -121,10 +121,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -158,10 +158,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="dc-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="dc-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Regulation" title="CDSCO Healthcare Nexus" description="The Central Drugs Standard Control Organisation oversees the D&C Act 1940." />
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Overseen by the <strong>Drugs Controller General of India (DCGI)</strong>, this licensing system regulates the import, manufacture, and distribution of healthcare goods.
@@ -190,7 +190,7 @@ const OverviewContent = () => (
 );
 
 const DrugTypesContent = () => (
-    <section id="dc-drug-types" className="py-20 bg-white scroll-mt-24">
+    <section id="dc-drug-types" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Tiers" title="Drug License Categories" description="Classification based on business activity and nature of pharmacuticals." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -216,7 +216,7 @@ const DrugTypesContent = () => (
 );
 
 const CosmeticTypesContent = () => (
-    <section id="dc-cosmetic-types" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="dc-cosmetic-types" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Beauty Care" title="Cosmetic Registry Hub" description="Mandatory standards for manufacturing and importing skincare/beauty products." />
             <div className="grid md:grid-cols-2 gap-10">
@@ -235,7 +235,7 @@ const CosmeticTypesContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="dc-documents-content" className="py-20 bg-white scroll-mt-24">
+    <section id="dc-documents-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Archive" title="Consolidated Registry Proofs" description="Legal, premises, and technical documentation required for portal filing." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
@@ -254,7 +254,7 @@ const DocumentsContent = () => (
 );
 
 const RulesContent = () => (
-    <section id="dc-rules-content" className="py-24 bg-slate-900 scroll-mt-24 text-center">
+    <section id="dc-rules-content" className="py-16 md:py-20 bg-slate-900 scroll-mt-24 text-center">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Statutes" title="Governing Framework" description="Legal rules defining standard operating procedures for various categories." />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
@@ -273,10 +273,10 @@ const RulesContent = () => (
 );
 
 const LabellingContent = () => (
-    <section id="dc-labelling-content" className="py-20 bg-white scroll-mt-24">
+    <section id="dc-labelling-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Protocols" title="Label Integrity norms" description="Mandatory disclosures for all imported and local pharmaceutical goods." />
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8">
                     {labellingNorms.map((e, i) => (
                         <div key={i} className="flex items-center gap-5 p-5 bg-slate-50 rounded-[28px] italic border border-slate-100 italic">
@@ -297,9 +297,9 @@ const LabellingContent = () => (
 );
 
 const WhyUsContent = () => (
-    <section id="dc-why-Bizzfiling" className="py-20 bg-slate-50 scroll-mt-24">
+    <section id="dc-why-Bizzfiling" className="py-12 md:py-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Strategy" title="Healthcare compliance Specialist" description="Simplifying intricate CDSCO/DCGI procedures through legal precision." align="left" />
                     <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -367,23 +367,23 @@ export default function DrugCosmeticLicensePage() {
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
             {/* Hero Section - Premium Style */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="Drug & Cosmetic License" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Award size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official CDSCO / DCGI Compliance Hub</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Drug & <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Cosmetic License</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Secure your healthcare business with official CDSCO/DCGI licensing. Full support for manufacturing, retail, and import certifications.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -431,7 +431,7 @@ export default function DrugCosmeticLicensePage() {
             <LabellingContent />
             <WhyUsContent />
 
-            <section id="dc-faqs-content" className="py-24 bg-white scroll-mt-24">
+            <section id="dc-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Pharma Law Intelligence" description="Clearing compliance and registry protocols for drugs, cosmetics and medical devices." />
                     <div className="space-y-8 pt-10">

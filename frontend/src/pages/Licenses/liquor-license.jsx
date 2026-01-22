@@ -110,10 +110,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -147,10 +147,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-  <section id="liquor-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="liquor-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Legalization" title="Excise Department Permit" description="Ensuring hospitality and retail adherence to strict Beverage and Liquor laws." />
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-8 text-slate-600 leading-relaxed italic">
           <p>
             Securing a liquor license is a critical stride towards presenting clientele with an extensive array of selections in hospitality, entertainment, or retail sectors.
@@ -181,7 +181,7 @@ const OverviewContent = () => (
 );
 
 const TypesContent = () => (
-  <section id="liquor-types-content" className="py-20 bg-white scroll-mt-24">
+  <section id="liquor-types-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 text-center">
       <SectionHeading subtitle="Portfolio" title="Types of Excise Licenses" description="Segmented permits regulating retail stores, hotel pubs and event bars." />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -198,7 +198,7 @@ const TypesContent = () => (
 );
 
 const NeedContent = () => (
-  <section id="liquor-need-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="liquor-need-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Necessity" title="Why Obtain an Excise Permit?" description="Rooted in Article 47 of the Indian Constitution for rigorous monitoring of alcohol sales." />
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -215,7 +215,7 @@ const NeedContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="liquor-documents-content" className="py-20 bg-white scroll-mt-24">
+  <section id="liquor-documents-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 text-center">
       <SectionHeading subtitle="Archive" title="Documents & Clearances" description="Mandatory NOCs from Fire and Municipal bodies required for premises." />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -234,10 +234,10 @@ const DocumentsContent = () => (
 );
 
 const ValidityContent = () => (
-  <section id="liquor-validity-renewal" className="py-24 bg-slate-900 scroll-mt-24">
+  <section id="liquor-validity-renewal" className="py-16 md:py-20 bg-slate-900 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading subtitle="Integrity" title="Validity & Strict Compliance" description="Annual renewal and severe revocation grounds for non-compliance." />
-      <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-8">
           <div className="p-8 bg-white/5 border border-white/10 rounded-[40px] flex gap-10 group hover:border-[#C59B4E]/50 transition-all">
             <Clock size={48} className="text-[#C59B4E] shrink-0" />
@@ -269,9 +269,9 @@ const ValidityContent = () => (
 );
 
 const WhyBizzfiling = () => (
-  <section id="liquor-why-Bizzfiling" className="py-20 bg-white scroll-mt-24">
+  <section id="liquor-why-Bizzfiling" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
         <div className="order-2 lg:order-1">
           <SectionHeading subtitle="Expertise" title="Excise Strategy Partner" description="Navigating bureaucratic Fire and Municipal clearances with up-to-date state knowledge." align="left" />
           <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -339,23 +339,23 @@ export default function LiquorLicensePage() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* Hero Section - Premium Style */}
-      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
         <div className="absolute inset-0 z-0">
           <img src={BackgroundImageSrc} alt="Liquor License" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="w-full lg:w-3/5 space-y-8">
               <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                 <Award size={14} className="text-[#C59B4E]" />
                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official Liquor License & Excise Permit Hub</span>
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                 Liquor <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">License Services</span>
               </h1>
-              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+              <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                 Legitimize your beverage operations with official state excise permits. Expert guidance for bars, restaurants, retail outlets, and temporary events.
               </p>
               <div className="flex gap-10 pt-2">
@@ -402,7 +402,7 @@ export default function LiquorLicensePage() {
       <ValidityContent />
       <WhyBizzfiling />
 
-      <section id="liquor-faqs-content" className="py-24 bg-white scroll-mt-24">
+      <section id="liquor-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-4xl mx-auto px-6">
           <SectionHeading subtitle="FAQ" title="Beverage Intelligence" description="Clearing compliance and registry protocols for Excise permits and age limits." />
           <div className="space-y-8 pt-10">

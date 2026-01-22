@@ -38,7 +38,7 @@ const AgentWallet = () => {
                     <span className="text-blue-100 font-medium">Total Balance</span>
                     <Wallet className="w-6 h-6 text-blue-200" />
                 </div>
-                <div className="text-4xl font-bold mb-2">
+                <div className="text-3xl font-bold mb-2">
                     ₹{wallet?.balance?.toLocaleString() || "0.00"}
                 </div>
                 <div className="text-sm text-blue-200">

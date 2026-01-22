@@ -154,7 +154,7 @@ export default function DesignCalendarPage() {
           {/* Header Section */}
           <div className="text-center lg:text-right mb-6 lg:mb-10">
             <div className="flex flex-col items-center lg:items-end">
-              <h1 className="text-5xl lg:text-7xl font-extrabold text-gray-800 tracking-tighter leading-none">
+              <h1 className="text-3xl lg:text-3xl font-extrabold text-gray-800 tracking-tighter leading-none">
                 <span className={THEME_COLOR}>{currentDate.getFullYear()}</span>
               </h1>
               <h2 className="text-2xl lg:text-3xl font-bold text-gray-400 tracking-[0.2em] uppercase mt-2">

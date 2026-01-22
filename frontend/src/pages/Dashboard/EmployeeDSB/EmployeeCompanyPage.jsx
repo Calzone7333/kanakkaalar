@@ -27,7 +27,7 @@ export default function EmployeeCompanyPage() {
             <BuildingOffice2Icon className="w-4 h-4" />
             <span>Established 2020</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-3xl md:text-3xl font-bold mb-6 leading-tight">
             Building the Future of <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
               Financial Compliance

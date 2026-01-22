@@ -511,7 +511,7 @@ export default function ServiceOrder() {
                                 <div>
                                     <p className="text-blue-200 text-xs font-bold uppercase tracking-wider mb-2">Total Payable</p>
                                     <div className="flex items-baseline">
-                                        <span className="text-4xl font-bold">₹{price.toLocaleString()}</span>
+                                        <span className="text-3xl font-bold">₹{price.toLocaleString()}</span>
                                     </div>
                                     <p className="text-blue-200 text-xs mt-2 opacity-80">Inclusive of Taxes</p>
                                 </div>

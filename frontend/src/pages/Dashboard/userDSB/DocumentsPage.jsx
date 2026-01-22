@@ -217,11 +217,11 @@ export default function DocumentsPage() {
         </div>
 
         {loading ? (
-          <div className="py-20 text-center text-gray-400 animate-pulse">
+          <div className="py-12 md:py-16 text-center text-gray-400 animate-pulse">
             Loading documents...
           </div>
         ) : filteredDocs.length === 0 ? (
-          <div className="py-20 text-center bg-gray-50 rounded-2xl border border-gray-100">
+          <div className="py-12 md:py-16 text-center bg-gray-50 rounded-2xl border border-gray-100">
             <DocumentTextIcon className="w-12 h-12 text-gray-300 mx-auto mb-3" />
             <p className="text-gray-500 font-medium">No documents found.</p>
             {searchQuery && <p className="text-sm text-gray-400 mt-1">Try a different search term.</p>}

@@ -143,10 +143,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -183,13 +183,13 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
        ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
     `}>
         <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
-            <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+            <h3 className={`text-sm md:text-base font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
             <div className="flex-shrink-0">
                 <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
             </div>
         </button>
         <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-            <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
+            <p className={`px-6 pb-6 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
         </div>
     </div>
 );
@@ -236,23 +236,23 @@ export default function LlpPage() {
       `}</style>
 
             {/* Hero */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="LLP Registration" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Briefcase size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Verified LLP Filing Support</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Limited Liability <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Partnership Registration</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Combine the flexibility of a partnership with the benefits of limited liability. Connect with experts for reliable LLP formation and governance.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -293,11 +293,11 @@ export default function LlpPage() {
             </div>
 
             {/* Overview */}
-            <section id="overview-content" className="py-20 bg-slate-50/50">
+            <section id="overview-content" className="py-12 md:py-16 bg-slate-50/50">
                 <div className="max-w-7xl px-6 mx-auto">
                     <SectionHeading subtitle="Introduction" title="Limited Liability Partnership" description="The perfect blend of a traditional partnership and a modern corporation." />
 
-                    <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                    <div className="grid lg:grid-cols-2 gap-8 items-center mb-16">
                         <div className="space-y-8">
                             <h4 className="text-2xl font-bold text-slate-800">What is an LLP?</h4>
                             <p className="text-slate-600 leading-relaxed">
@@ -353,7 +353,7 @@ export default function LlpPage() {
             </section>
 
             {/* Pricing */}
-            <section id="pricing-content" className="py-20 bg-white">
+            <section id="pricing-content" className="py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4">
                     <SectionHeading subtitle="Pricing" title="Affordable Packages" description="Choose the plan that best fits your business needs." />
                     <PricingCards plans={llpPlans} serviceName="Limited Liability Partnership" />
@@ -361,7 +361,7 @@ export default function LlpPage() {
             </section>
 
             {/* Benefits */}
-            <section id="benefits-content" className="py-20 bg-slate-50/50">
+            <section id="benefits-content" className="py-12 md:py-16 bg-slate-50/50">
                 <div className="max-w-7xl mx-auto px-6">
                     <SectionHeading subtitle="Why LLP?" title="Top Benefits" description="Unlock growth and stability with a Limited Liability Partnership." />
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -390,7 +390,7 @@ export default function LlpPage() {
             </section>
 
             {/* Requirements */}
-            <section id="requirements-content" className="py-20 bg-white scroll-mt-24">
+            <section id="requirements-content" className="py-12 md:py-16 bg-white scroll-mt-24">
                 <div className="max-w-7xl mx-auto px-4">
                     <SectionHeading subtitle="Checklist" title="Key Requirements" description="Ensure you meet these criteria before starting the registration." />
 
@@ -448,7 +448,7 @@ export default function LlpPage() {
             </section>
 
             {/* Documents */}
-            <section id="documents-content" className="py-20 bg-slate-900 text-white overflow-hidden relative">
+            <section id="documents-content" className="py-12 md:py-16 bg-slate-900 text-white overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#C59B4E]/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1A7F7D]/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
 
@@ -481,7 +481,7 @@ export default function LlpPage() {
             </section>
 
             {/* Process */}
-            <section id="process-content" className="py-20 bg-white">
+            <section id="process-content" className="py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <SectionHeading subtitle="Workflow" title="Registration Journey" description="A streamlined 4-step process to get your LLP ready." />
                     <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-10 relative">
@@ -501,9 +501,9 @@ export default function LlpPage() {
             </section>
 
             {/* Compliance */}
-            <section id="compliance-content" className="py-20 bg-slate-50/50">
+            <section id="compliance-content" className="py-12 md:py-16 bg-slate-50/50">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row gap-12 items-center">
+                    <div className="flex flex-col lg:flex-row gap-8 items-center">
                         <div className="lg:w-1/3">
                             <SectionHeading
                                 subtitle="Advisory"
@@ -547,7 +547,7 @@ export default function LlpPage() {
             </section>
 
             {/* FAQs */}
-            <section id="faqs-content" className="py-20 bg-white">
+            <section id="faqs-content" className="py-12 md:py-16 bg-white">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="Help Desk" title="Frequently Asked Questions" description="Common queries about LLP registration and management." />
                     <div className="space-y-8">

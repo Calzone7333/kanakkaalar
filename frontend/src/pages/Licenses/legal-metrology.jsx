@@ -124,10 +124,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -151,7 +151,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
     >
-      <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+      <p className={`px-4 pb-4 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
         {faq.a}
       </p>
     </div>
@@ -161,10 +161,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-  <section id="lm-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="lm-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Standards" title="Legal Metrology Authority" description="The statutory governance for weights, measures, and packaged goods in India." />
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-8 text-slate-600 leading-relaxed italic">
           <p>
             The <strong>Legal Metrology Act, 2009</strong> establishes and upholds standards for measurements in India. It mandates registration for packers, dealers, and importers dealing with packaged commodities.
@@ -193,7 +193,7 @@ const OverviewContent = () => (
 );
 
 const RulesProvisions = () => (
-  <section id="lm-rules-provisions" className="py-20 bg-white scroll-mt-24">
+  <section id="lm-rules-provisions" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Legal Frame" title="Rules & Prohibitions" description="Regulating everything from weighing devices to standard measures and mass." />
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
@@ -218,7 +218,7 @@ const RulesProvisions = () => (
 );
 
 const BenefitsContent = () => (
-  <section id="lm-benefits-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="lm-benefits-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Value" title="LMPC Advantage" description="Ensuring ethical marketing and protecting consumer rights while scaling trade." />
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -235,10 +235,10 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-  <section id="lm-eligibility-content" className="py-20 bg-white scroll-mt-24">
+  <section id="lm-eligibility-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Checklist" title="Eligibility & Exemptions" description="Adherence to Package Commodities rules and institutional consumer criteria." />
-      <div className="grid lg:grid-cols-2 gap-12">
+      <div className="grid lg:grid-cols-2 gap-8">
         <div className="space-y-8">
           <h4 className="text-sm font-bold text-slate-800 uppercase italic mb-6">Requirements:</h4>
           {lmpcEligibility.map((item, i) => (
@@ -265,7 +265,7 @@ const EligibilityContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="lm-documents-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="lm-documents-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 text-center">
       <SectionHeading subtitle="Archive" title="Documents & Validity" description="Identity proofs and fee records needed for the 5-year block certificate." />
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -282,7 +282,7 @@ const DocumentsContent = () => (
 );
 
 const ProcedureContent = () => (
-  <section id="lm-procedure-content" className="py-24 bg-slate-50 scroll-mt-24">
+  <section id="lm-procedure-content" className="py-16 md:py-20 bg-slate-50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6 text-center">
       <SectionHeading subtitle="Submission" title="Step-by-Step Approval" description="A structured journey from zonal review to physical premise verification." />
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 relative">
@@ -301,9 +301,9 @@ const ProcedureContent = () => (
 );
 
 const WhyBizzfiling = () => (
-  <section id="lm-why-Bizzfiling" className="py-20 bg-white scroll-mt-24">
+  <section id="lm-why-Bizzfiling" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 items-center">
         <div className="order-2 lg:order-1">
           <SectionHeading subtitle="Confidence" title="LMPC Assisted Experts" description="Seamlessly managing offline inspections and portal technicalities." align="left" />
           <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -369,23 +369,23 @@ export default function LegalMetrologyPage() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* Hero Section - Premium Style */}
-      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
         <div className="absolute inset-0 z-0">
           <img src={BackgroundImageSrc} alt="Legal Metrology Registration" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="w-full lg:w-3/5 space-y-8">
               <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                 <Award size={14} className="text-[#C59B4E]" />
                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official LMPC Weight & Measure Compliance</span>
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                 Legal <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Metrology (LMPC)</span>
               </h1>
-              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+              <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                 Ensure your packaged commodities meet official measurement standards. Professional LMPC registration for importers, manufacturers, and packers.
               </p>
               <div className="flex gap-10 pt-2">
@@ -433,7 +433,7 @@ export default function LegalMetrologyPage() {
       <ProcedureContent />
       <WhyBizzfiling />
 
-      <section id="lm-faqs-content" className="py-24 bg-white scroll-mt-24">
+      <section id="lm-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-4xl mx-auto px-6">
           <SectionHeading subtitle="FAQ" title="Metrology Intelligence" description="Clearing compliance and registry protocols for weights, measures and packaging." />
           <div className="space-y-8 pt-10">

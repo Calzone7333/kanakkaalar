@@ -30,10 +30,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -143,7 +143,7 @@ const DetailItem = ({ title, description, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (Section 8 Compliance Content) ---
 
 const ComplianceOverviewContent = () => (
-    <section id="sec8-compliance-overview" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-compliance-overview" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -176,7 +176,7 @@ const ComplianceOverviewContent = () => (
 );
 
 const ComplianceBenefitsContent = () => (
-    <section id="sec8-compliance-benefits" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="sec8-compliance-benefits" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Benefits"
@@ -200,7 +200,7 @@ const ComplianceBenefitsContent = () => (
 );
 
 const ComplianceDocumentsContent = () => (
-    <section id="sec8-compliance-documents" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-compliance-documents" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Documents"
@@ -244,7 +244,7 @@ const ComplianceDocumentsContent = () => (
 );
 
 const ComplianceMandatoryContent = () => (
-    <section id="sec8-compliance-mandatory" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="sec8-compliance-mandatory" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Checklist"
@@ -267,7 +267,7 @@ const ComplianceMandatoryContent = () => (
 );
 
 const ComplianceEventContent = () => (
-    <section id="sec8-compliance-event" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-compliance-event" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Event-Based"
@@ -305,7 +305,7 @@ const ComplianceEventContent = () => (
 );
 
 const CompliancePenaltiesContent = () => (
-    <section id="sec8-compliance-penalties" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="sec8-compliance-penalties" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Risks"
@@ -366,7 +366,7 @@ const CompliancePenaltiesContent = () => (
 );
 
 const ComplianceWhyBizzfiling = () => (
-    <section id="sec8-compliance-why" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-compliance-why" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -396,7 +396,7 @@ const ComplianceWhyBizzfiling = () => (
 );
 
 const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="sec8-compliance-faqs" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="sec8-compliance-faqs" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -410,7 +410,7 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -494,7 +494,7 @@ export default function Section8CompliancePage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -506,7 +506,7 @@ export default function Section8CompliancePage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -529,12 +529,12 @@ export default function Section8CompliancePage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Section 8 <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Compliance</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert support to manage all **legal and compliance** needs for your Section 8 company. End-to-end help with timely filings.
                                 </p>
 
@@ -543,25 +543,25 @@ export default function Section8CompliancePage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Filing of AOC-4 (Financials) & MGT-7 (Annual Return)</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Filing of AOC-4 (Financials) & MGT-7 (Annual Return)</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Appointment of Auditor (ADT-1)</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Appointment of Auditor (ADT-1)</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Director KYC & Report Preparation</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Director KYC & Report Preparation</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Holding Requirement for AGM & Board Meetings</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Holding Requirement for AGM & Board Meetings</span>
                                     </div>
                                 </div>
                             </div>
@@ -600,7 +600,7 @@ export default function Section8CompliancePage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
                         {complianceTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

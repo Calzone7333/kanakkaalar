@@ -106,10 +106,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -123,7 +123,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
             className="flex items-center justify-between w-full p-4 text-left"
             onClick={onClick}
         >
-            <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+            <h3 className={`text-sm md:text-base font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
                 {faq.q}
             </h3>
             <div className="flex-shrink-0">
@@ -133,7 +133,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -143,10 +143,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="hallmark-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Authenticity" title="BIS Hallmarking Standards" description="The definitive certificate of quality and purity for gold and silver in the Indian market." />
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Hallmark registration in India is managed by the <strong>Bureau of Indian Standards (BIS)</strong>. It certifies the fineness and purity of precious metals, aligning with specific Indian Standards.
@@ -177,7 +177,7 @@ const OverviewContent = () => (
 );
 
 const MetalsContent = () => (
-    <section id="hallmark-metals-standards" className="py-20 bg-white scroll-mt-24">
+    <section id="hallmark-metals-standards" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Assets" title="Precious Metals Scope" description="Standards for gold, silver and platinum purity grades per BIS norms." />
             <div className="grid md:grid-cols-3 gap-10 text-center">
@@ -194,7 +194,7 @@ const MetalsContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="hallmark-benefits-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-benefits-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Value" title="Premium Competitive Edge" description="Scaling jeweler credibility through official purity guarantees and HUID tech." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -211,7 +211,7 @@ const BenefitsContent = () => (
 );
 
 const FrameworkContent = () => (
-    <section id="hallmark-framework-content" className="py-20 bg-white scroll-mt-24">
+    <section id="hallmark-framework-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Legal" title="Legislative Pure-Metal Hub" description="The BIS Act 2016 and the mandatory hallmarking guidelines for retailers." />
             <div className="grid md:grid-cols-3 gap-10 mb-16">
@@ -235,7 +235,7 @@ const FrameworkContent = () => (
 );
 
 const EligibilityDocs = () => (
-    <section id="hallmark-eligibility-docs" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-eligibility-docs" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Vault" title="Who Must Register?" description="Retailers, Manufacturers and Exporters of bullion/jewelry items." />
             <div className="grid md:grid-cols-3 gap-10 mb-16">
@@ -261,10 +261,10 @@ const EligibilityDocs = () => (
 );
 
 const ProcedureContent = () => (
-    <section id="hallmark-procedure-content" className="py-24 bg-white scroll-mt-24">
+    <section id="hallmark-procedure-content" className="py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 text-center">
             <SectionHeading subtitle="Methodology" title="BIS Testing Workflow" description="A scientific 3-stage process involving homogeneity checks and fire assay." />
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                 {procedureStages.map((step, idx) => (
                     <div key={idx} className="relative p-10 bg-slate-50 rounded-[50px] border border-slate-100 overflow-hidden group">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-[#1A7F7D]/5 rounded-bl-[100px] group-hover:scale-125 transition-all"></div>
@@ -288,7 +288,7 @@ const ProcedureContent = () => (
 );
 
 const ComplianceNexusContent = () => (
-    <section id="hallmark-compliance-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="hallmark-compliance-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Integrity" title="Post-Registration Nexus" description="Continuous adherence to technical audits and record-keeping mandates." />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -356,23 +356,23 @@ export default function HallmarkRegistrationPage() {
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
             {/* Hero Section - Premium Style */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="Hallmark Registration" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Award size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official BIS Hallmark Jewelery Hub</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Bullion <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Purity Certification</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Ensure 100% purity with BIS hallmarking. Full support for jeweler registration, HUID compliance, and assaying center coordination.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -420,7 +420,7 @@ export default function HallmarkRegistrationPage() {
             <ProcedureContent />
             <ComplianceNexusContent />
 
-            <section id="hallmark-faqs-content" className="py-24 bg-white scroll-mt-24">
+            <section id="hallmark-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Bullion Intelligence" description="Clearing compliance and registry protocols for purity Grade and BIS marking." />
                     <div className="space-y-8 pt-10">

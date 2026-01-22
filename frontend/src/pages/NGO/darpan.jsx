@@ -31,10 +31,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -149,7 +149,7 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (NGO Darpan Registration Content) ---
 
 const DarpanOverviewContent = () => (
-    <section id="darpan-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="darpan-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -157,8 +157,8 @@ const DarpanOverviewContent = () => (
                 description="Enhancing transparency and facilitating government interaction for NGOs."
             />
 
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-8 text-slate-600 text-lg md:text-xl leading-relaxed">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-8 text-slate-600 text-sm md:text-base leading-relaxed">
                     <p>
                         **NGO Darpan registration** is a highly beneficial step for non-governmental organizations (NGOs) in India. Managed by **NITI Aayog**, the portal offers a national database of verified NGOs, significantly enhancing **transparency** between the voluntary sector and the government.
                     </p>
@@ -186,7 +186,7 @@ const DarpanOverviewContent = () => (
 );
 
 const DarpanEligibilityContent = () => (
-    <section id="darpan-eligibility-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="darpan-eligibility-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Eligibility"
@@ -200,7 +200,7 @@ const DarpanEligibilityContent = () => (
                         <div className="w-12 h-12 mx-auto rounded-full bg-[#E0F2F1] text-[#00695C] flex items-center justify-center mb-4">
                             <entity.icon className="w-6 h-6" />
                         </div>
-                        <h4 className="text-lg md:text-xl font-bold text-slate-800 mb-2">{entity.title}</h4>
+                        <h4 className="text-sm md:text-base font-bold text-slate-800 mb-2">{entity.title}</h4>
                         <p className="text-base text-slate-600 leading-relaxed">{entity.detail}</p>
                     </div>
                 ))}
@@ -215,7 +215,7 @@ const DarpanEligibilityContent = () => (
 );
 
 const DarpanBenefitsContent = () => (
-    <section id="darpan-benefits-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="darpan-benefits-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Benefits"
@@ -237,7 +237,7 @@ const DarpanBenefitsContent = () => (
 );
 
 const DarpanDocumentsContent = () => (
-    <section id="darpan-documents-content" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="darpan-documents-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Documents"
@@ -263,7 +263,7 @@ const DarpanDocumentsContent = () => (
 );
 
 const DarpanProcessContent = () => (
-    <section id="darpan-process-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="darpan-process-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Process"
@@ -271,7 +271,7 @@ const DarpanProcessContent = () => (
                 description="Step-by-step guide to obtaining your Darpan ID & Certificate."
             />
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                     <h4 className="text-xl font-bold text-slate-800 mb-8">Step-by-Step Procedure</h4>
                     <ol className="relative border-l border-slate-200 space-y-8 ml-3">
@@ -309,7 +309,7 @@ const DarpanProcessContent = () => (
 );
 
 const DarpanIssuesContent = () => (
-    <section id="darpan-issues-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="darpan-issues-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Support"
@@ -338,7 +338,7 @@ const DarpanIssuesContent = () => (
 );
 
 const DarpanWhyBizzfiling = () => (
-    <section id="darpan-why-Bizzfiling" className="py-20 scroll-mt-24 bg-white">
+    <section id="darpan-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -377,7 +377,7 @@ const DarpanWhyBizzfiling = () => (
 );
 
 const DarpanFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="darpan-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="darpan-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -391,7 +391,7 @@ const DarpanFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -475,7 +475,7 @@ export default function NGODarpanRegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -487,7 +487,7 @@ export default function NGODarpanRegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -510,12 +510,12 @@ export default function NGODarpanRegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Darpan <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** NGO Darpan registration process. Trusted by 5000+ trusts and NGOs for **fast and reliable service**.
                                 </p>
 
@@ -524,25 +524,25 @@ export default function NGODarpanRegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Profile Creation on NITI Aayog Portal</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Profile Creation on NITI Aayog Portal</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Linking of PAN & Aadhaar of Key Functionaries</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Linking of PAN & Aadhaar of Key Functionaries</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Generation of Unique NGO Darpan ID</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Generation of Unique NGO Darpan ID</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Grant Eligibility Mapping</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Grant Eligibility Mapping</span>
                                     </div>
                                 </div>
                             </div>
@@ -581,7 +581,7 @@ export default function NGODarpanRegistrationPage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
                         {darpanTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

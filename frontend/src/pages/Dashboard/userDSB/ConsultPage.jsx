@@ -96,7 +96,7 @@ export default function ConsultPage() {
 
       {/* Experts Grid */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-24 space-y-4">
+        <div className="flex flex-col items-center justify-center py-16 md:py-20 space-y-4">
           <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
           <p className="text-slate-500 text-sm font-medium"> Finding the best experts for you...</p>
         </div>
@@ -191,7 +191,7 @@ export default function ConsultPage() {
       )}
 
       {!loading && filteredExperts.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-200">
+        <div className="text-center py-12 md:py-16 bg-white rounded-2xl border border-dashed border-slate-200">
           <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <Search className="w-8 h-8 text-slate-300" />
           </div>

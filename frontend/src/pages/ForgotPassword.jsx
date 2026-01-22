@@ -47,7 +47,7 @@ export default function ForgotPassword() {
         {/* LEFT SECTION: Illustration */}
         <div className="hidden md:flex w-1/2 items-center justify-center relative">
           {/* Connecting dots element (subtle) */}
-          <div className="absolute top-20 left-10 text-[#1A7F7D] opacity-20 text-4xl font-bold">?</div>
+          <div className="absolute top-20 left-10 text-[#1A7F7D] opacity-20 text-3xl font-bold">?</div>
           <div className="absolute bottom-40 right-20 text-[#1A7F7D] opacity-20 text-3xl font-bold">?</div>
 
           <div className="w-[80%] h-auto relative">
@@ -66,7 +66,7 @@ export default function ForgotPassword() {
         {/* RIGHT SECTION: Form */}
         <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
           <div className="mb-12">
-            <h2 className="text-4xl font-extrabold text-[#2C3E50] mb-3 leading-snug">
+            <h2 className="text-3xl font-extrabold text-[#2C3E50] mb-3 leading-snug">
               Forgot <br /> Your Password ?
             </h2>
           </div>

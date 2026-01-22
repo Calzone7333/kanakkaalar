@@ -425,7 +425,7 @@ export default function OrderDetailPage() {
           Back
         </button>
         <div>
-          <h1 className="mb-2 text-4xl font-bold text-gray-900">
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">
             Order #{orderId}
           </h1>
           <p className="max-w-2xl text-gray-600">

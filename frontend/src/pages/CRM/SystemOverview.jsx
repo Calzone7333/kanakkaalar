@@ -36,7 +36,7 @@ export default function SystemOverview() {
           {trend && <p className="text-sm text-gray-600 mt-1">{trend}</p>}
           {subtext && <p className="text-xs text-gray-500 mt-1">{subtext}</p>}
         </div>
-        <div className="text-4xl opacity-20">{icon}</div>
+        <div className="text-3xl opacity-20">{icon}</div>
       </div>
     </div>
   );

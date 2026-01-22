@@ -33,10 +33,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -144,7 +144,7 @@ const DetailItem = ({ title, description, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (NGO Compliance Content) ---
 
 const ComplianceOverviewContent = () => (
-    <section id="compliance-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="compliance-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -163,7 +163,7 @@ const ComplianceOverviewContent = () => (
                         <div className="w-12 h-12 rounded-lg bg-[#E0F2F1] text-[#00695C] flex items-center justify-center mx-auto mb-4">
                             <item.icon className="w-6 h-6" />
                         </div>
-                        <h4 className="font-bold text-lg md:text-xl text-slate-900 mb-2">{item.title}</h4>
+                        <h4 className="font-bold text-sm md:text-base text-slate-900 mb-2">{item.title}</h4>
                         <p className="text-base text-slate-500">{item.desc}</p>
                     </div>
                 ))}
@@ -173,7 +173,7 @@ const ComplianceOverviewContent = () => (
 );
 
 const ComplianceDarpanSection = () => (
-    <section id="compliance-darpan-section" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="compliance-darpan-section" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Significance"
@@ -230,7 +230,7 @@ const ComplianceDarpanSection = () => (
 );
 
 const ComplianceTaxRevalidation = () => (
-    <section id="compliance-tax-revalidation" className="py-20 scroll-mt-24 bg-white">
+    <section id="compliance-tax-revalidation" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Revalidation"
@@ -264,7 +264,7 @@ const ComplianceTaxRevalidation = () => (
 );
 
 const ComplianceTaxForms = () => (
-    <section id="compliance-tax-forms" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="compliance-tax-forms" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Transparency"
@@ -289,7 +289,7 @@ const ComplianceTaxForms = () => (
 );
 
 const ComplianceSec8Annual = () => (
-    <section id="compliance-sec8-annual" className="py-20 scroll-mt-24 bg-white">
+    <section id="compliance-sec8-annual" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Section 8"
@@ -312,7 +312,7 @@ const ComplianceSec8Annual = () => (
 );
 
 const ComplianceWhyBizzfiling = () => (
-    <section id="compliance-why-Bizzfiling" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="compliance-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -342,7 +342,7 @@ const ComplianceWhyBizzfiling = () => (
 );
 
 const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="compliance-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="compliance-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Common Compliance Queries"
@@ -356,7 +356,7 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -440,7 +440,7 @@ export default function NGOCompliancePage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -452,7 +452,7 @@ export default function NGOCompliancePage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -475,12 +475,12 @@ export default function NGOCompliancePage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     NGO Compliance <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Services</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Ensure 100% compliance for your NGO with expert legal guidance. We handle 12A, 80G, CSR-1, and annual filings efficiently.
                                 </p>
 
@@ -489,25 +489,25 @@ export default function NGOCompliancePage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Review of Annual Activities & Financials</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Review of Annual Activities & Financials</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Filing of Income Tax Returns (ITR-7)</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Filing of Income Tax Returns (ITR-7)</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Maintenance of Minutes Books & Statutory Registers</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Maintenance of Minutes Books & Statutory Registers</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Consultation on FCRA & CSR Compliance</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Consultation on FCRA & CSR Compliance</span>
                                     </div>
                                 </div>
                             </div>
@@ -546,7 +546,7 @@ export default function NGOCompliancePage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
                         {complianceTabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

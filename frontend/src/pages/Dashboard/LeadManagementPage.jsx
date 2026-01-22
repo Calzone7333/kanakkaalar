@@ -249,7 +249,7 @@ export default function LeadManagementPage() {
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900">
               Lead Management
             </h1>
             <p className="text-gray-600 mt-2">
@@ -293,7 +293,7 @@ export default function LeadManagementPage() {
             <p className="text-sm font-semibold opacity-90 mb-1">
               {stat.label}
             </p>
-            <p className="text-4xl font-bold">{stat.value}</p>
+            <p className="text-3xl font-bold">{stat.value}</p>
           </div>
         ))}
       </div>

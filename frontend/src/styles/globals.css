@@ -43,14 +43,14 @@ html {
 /* Large devices */
 @media (min-width: 1024px) and (max-width: 1439px) {
   :root {
-    --base-font-size: 18px;
+    --base-font-size: 16px;
   }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
   :root {
-    --base-font-size: 20px;
+    --base-font-size: 16px;
   }
 }
 

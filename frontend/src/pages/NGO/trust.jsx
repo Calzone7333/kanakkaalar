@@ -30,10 +30,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -197,7 +197,7 @@ const trustPlans = [
 // --- TAB CONTENT COMPONENTS (Trust Registration Content) ---
 
 const TrustOverviewContent = () => (
-    <section id="trust-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="trust-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -238,7 +238,7 @@ const TrustOverviewContent = () => (
 );
 
 const TrustTypesBenefitsContent = () => (
-    <section id="trust-types-benefits-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="trust-types-benefits-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Types & Benefits"
@@ -284,7 +284,7 @@ const TrustTypesBenefitsContent = () => (
 );
 
 const TrustWhoShouldRegisterContent = () => (
-    <section id="trust-who-register-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="trust-who-register-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Eligibility"
@@ -312,7 +312,7 @@ const TrustWhoShouldRegisterContent = () => (
 );
 
 const TrustDocumentsContent = () => (
-    <section id="trust-documents-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="trust-documents-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Documentation"
@@ -320,7 +320,7 @@ const TrustDocumentsContent = () => (
                 description="Essential documents for registration."
             />
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 {/* Trust Deed & Clauses */}
                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
                     <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-5">
@@ -380,7 +380,7 @@ const TrustDocumentsContent = () => (
 );
 
 const TrustProcessContent = () => (
-    <section id="trust-process-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="trust-process-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Process"
@@ -410,7 +410,7 @@ const TrustProcessContent = () => (
 );
 
 const TrustPricingContent = () => (
-    <section id="trust-pricing-content" className="py-20 scroll-mt-24 bg-slate-50">
+    <section id="trust-pricing-content" className="py-12 md:py-16 scroll-mt-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Pricing"
@@ -423,7 +423,7 @@ const TrustPricingContent = () => (
 );
 
 const TrustMistakesContent = () => (
-    <section id="trust-mistakes-content" className="py-20 scroll-mt-24 bg-[#FFF8E1]/30">
+    <section id="trust-mistakes-content" className="py-12 md:py-16 scroll-mt-24 bg-[#FFF8E1]/30">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Caution"
@@ -448,7 +448,7 @@ const TrustMistakesContent = () => (
 );
 
 const TrustWhyBizzfiling = () => (
-    <section id="trust-why-Bizzfiling" className="py-20 scroll-mt-24 bg-white">
+    <section id="trust-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -473,7 +473,7 @@ const TrustWhyBizzfiling = () => (
 );
 
 const TrustFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="trust-faqs-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="trust-faqs-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="FAQ"
@@ -487,7 +487,7 @@ const TrustFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                             className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                             onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                         >
-                            <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                            <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                             <ChevronDown
                                 className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                             />
@@ -572,7 +572,7 @@ export default function TrustRegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -584,7 +584,7 @@ export default function TrustRegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -607,12 +607,12 @@ export default function TrustRegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Trust Registration <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Online India</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** trust registration preparation process. All paperwork and filings handled by **legal professionals**.
                                 </p>
 
@@ -621,25 +621,25 @@ export default function TrustRegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Professional Drafting of Trust Deed by Legal Experts</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Professional Drafting of Trust Deed by Legal Experts</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Registration with Local Sub-Registrar</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Registration with Local Sub-Registrar</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Assistance with PAN Card Application for Trust</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Assistance with PAN Card Application for Trust</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Guidance on 12A & 80G Tax Exemption</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Guidance on 12A & 80G Tax Exemption</span>
                                     </div>
                                 </div>
                             </div>

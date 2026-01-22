@@ -36,10 +36,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -218,7 +218,7 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (Section 8 Content) ---
 
 const Section8OverviewContent = () => (
-    <section id="sec8-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -226,7 +226,7 @@ const Section8OverviewContent = () => (
                 description="Incorporating for a charitable purpose under the Companies Act, 2013."
             />
 
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
                 <div className="space-y-8 text-slate-600 text-lg leading-relaxed">
                     <p>
                         A **Section 8 Company** is a non-profit organization incorporated under the **Companies Act, 2013** in India. It is established to promote charitable objectives like education, science, arts, or social welfare.
@@ -257,7 +257,7 @@ const Section8OverviewContent = () => (
 );
 
 const Section8BenefitsContent = () => (
-    <section id="sec8-benefits-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="sec8-benefits-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Benefits"
@@ -279,7 +279,7 @@ const Section8BenefitsContent = () => (
 );
 
 const Section8EligibilityContent = () => (
-    <section id="sec8-eligibility-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-eligibility-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Eligibility"
@@ -287,7 +287,7 @@ const Section8EligibilityContent = () => (
                 description="Mandatory criteria to form a Section 8 Company."
             />
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-[#F8FDFC] p-8 rounded-2xl border border-[#E0F2F1]">
                     <h4 className="text-lg font-bold text-slate-800 mb-6">Core Requirements</h4>
                     <div className="space-y-8">
@@ -322,7 +322,7 @@ const Section8EligibilityContent = () => (
 );
 
 const Section8DocumentsContent = () => (
-    <section id="sec8-documents-content" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="sec8-documents-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Documents"
@@ -365,7 +365,7 @@ const Section8DocumentsContent = () => (
 );
 
 const Section8ProcessContent = () => (
-    <section id="sec8-process-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-process-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Process"
@@ -373,7 +373,7 @@ const Section8ProcessContent = () => (
                 description="Streamlined SPICe+ incorporation with expert guidance."
             />
 
-            <div className="flex flex-col md:flex-row gap-12">
+            <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-1/2">
                     <ol className="relative border-l border-slate-200">
                         {section8RegistrationProcess.map((step, i) => (
@@ -416,7 +416,7 @@ const Section8ProcessContent = () => (
 );
 
 const Section8PricingContent = () => (
-    <section id="sec8-pricing-content" className="py-20 scroll-mt-24 bg-slate-50">
+    <section id="sec8-pricing-content" className="py-12 md:py-16 scroll-mt-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Pricing"
@@ -429,7 +429,7 @@ const Section8PricingContent = () => (
 );
 
 const Section8ComplianceLawContent = () => (
-    <section id="sec8-compliance-law-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="sec8-compliance-law-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Compliance"
@@ -503,7 +503,7 @@ const Section8ComplianceLawContent = () => (
 );
 
 const Section8WhyBizzfiling = () => (
-    <section id="sec8-why-Bizzfiling" className="py-20 scroll-mt-24 bg-white">
+    <section id="sec8-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -542,7 +542,7 @@ const Section8WhyBizzfiling = () => (
 );
 
 const Section8FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="sec8-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="sec8-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -556,7 +556,7 @@ const Section8FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -640,7 +640,7 @@ export default function Section8RegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -652,7 +652,7 @@ export default function Section8RegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -675,12 +675,12 @@ export default function Section8RegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Section 8 <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted Section 8 registration with **fast turnaround time**. **12A, 80G, FCRA** and compliance support included.
                                 </p>
 
@@ -689,25 +689,25 @@ export default function Section8RegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Name Approval & License under Section 8</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Name Approval & License under Section 8</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Drafting of MOA & AOA as per Companies Act</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Drafting of MOA & AOA as per Companies Act</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">DIN & DSC for Directors</span>
+                                        <span className="text-slate-200 text-sm md:text-base">DIN & DSC for Directors</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Incorporation Certificate & PAN/TAN</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Incorporation Certificate & PAN/TAN</span>
                                     </div>
                                 </div>
                             </div>

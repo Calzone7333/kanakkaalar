@@ -108,7 +108,7 @@ export default function Home() {
               </span>
             </p>
             <h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
+              className="text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
             >
               India&apos;s Smart Online Platform for Modern Businesses.
               <br />
@@ -242,7 +242,7 @@ export default function Home() {
                       <img src={star1} alt="Star icon" className="w-4 h-4" />
                     </div>
 
-                    <h2 className="cs_section_title text-3xl md:text-4xl font-semibold mb-0 wow fadeInUp">
+                    <h2 className="cs_section_title text-3xl md:text-3xl font-semibold mb-0 wow fadeInUp">
                       Simplifying legal & Compliance
                     </h2>
                   </div>
@@ -316,7 +316,7 @@ export default function Home() {
               <span className="text-[#1A7F7D] text-lg font-semibold">Our Services</span>
               <img src={star1} alt="Star" className="w-5 h-5" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-3xl font-bold text-gray-800 leading-tight">
               Complete Business Solutions <br /> for Every Stage
             </h2>
           </div>

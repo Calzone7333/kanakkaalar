@@ -161,10 +161,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -185,14 +185,14 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (Society Registration Content) ---
 
 const SocietyOverviewContent = () => (
-    <section id="society-overview-content" className="py-20 scroll-mt-24 px-4 bg-white relative overflow-hidden">
+    <section id="society-overview-content" className="py-12 md:py-16 scroll-mt-24 px-4 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:items-center">
                 <div>
                     <div className="inline-flex items-center gap-5 px-3 py-1 rounded-full bg-[#E0F2F1] text-[#00695C] text-sm font-bold uppercase tracking-wider mb-6">
                         <Users className="w-4 h-4" /> Overview
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-[#0D1B2A] mb-6 leading-tight">
+                    <h2 className="text-3xl md:text-3xl font-extrabold text-[#0D1B2A] mb-6 leading-tight">
                         Online Society <span className="text-[#00695C]">Registration in India</span>
                     </h2>
                     <p className="text-lg text-slate-600 mb-6 leading-relaxed">
@@ -235,7 +235,7 @@ const SocietyOverviewContent = () => (
 );
 
 const SocietyBenefitsContent = () => (
-    <section id="society-benefits-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FDFC]">
+    <section id="society-benefits-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FDFC]">
         <SectionHeading
             subtitle="Advantages"
             title="Benefits of Registering a Society"
@@ -251,7 +251,7 @@ const SocietyBenefitsContent = () => (
 );
 
 const SocietyEligibilityContent = () => (
-    <section id="society-eligibility-content" className="py-20 scroll-mt-24 px-4 bg-white">
+    <section id="society-eligibility-content" className="py-12 md:py-16 scroll-mt-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
             <SectionHeading
                 subtitle="Requirements"
@@ -259,7 +259,7 @@ const SocietyEligibilityContent = () => (
                 description="These criteria ensure that only genuine and organized groups receive legal recognition for their charitable or non-profit objectives under the Societies Registration Act, 1860."
             />
 
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="order-2 md:order-1 relative">
                     <div className="absolute -left-10 -top-10 w-40 h-40 bg-[#C59B4E]/10 rounded-full blur-3xl"></div>
                     <div className="grid gap-5">
@@ -293,7 +293,7 @@ const SocietyEligibilityContent = () => (
                             ].map((reason, idx) => (
                                 <div key={idx} className="flex items-center gap-5">
                                     <div className="w-2 h-2 rounded-full bg-[#C59B4E]"></div>
-                                    <span className="text-slate-600 text-base md:text-lg">{reason}</span>
+                                    <span className="text-slate-600 text-sm md:text-base">{reason}</span>
                                 </div>
                             ))}
                         </div>
@@ -305,7 +305,7 @@ const SocietyEligibilityContent = () => (
 );
 
 const SocietyDocumentsProcessContent = () => (
-    <section id="society-documents-process-content" className="py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="society-documents-process-content" className="py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto">
             <SectionHeading
                 subtitle="Workflow"
@@ -313,7 +313,7 @@ const SocietyDocumentsProcessContent = () => (
                 description="A complete checklist and step-by-step guide to Society Registration."
             />
 
-            <div className="grid lg:grid-cols-2 gap-16">
+            <div className="grid lg:grid-cols-2 gap-10">
                 {/* Documents Column */}
                 <div>
                     <h3 className="text-2xl font-bold text-[#0D1B2A] mb-8 flex items-center gap-5">
@@ -374,7 +374,7 @@ const SocietyDocumentsProcessContent = () => (
 );
 
 const SocietyComplianceRenewalContent = () => (
-    <section id="society-compliance-renewal-content" className="py-20 scroll-mt-24 px-4 bg-white relative">
+    <section id="society-compliance-renewal-content" className="py-12 md:py-16 scroll-mt-24 px-4 bg-white relative">
         <div className="max-w-7xl mx-auto">
             <SectionHeading
                 subtitle="Maintenance"
@@ -382,7 +382,7 @@ const SocietyComplianceRenewalContent = () => (
                 description="Crucial post-registration obligations to keep your Society legal and active."
             />
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                     <h3 className="text-xl font-bold text-[#0D1B2A] mb-6">Annual Compliance</h3>
                     <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
@@ -424,7 +424,7 @@ const SocietyComplianceRenewalContent = () => (
 );
 
 const SocietyPricingContent = () => (
-    <section id="society-pricing-content" className="py-20 scroll-mt-24 bg-slate-50">
+    <section id="society-pricing-content" className="py-12 md:py-16 scroll-mt-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Pricing"
@@ -437,7 +437,7 @@ const SocietyPricingContent = () => (
 );
 
 const SocietyWhyBizzfiling = () => (
-    <section id="society-why-Bizzfiling" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="society-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Why Choose Us"
@@ -471,7 +471,7 @@ const SocietyWhyBizzfiling = () => (
 );
 
 const SocietyFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="society-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="society-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -485,7 +485,7 @@ const SocietyFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -569,7 +569,7 @@ export default function SocietyRegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -581,7 +581,7 @@ export default function SocietyRegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -604,12 +604,12 @@ export default function SocietyRegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     Society <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Registration</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** Society registration. Draft your Memorandum & Bylaws with **legal experts** for seamless approval.
                                 </p>
 
@@ -618,25 +618,25 @@ export default function SocietyRegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Drafting of Memorandum & Bylaws by Experts</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Drafting of Memorandum & Bylaws by Experts</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Registration with Registrar of Societies</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Registration with Registrar of Societies</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Affidavit & NOC Preparation Assistance</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Affidavit & NOC Preparation Assistance</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Support for Election & Managing Committee</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Support for Election & Managing Committee</span>
                                     </div>
                                 </div>
                             </div>

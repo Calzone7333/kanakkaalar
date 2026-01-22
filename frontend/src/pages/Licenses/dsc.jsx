@@ -188,10 +188,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -228,13 +228,13 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
        ${isOpen ? 'border-[#1F4B4E] bg-[#1F4B4E] text-white shadow-lg scale-[1.01]' : 'border-slate-100 bg-white text-slate-800 hover:border-[#1A7F7D]/30 shadow-sm'}
     `}>
     <button className="flex items-center justify-between w-full p-8 text-left" onClick={onClick}>
-      <h3 className={`text-lg md:text-xl font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
+      <h3 className={`text-sm md:text-base font-bold pr-6 ${isOpen ? 'text-white' : 'text-slate-800'}`}>{faq.q}</h3>
       <div className="flex-shrink-0">
         <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C59B4E]' : 'text-slate-400'}`} />
       </div>
     </button>
     <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-      <p className={`px-6 pb-6 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
+      <p className={`px-6 pb-6 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/90' : 'text-slate-600'}`}>{faq.a}</p>
     </div>
   </div>
 );
@@ -242,14 +242,14 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-  <section id="dsc-overview-content" className="py-24 bg-white scroll-mt-24">
+  <section id="dsc-overview-content" className="py-16 md:py-20 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-6">
       <SectionHeading
         subtitle="Overview"
         title="Electronic Infrastructure for Digital Trust"
         description="Legally recognized under the Information Technology Act 2000, DSC ensures end-to-end security and data integrity."
       />
-      <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
+      <div className="grid lg:grid-cols-2 gap-10 items-center mb-16">
         <div className="space-y-8">
           <div className="prose prose-slate prose-lg">
             <p className="text-slate-600 leading-relaxed text-lg">
@@ -278,7 +278,7 @@ const OverviewContent = () => (
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 mb-6 backdrop-blur-sm border border-white/20">
               <FileSignature className="w-10 h-10 text-[#C59B4E]" />
             </div>
-            <h5 className="text-5xl font-black mb-2 tracking-tight">100%</h5>
+            <h5 className="text-3xl font-black mb-2 tracking-tight">100%</h5>
             <p className="text-sm text-[#C59B4E] uppercase tracking-[0.3em] font-black">Digital Workflow</p>
             <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 gap-5">
               <div className="text-left">
@@ -298,7 +298,7 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-  <section id="dsc-benefits-content" className="py-20 bg-white scroll-mt-24">
+  <section id="dsc-benefits-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 text-center">
       <SectionHeading
         subtitle="Benefits"
@@ -321,7 +321,7 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-  <section id="dsc-eligibility-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="dsc-eligibility-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Eligibility"
@@ -353,7 +353,7 @@ const EligibilityContent = () => (
 );
 
 const DocumentsContent = () => (
-  <section id="dsc-documents-content" className="py-20 bg-white scroll-mt-24">
+  <section id="dsc-documents-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Documents"
@@ -383,7 +383,7 @@ const DocumentsContent = () => (
 );
 
 const ProcedureContent = () => (
-  <section id="dsc-procedure-content" className="py-20 bg-slate-900 text-white overflow-hidden relative scroll-mt-24">
+  <section id="dsc-procedure-content" className="py-12 md:py-16 bg-slate-900 text-white overflow-hidden relative scroll-mt-24">
     <div className="absolute top-0 right-0 w-64 h-64 bg-[#C59B4E]/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
     <div className="max-w-7xl mx-auto px-6 relative z-10">
       <div className="text-center mb-16">
@@ -403,7 +403,7 @@ const ProcedureContent = () => (
           </div>
         ))}
       </div>
-      <div className="mt-16 pt-16 border-t border-white/5 grid md:grid-cols-3 gap-12 sm:px-12">
+      <div className="mt-16 pt-16 border-t border-white/5 grid md:grid-cols-3 gap-8 sm:px-12">
         {dscProcedureSteps.slice(4).map((step, idx) => (
           <div key={idx} className="flex gap-5 items-start">
             <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#1A7F7D]/20 border border-[#1A7F7D]/30 flex items-center justify-center font-bold text-[#C59B4E]">{idx + 5}</div>
@@ -427,7 +427,7 @@ const ProcedureContent = () => (
 );
 
 const FeesContent = () => (
-  <section id="dsc-fees-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+  <section id="dsc-fees-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Fees"
@@ -443,14 +443,14 @@ const FeesContent = () => (
 );
 
 const RoleContent = () => (
-  <section id="dsc-role-content" className="py-20 bg-white scroll-mt-24">
+  <section id="dsc-role-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Security"
         title="Security Aspects of DSC"
         description="Systems and protocols that ensure your digital signature is unforgeable."
       />
-      <div className="grid md:grid-cols-2 gap-12">
+      <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-slate-900 p-10 rounded-3xl text-white relative overflow-hidden group">
           <Key className="absolute top-10 right-10 w-20 h-20 text-white/5 group-hover:text-[#C59B4E]/10 transition-colors" />
           <h4 className="text-2xl font-bold mb-6 text-[#C59B4E]">PKI Infrastructure</h4>
@@ -531,23 +531,23 @@ export default function DSCRegistration() {
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
       {/* === Hero === */}
-      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+      <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
         <div className="absolute inset-0 z-0">
           <img src={BackgroundImageSrc} alt="DSC Registration" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
         </div>
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="w-full lg:w-3/5 space-y-8">
               <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                 <FileSignature size={14} className="text-[#C59B4E]" />
                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Govt Licensed Certifying Authority Partner</span>
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                 Digital Signature <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Certificate (DSC)</span>
               </h1>
-              <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+              <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                 Obtain Class 3 DSC for ITR, GST, ROC filings, and e-tendering. Fully paperless process with instant video verification. Secure your digital identity today.
               </p>
               <div className="flex gap-10 pt-2">
@@ -597,7 +597,7 @@ export default function DSCRegistration() {
       <RoleContent />
 
       {/* FAQs Section */}
-      <section id="dsc-faqs-content" className="py-24 bg-white scroll-mt-24">
+      <section id="dsc-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-4xl mx-auto px-6">
           <SectionHeading
             subtitle="FAQ"

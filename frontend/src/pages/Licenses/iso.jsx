@@ -124,10 +124,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -151,7 +151,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -161,10 +161,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="iso-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="iso-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Standards" title="Global Excellence" description="Standardize your business practices to compete on an international stage." />
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8 text-slate-600 leading-relaxed">
                     <p>
                         <strong>ISO Certification</strong> is the process of proving that your business meets international standards, such as quality management or information security, through audits by an accredited certification body.
@@ -199,7 +199,7 @@ const OverviewContent = () => (
 );
 
 const StandardsContent = () => (
-    <section id="iso-standards-content" className="py-20 bg-white scroll-mt-24">
+    <section id="iso-standards-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Portfolio" title="Popular ISO Standards" description="Tailored support for operational excellence across various industries." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -216,7 +216,7 @@ const StandardsContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="iso-benefits-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="iso-benefits-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Impact" title="Business Transformation" description="Why ISO certification is a strategic investment for growth." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -235,7 +235,7 @@ const BenefitsContent = () => (
 );
 
 const FrameworkContent = () => (
-    <section id="iso-framework-content" className="py-20 bg-white scroll-mt-24">
+    <section id="iso-framework-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Compliance" title="Legal Framework in India" description="A structured ecosystem overseen by national bodies to ensure international quality." />
             <div className="grid md:grid-cols-3 gap-10">
@@ -256,9 +256,9 @@ const FrameworkContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="iso-documents-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="iso-documents-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                     <SectionHeading subtitle="Paperwork" title="Checklist & Costs" description="Advance planning ensures a smooth certification journey." align="left" />
                     <div className="grid grid-cols-2 gap-5">
@@ -291,7 +291,7 @@ const DocumentsContent = () => (
 );
 
 const ProcessContent = () => (
-    <section id="iso-process-content" className="py-24 bg-white scroll-mt-24">
+    <section id="iso-process-content" className="py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 text-center">
             <SectionHeading subtitle="Journey" title="Step-by-Step ISO" description="A structured, multi-stage audit and implementation process." />
             <div className="mt-16 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-10 relative">
@@ -310,10 +310,10 @@ const ProcessContent = () => (
 );
 
 const RenewalContent = () => (
-    <section id="iso-renewal-content" className="py-20 bg-slate-50 scroll-mt-24">
+    <section id="iso-renewal-content" className="py-12 md:py-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Continuity" title="Maintenance & Audits" description="Commitment to excellence beyond the initial certificate." />
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-8">
                 <div className="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm space-y-8">
                     <div className="w-12 h-12 bg-slate-50 text-[#1A7F7D] rounded-xl flex items-center justify-center"><RefreshCw size={24} /></div>
                     <h4 className="text-xl font-bold text-slate-800">Renewal Logistics</h4>
@@ -331,9 +331,9 @@ const RenewalContent = () => (
 );
 
 const WhyBizzfiling = () => (
-    <section id="iso-why-Bizzfiling" className="py-20 bg-white scroll-mt-24">
+    <section id="iso-why-Bizzfiling" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="order-2 lg:order-1 lg:pr-10">
                     <SectionHeading subtitle="Value" title="ISO Assistance with Confidence" description="Transparency and Expertise for a faster turnaround." align="left" />
                     <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -409,23 +409,23 @@ export default function ISOCertificationPage() {
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
             {/* Hero Section - Premium Style */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="ISO Certification" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Award size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">IAF Accredited ISO Solutions</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Get Your Business <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">ISO Certified</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Standardize your operations and build global trust. We provide end-to-end certification support for ISO 9001, 27001, 14001, and more.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -474,7 +474,7 @@ export default function ISOCertificationPage() {
             <RenewalContent />
             <WhyBizzfiling />
 
-            <section id="iso-faqs-content" className="py-24 bg-white scroll-mt-24">
+            <section id="iso-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="Guide" title="ISO Frequently Asked" description="Clarifying standard protocols and audit requirements." />
                     <div className="space-y-8 pt-10">

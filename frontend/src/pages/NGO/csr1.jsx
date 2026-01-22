@@ -29,10 +29,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -143,7 +143,7 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
 // --- TAB CONTENT COMPONENTS (CSR-1 Registration Content) ---
 
 const CSR1OverviewContent = () => (
-    <section id="csr1-overview-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="csr1-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Overview"
@@ -151,7 +151,7 @@ const CSR1OverviewContent = () => (
                 description="A mandatory mechanism for entities seeking CSR funding to ensure transparency and accountability."
             />
 
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
                 <div>
                     <p className="text-slate-600 leading-relaxed text-lg mb-6">
                         The **CSR-1 Registration** mechanism, introduced by the **Ministry of Corporate Affairs (MCA)**, is mandatory for entities seeking to undertake CSR activities and **receive funding from eligible companies**. This process formalizes and regulates CSR efforts in India.
@@ -180,7 +180,7 @@ const CSR1OverviewContent = () => (
 );
 
 const CSR1EligibilityContent = () => (
-    <section id="csr1-eligibility-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+    <section id="csr1-eligibility-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Eligibility"
@@ -203,7 +203,7 @@ const CSR1EligibilityContent = () => (
 );
 
 const CSR1DocumentsContent = () => (
-    <section id="csr1-documents-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="csr1-documents-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Documents"
@@ -241,7 +241,7 @@ const CSR1DocumentsContent = () => (
 );
 
 const CSR1ProcessContent = () => (
-    <section id="csr1-process-content" className="py-20 scroll-mt-24 bg-[#F8FDFC]">
+    <section id="csr1-process-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FDFC]">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Process"
@@ -283,7 +283,7 @@ const CSR1ProcessContent = () => (
 );
 
 const CSR1LawPurposeContent = () => (
-    <section id="csr1-law-purpose-content" className="py-20 scroll-mt-24 bg-white">
+    <section id="csr1-law-purpose-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading
                 subtitle="Legal Framework"
@@ -326,7 +326,7 @@ const CSR1StatusFeesContent = () => {
         { title: "Payment Mode", detail: "Fees are paid online when submitting the form on the MCA portal.", icon: DollarSign },
     ];
     return (
-        <section id="csr1-status-fees-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+        <section id="csr1-status-fees-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
             <div className="max-w-7xl mx-auto px-4">
                 <SectionHeading
                     subtitle="Status"
@@ -370,7 +370,7 @@ const CSR1StatusFeesContent = () => {
 };
 
 const CSR1FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-    <section id="csr1-faqs-content" className="max-w-7xl mx-auto py-20 scroll-mt-24 px-4 bg-[#F8FAFC]">
+    <section id="csr1-faqs-content" className="max-w-7xl mx-auto py-12 md:py-16 scroll-mt-24 px-4 bg-[#F8FAFC]">
         <SectionHeading
             subtitle="FAQ"
             title="Frequently Asked Questions"
@@ -384,7 +384,7 @@ const CSR1FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
                         className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
                         onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     >
-                        <span className="text-lg md:text-xl font-bold pr-8">{f.q}</span>
+                        <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
                         <ChevronDown
                             className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
                         />
@@ -468,7 +468,7 @@ export default function CSR1RegistrationPage() {
     return (
         <div className="bg-white min-h-screen font-sans">
             {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-            <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+            <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img
@@ -480,7 +480,7 @@ export default function CSR1RegistrationPage() {
                 </div>
 
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
                         {/* Left Content */}
                         <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -503,12 +503,12 @@ export default function CSR1RegistrationPage() {
                             </div>
 
                             <div className="space-y-8">
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                                     CSR-1 <br className="hidden lg:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Filing</span>
                                 </h1>
 
-                                <p className="text-lg md:text-xl text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Align with your CSR goals through **expert-assisted CSR-1 registration**. Get seamless support for **documentation, filing, and full CSR compliance**.
                                 </p>
 
@@ -517,25 +517,25 @@ export default function CSR1RegistrationPage() {
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Eligibility Verification for CSR Funding</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Eligibility Verification for CSR Funding</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Digital Signature Certificate (DSC) for Authorized Person</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Digital Signature Certificate (DSC) for Authorized Person</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Filing Form CSR-1 on MCA V3 Portal</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Filing Form CSR-1 on MCA V3 Portal</span>
                                     </div>
                                     <div className="flex items-start gap-5">
                                         <div className="mt-1 p-1 rounded-full bg-[#C59B4E]/20">
                                             <CheckCircle className="w-4 h-4 text-[#C59B4E]" />
                                         </div>
-                                        <span className="text-slate-200 text-base md:text-lg">Generation of Unique CSR Registration Number</span>
+                                        <span className="text-slate-200 text-sm md:text-base">Generation of Unique CSR Registration Number</span>
                                     </div>
                                 </div>
                             </div>
@@ -574,7 +574,7 @@ export default function CSR1RegistrationPage() {
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4">
-                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+                    <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
                         {csr1Tabs.map((tab) => (
                             <li key={tab.id} className="flex-shrink-0">
                                 <button

@@ -212,7 +212,7 @@ export default function LeadScoring() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div className="p-4 bg-gradient-to-br from-green-50 to-blue-50 rounded-lg border border-green-200">
               <p className="text-gray-600 text-sm">Overall Score</p>
-              <p className="text-4xl font-bold text-green-600">{selectedLead.score}</p>
+              <p className="text-3xl font-bold text-green-600">{selectedLead.score}</p>
               <p className={`text-lg font-bold ${getGradeColor(selectedLead.grade)}`}>Grade: {selectedLead.grade}</p>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">

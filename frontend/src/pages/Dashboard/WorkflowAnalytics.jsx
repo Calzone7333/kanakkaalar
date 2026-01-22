@@ -115,7 +115,7 @@ export default function WorkflowAnalytics() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6 lg:p-10">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
           <ChartBarIcon className="w-10 h-10 text-indigo-600" />
           Workflow Analytics
         </h1>
@@ -132,7 +132,7 @@ export default function WorkflowAnalytics() {
               <p className="text-sm font-semibold text-gray-600">Completed</p>
               <CheckCircleIcon className="w-8 h-8 text-green-600" />
             </div>
-            <p className="text-4xl font-bold text-green-600">
+            <p className="text-3xl font-bold text-green-600">
               {dashboardStats.completedStages}
             </p>
             <p className="text-xs text-gray-600 mt-2">
@@ -145,7 +145,7 @@ export default function WorkflowAnalytics() {
               <p className="text-sm font-semibold text-gray-600">In Progress</p>
               <ClockIcon className="w-8 h-8 text-blue-600" />
             </div>
-            <p className="text-4xl font-bold text-blue-600">
+            <p className="text-3xl font-bold text-blue-600">
               {dashboardStats.inProgressStages}
             </p>
             <p className="text-xs text-gray-600 mt-2">
@@ -158,7 +158,7 @@ export default function WorkflowAnalytics() {
               <p className="text-sm font-semibold text-gray-600">Blocked</p>
               <ExclamationTriangleIcon className="w-8 h-8 text-yellow-600" />
             </div>
-            <p className="text-4xl font-bold text-yellow-600">
+            <p className="text-3xl font-bold text-yellow-600">
               {dashboardStats.blockedStages}
             </p>
             <p className="text-xs text-gray-600 mt-2">Stages awaiting action</p>
@@ -169,7 +169,7 @@ export default function WorkflowAnalytics() {
               <p className="text-sm font-semibold text-gray-600">Failed</p>
               <XCircleIcon className="w-8 h-8 text-red-600" />
             </div>
-            <p className="text-4xl font-bold text-red-600">
+            <p className="text-3xl font-bold text-red-600">
               {dashboardStats.failedStages}
             </p>
             <p className="text-xs text-gray-600 mt-2">Stages with issues</p>

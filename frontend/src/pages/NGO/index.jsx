@@ -35,10 +35,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -141,7 +141,7 @@ const ngoFAQs = [
 // --- TAB CONTENT COMPONENTS (NGO Registration Content) ---
 
 const NGOOverviewContent = () => (
-  <section id="ngo-overview-content" className="py-20 scroll-mt-24 bg-white">
+  <section id="ngo-overview-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Overview"
@@ -166,7 +166,7 @@ const NGOOverviewContent = () => (
 );
 
 const NGORoleEligibilityContent = () => (
-  <section id="ngo-role-eligibility-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+  <section id="ngo-role-eligibility-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Roles & Eligibility"
@@ -203,7 +203,7 @@ const NGORoleEligibilityContent = () => (
 );
 
 const NGOActsClassificationContent = () => (
-  <section id="ngo-acts-classification-content" className="py-20 scroll-mt-24 bg-white">
+  <section id="ngo-acts-classification-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Legal Framework"
@@ -247,7 +247,7 @@ const NGOActsClassificationContent = () => (
 );
 
 const NGODocumentsProcessContent = () => (
-  <section id="ngo-documents-process-content" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+  <section id="ngo-documents-process-content" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Process & Docs"
@@ -255,7 +255,7 @@ const NGODocumentsProcessContent = () => (
         description="Step-by-step guide and necessary documentation."
       />
 
-      <div className="grid md:grid-cols-2 gap-12">
+      <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-8">
           <h4 className="text-xl font-bold text-slate-800">Required Documents</h4>
           <div className="grid gap-5">
@@ -293,7 +293,7 @@ const NGODocumentsProcessContent = () => (
 );
 
 const NGOBenefitsFundingContent = () => (
-  <section id="ngo-benefits-funding-content" className="py-20 scroll-mt-24 bg-white">
+  <section id="ngo-benefits-funding-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Advantage"
@@ -331,7 +331,7 @@ const NGOBenefitsFundingContent = () => (
 );
 
 const NGOWhyBizzfiling = () => (
-  <section id="ngo-why-Bizzfiling" className="py-20 scroll-mt-24 bg-[#F8FAFC]">
+  <section id="ngo-why-Bizzfiling" className="py-12 md:py-16 scroll-mt-24 bg-[#F8FAFC]">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="Why Choose Us"
@@ -361,7 +361,7 @@ const NGOWhyBizzfiling = () => (
 );
 
 const NGOFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-  <section id="ngo-faqs-content" className="py-20 scroll-mt-24 bg-white">
+  <section id="ngo-faqs-content" className="py-12 md:py-16 scroll-mt-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading
         subtitle="FAQ"
@@ -376,7 +376,7 @@ const NGOFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
               className={`w-full flex justify-between items-center p-5 text-left transition-colors ${faqOpen === i ? 'bg-[#00695C] text-white' : 'bg-white text-slate-800'}`}
               onClick={() => setFaqOpen(faqOpen === i ? null : i)}
             >
-              <span className="text-base md:text-lg font-bold pr-8">{f.q}</span>
+              <span className="text-sm md:text-base font-bold pr-8">{f.q}</span>
               <ChevronDown
                 className={`w-5 h-5 flex-shrink-0 transition-transform ${faqOpen === i ? "rotate-180 text-white" : "text-slate-400"}`}
               />
@@ -461,7 +461,7 @@ export default function NGORegistrationPage() {
   return (
     <div className="bg-white min-h-screen font-sans">
       {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-      <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+      <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 w-full h-full z-0">
           <img
@@ -473,7 +473,7 @@ export default function NGORegistrationPage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -496,12 +496,12 @@ export default function NGORegistrationPage() {
               </div>
 
               <div className="space-y-8">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   NGO Registration <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Online India</span>
                 </h1>
 
-                <p className="text-sm md:text-lg text-slate-300 max-w-xl font-light leading-relaxed mb-8">
+                <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                   Register your NGO as a **Society, Trust, or Section 8 Company** with expert assistance. Get **NGO-Darpan ID**, **FCRA Eligibility**, and full compliance support.
                 </p>
 

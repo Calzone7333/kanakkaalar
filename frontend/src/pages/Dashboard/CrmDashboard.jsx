@@ -380,7 +380,7 @@ export default function CrmDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 p-4 md:p-6 lg:p-10">
       {/* Header */}
       <div className="mb-6 md:mb-10">
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">CRM Dashboard</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">CRM Dashboard</h1>
         <p className="text-sm md:text-base text-gray-600">
           Manage your entire sales and service delivery pipeline
         </p>

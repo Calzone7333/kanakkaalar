@@ -36,10 +36,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
       {subtitle}
     </span>
-    <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+    <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
       {title}
     </h3>
-    <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+    <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
       {description}
     </p>
   </div>
@@ -508,8 +508,8 @@ const FundHowKanakkaalar = () => (
 // --- MERGED FAQ CONTENT ---
 // (Using "Lawyer/Dashboard" 2-column layout + "Fundraising" data)
 const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
-  <section id="fund-faqs-content" className="py-20 bg-white scroll-mt-24">
-    <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+  <section id="fund-faqs-content" className="py-12 md:py-16 bg-white scroll-mt-24">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       {/* Left Column (Text updated for Fundraising) */}
       <div className="lg:col-span-5">
         <div className="flex items-center gap-5 mb-4 font-semibold text-indigo-600">
@@ -517,7 +517,7 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
           <span>FAQ’s</span>
           <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
         </div>
-        <h2 className="mb-4 text-4xl font-bold text-gray-900">Frequently Asked Questions</h2>
+        <h2 className="mb-4 text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
         <p className="mb-8 text-gray-600">
           Find answers to common questions about our startup fundraising services, fees, and processes.
         </p>
@@ -626,7 +626,7 @@ export default function FundraisingPage() {
       `}</style>
 
       {/* === HERO SECTION (UPDATED PREMIUM DESIGN) === */}
-      <section className="relative w-full min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-12 lg:pt-36 lg:pb-20">
+      <section className="relative w-full min-h-[auto] lg:min-h-[70vh] flex items-center pt-32 pb-12 lg:pt-36 lg:pb-12 md:pb-16">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 w-full h-full z-0">
           <img
@@ -639,7 +639,7 @@ export default function FundraisingPage() {
         </div>
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10">
 
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
@@ -666,12 +666,12 @@ export default function FundraisingPage() {
               </div>
 
               <div className="space-y-8">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
+                <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-[1.15] tracking-tight drop-shadow-lg">
                   Fundraising for <br className="hidden lg:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#80CBC4]">Startups</span>
                 </h1>
 
-                <p className="text-sm md:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Tailored fundraising strategies aligned with your growth. From equity to grants, we provide complete support to make you investor-ready.
                 </p>
               </div>
@@ -710,7 +710,7 @@ export default function FundraisingPage() {
       {/* === Sticky Navigation === */}
       <div className="sticky top-20 lg:top-24 z-40 bg-white transition-all duration-300 shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-16 overflow-x-auto no-scrollbar py-0 list-none">
+          <ul className="flex items-center justify-start md:justify-center gap-10 md:gap-10 overflow-x-auto no-scrollbar py-0 list-none">
             {fundRegTabs.map((tab) => (
               <li key={tab.id} className="flex-shrink-0">
                 <button
@@ -731,7 +731,7 @@ export default function FundraisingPage() {
       </div>
 
       {/* === All Tab Content Sections === */}
-      <div className="w-full px-4 py-12 md:py-20">
+      <div className="w-full px-4 py-12 md:py-12 md:py-16">
         <div className="mx-auto max-w-7xl space-y-16">
           <FundOverviewContent />
           <FundDefinitionContent />
@@ -745,7 +745,7 @@ export default function FundraisingPage() {
       </div>
 
       {/* --- Resources & Links Footer Section --- */}
-      <section className="px-4 py-20 bg-[#F8FAFC] border-t border-slate-200 md:px-8">
+      <section className="px-4 py-12 md:py-16 bg-[#F8FAFC] border-t border-slate-200 md:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-12 text-3xl font-bold text-center text-slate-800 font-heading">
             Explore Our Resources

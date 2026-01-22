@@ -131,10 +131,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -158,7 +158,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -168,10 +168,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="bis-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="bis-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Standards" title="BIS National Authority" description="The Bureau of Indian Standards (BIS) establishes the quality, safety, and reliability benchmark for products in India." />
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Established under the <strong>BIS Act, 2016</strong>, the Bureau functions as the national standards body. It formulates and implements benchmarks across various sectors.
@@ -199,7 +199,7 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="bis-benefits-content" className="py-20 bg-white scroll-mt-24">
+    <section id="bis-benefits-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Advantage" title="Value of Certification" description="Implementing customized quality management systems to scale market reputation." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -216,7 +216,7 @@ const BenefitsContent = () => (
 );
 
 const TypesContent = () => (
-    <section id="bis-types-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="bis-types-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Tiers" title="Schemes & Mandatory Products" description="Understanding the Compulsory Registration Scheme (CRS) and ISI Marking products." />
             <div className="grid md:grid-cols-2 gap-10 mb-16">
@@ -251,7 +251,7 @@ const TypesContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="bis-documents-content" className="py-20 bg-white scroll-mt-24">
+    <section id="bis-documents-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Vault" title="Verification Documents" description="Lab reports and factory blueprints required for high-end certification." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -268,7 +268,7 @@ const DocumentsContent = () => (
 );
 
 const ProcessContent = () => (
-    <section id="bis-process-content" className="py-24 bg-slate-900 scroll-mt-24">
+    <section id="bis-process-content" className="py-16 md:py-20 bg-slate-900 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 text-center">
             <SectionHeading subtitle="Protocol" title="Registration Lifecycle" description="From digital filing to physical audits and lab sample testing." />
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-10 relative">
@@ -284,10 +284,10 @@ const ProcessContent = () => (
 );
 
 const ValidityContent = () => (
-    <section id="bis-validity-content" className="py-20 bg-white scroll-mt-24">
+    <section id="bis-validity-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Continuity" title="Validity & Surveillance" description="Ensuring license maintenance through regular auditing cycles." />
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="grid md:grid-cols-3 gap-8">
                 {bisValidity.map((v, i) => (
                     <div key={i} className="flex gap-10 items-start p-8 bg-slate-50 rounded-[40px] group hover:bg-white hover:shadow-2xl transition-all">
                         <div className="w-12 h-12 bg-white rounded-2xl text-[#1A7F7D] shadow-sm flex items-center justify-center shrink-0"><v.icon size={28} /></div>
@@ -310,9 +310,9 @@ const ValidityContent = () => (
 );
 
 const WhyBizzfiling = () => (
-    <section id="bis-why-Bizzfiling" className="py-20 bg-slate-50 scroll-mt-24">
+    <section id="bis-why-Bizzfiling" className="py-12 md:py-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Confidence" title="BIS Strategic Partner" description="Simplifying the maze of test reports and factory inspection technicalities." align="left" />
                     <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -381,23 +381,23 @@ export default function BISRegistrationPage() {
             <style>{`.animate-spin-slow { animation: spin 8s linear infinite; } @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
 
             {/* Hero Section - Premium Style */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="BIS Registration" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Award size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-sm uppercase font-bold tracking-[0.2em]">Official BIS National Quality Marking</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 Quality <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Statutory Mark</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Establish trust and ensure product safety with official BIS certification. Full assistance for ISI marking, tech documentation, and factory audits.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -445,7 +445,7 @@ export default function BISRegistrationPage() {
             <ValidityContent />
             <WhyBizzfiling />
 
-            <section id="bis-faqs-content" className="py-24 bg-white scroll-mt-24">
+            <section id="bis-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="BIS Quality Intelligence" description="Clearing compliance and registry protocols for ISI marks and compulsory schemes." />
                     <div className="space-y-8 pt-10">

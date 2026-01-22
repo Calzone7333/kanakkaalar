@@ -147,10 +147,10 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
         <span className="inline-block py-1.5 px-4 rounded-full bg-[#E0F2F1] text-[#00695C] font-bold text-sm uppercase tracking-widest mb-4 border border-[#B2DFDB]">
             {subtitle}
         </span>
-        <h3 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h3 className="mb-4 text-2xl md:text-3xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {title}
         </h3>
-        <p className="text-slate-500 text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mx-auto">
+        <p className="text-slate-500 text-sm md:text-base max-w-3xl leading-relaxed mx-auto">
             {description}
         </p>
     </div>
@@ -164,7 +164,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
             className="flex items-center justify-between w-full p-4 text-left"
             onClick={onClick}
         >
-            <h3 className={`text-lg md:text-xl font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
+            <h3 className={`text-sm md:text-base font-bold pr-4 ${isOpen ? 'text-white' : 'text-slate-800'}`}>
                 {faq.q}
             </h3>
             <div className="flex-shrink-0">
@@ -174,7 +174,7 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
         <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <p className={`px-4 pb-4 text-base md:text-lg leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
+            <p className={`px-4 pb-4 text-sm md:text-base leading-relaxed ${isOpen ? 'text-white/80' : 'text-slate-500'}`}>
                 {faq.a}
             </p>
         </div>
@@ -184,10 +184,10 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Sub-sections ---
 
 const OverviewContent = () => (
-    <section id="adcode-overview-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="adcode-overview-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Trade Identity" title="14-Digit Banking Nexus" description="The Authorised Dealer (AD) Code is mandatory for all foreign currency trade cycles." />
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-8 text-slate-600 leading-relaxed italic">
                     <p>
                         Issued by AD Category-I banks, this 14-digit code verifies that your foreign currency transactions are genuine and compliant with <strong>Foreign Exchange Management Act (FEMA)</strong>.
@@ -215,7 +215,7 @@ const OverviewContent = () => (
 );
 
 const BenefitsContent = () => (
-    <section id="adcode-benefits-content" className="py-20 bg-white scroll-mt-24">
+    <section id="adcode-benefits-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Value" title="Optimizing Export Workflow" description="Accelerating port clearances and unlocking statutory government incentives." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -232,7 +232,7 @@ const BenefitsContent = () => (
 );
 
 const EligibilityContent = () => (
-    <section id="adcode-eligibility-content" className="py-20 bg-slate-50/50 scroll-mt-24">
+    <section id="adcode-eligibility-content" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Tiers" title="Trade Prerequisites" description="Determining eligibility through DGFT IEC and banking credentials." />
             <div className="grid md:grid-cols-3 gap-10">
@@ -249,7 +249,7 @@ const EligibilityContent = () => (
 );
 
 const DocumentsContent = () => (
-    <section id="adcode-documents-content" className="py-20 bg-white scroll-mt-24">
+    <section id="adcode-documents-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <SectionHeading subtitle="Archive" title="Registry Documentation" description="Hybrid archival records for bank branch and electronic customs portal." />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -268,10 +268,10 @@ const DocumentsContent = () => (
 );
 
 const ProcedureContent = () => (
-    <section id="adcode-procedure-content" className="py-24 bg-slate-900 scroll-mt-24">
+    <section id="adcode-procedure-content" className="py-16 md:py-20 bg-slate-900 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 text-center">
             <SectionHeading subtitle="Workflow" title="Registration Lifecycle" description="Coordinating between Bank branch authorization and ICEGATE port mapping." />
-            <div className="grid md:grid-cols-2 gap-12 mt-16 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 mt-16 max-w-4xl mx-auto">
                 {procedureSteps.map((step, idx) => (
                     <div key={idx} className="relative p-10 bg-white/5 border border-white/10 rounded-[48px] overflow-hidden group hover:bg-[#C59B4E] transition-all">
                         <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 text-white font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors text-2xl">0{idx + 1}</div>
@@ -288,7 +288,7 @@ const ProcedureContent = () => (
 );
 
 const ConsequencesContent = () => (
-    <section id="adcode-consequences-content" className="py-20 bg-white scroll-mt-24">
+    <section id="adcode-consequences-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
             <SectionHeading subtitle="Risk" title="Non-Compliance Penalties" description="Severe financial blocks and regulatory prosecution under FEMA or PMLA." />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -307,7 +307,7 @@ const ConsequencesContent = () => (
 
 
 const FeesContent = () => (
-    <section id="adcode-fees-content" className="py-20 bg-white scroll-mt-24">
+    <section id="adcode-fees-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Service Costs" title="Transparent Pricing" description="Packages tailored for your export volume and frequency." />
             <PricingCards plans={adCodePlans} serviceName="ADCODE Registration" />
@@ -316,9 +316,9 @@ const FeesContent = () => (
 );
 
 const WhyBizzfiling = () => (
-    <section id="adcode-why-Bizzfiling" className="py-20 bg-slate-50 scroll-mt-24">
+    <section id="adcode-why-Bizzfiling" className="py-12 md:py-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div className="order-2 lg:order-1">
                     <SectionHeading subtitle="Trust" title="FX Strategy Partner" description="Simplifying Authorised Dealer code linkage through up-to-date RBI knowledge." align="left" />
                     <div className="grid sm:grid-cols-2 gap-10 pt-4">
@@ -386,23 +386,23 @@ export default function ADCodeRegistrationPage() {
             <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
 
             {/* Hero Section - Premium Style */}
-            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-20 text-left">
+            <section className="relative w-full min-h-[500px] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-12 md:pb-16 text-left">
                 <div className="absolute inset-0 z-0">
                     <img src={BackgroundImageSrc} alt="AD Code Registration" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0F2D30] via-[#0F2D30]/95 to-transparent z-10"></div>
                 </div>
                 <div className="relative z-20 w-full max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                         <div className="w-full lg:w-3/5 space-y-8">
                             <div className="inline-flex items-center gap-5 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
                                 <Award size={14} className="text-[#C59B4E]" />
                                 <span className="text-white text-sm md:text-base uppercase font-bold tracking-[0.2em]">Official Authorised Dealer (AD) Code Linkage</span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl lg:text-3xl font-extrabold text-white leading-tight">
                                 AD Code <br className="hidden lg:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E0F2F1] to-[#C59B4E]">Registration</span>
                             </h1>
-                            <p className="text-lg md:text-xl text-slate-300 max-w-lg font-light leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Accelerate your export-import operations with seamless AD Code and ICEGATE port mapping. Expert support for FEMA-compliant cross-border transactions.
                             </p>
                             <div className="flex gap-10 pt-2">
@@ -451,7 +451,7 @@ export default function ADCodeRegistrationPage() {
             <FeesContent />
             <WhyBizzfiling />
 
-            <section id="adcode-faqs-content" className="py-24 bg-white scroll-mt-24">
+            <section id="adcode-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <SectionHeading subtitle="FAQ" title="Trade Law Intelligence" description="Clearing compliance and registry protocols for Authorised Dealer codes and FEMA rules." />
                     <div className="space-y-8 pt-10">

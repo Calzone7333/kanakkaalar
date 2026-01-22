@@ -7,13 +7,13 @@ export default function WhyChooseSection() {
         
         {/* --- Section Title --- */}
         <div className="mb-20 text-center">
-          <h2 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-[48px] font-bold max-w-4xl mx-auto leading-tight">
+          <h2 className="text-black text-2xl sm:text-3xl md:text-3xl lg:text-[48px] font-bold max-w-4xl mx-auto leading-tight">
             Why choose — streamlining legal processes for your business
           </h2>
         </div>
 
         {/* --- Key Features Section --- */}
-        <div className="flex flex-col items-center justify-center gap-12 lg:flex-row mb-28">
+        <div className="flex flex-col items-center justify-center gap-8 lg:flex-row mb-28">
           
           {/* Left Content */}
           <div className="flex flex-col items-start max-w-md lg:max-w-lg">
@@ -100,7 +100,7 @@ export default function WhyChooseSection() {
 
         {/* --- Work Process --- */}
         <div className="mb-20 text-center">
-          <h2 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-[48px] font-bold">
+          <h2 className="text-black text-2xl sm:text-3xl md:text-3xl lg:text-[48px] font-bold">
             Work Process
           </h2>
         </div>
@@ -121,7 +121,7 @@ export default function WhyChooseSection() {
 
         {/* --- Our Work --- */}
         <div className="mb-20 text-center">
-          <h2 className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-[48px] font-bold">
+          <h2 className="text-black text-2xl sm:text-3xl md:text-3xl lg:text-[48px] font-bold">
             Our Work
           </h2>
         </div>

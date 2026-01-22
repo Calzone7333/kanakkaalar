@@ -148,7 +148,7 @@ export default function DailyUICalendar() {
 
           {/* Header Date */}
           <div className="mb-10 text-right">
-            <h2 className="text-6xl font-light tracking-tighter text-purple-200 opacity-90">{getDate(selectedDate)}</h2>
+            <h2 className="text-3xl font-light tracking-tighter text-purple-200 opacity-90">{getDate(selectedDate)}</h2>
             <p className="text-xl font-medium uppercase tracking-widest text-white mt-1">{format(selectedDate, 'MMMM yyyy')}</p>
             <p className="text-sm text-purple-300 mt-1">{format(selectedDate, 'EEEE')}</p>
           </div>

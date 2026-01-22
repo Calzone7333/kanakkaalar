@@ -23,7 +23,7 @@ export default function ServiceLoader() {
         <div className="relative mb-8 group">
           <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-700"></div>
           <div className="relative w-32 h-32 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-[#F0FBFA] z-10">
-            <span className="text-6xl">😕</span>
+            <span className="text-3xl">😕</span>
           </div>
           {/* Floating Elements */}
           <div className="absolute top-0 right-0 w-8 h-8 bg-[#C59B4E] rounded-full animate-bounce delay-100 opacity-80"></div>
@@ -31,7 +31,7 @@ export default function ServiceLoader() {
         </div>
 
         {/* Text Content */}
-        <h1 className="text-7xl font-extrabold text-[#003366] mb-2 tracking-tight">404</h1>
+        <h1 className="text-3xl font-extrabold text-[#003366] mb-2 tracking-tight">404</h1>
         <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4">
           {info ? info.title : 'Page Not Found'}
         </h2>
