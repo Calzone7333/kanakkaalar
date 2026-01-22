@@ -465,25 +465,11 @@ export default function TalkToLawyer() {
             {/* Left Content */}
             <div className="w-full lg:w-1/2 text-left space-y-8 flex flex-col items-start">
               {/* Gold Seal Badge - Neatly Aligned */}
-              <div className="relative w-28 h-28 flex items-center justify-center">
-                {/* Visual Glow */}
-                <div className="absolute inset-0 bg-[#C59B4E]/20 rounded-full blur-xl"></div>
-
-                <div className="relative w-full h-full bg-[#1a1a1a] rounded-full flex items-center justify-center border-2 border-[#C59B4E] shadow-xl">
-                  {/* Inner Ring */}
-                  <div className="absolute inset-1 rounded-full border border-[#C59B4E]/30"></div>
-
-                  <div className="text-center px-1">
-                    <div className="flex justify-center gap-0.5 mb-1.5">
-                      {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-[#C59B4E] text-[#C59B4E]" />)}
-                    </div>
-                    <span className="block text-[#C59B4E] font-serif font-bold text-xs leading-tight uppercase tracking-wider mb-1">
-                      Legal<br />Services<br />In India
-                    </span>
-                    <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#C59B4E] to-transparent mx-auto mb-1"></div>
-                    <span className="block text-white text-[10px] uppercase tracking-[0.2em] font-medium">Verified</span>
-                  </div>
-                </div>
+              <div className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white bg-[#1F4B4E]/90 backdrop-blur-md shadow-lg">
+                <Calculator className="w-5 h-5 text-[#C59B4E]" strokeWidth={2} />
+                <span className="text-white font-bold text-sm tracking-widest uppercase">
+                  Verified ICAI Professionals
+                </span>
               </div>
 
               <div className="space-y-4">

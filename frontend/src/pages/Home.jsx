@@ -88,7 +88,7 @@ export default function Home() {
   return (
     <>
       <section
-        className="cs_hero cs_style_2 cs_bg_filed position-relative bg-cover bg-center w-full overflow-hidden"
+        className="cs_hero cs_style_2 cs_bg_filed position-relative bg-cover bg-center w-full overflow-hidden !pt-28 md:!pt-36"
         style={{
           backgroundImage: `url(${videoBg2})`,
           backgroundSize: "cover",
@@ -108,14 +108,14 @@ export default function Home() {
               </span>
             </p>
             <h1
-              className="text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
             >
               India&apos;s Smart Online Platform for Modern Businesses.
               <br />
             </h1>
 
 
-            <p className="cs_hero_desc cs_mb_26">
+            <p className="cs_hero_desc cs_mb_26 text-base sm:text-lg md:text-xl">
               Legal, tax, and compliance simplification. Lots of people trust it.
               supported by actual industry experts. making <br />
             </p>
@@ -156,10 +156,10 @@ export default function Home() {
                 </span>
               </a>
             </div>
-
+            {/* 
             <div className="cs_hero_shape_1 position-absolute">
               <img src={heroShape1} alt="Shape" />
-            </div>
+            </div> */}
           </div>
 
           <div className="cs_hero_shape_2 position-absolute">
@@ -203,18 +203,17 @@ export default function Home() {
         <img
           src={bannerGif1}
           alt="Animated icon center"
-          className="absolute z-[4] pointer-events-none opacity-90 mix-blend-screen
-      w-[35px] h-[35px] sm:w-[50px] sm:h-[50px] md:w-[70px] md:h-[70px]
-      top-10 sm:top-[10%] md:top-[10%] left-[52%]"
+          className="absolute z-[50] pointer-events-none
+          w-[35px] h-[35px] sm:w-[50px] sm:h-[50px] md:w-[70px] md:h-[70px]
+          top-[60px] sm:top-[25%] md:top-[25%] left-[52%]"
         />
-
         {/* Right GIF Icon (Lower Zig-Zag Position) */}
         <img
           src={bannerGif2}
           alt="Animated icon right"
           className="absolute z-[1] pointer-events-none opacity-90 mix-blend-screen
       w-[45px] h-[45px] sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px]
-      top-[26%] sm:top-[28%] md:top-[-10%] left-[80%]"
+      top-[26%] sm:top-[10%] md:top-[-1%] left-[80%]"
         />
       </div>
 
@@ -328,7 +327,7 @@ export default function Home() {
 
             {/* Card 1: Start a Business (Now the first card) */}
             <div className="cs_feature_item cs_white_bg cs_radius_20 w-full md:w-[30%]">
-              <span className="cs_feature_icon cs_center bg-[#C59B4E] cs_radius_12 cs_mb_15">
+              <span className="cs_feature_icon cs_center !bg-[#1A7F7D] cs_radius_12 cs_mb_15">
                 <Rocket className="w-8 h-8 text-white" />
               </span>
               <h3 className="cs_fs_24 cs_semibold cs_mb_6">
@@ -358,7 +357,7 @@ export default function Home() {
 
             {/* Card 2: Operate with Clarity */}
             <div className="cs_feature_item cs_white_bg cs_radius_20 w-full md:w-[30%]">
-              <span className="cs_feature_icon cs_center bg-[#1A7F7D] cs_radius_12 cs_mb_15">
+              <span className="cs_feature_icon cs_center !bg-[#1A7F7D] cs_radius_12 cs_mb_15">
                 <Briefcase className="w-8 h-8 text-white" />
               </span>
               <h3 className="cs_fs_24 cs_semibold cs_mb_6">
@@ -387,7 +386,7 @@ export default function Home() {
 
             {/* Card 3: Secure a Legacy */}
             <div className="cs_feature_item cs_white_bg cs_radius_20 w-full md:w-[30%]">
-              <span className="cs_feature_icon cs_center bg-[#C59B4E] cs_radius_12 cs_mb_15">
+              <span className="cs_feature_icon cs_center !bg-[#1A7F7D] cs_radius_12 cs_mb_15">
                 <ShieldCheck className="w-8 h-8 text-white" />
               </span>
               <h3 className="cs_fs_24 cs_semibold cs_mb_6">
@@ -464,7 +463,7 @@ export default function Home() {
 
                 {/* Step 1: Create Account */}
                 <div className="cs_iconbox cs_style_2">
-                  <span className="cs_iconbox_icon cs_center bg-[#e0f7fa] cs_mb_18">
+                  <span className="cs_iconbox_icon cs_center bg-[#C44746] cs_mb_18">
                     <img src={homeIcon} alt="Browser icon" />
                   </span>
                   <h3 className="cs_fs_24 cs_semibold cs_mb_4">Create your account</h3>
@@ -638,13 +637,13 @@ export default function Home() {
                       <span>Get Started Free</span>
                       <span className="cs_btn_icon"><i className="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <div className="cs_client_info_wrapper">
+                    {/* <div className="cs_client_info_wrapper">
                       <img src={customersGroup} alt="Customers image" />
                       <div>
                         <h3 className="cs_fs_30 cs_semibold mb-0">3.5k <span>+</span></h3>
                         <p className="cs_heading_color mb-0">Active Customer</p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -655,47 +654,7 @@ export default function Home() {
         </div>
         <div className="cs_height_120 cs_height_lg_80"></div>
       </section>
-      <div className="cs_counter cs_style_1 cs_type_1 bg-[#1A7F7D]" data-src="assets1/img/counter-bg-2.svg">
-        <div className="container">
-          <div className="row cs_gap_y_30">
-            <div className="col-lg-3 col-sm-6">
-              <div className="text-center cs_numberbox cs_center_column">
-                <div className="cs_counter_number cs_fs_48 cs_semibold cs_white_color cs_mb_10">
-                  <span className="odometer" data-count-to="16">16</span>K+
-                </div>
-                <p className="mb-0 cs_fs_24 cs_white_color">Completed Our <br /> Projects</p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="text-center cs_numberbox cs_center_column">
-                <div className="cs_counter_number cs_fs_48 cs_semibold cs_white_color cs_mb_10">
-                  <span className="odometer" data-count-to="180">180</span>+
-                </div>
-                <p className="mb-0 cs_fs_24 cs_white_color">Our Expert Support <br /> Team Members</p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="text-center cs_numberbox cs_center_column">
-                <div className="cs_counter_number cs_fs_48 cs_semibold cs_white_color cs_mb_10">
-                  <span className="odometer" data-count-to="6">6</span>K+
-                </div>
-                <p className="mb-0 cs_fs_24 cs_white_color">Our Worldwide <br /> Clients</p>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="text-center cs_numberbox cs_center_column">
-                <div className="cs_counter_number cs_fs_48 cs_semibold cs_white_color cs_mb_10">
-                  <span className="odometer" data-count-to="35">35</span>+
-                </div>
-                <p className="mb-0 cs_fs_24 cs_white_color">We are Winning <br /> Awards</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
+      {/* Statistics Section Hidden */}
       <button type="button" aria-label="Scroll to top button" className="cs_scrollup bg-[#1A7F7D] hover:bg-[#156664] cs_white_color cs_radius_100 transition-all">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 10L1.7625 11.7625L8.75 4.7875V20H11.25V4.7875L18.225 11.775L20 10L10 0L0 10Z" fill="currentColor" />

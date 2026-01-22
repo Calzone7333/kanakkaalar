@@ -133,22 +133,22 @@ export default function Footer() {
         <div className="cs_footer_top position-relative">
           <ul className="cs_location_list cs_mp_0">
             <li className="!items-start">
-              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0 mt-1">
+              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0">
                 <i className="fa-solid fa-phone-volume"></i>
               </span>
-              <a href="tel:9655771091" aria-label="Make a call link" className="mt-1">9655771091</a>
+              <a href="tel:9655771091" aria-label="Make a call link" className="pt-2">9655771091</a>
             </li>
             <li className="!items-start">
-              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0 mt-1">
+              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0">
                 <i className="fa-solid fa-envelope"></i>
               </span>
-              <a href="mailto:info@kanakkaalar.com" aria-label="Send mail link" className="mt-1 break-all">info@kanakkaalar.com</a>
+              <a href="mailto:info@kanakkaalar.com" aria-label="Send mail link" className="pt-2 break-all">info@kanakkaalar.com</a>
             </li>
             <li className="!items-start">
-              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0 mt-1">
+              <span className="cs_location_icon cs_center cs_theme_color_4 cs_radius_100 flex-shrink-0">
                 <i className="fa-solid fa-location-dot"></i>
               </span>
-              <p className="mb-0 mt-1 leading-relaxed max-w-md">
+              <p className="mb-0 pt-2 leading-relaxed max-w-md">
                 32, AJ Block 1st St, Sri Ayyappa Nagar, Chinmaya Nagar Stage II Extension, Kumaran Nagar, Virugambakkam, Chennai, Tamil Nadu 600092
               </p>
             </li>
