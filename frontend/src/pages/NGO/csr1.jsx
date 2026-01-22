@@ -22,7 +22,8 @@ import {
     Shield, // For Trust/Accountability
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/csr_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/csr_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -405,7 +406,6 @@ const CSR1FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function CSR1RegistrationPage() {
     const [activeTab, setActiveTab] = useState(csr1Tabs[0].id);
@@ -511,6 +511,7 @@ export default function CSR1RegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Align with your CSR goals through **expert-assisted CSR-1 registration**. Get seamless support for **documentation, filing, and full CSR compliance**.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">
@@ -603,7 +604,7 @@ export default function CSR1RegistrationPage() {
             <CSR1DocumentsContent />
             <CSR1ProcessContent />
             <CSR1LawPurposeContent />
-            <CSR1StatusFeesContent />
+
             <CSR1FAQsContent faqs={csr1FAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
 
         </div>

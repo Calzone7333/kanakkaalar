@@ -29,7 +29,8 @@ import {
     MapPin // For Legal Compliance
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/section8_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/section8_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -53,7 +54,7 @@ const section8Tabs = [
     { id: 'sec8-eligibility-content', label: 'Eligibility' },
     { id: 'sec8-documents-content', label: 'Documents' },
     { id: 'sec8-process-content', label: 'Process' },
-    { id: 'sec8-pricing-content', label: 'Pricing' },
+
     { id: 'sec8-compliance-law-content', label: 'Compliance & Law' },
     { id: 'sec8-why-Bizzfiling', label: 'Why Bizzfiling?' },
     { id: 'sec8-faqs-content', label: "FAQ's" },
@@ -423,7 +424,7 @@ const Section8PricingContent = () => (
                 title="Transparent Plans"
                 description="Affordable packages to kickstart your non-profit journey."
             />
-            <PricingCards plans={section8Plans} serviceName="Section 8 Company" />
+            
         </div>
     </section>
 );
@@ -577,7 +578,6 @@ const Section8FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function Section8RegistrationPage() {
     const [activeTab, setActiveTab] = useState(section8Tabs[0].id);
@@ -683,6 +683,7 @@ export default function Section8RegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted Section 8 registration with **fast turnaround time**. **12A, 80G, FCRA** and compliance support included.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">
@@ -743,8 +744,6 @@ export default function Section8RegistrationPage() {
                 </div>
             </section>
 
-
-
             {/* === Main Content Tabs Navigation (Sticky) === */}
             <div className="sticky top-20 lg:top-24 z-40 bg-white shadow-sm border-b border-gray-200 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -776,7 +775,7 @@ export default function Section8RegistrationPage() {
                     <Section8EligibilityContent />
                     <Section8DocumentsContent />
                     <Section8ProcessContent />
-                    <Section8PricingContent />
+
                     <Section8ComplianceLawContent />
                     <Section8WhyBizzfiling />
                     <Section8FAQsContent faqs={section8FAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

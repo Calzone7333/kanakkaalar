@@ -22,7 +22,8 @@ import {
     Shield, // For Legal Protection/National Interest
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/fcra_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/fcra_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -526,7 +527,6 @@ const FCRAFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function FCRARegistrationPage() {
     const [activeTab, setActiveTab] = useState(fcraTabs[0].id);
@@ -632,6 +632,7 @@ export default function FCRARegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert assisted **FC-3A filing** and full guidance on the **FCRA registration in India**. Understand **eligibility, benefits, checklist**, and types of FCRA registration.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">

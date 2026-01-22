@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { authAPI } from "../lib/api";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 
 export default function VerifyEmail() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [searchParams] = useSearchParams();
   const nav = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -40,7 +41,7 @@ export default function VerifyEmail() {
     try {
       await authAPI.verifyEmail({ email, code });
       setMessage("Email verified. You can now login.");
-      setTimeout(() => nav("/login"), 1200);
+      setTimeout(() => nav("/login", { state: location.state }), 1200);
     } catch (err) {
       setMessage(err?.response?.data?.error || "Verification failed");
     } finally {
@@ -112,8 +113,8 @@ export default function VerifyEmail() {
               onClick={resendOtp}
               disabled={loading || resendCooldown > 0}
               className={`w-full py-2 text-sm font-medium transition-colors ${resendCooldown > 0
-                  ? "text-slate-400 cursor-not-allowed"
-                  : "text-[#003366] hover:text-[#002244] hover:underline"
+                ? "text-slate-400 cursor-not-allowed"
+                : "text-[#003366] hover:text-[#002244] hover:underline"
                 }`}
             >
               {resendCooldown > 0
@@ -123,7 +124,7 @@ export default function VerifyEmail() {
 
             <button
               type="button"
-              onClick={() => nav("/login")}
+              onClick={() => nav("/login", { state: location.state })}
               className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
             >
               ← Back to Login
@@ -134,8 +135,8 @@ export default function VerifyEmail() {
         {message && (
           <div
             className={`mt-6 p-3 rounded-lg text-sm text-center font-medium animate-pulse ${message.toLowerCase().includes("success") || message.toLowerCase().includes("verified")
-                ? "bg-green-50 text-green-700 border border-green-100"
-                : "bg-red-50 text-red-700 border border-red-100"
+              ? "bg-green-50 text-green-700 border border-green-100"
+              : "bg-red-50 text-red-700 border border-red-100"
               }`}
           >
             {message}

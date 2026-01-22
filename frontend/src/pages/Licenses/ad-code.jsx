@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- AD CODE REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -38,7 +39,7 @@ const tabs = [
     { id: 'adcode-documents-content', label: 'Documents' },
     { id: 'adcode-procedure-content', label: 'Procedure' },
     { id: 'adcode-consequences-content', label: 'Compliance Risk' },
-    { id: 'adcode-fees-content', label: 'Fees' },
+
     { id: 'adcode-why-Bizzfiling', label: 'Why Us' },
     { id: 'adcode-faqs-content', label: 'FAQs' },
 ];
@@ -277,6 +278,7 @@ const ProcedureContent = () => (
                         <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 text-white font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors text-2xl">0{idx + 1}</div>
                         <h5 className="text-[#C59B4E] font-bold text-xl uppercase italic mb-4 group-hover:text-white transition-colors">{step.title}</h5>
                         <p className="text-base text-slate-300 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-amber-900">{step.detail}</p>
+<StartNowButton />
                     </div>
                 ))}
             </div>
@@ -304,13 +306,11 @@ const ConsequencesContent = () => (
     </section>
 );
 
-
-
 const FeesContent = () => (
     <section id="adcode-fees-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Service Costs" title="Transparent Pricing" description="Packages tailored for your export volume and frequency." />
-            <PricingCards plans={adCodePlans} serviceName="ADCODE Registration" />
+            
         </div>
     </section >
 );

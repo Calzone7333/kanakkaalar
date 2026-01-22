@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Rocket, Briefcase, ShieldCheck } from "lucide-react";
 import DashboardDemo from "../components/DashboardDemo";
@@ -69,6 +70,7 @@ import notionIcon from "../assets1/img/icons/notion.svg";
 import videoBg2 from "../assets1/img/hero-bg-2.jpg";
 
 export default function Home() {
+  const navigate = useNavigate();
   // Preloader logic removed - handled globally in App.jsx
 
   // Custom Slider Logic
@@ -121,8 +123,8 @@ export default function Home() {
             </p>
 
             <div className="cs_btns_group">
-              <a
-                href="contact.html"
+              <button
+                onClick={() => navigate("/login")}
                 aria-label="Get started button"
                 className="cs_btn cs_style_1 cs_fs_14 cs_bold cs_white_color text-uppercase"
                 style={{
@@ -130,6 +132,7 @@ export default function Home() {
                   border: "none",
                   color: "#fff",
                   transition: "all 0.4s ease",
+                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "#156664"; // Darker shade on hover
@@ -144,7 +147,7 @@ export default function Home() {
                 <span className="cs_btn_icon">
                   <i className="fa-solid fa-arrow-right"></i>
                 </span>
-              </a>
+              </button>
               <a
                 href="about-us.html"
                 aria-label="About page link"

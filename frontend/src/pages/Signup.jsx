@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { authAPI } from "../lib/api";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import AppBackButton from "../components/AppBackButton";
 import { Camera, Loader2, Play, Layout } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -16,6 +16,7 @@ export default function Signup() {
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
+  const location = useLocation();
 
   const isValidEmail = (v) => /\S+@\S+\.\S+/.test(v);
   const isValidPhone = (v) => /^[0-9+\-() ]{7,20}$/.test(v);
@@ -40,6 +41,10 @@ export default function Signup() {
         setAuth(r.data);
         window.dispatchEvent(new Event("auth:update"));
         const role = r.data.user?.role || "USER";
+
+        if (location.state?.redirectTo && role === "USER") {
+          return nav(location.state.redirectTo, { replace: true, state: location.state });
+        }
 
         if (role === "ADMIN") nav("/dashboard/admin", { replace: true });
         else if (role === "EMPLOYEE") nav("/dashboard/employee", { replace: true });
@@ -71,7 +76,7 @@ export default function Signup() {
 
       await authAPI.signup(formData);
       toast.success("Signup successful! Verify your email.");
-      nav(`/verify-otp?email=${encodeURIComponent(email)}`);
+      nav(`/verify-otp?email=${encodeURIComponent(email)}`, { state: location.state });
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signup failed");
     } finally {
@@ -170,7 +175,7 @@ export default function Signup() {
         </button>
 
         <p className="mt-6 text-center text-slate-500 text-xs">
-          Existing User? <Link to="/login" className="text-[#156664] font-bold hover:underline">Log in</Link>
+          Existing User? <Link to="/login" state={location.state} className="text-[#156664] font-bold hover:underline">Log in</Link>
         </p>
       </div>
     </div>

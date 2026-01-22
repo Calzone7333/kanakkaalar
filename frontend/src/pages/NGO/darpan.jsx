@@ -24,7 +24,8 @@ import {
     AlertTriangle // For NITI Aayog/Government
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/darpan_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/darpan_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -144,7 +145,6 @@ const FeatureBox = ({ title, detail, icon: Icon }) => (
         <p className="text-base text-gray-600">{detail}</p>
     </div>
 );
-
 
 // --- TAB CONTENT COMPONENTS (NGO Darpan Registration Content) ---
 
@@ -412,7 +412,6 @@ const DarpanFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function NGODarpanRegistrationPage() {
     const [activeTab, setActiveTab] = useState(darpanTabs[0].id);
@@ -518,6 +517,7 @@ export default function NGODarpanRegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** NGO Darpan registration process. Trusted by 5000+ trusts and NGOs for **fast and reliable service**.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">

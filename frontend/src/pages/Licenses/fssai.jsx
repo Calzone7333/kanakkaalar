@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- FSSAI REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -38,7 +39,7 @@ const tabs = [
     { id: 'fssai-documents-content', label: 'Documents' },
     { id: 'fssai-process-content', label: 'Process' },
     { id: 'fssai-process-content', label: 'Process' },
-    { id: 'fssai-pricing-content', label: 'Pricing' },
+
     { id: 'fssai-why-Bizzfiling', label: 'Why Us' },
     { id: 'fssai-faqs-content', label: 'FAQs' },
 ];
@@ -260,6 +261,7 @@ const EligibilityContent = () => (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {fssaiChecklist.map((c, idx) => (
                         <p key={idx} className="text-sm text-slate-300 flex items-center gap-5 italic leading-relaxed"><span className="shrink-0 w-1.5 h-1.5 rounded-full bg-[#1A7F7D]"></span>{c}</p>
+<StartNowButton />
                     ))}
                 </div>
             </div>
@@ -326,7 +328,7 @@ const FssaiPricingContent = () => (
     <section id="fssai-pricing-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Economics" title="FSSAI Fees & Plans" description="Official government charges for different license tiers." />
-            <PricingCards plans={fssaiPlans} serviceName="Food License" />
+            
             <div className="mt-12 p-8 bg-[#EF4444]/5 border-l-8 border-l-[#EF4444] rounded-2xl flex flex-col md:flex-row gap-10 md:items-center">
                 <Scale className="text-[#EF4444] shrink-0" size={32} />
                 <div>
@@ -469,7 +471,7 @@ export default function FSSAIRegistrationPage() {
             <BenefitsContent />
             <DocumentsContent />
             <ProcessContent />
-            <FssaiPricingContent />
+
             <WhyBizzfiling />
 
             <section id="fssai-faqs-content" className="py-16 md:py-20 bg-white scroll-mt-24">

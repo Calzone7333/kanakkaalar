@@ -28,7 +28,8 @@ import {
   CreditCard, // For EMI
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from '../../assets/lawyer_office_bg.png'; // Reusing the same image for the background
+import BackgroundImageSrc from '../../assets/lawyer_office_bg.png';
+import StartNowButton from "../../components/StartNowButton"; // Reusing the same image for the background
 
 // --- BUSINESS LOAN STATIC DATA DEFINITIONS ---
 
@@ -145,7 +146,6 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     </p>
   </div>
 );
-
 
 // --- TAB CONTENT COMPONENTS (Business Loan Content) ---
 
@@ -294,7 +294,6 @@ const LoanFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function BusinessLoanPage() {
   const [activeTab, setActiveTab] = useState(loanTabs[0].id);
@@ -318,7 +317,6 @@ export default function BusinessLoanPage() {
   const emi = calculateEMI(loanAmount, interestRate, loanTenure);
   const totalPayable = emi * loanTenure;
   const totalInterest = totalPayable - loanAmount;
-
 
   const SCROLL_OFFSET = 120;
 
@@ -430,6 +428,7 @@ export default function BusinessLoanPage() {
                 <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Get up to ₹50 Lakhs collateral-free with 72-hour approval. Transparent process and flexible tenures.
                 </p>
+<StartNowButton />
               </div>
 
               <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">

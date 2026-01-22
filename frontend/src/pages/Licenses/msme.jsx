@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- MSME REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -290,6 +291,7 @@ const FeaturesContent = () => (
                 {udyamFeatures.map((f, i) => (
                     <div key={i} className="p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm transition-transform hover:scale-105">
                         <p className="text-sm text-slate-300 italic leading-relaxed">{f}</p>
+<StartNowButton />
                     </div>
                 ))}
             </div>

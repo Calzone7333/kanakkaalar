@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- CLRA REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -260,6 +261,7 @@ const CompliancesContent = () => (
                     <div key={idx} className="relative p-8 bg-white/5 border border-white/10 rounded-[32px] overflow-hidden group hover:bg-[#C59B4E] transition-all">
                         <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold group-hover:bg-white group-hover:text-amber-900 transition-colors">0{idx + 1}</div>
                         <p className="text-sm text-slate-300 leading-relaxed font-bold italic uppercase tracking-tighter group-hover:text-blue-900">{step}</p>
+<StartNowButton />
                     </div>
                 ))}
             </div>

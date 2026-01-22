@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 const Factory = ({ size, className }) => <Briefcase size={size} className={className} />;
 
@@ -41,7 +42,7 @@ const tabs = [
     { id: 'spice-eligibility-content', label: 'Eligibility' },
     { id: 'spice-benefits-content', label: 'Benefits' },
     { id: 'spice-documents-content', label: 'Documents' },
-    { id: 'spice-fees-compliance', label: 'Fees' },
+
     { id: 'spice-renewal-penalties', label: 'Renewal' },
     { id: 'spice-why-Bizzfiling', label: 'Why Us' },
     { id: 'spice-faqs-content', label: 'FAQs' },
@@ -259,7 +260,7 @@ const FeesCompliance = () => (
     <section id="spice-fees-compliance" className="py-12 md:py-16 bg-slate-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Economics" title="Filing Fees & Compliance" description="Government charges and mandatory quarterly reporting obligations." />
-            <PricingCards plans={spicePlans} serviceName="SPICE Registration" />
+            
         </div>
         <div className="max-w-7xl mx-auto px-4 mt-12">
             <div className="p-8 bg-slate-900 rounded-[32px] text-white">
@@ -300,6 +301,7 @@ const RenewalPenalties = () => (
                     <Scale className="text-[#C59B4E] mb-4" size={32} />
                     <h5 className="font-bold text-sm uppercase tracking-widest mb-3 italic underline decoration-[#C59B4E] underline-offset-8">Penalty Scrutiny</h5>
                     <p className="text-sm text-slate-300 italic leading-relaxed">Lack of spice export activity for 3 years leads to certificate <strong>Cancellation</strong>. Trading without renewal can lead to fines and imprisonment up to 12 months.</p>
+<StartNowButton />
                 </div>
             </div>
         </div>
@@ -334,8 +336,6 @@ const WhyBizzfiling = () => (
         </div>
     </section>
 );
-
-
 
 // --- Main Component ---
 

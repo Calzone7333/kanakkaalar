@@ -24,7 +24,8 @@ import {
     Globe // For Renewal
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from '../../assets/society_hero_bg.png'; // Specific background
+import BackgroundImageSrc from '../../assets/society_hero_bg.png';
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 // --- SOCIETY REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -33,7 +34,7 @@ const societyTabs = [
     { id: 'society-benefits-content', label: 'Benefits' },
     { id: 'society-eligibility-content', label: 'Eligibility' },
     { id: 'society-documents-process-content', label: 'Process & Docs' },
-    { id: 'society-pricing-content', label: 'Pricing' },
+
     { id: 'society-compliance-renewal-content', label: 'Compliance & Renewal' },
     { id: 'society-why-Bizzfiling', label: 'Why Bizzfiling?' },
     { id: 'society-faqs-content', label: "FAQ's" },
@@ -431,7 +432,7 @@ const SocietyPricingContent = () => (
                 title="Society Registration Packages"
                 description="Choose the right plan for your community."
             />
-            <PricingCards plans={societyPlans} serviceName="Society Registration" />
+            
         </div>
     </section>
 );
@@ -505,7 +506,6 @@ const SocietyFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
         </div>
     </section>
 );
-
 
 // --- MAIN COMPONENT ---
 export default function SocietyRegistrationPage() {
@@ -612,6 +612,7 @@ export default function SocietyRegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** Society registration. Draft your Memorandum & Bylaws with **legal experts** for seamless approval.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">
@@ -701,7 +702,7 @@ export default function SocietyRegistrationPage() {
                 <SocietyBenefitsContent />
                 <SocietyEligibilityContent />
                 <SocietyDocumentsProcessContent />
-                <SocietyPricingContent />
+
                 <SocietyComplianceRenewalContent />
                 <SocietyWhyBizzfiling />
                 <SocietyFAQsContent faqs={societyFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

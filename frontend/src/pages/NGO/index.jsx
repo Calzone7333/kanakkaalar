@@ -28,7 +28,8 @@ import {
   CheckCircle2 // For Address Proof
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/ngo_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/ngo_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
   <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -133,10 +134,7 @@ const ngoFAQs = [
   { q: "What is the process to apply for FCRA registration for an NGO?", a: "FCRA (Foreign Contribution Regulation Act) registration is applied for online via the Ministry of Home Affairs portal after the NGO is 3+ years old and has spent a minimum of ₹15 lakhs on its objectives in the last 3 financial years." },
 ];
 
-
 // --- REUSABLE COMPONENTS ---
-
-
 
 // --- TAB CONTENT COMPONENTS (NGO Registration Content) ---
 
@@ -398,7 +396,6 @@ const NGOFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function NGORegistrationPage() {
   const [activeTab, setActiveTab] = useState(ngoTabs[0].id);
@@ -504,6 +501,7 @@ export default function NGORegistrationPage() {
                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                   Register your NGO as a **Society, Trust, or Section 8 Company** with expert assistance. Get **NGO-Darpan ID**, **FCRA Eligibility**, and full compliance support.
                 </p>
+<StartNowButton />
 
                 <div className="space-y-8 mb-8">
                   <div className="flex items-start gap-5">

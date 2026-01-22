@@ -23,6 +23,7 @@ import {
   ScrollText
 } from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- USA REGISTRATION FULL DATA ---
 
@@ -166,6 +167,7 @@ const OverviewContent = () => (
               <div className="p-8 bg-[#0F2D30] rounded-2xl text-white shadow-2xl transform hover:-translate-y-2 transition-transform">
                 <h5 className="text-[#C59B4E] font-bold text-2xl mb-2">Delaware</h5>
                 <p className="text-sm text-slate-300 font-medium leading-relaxed">The gold standard for VCs and tech startups globally.</p>
+<StartNowButton />
               </div>
               <div className="p-8 bg-white rounded-2xl shadow-xl border border-slate-100 transform hover:-translate-y-2 transition-transform">
                 <h5 className="text-[#1A7F7D] font-bold text-2xl mb-2">Nevada</h5>

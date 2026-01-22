@@ -10,7 +10,7 @@ const PricingCards = ({ plans, serviceName }) => {
         const auth = getAuth();
         const user = auth?.user;
         const targetPath = '/dashboard/user/servicehub';
-        const stateData = { serviceTitle: serviceName || plan.title }; // Fallback to plan title if serviceName missing, though serviceName is preferred for ServiceHub matching
+        const stateData = { serviceTitle: serviceName || plan.title.trim() }; // Fallback to plan title if serviceName missing, though serviceName is preferred for ServiceHub matching
 
         if (user) {
             navigate(targetPath, { state: stateData });

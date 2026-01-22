@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- FIEO REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -36,7 +37,7 @@ const tabs = [
     { id: 'fieo-benefits-content', label: 'Benefits' },
     { id: 'fieo-services-content', label: 'Services' },
     { id: 'fieo-documents-content', label: 'Documents' },
-    { id: 'fieo-fees-content', label: 'Fees' },
+
     { id: 'fieo-why-Bizzfiling', label: 'Why Us' },
     { id: 'fieo-faqs-content', label: 'FAQs' },
 ];
@@ -313,7 +314,7 @@ const FeesContent = () => (
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Investment" title="Membership Subscription Tiers" description="Fees scaled based on exporter status and export house star-rating." />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-                <PricingCards plans={plans} serviceName="FIEO Registration" />
+                
             </div>
             <div className="p-10 bg-red-900 rounded-[48px] text-white flex flex-col md:flex-row gap-10 items-center shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full"></div>
@@ -321,6 +322,7 @@ const FeesContent = () => (
                 <div>
                     <h5 className="font-bold text-[#C59B4E] text-lg uppercase italic tracking-widest mb-2 underline decoration-[#C59B4E] underline-offset-8">5-Year Validity Nexus</h5>
                     <p className="text-sm text-slate-300 leading-relaxed italic">The RCMC is valid for a block of five financial years. Renewal must be finalized before March 31 of the final licensing year to avoid incentive forfeiture.</p>
+<StartNowButton />
                 </div>
             </div>
         </div>

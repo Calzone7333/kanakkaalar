@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- UDYAM REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -41,7 +42,7 @@ const tabs = [
   { id: 'udyam-documents-content', label: 'Documents' },
   { id: 'udyam-process-content', label: 'Process' },
   { id: 'udyam-process-content', label: 'Process' },
-  { id: 'udyam-pricing-content', label: 'Pricing' },
+
   { id: 'udyam-schemes-renewal', label: 'Renewal' },
   { id: 'udyam-why-Bizzfiling', label: 'Why Us' },
   { id: 'udyam-faqs-content', label: 'FAQs' },
@@ -378,13 +379,11 @@ const ProcessContent = () => (
   </section>
 );
 
-
-
 const UdyamPricingContent = () => (
   <section id="udyam-pricing-content" className="py-12 md:py-16 bg-white scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeading subtitle="Investments" title="Registration Packages" description="Choose the plan that suits your business compliance needs." />
-      <PricingCards plans={udyamPlans} serviceName="Udyam Registration" />
+      
     </div>
   </section>
 );
@@ -526,6 +525,7 @@ export default function UdyamRegistrationPage() {
               <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                 Step into the formal economy with a permanent MSME identification. Unlock subsidies, tax exemptions, and government tender priority with our expert-led paperless filing.
               </p>
+<StartNowButton />
               <div className="flex gap-10 pt-2">
                 <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
                   <CheckCircle size={18} className="text-[#C59B4E]" /> Fast 24h Processing
@@ -569,7 +569,7 @@ export default function UdyamRegistrationPage() {
       <CriteriaContent />
       <DocumentsContent />
       <ProcessContent />
-      <UdyamPricingContent />
+
       <SchemesRenewal />
       <WhyUsContent />
 

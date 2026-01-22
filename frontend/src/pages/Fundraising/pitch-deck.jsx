@@ -23,7 +23,8 @@ import {
   Shield,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from '../../assets/lawyer_office_bg.png'; // Reusing the same image for the background
+import BackgroundImageSrc from '../../assets/lawyer_office_bg.png';
+import StartNowButton from "../../components/StartNowButton"; // Reusing the same image for the background
 
 // --- PITCH DECK STATIC DATA DEFINITIONS ---
 
@@ -96,7 +97,6 @@ const pitchDeckFAQs = [
   { q: "How long will the business pitch last?", a: "The verbal pitch accompanying the deck should generally be kept to **10-15 minutes**, leaving ample time for questions and discussion with investors." },
 ];
 
-
 // --- REUSABLE COMPONENTS ---
 
 const ReviewBox = ({ score, reviews, source }) => (
@@ -142,7 +142,6 @@ const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     </p>
   </div>
 );
-
 
 // --- TAB CONTENT COMPONENTS (Pitch Deck Content) ---
 
@@ -323,7 +322,6 @@ const PitchFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function PitchDeck() {
   const [activeTab, setActiveTab] = useState(pitchDeckTabs[0].id);
@@ -356,7 +354,6 @@ export default function PitchDeck() {
       if (isScrolledToBottom) {
         currentActiveTab = sectionIds[sectionIds.length - 1];
       }
-
 
       setActiveTab(prevActiveTab => {
         if (prevActiveTab !== currentActiveTab) {
@@ -443,6 +440,7 @@ export default function PitchDeck() {
                 <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Get a compelling pitch deck backed by expert market research. First draft in 20 days. 2 Free Revisions.
                 </p>
+<StartNowButton />
               </div>
 
               <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">

@@ -23,7 +23,8 @@ import {
     Globe // For Penalties/Non-Compliance
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/compliance_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/compliance_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -431,7 +432,6 @@ const ComplianceFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
     </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function Section8CompliancePage() {
     const [activeTab, setActiveTab] = useState(complianceTabs[0].id);
@@ -537,6 +537,7 @@ export default function Section8CompliancePage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert support to manage all **legal and compliance** needs for your Section 8 company. End-to-end help with timely filings.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">

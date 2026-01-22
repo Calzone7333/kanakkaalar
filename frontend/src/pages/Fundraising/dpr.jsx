@@ -28,7 +28,8 @@ import {
   CreditCard,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from '../../assets/lawyer_office_bg.png'; // Reusing a general business image
+import BackgroundImageSrc from '../../assets/lawyer_office_bg.png';
+import StartNowButton from "../../components/StartNowButton"; // Reusing a general business image
 
 // --- DPR SERVICE STATIC DATA DEFINITIONS ---
 
@@ -264,7 +265,6 @@ const DPRFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   </section>
 );
 
-
 // --- MAIN COMPONENT ---
 export default function DPRServicePage() {
   const [activeTab, setActiveTab] = useState(dprTabs[0].id);
@@ -380,6 +380,7 @@ export default function DPRServicePage() {
                 <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Professionally crafted DPRs to enhance project credibility, ensuring compliance, risk analysis & maximum funding appeal.
                 </p>
+<StartNowButton />
               </div>
 
               <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">

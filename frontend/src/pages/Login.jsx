@@ -347,6 +347,10 @@ export default function Login() {
             )}
           </motion.div>
         )}
+
+        <p className="mt-6 text-center text-slate-500 text-xs">
+          New here? <Link to="/signup" state={location.state} className="text-[#156664] font-bold hover:underline">Create an account</Link>
+        </p>
       </motion.div>
     </div>
   );

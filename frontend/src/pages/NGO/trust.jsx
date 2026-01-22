@@ -23,7 +23,8 @@ import {
     Globe // For Address Proof/Location
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/trust_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/trust_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -48,7 +49,7 @@ const trustTabs = [
     { id: 'trust-documents-content', label: 'Trust Deed & Docs' },
     { id: 'trust-documents-content', label: 'Trust Deed & Docs' },
     { id: 'trust-process-content', label: 'Process' },
-    { id: 'trust-pricing-content', label: 'Pricing' },
+
     { id: 'trust-mistakes-content', label: 'Common Mistakes' },
     { id: 'trust-why-Bizzfiling', label: 'How Bizzfiling' },
     { id: 'trust-faqs-content', label: "FAQ's" },
@@ -191,8 +192,6 @@ const trustPlans = [
 ];
 
 // --- REUSABLE COMPONENTS ---
-
-
 
 // --- TAB CONTENT COMPONENTS (Trust Registration Content) ---
 
@@ -417,7 +416,7 @@ const TrustPricingContent = () => (
                 title="Trust Registration Packages"
                 description="Transparent pricing for your peace of mind."
             />
-            <PricingCards plans={trustPlans} serviceName="Trust Registration" />
+            
         </div>
     </section>
 );
@@ -508,7 +507,6 @@ const TrustFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
         </div>
     </section>
 );
-
 
 // --- MAIN COMPONENT ---
 export default function TrustRegistrationPage() {
@@ -615,6 +613,7 @@ export default function TrustRegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Expert-assisted **100% online** trust registration preparation process. All paperwork and filings handled by **legal professionals**.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">
@@ -705,7 +704,7 @@ export default function TrustRegistrationPage() {
                 <TrustWhoShouldRegisterContent />
                 <TrustDocumentsContent />
                 <TrustProcessContent />
-                <TrustPricingContent />
+
                 <TrustMistakesContent />
                 <TrustWhyBizzfiling />
                 <TrustFAQsContent faqs={trustFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- DSC REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -40,7 +41,7 @@ const tabs = [
   { id: 'dsc-eligibility-content', label: 'Eligibility' },
   { id: 'dsc-documents-content', label: 'Documents' },
   { id: 'dsc-procedure-content', label: 'Procedure' },
-  { id: 'dsc-fees-content', label: 'Fees' },
+
   { id: 'dsc-role-content', label: 'Security' },
   { id: 'dsc-faqs-content', label: 'FAQs' },
 ];
@@ -400,6 +401,7 @@ const ProcedureContent = () => (
               <span className="text-3xl font-bold text-[#C59B4E]">{idx + 1}</span>
             </div>
             <p className="text-sm text-center text-slate-300 leading-relaxed px-4">{step}</p>
+<StartNowButton />
           </div>
         ))}
       </div>
@@ -435,7 +437,7 @@ const FeesContent = () => (
         description="Choose the right class for your needs."
       />
       <div className="grid md:grid-cols-3 gap-10">
-        <PricingCards plans={plans} serviceName="DSC Registration" />
+        
       </div>
       <p className="mt-8 text-center text-sm text-slate-400 italic italic">Note: Additional costs include USB Token (₹500–₹1,000) and 18% GST.</p>
     </div>
@@ -486,8 +488,6 @@ const RoleContent = () => (
     </div>
   </section>
 );
-
-
 
 // --- Main Component ---
 

@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- LEGAL METROLOGY STATIC DATA DEFINITIONS ---
 
@@ -211,6 +212,7 @@ const RulesProvisions = () => (
         <div>
           <h5 className="font-bold text-[#C59B4E] text-sm uppercase italic tracking-widest mb-2 underline decoration-[#C59B4E] underline-offset-8">Penalty Section 38</h5>
           <p className="text-sm text-slate-300 leading-relaxed italic">Importing measure-related items without registration can result in fines up to <strong>₹25,000</strong> and a maximum <strong>six-month prison sentence</strong> for subsequent offenses.</p>
+<StartNowButton />
         </div>
       </div>
     </div>

@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- APEDA REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -261,7 +262,7 @@ const EligibilityContent = () => (
                     <p className="text-sm text-slate-400 italic leading-relaxed">Agri-manufacturers wishing to export their production can register with proof of industrial COI or FPO status.</p>
                 </div>
             </div>
-            <PricingCards plans={apedaPlans} serviceName="APEDA Registration" />
+            
         </div>
     </section>
 
@@ -395,6 +396,7 @@ export default function APEDARegistrationPage() {
                             <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Streamline your agri-export business with expert-assisted APEDA registration. 100% online process including documentation, DGFT filing, and RCMC application.
                             </p>
+<StartNowButton />
                             <div className="flex gap-10 pt-2">
                                 <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
                                     <CheckCircle size={18} className="text-[#C59B4E]" /> 100% Online

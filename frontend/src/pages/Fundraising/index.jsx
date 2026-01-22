@@ -28,6 +28,7 @@ import {
 import { motion } from "framer-motion";
 // Using the SVG background from the "Lawyer" (Dashboard) design
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- REUSABLE COMPONENTS ---
 
@@ -53,7 +54,7 @@ const fundRegTabs = [
   { id: 'fund-types-content', label: 'Types' },
   { id: 'fund-stages-content', label: 'Stages' },
   { id: 'fund-documents-content', label: 'Documents' },
-  { id: 'fund-fees-content', label: 'Fees' },
+
   { id: 'fund-why-kanakkaalar', label: 'Why Kanakkaalar?' },
   { id: 'fund-faqs-content', label: 'FAQs' },
 ];
@@ -96,8 +97,6 @@ const complianceEssentials = [
   "IP, Trademark, and Licensing Documents (if relevant).",
 ];
 
-
-
 const fundFees = [
   { category: "Seed Fundraising Audit", fee: "₹15,000 + GST", detail: "Initial assessment & readiness report" },
   { category: "Pitch Deck Creation", fee: "₹25,000 + GST", detail: "End-to-end design & narrative building" },
@@ -127,7 +126,6 @@ const fundFAQs = [
   { q: "How much equity should I give in seed funding?", a: "Typically, founders dilute around 10% to 25% equity in a Seed funding round, but this varies based on valuation, amount raised, and negotiation. It is essential to balance raising capital with maintaining sufficient ownership for future rounds." },
   { q: "How can founders maintain control while raising funds?", a: "Founders can maintain control by negotiating terms that grant them superior voting rights, raising smaller rounds at higher valuations, or opting for debt/grants instead of equity when possible." },
 ];
-
 
 // --- STATIC DATA (From Lawyer/Dashboard Design Footer) ---
 const resourceLinks = [
@@ -332,7 +330,6 @@ const FundStagesTable = ({ data }) => (
     </table>
   </div>
 );
-
 
 // --- TAB CONTENT COMPONENTS (From Fundraising) ---
 
@@ -555,7 +552,6 @@ const FAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
   </section>
 );
 
-
 // --- Main Component (Fundraising Page using Lawyer/Dashboard Design) ---
 export default function FundraisingPage() {
   const [activeTab, setActiveTab] = useState(fundRegTabs[0].id);
@@ -674,6 +670,7 @@ export default function FundraisingPage() {
                 <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                   Tailored fundraising strategies aligned with your growth. From equity to grants, we provide complete support to make you investor-ready.
                 </p>
+<StartNowButton />
               </div>
 
               <div className="hidden lg:flex items-center gap-10 text-white/90 text-sm font-medium pt-2">
@@ -738,7 +735,7 @@ export default function FundraisingPage() {
           <FundTypesContent />
           <FundStagesContent />
           <FundDocumentsContent />
-          <FundFeesContent />
+
           <FundHowKanakkaalar />
           <FAQsContent faqs={fundFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
         </div>

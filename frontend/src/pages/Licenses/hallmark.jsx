@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- HALLMARK REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -375,6 +376,7 @@ export default function HallmarkRegistrationPage() {
                             <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Ensure 100% purity with BIS hallmarking. Full support for jeweler registration, HUID compliance, and assaying center coordination.
                             </p>
+<StartNowButton />
                             <div className="flex gap-10 pt-2">
                                 <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
                                     <CheckCircle size={18} className="text-[#C59B4E]" /> HUID Mandatory

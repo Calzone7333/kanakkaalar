@@ -17,6 +17,7 @@ import {
   Landmark
 } from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- DUBAI REGISTRATION FULL DATA ---
 
@@ -294,6 +295,7 @@ const ProcessContent = () => (
         <div className="space-y-8 text-center lg:text-left">
           <h3 className="text-3xl font-extrabold text-white">Need an Office (Ejari)?</h3>
           <p className="text-slate-300 text-lg">We assist with physical office spaces and flexi-desk solutions in prime locations.</p>
+<StartNowButton />
         </div>
         <button className="px-10 py-5 bg-[#C59B4E] text-[#0F2D30] rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-[#0F2D30]/50 hover:scale-105 active:scale-95 transition-all">
           Contact Advisor

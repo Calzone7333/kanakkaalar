@@ -21,7 +21,8 @@ import {
     Landmark, // For Income Tax Department/Commissioner
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BackgroundImageSrc from "../../assets/80g_hero_bg.png"; // Specific background
+import BackgroundImageSrc from "../../assets/80g_hero_bg.png";
+import StartNowButton from "../../components/StartNowButton"; // Specific background
 
 const SectionHeading = ({ subtitle, title, description, align = "center" }) => (
     <div className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
@@ -44,7 +45,7 @@ const taxExemptionTabs = [
     { id: 'tax-exemption-benefits', label: 'Benefits' },
     { id: 'tax-exemption-documents', label: 'Documents Required' },
     { id: 'tax-exemption-procedure', label: 'Procedure' },
-    { id: 'tax-exemption-pricing', label: 'Pricing' },
+
     { id: 'tax-exemption-why', label: 'Why Bizzfiling' },
     { id: 'tax-exemption-faqs', label: 'FAQs' },
 ];
@@ -360,7 +361,7 @@ const TaxExemptionPricingContent = () => (
                 title="Registration Packages"
                 description="Affordable plans to make your NGO tax-exempt."
             />
-            <PricingCards plans={taxExemptionPlans} serviceName="80G & 12A Registration" />
+            
         </div>
     </section>
 );
@@ -436,7 +437,6 @@ const TaxExemptionFAQsContent = ({ faqs, faqOpen, setFaqOpen }) => (
         </div>
     </section>
 );
-
 
 // --- MAIN COMPONENT ---
 export default function TaxExemptionRegistrationPage() {
@@ -543,6 +543,7 @@ export default function TaxExemptionRegistrationPage() {
                                 <p className="text-sm md:text-base text-slate-300 max-w-xl font-light leading-relaxed mb-8">
                                     Secure **tax exemptions** and gain donor trust with 12A & 80G registration. Fast, secure, and fully guided process.
                                 </p>
+<StartNowButton />
 
                                 <div className="space-y-8 mb-8">
                                     <div className="flex items-start gap-5">
@@ -634,7 +635,7 @@ export default function TaxExemptionRegistrationPage() {
             <TaxExemptionBenefits />
             <TaxExemptionDocuments />
             <TaxExemptionProcedure />
-            <TaxExemptionPricingContent />
+
             <TaxExemptionWhyBizzfiling />
             <TaxExemptionFAQsContent faqs={exemptionFAQs} faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
 

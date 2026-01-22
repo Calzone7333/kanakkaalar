@@ -28,6 +28,7 @@ import {
     PiggyBank
 } from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- STATIC DATA DEFINITIONS ---
 
@@ -450,6 +451,7 @@ export default function NidhiPage() {
                             <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Promote savings and mutual financial growth. Register your Nidhi Limited with expert support. Connect with specialists for reliable Nidhi formation.
                             </p>
+<StartNowButton />
                             <div className="flex gap-10 pt-2">
                                 <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
                                     <CheckCircle size={18} className="text-[#C59B4E]" /> Member-Specific

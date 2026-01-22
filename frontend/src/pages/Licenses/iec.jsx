@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
+import StartNowButton from "../../components/StartNowButton";
 
 // --- IEC REGISTRATION STATIC DATA DEFINITIONS ---
 
@@ -39,7 +40,7 @@ const tabs = [
     { id: 'iec-documents-content', label: 'Documents' },
     { id: 'iec-process-content', label: 'Process' },
     { id: 'iec-compliance-content', label: 'Compliance' },
-    { id: 'iec-fees-content', label: 'Fees' },
+
     { id: 'iec-why-Bizzfiling', label: 'Why Us' },
     { id: 'iec-faqs-content', label: 'FAQs' },
 ];
@@ -340,12 +341,11 @@ const ComplianceContent = () => (
     </section>
 );
 
-
 const FeesContent = () => (
     <section id="iec-fees-content" className="py-12 md:py-16 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
             <SectionHeading subtitle="Costs" title="Transparent Service Fees" description="Affordable packages to kickstart your global trade journey." />
-            <PricingCards plans={iecPlans} serviceName="IEC Registration" />
+            
         </div>
     </section >
 );
@@ -438,6 +438,7 @@ export default function IECRegistrationPage() {
                             <p className="text-sm md:text-base text-slate-300 max-w-lg font-light leading-relaxed">
                                 Expand your business globally. Get your 10-digit mandatory IEC code for international trade with our expert-assisted DGFT filing service.
                             </p>
+<StartNowButton />
                             <div className="flex gap-10 pt-2">
                                 <div className="flex items-center gap-5 text-white/90 text-sm md:text-sm font-bold">
                                     <Clock size={18} className="text-[#C59B4E]" /> 2-Day Filing
