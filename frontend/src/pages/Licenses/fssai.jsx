@@ -261,8 +261,10 @@ const EligibilityContent = () => (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {fssaiChecklist.map((c, idx) => (
                         <p key={idx} className="text-sm text-slate-300 flex items-center gap-5 italic leading-relaxed"><span className="shrink-0 w-1.5 h-1.5 rounded-full bg-[#1A7F7D]"></span>{c}</p>
-<StartNowButton />
                     ))}
+                    <div className="flex items-center">
+                        <StartNowButton />
+                    </div>
                 </div>
             </div>
         </div>
