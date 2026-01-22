@@ -17,7 +17,7 @@ const navLinks = [
       { label: 'Talk to a Lawyer', href: '/ConsultanExpert/talkToLawyer' },
       { label: 'Talk to a Chartered Accountant', href: '/ConsultanExpert/talkToCA' },
       { label: 'Talk to a Company Secretary', href: '/ConsultanExpert/talkToCS' },
-      { label: 'Talk to an IP/Trademark Lawyer', href: '/ConsultanExpert/talkToIP' },
+
     ],
     dropdownWidth: 250,
   },

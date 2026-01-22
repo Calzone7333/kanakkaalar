@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LeadForm from "../../components/LeadForm";
-chevronDown,
+import {
+    ChevronDown,
     ArrowRight,
     CheckCircle,
     FileText,
@@ -17,6 +18,7 @@ chevronDown,
     Gavel,
     BookOpen,
     Target
+} from "lucide-react";
 import BackgroundImageSrc from "../../assets/lawyer_office_bg.png";
 
 // --- IP EXPERT CONSULTATION FULL DATA ---
@@ -259,5 +261,3 @@ export default function TalkToIP() {
     );
 }
 
-// Icon fallbacks
-const Target = ({ size }) => <div className="w-4 h-4 bg-slate-200 rounded-full" style={{ width: size, height: size }} />;

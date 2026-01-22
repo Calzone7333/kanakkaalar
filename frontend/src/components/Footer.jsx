@@ -53,7 +53,7 @@ export default function Footer() {
       ["Talk to a Lawyer", "/ConsultanExpert/talkToLawyer"],
       ["Talk to a Chartered Accountant", "/ConsultanExpert/talkToCA"],
       ["Talk to a Company Secretary", "/ConsultanExpert/talkToCS"],
-      ["Talk to an IP/Trademark Lawyer", "/ConsultanExpert/talkToIP"],
+
     ],
     InternationalSetup: [
       ["US Incorporation", "/International/us"],
