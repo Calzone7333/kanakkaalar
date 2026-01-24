@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,9 +47,7 @@ public class User implements UserDetails {
     private Boolean phoneVerified = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private java.util.Set<Role> roles = new java.util.HashSet<>();
 
     @Column(nullable = false, updatable = false)
@@ -65,6 +64,7 @@ public class User implements UserDetails {
 
     // Profile image stored as binary data in database
     @Lob
+    @JsonIgnore
     @Column(name = "profile_image", columnDefinition = "LONGBLOB")
     private byte[] profileImage;
 
@@ -75,46 +75,49 @@ public class User implements UserDetails {
     // --- Agent / Extended Profile Fields ---
     private String state;
     private String city;
-    
+
     @Column(name = "aadhaar_number")
     private String aadhaarNumber;
-    
+
     @Column(name = "pan_number")
     private String panNumber;
-    
+
     @Column(name = "firm_name")
     private String firmName;
-    
+
     @Column(name = "referral_code")
     private String referralCode;
 
     // Bank Details
     @Column(name = "bank_holder_name")
     private String bankHolderName;
-    
+
     @Column(name = "bank_account_number")
     private String bankAccountNumber;
-    
+
     @Column(name = "bank_ifsc")
     private String bankIfsc;
-    
+
     @Column(name = "bank_name")
     private String bankName;
 
     // Documents (Blobs)
     @Lob
+    @JsonIgnore
     @Column(name = "aadhaar_front", columnDefinition = "LONGBLOB")
     private byte[] aadhaarFront;
     @Column(name = "aadhaar_front_type")
     private String aadhaarFrontType;
 
     @Lob
+    @JsonIgnore
     @Column(name = "aadhaar_back", columnDefinition = "LONGBLOB")
     private byte[] aadhaarBack;
     @Column(name = "aadhaar_back_type")
     private String aadhaarBackType;
 
     @Lob
+    @JsonIgnore
     @Column(name = "pan_card", columnDefinition = "LONGBLOB")
     private byte[] panCard;
     @Column(name = "pan_card_type")
@@ -126,12 +129,18 @@ public class User implements UserDetails {
         Instant now = Instant.now();
         createdAt = now;
         updatedAt = now;
-        if (emailVerified == null) emailVerified = false;
-        if (phone == null) phone = "";
-        if (fullName == null) fullName = "";
-        if (passwordHash == null) passwordHash = "";
-        if (phoneVerified == null) phoneVerified = false;
-        if (address == null) address = "";
+        if (emailVerified == null)
+            emailVerified = false;
+        if (phone == null)
+            phone = "";
+        if (fullName == null)
+            fullName = "";
+        if (passwordHash == null)
+            passwordHash = "";
+        if (phoneVerified == null)
+            phoneVerified = false;
+        if (address == null)
+            address = "";
     }
 
     @PreUpdate
@@ -243,53 +252,133 @@ public class User implements UserDetails {
         this.profileImageType = profileImageType;
     }
 
-    public String getState() { return state; }
-    public void setState(String state) { this.state = state; }
+    public String getState() {
+        return state;
+    }
 
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-    public String getAadhaarNumber() { return aadhaarNumber; }
-    public void setAadhaarNumber(String aadhaarNumber) { this.aadhaarNumber = aadhaarNumber; }
+    public String getCity() {
+        return city;
+    }
 
-    public String getPanNumber() { return panNumber; }
-    public void setPanNumber(String panNumber) { this.panNumber = panNumber; }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-    public String getFirmName() { return firmName; }
-    public void setFirmName(String firmName) { this.firmName = firmName; }
+    public String getAadhaarNumber() {
+        return aadhaarNumber;
+    }
 
-    public String getReferralCode() { return referralCode; }
-    public void setReferralCode(String referralCode) { this.referralCode = referralCode; }
+    public void setAadhaarNumber(String aadhaarNumber) {
+        this.aadhaarNumber = aadhaarNumber;
+    }
 
-    public String getBankHolderName() { return bankHolderName; }
-    public void setBankHolderName(String bankHolderName) { this.bankHolderName = bankHolderName; }
+    public String getPanNumber() {
+        return panNumber;
+    }
 
-    public String getBankAccountNumber() { return bankAccountNumber; }
-    public void setBankAccountNumber(String bankAccountNumber) { this.bankAccountNumber = bankAccountNumber; }
+    public void setPanNumber(String panNumber) {
+        this.panNumber = panNumber;
+    }
 
-    public String getBankIfsc() { return bankIfsc; }
-    public void setBankIfsc(String bankIfsc) { this.bankIfsc = bankIfsc; }
+    public String getFirmName() {
+        return firmName;
+    }
 
-    public String getBankName() { return bankName; }
-    public void setBankName(String bankName) { this.bankName = bankName; }
+    public void setFirmName(String firmName) {
+        this.firmName = firmName;
+    }
 
-    public byte[] getAadhaarFront() { return aadhaarFront; }
-    public void setAadhaarFront(byte[] aadhaarFront) { this.aadhaarFront = aadhaarFront; }
+    public String getReferralCode() {
+        return referralCode;
+    }
 
-    public String getAadhaarFrontType() { return aadhaarFrontType; }
-    public void setAadhaarFrontType(String aadhaarFrontType) { this.aadhaarFrontType = aadhaarFrontType; }
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
 
-    public byte[] getAadhaarBack() { return aadhaarBack; }
-    public void setAadhaarBack(byte[] aadhaarBack) { this.aadhaarBack = aadhaarBack; }
+    public String getBankHolderName() {
+        return bankHolderName;
+    }
 
-    public String getAadhaarBackType() { return aadhaarBackType; }
-    public void setAadhaarBackType(String aadhaarBackType) { this.aadhaarBackType = aadhaarBackType; }
+    public void setBankHolderName(String bankHolderName) {
+        this.bankHolderName = bankHolderName;
+    }
 
-    public byte[] getPanCard() { return panCard; }
-    public void setPanCard(byte[] panCard) { this.panCard = panCard; }
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
 
-    public String getPanCardType() { return panCardType; }
-    public void setPanCardType(String panCardType) { this.panCardType = panCardType; }
+    public void setBankAccountNumber(String bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
+    }
+
+    public String getBankIfsc() {
+        return bankIfsc;
+    }
+
+    public void setBankIfsc(String bankIfsc) {
+        this.bankIfsc = bankIfsc;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public byte[] getAadhaarFront() {
+        return aadhaarFront;
+    }
+
+    public void setAadhaarFront(byte[] aadhaarFront) {
+        this.aadhaarFront = aadhaarFront;
+    }
+
+    public String getAadhaarFrontType() {
+        return aadhaarFrontType;
+    }
+
+    public void setAadhaarFrontType(String aadhaarFrontType) {
+        this.aadhaarFrontType = aadhaarFrontType;
+    }
+
+    public byte[] getAadhaarBack() {
+        return aadhaarBack;
+    }
+
+    public void setAadhaarBack(byte[] aadhaarBack) {
+        this.aadhaarBack = aadhaarBack;
+    }
+
+    public String getAadhaarBackType() {
+        return aadhaarBackType;
+    }
+
+    public void setAadhaarBackType(String aadhaarBackType) {
+        this.aadhaarBackType = aadhaarBackType;
+    }
+
+    public byte[] getPanCard() {
+        return panCard;
+    }
+
+    public void setPanCard(byte[] panCard) {
+        this.panCard = panCard;
+    }
+
+    public String getPanCardType() {
+        return panCardType;
+    }
+
+    public void setPanCardType(String panCardType) {
+        this.panCardType = panCardType;
+    }
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
