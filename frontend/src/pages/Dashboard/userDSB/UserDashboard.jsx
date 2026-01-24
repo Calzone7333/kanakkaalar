@@ -152,9 +152,12 @@ export default function UserDashboard() {
       {/* Sidebar */}
       <aside className={`sidebar ${menuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="sidebar-logo">
-          <div className="flex items-center gap-3">
-            <MenuIcon size={24} className="text-[#2E96FF]" />
-            <span>Kanakkaalar</span>
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => nav('/')}
+          >
+            {/* <MenuIcon size={24} className="text-[#2E96FF]" /> Removed as per request */}
+            <span className="text-xl font-bold text-[#2E96FF]">Kanakkaalar</span>
           </div>
           {/* Mobile Close Button */}
           <button

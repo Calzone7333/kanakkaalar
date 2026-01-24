@@ -521,7 +521,7 @@ export default function Header() {
                   {showProfileMenu && (
                     <div className="absolute top-full right-0 mt-2 w-52 bg-white border border-slate-100 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                       <Link
-                        to="/dashboard"
+                        to={user?.role ? `/dashboard/${user.role.toLowerCase()}` : "/dashboard"}
                         className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#1A7F7D] transition-colors"
                         onClick={closeProfileMenu}
                       >
@@ -651,7 +651,7 @@ export default function Header() {
                 My Account
               </Link>
               <Link
-                to="/dashboard"
+                to={user?.role ? `/dashboard/${user.role.toLowerCase()}` : "/dashboard"}
                 className="block w-full py-3 px-4 text-center text-sm font-bold text-white rounded-xl bg-[#1A7F7D]"
                 onClick={closeMobileMenu}
               >
