@@ -131,6 +131,19 @@ if (import.meta.env.DEV) {
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { HelmetProvider } from "react-helmet-async";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes stale time (data is fresh for 5 mins)
+      cacheTime: 1000 * 60 * 30, // 30 minutes cache time (keep unused data in memory)
+      refetchOnWindowFocus: false, // Prevent refetching on window focus to save bandwidth
+      retry: 1,
+    },
+  },
+});
 
 // ⚠️ USING A PUBLIC DEMO ID - MIGHT HIT RATE LIMITS OR ORIGIN ERRORS
 const GOOGLE_CLIENT_ID = "411875773518-g3froafd9i5osq2p2gr01gllrcujhsjg.apps.googleusercontent.com";
@@ -139,10 +152,12 @@ const GOOGLE_CLIENT_ID = "411875773518-g3froafd9i5osq2p2gr01gllrcujhsjg.apps.goo
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <HelmetProvider>
-      <HashRouter>
-        <GlobalInit />
-        <App />
-      </HashRouter>
+      <QueryClientProvider client={queryClient}>
+        <HashRouter>
+          <GlobalInit />
+          <App />
+        </HashRouter>
+      </QueryClientProvider>
     </HelmetProvider>
   </GoogleOAuthProvider>
 );

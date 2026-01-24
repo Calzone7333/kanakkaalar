@@ -18,6 +18,34 @@ const api = axios.create({
 
 console.log(`🚀 API Initialized with Base URL: ${currentBaseUrl}`);
 
+// --- Caching Utilities ---
+const CACHE_PREFIX = 'api_cache_';
+const CACHE_DURATION = 1000 * 60 * 15; // 15 Minutes
+
+const getCachedData = (key) => {
+    try {
+        const item = localStorage.getItem(CACHE_PREFIX + key);
+        if (!item) return null;
+        const { value, timestamp } = JSON.parse(item);
+        if (Date.now() - timestamp > CACHE_DURATION) {
+            localStorage.removeItem(CACHE_PREFIX + key);
+            return null; // Expired
+        }
+        return value;
+    } catch (e) {
+        return null;
+    }
+};
+
+const setCachedData = (key, value) => {
+    try {
+        const item = { value, timestamp: Date.now() };
+        localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(item));
+    } catch (e) {
+        // Quota exceeded
+    }
+};
+
 // --- Interceptors ---
 
 // Request Interceptor: Attach Token
@@ -103,7 +131,33 @@ export const userAPI = {
     all: () => api.get("/user/all"),
     getAll: () => api.get("/user/all"),
     update: (formData) => api.put("/user/me", formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
-    profileImage: () => api.get("/user/me/profile-image", { responseType: 'blob' }),
+    profileImage: async () => {
+        const cacheKey = 'user_profile_image';
+        // Try to get from cache first (Base64 string for images)
+        const cached = getCachedData(cacheKey);
+        if (cached) {
+            // Convert base64 back to Blob for compatibility if needed, 
+            // BUT our components expect a Blob to createURL. 
+            // Efficient way: Store generated ObjectURL? No, that expires on reload.
+            // Better: Store Base64 and convert to Blob.
+            const res = await fetch(cached);
+            const blob = await res.blob();
+            return { data: blob };
+        }
+
+        // If not in cache, fetch from API
+        const response = await api.get("/user/me/profile-image", { responseType: 'blob' });
+
+        // Save to cache (Convert Blob to Base64)
+        const reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onloadend = () => {
+            const base64data = reader.result;
+            setCachedData(cacheKey, base64data);
+        }
+
+        return response;
+    },
     getById: (id) => api.get(`/user/${id}`),
 };
 
