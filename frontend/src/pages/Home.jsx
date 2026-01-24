@@ -5,6 +5,7 @@ import { Rocket, Briefcase, ShieldCheck } from "lucide-react";
 import DashboardDemo from "../components/DashboardDemo";
 import ComplianceSection from "../pages/ComplianceSection";
 import WhyChooseSection from "../pages/WhyChooseSection";
+import SEO from "../components/SEO";
 
 // Import all header and hero images
 import whyChooseBg from "../assets1/img/whychoose-bg-1.svg";
@@ -89,6 +90,11 @@ export default function Home() {
 
   return (
     <>
+      <SEO
+        title="Home"
+        description="India's Smart Online Platform for Modern Businesses. We simplify legal, tax, and compliance for startups, SMEs, and individuals."
+        keywords="business registration, company registration, trademark registration, GST filing, compliance, startup india, legal services, tax consultant"
+      />
       <section
         className="cs_hero cs_style_2 cs_bg_filed position-relative bg-cover bg-center w-full overflow-hidden !pt-28 md:!pt-36"
         style={{
@@ -179,6 +185,8 @@ export default function Home() {
                 src={bannerImg1}
                 alt="Banner image"
                 className="w-full h-auto object-cover"
+                width="1200"
+                height="600"
               />
             </div>
           </div>
@@ -230,7 +238,7 @@ export default function Home() {
               {/* Left Image Section */}
               <div className="col-lg-5">
                 <div className="cs_card_thumbnail relative">
-                  <img src={aboutImg1} alt="About" className="w-full h-auto rounded-lg object-cover" />
+                  <img src={aboutImg1} alt="About" className="w-full h-auto rounded-lg object-cover" width="600" height="400" />
                 </div>
               </div>
 

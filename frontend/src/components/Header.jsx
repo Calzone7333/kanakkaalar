@@ -448,7 +448,7 @@ export default function Header() {
                 className="block"
                 onClick={closeMobileMenu}
               >
-                <img src={logo} alt="Kanakkaalar" className="h-16 md:h-20 w-auto object-contain" />
+                <img src={logo} alt="Kanakkaalar" className="h-16 md:h-20 w-auto object-contain" width="160" height="80" />
               </Link>
             </div>
             {/* 2. Desktop Nav */}

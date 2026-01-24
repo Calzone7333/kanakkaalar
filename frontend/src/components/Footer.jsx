@@ -163,7 +163,7 @@ export default function Footer() {
             <div className="cs_footer_widget cs_text_widget">
               <div className="cs_brand cs_mb_32">
                 <Link to="/" className="cs_brand_link">
-                  <img src={logo} alt="Kanakkaalar" className="h-20 w-auto object-contain bg-white rounded-md p-1" />
+                  <img src={logo} alt="Kanakkaalar" className="h-20 w-auto object-contain bg-white rounded-md p-1" width="150" height="80" />
                 </Link>
               </div>
               <p className="cs_mb_32">
