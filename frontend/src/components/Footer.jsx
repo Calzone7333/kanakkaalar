@@ -149,7 +149,7 @@ export default function Footer() {
                 <i className="fa-solid fa-location-dot"></i>
               </span>
               <p className="mb-0 pt-2 leading-relaxed max-w-md">
-                32, AJ Block 1st St, Sri Ayyappa Nagar, Chinmaya Nagar Stage II Extension, Kumaran Nagar, Virugambakkam, Chennai, Tamil Nadu 600092
+                3/32, 1st Main Road, Ayyappa Nagar, Virugambakkam, Chennai-600092
               </p>
             </li>
           </ul>
