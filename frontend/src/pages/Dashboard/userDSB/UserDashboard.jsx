@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { clearAuth, getAuth } from "../../../lib/auth";
 import { orderAPI, companyAPI } from "../../../lib/api";
+import logo from "../../../assets1/img/kanakkaalar_logo.png";
 import "./UserDashboard.css";
 
 
@@ -156,8 +157,7 @@ export default function UserDashboard() {
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => nav('/')}
           >
-            {/* <MenuIcon size={24} className="text-[#2E96FF]" /> Removed as per request */}
-            <span className="text-xl font-bold text-[#2E96FF]">Kanakkaalar</span>
+            <img src={logo} alt="Kanakkaalar" className="h-20 w-auto" />
           </div>
           {/* Mobile Close Button */}
           <button

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { authAPI } from "../lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link, useLocation } from "react-router-dom";
@@ -6,10 +6,27 @@ import { setAuth } from "../lib/auth";
 import AppBackButton from "../components/AppBackButton";
 import { useGoogleLogin } from "@react-oauth/google";
 
+const FALLBACK_COUNTRIES = [
+  { name: "India", code: "+91", flag: "🇮🇳" },
+  { name: "United States", code: "+1", flag: "🇺🇸" },
+  { name: "United Kingdom", code: "+44", flag: "🇬🇧" },
+  { name: "United Arab Emirates", code: "+971", flag: "🇦🇪" },
+  { name: "Singapore", code: "+65", flag: "🇸🇬" },
+  { name: "Malaysia", code: "+60", flag: "🇲🇾" },
+  { name: "Australia", code: "+61", flag: "🇦🇺" },
+  { name: "Canada", code: "+1", flag: "🇨🇦" },
+  { name: "Germany", code: "+49", flag: "🇩🇪" },
+  { name: "France", code: "+33", flag: "🇫🇷" },
+  { name: "Sri Lanka", code: "+94", flag: "🇱🇰" },
+  { name: "Bangladesh", code: "+880", flag: "🇧🇩" },
+];
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [localCountries, setLocalCountries] = useState(FALLBACK_COUNTRIES);
   const [otp, setOtp] = useState("");
   const [mode, setMode] = useState("password");
   const [otpSent, setOtpSent] = useState(false);
@@ -17,10 +34,41 @@ export default function Login() {
   const [message, setMessage] = useState(null);
   const [generatedOtp, setGeneratedOtp] = useState(null);
   const [showResetLink, setShowResetLink] = useState(false);
-  const [showResendVerification, setShowResendVerification] = useState(false);
   const nav = useNavigate();
 
-  const location = useLocation(); // Make sure to import this at top
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch("https://restcountries.com/v3.1/all?fields=name,idd,flag,cca2");
+        if (!response.ok) throw new Error("API Failed");
+        const data = await response.json();
+
+        const mapped = data.map(c => {
+          const root = c.idd?.root || "";
+          const suffix = c.idd?.suffixes?.[0] || "";
+          return {
+            name: c.name?.common || "Unknown",
+            code: root + suffix,
+            iso: c.cca2 || "",
+            flag: c.flag || "🏳️"
+          };
+        }).filter(c => c.code && c.code.length > 1);
+
+        if (mapped.length > 0) {
+          setLocalCountries(mapped);
+        }
+      } catch (err) {
+        console.error("CORS or API issue, using fallback:", err.message);
+      }
+    };
+    fetchCountries();
+  }, []);
+
+  const sortedCountryCodes = React.useMemo(() =>
+    [...localCountries].sort((a, b) => a.name.localeCompare(b.name)), [localCountries]
+  );
 
   // 🔹 Login with email & password
   const loginPassword = async (e) => {
@@ -69,11 +117,12 @@ export default function Login() {
   // 🔹 Phone OTP login
   const sendPhoneOtp = async (e) => {
     e.preventDefault();
-    if (!/^[0-9+\-() ]{7,20}$/.test(phone))
+    const fullPhone = `${countryCode} ${phone}`;
+    if (!/^[0-9+\-() ]{7,20}$/.test(fullPhone))
       return setMessage("Enter a valid phone number");
     setLoading(true);
     try {
-      const res = await authAPI.loginPhone({ phone });
+      const res = await authAPI.loginPhone({ phone: fullPhone });
       setGeneratedOtp(res.data.code || "");
       setOtpSent(true);
       setMessage("OTP sent successfully!");
@@ -89,7 +138,8 @@ export default function Login() {
     if (!otp) return setMessage("Enter OTP");
     setLoading(true);
     try {
-      const r = await authAPI.verifyPhone({ phone, code: otp });
+      const fullPhone = `${countryCode} ${phone}`;
+      const r = await authAPI.verifyPhone({ phone: fullPhone, code: otp });
       setAuth(r.data); // Use setAuth to store the entire auth object
       window.dispatchEvent(new Event("auth:update"));
       const role = r.data.user?.role || "USER";
@@ -149,7 +199,7 @@ export default function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl"
+        className="relative w-full max-w-sm p-4 sm:p-6 bg-white shadow-2xl rounded-2xl"
       >
         <h2 className="mb-6 text-2xl font-bold text-center text-[#156664]">
           Welcome Back 👋
@@ -250,14 +300,28 @@ export default function Login() {
                 <label className="block text-xs font-medium text-slate-700">
                   Phone
                 </label>
-                <input
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  disabled={otpSent}
-                  className={`mt-1 w-full border border-slate-300 px-3 py-2 text-sm rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none ${otpSent ? "bg-slate-50" : ""
-                    }`}
-                  placeholder="e.g. 9876543210"
-                />
+                <div className="flex gap-2">
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    disabled={otpSent || loading}
+                    className="mt-1 h-[38px] w-[80px] border border-slate-300 bg-white rounded-lg px-1 text-xs outline-none focus:border-[#156664] transition-all font-bold cursor-pointer hover:bg-slate-50 appearance-none text-center"
+                  >
+                    {sortedCountryCodes.map((c) => (
+                      <option key={c.name + c.iso} value={c.code}>
+                        {c.iso} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    disabled={otpSent}
+                    className={`mt-1 flex-1 min-w-0 border border-slate-300 px-3 py-2 text-sm rounded-lg focus:ring-[#156664] focus:border-[#156664] outline-none ${otpSent ? "bg-slate-50" : ""
+                      }`}
+                    placeholder="9876543210"
+                  />
+                </div>
               </div>
 
               {otpSent && (

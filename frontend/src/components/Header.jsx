@@ -143,7 +143,7 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
       const columns = Object.keys(content);
       const gridCols = `repeat(${columns.length}, 1fr)`;
       return (
-        <div style={{ display: "grid", gridTemplateColumns: gridCols, gap: "32px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: gridCols, gap: "0" }}>
           <style>{`
             .no-scrollbar::-webkit-scrollbar {
               display: none;
@@ -152,8 +152,6 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
               -ms-overflow-style: none; /* IE and Edge */
               scrollbar-width: none; /* Firefox */
             }
-            
-            /* Custom thin scrollbar for specific sections */
             .theme-scrollbar::-webkit-scrollbar {
               width: 4px;
             }
@@ -161,27 +159,28 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
               background: transparent;
             }
             .theme-scrollbar::-webkit-scrollbar-thumb {
-              background-color: rgba(26, 127, 125, 0.4); /* Theme color #1A7F7D with opacity */
+              background-color: rgba(26, 127, 125, 0.2); 
               border-radius: 4px;
             }
             .theme-scrollbar::-webkit-scrollbar-thumb:hover {
-              background-color: rgba(26, 127, 125, 0.8);
+              background-color: rgba(26, 127, 125, 0.6);
             }
             .theme-scrollbar {
               scrollbar-width: thin;
               scrollbar-color: rgba(26, 127, 125, 0.4) transparent;
             }
           `}</style>
-          {columns.map(title => (
-            <div key={title} className="flex flex-col">
-              <h4 className="font-bold text-xs text-[#1A7F7D] uppercase tracking-wider mb-4 pb-2 border-b border-gray-100">{title}</h4>
+          {columns.map((title, index) => (
+            <div key={title} className={`flex flex-col px-8 ${index !== columns.length - 1 ? "border-r border-slate-50/80" : ""}`}>
+              <h4 className="font-bold text-[11px] text-[#1A7F7D] uppercase tracking-[0.1em] mb-4 pb-2 border-b border-transparent">{title}</h4>
               <ul className={`
-                list-none space-y-2.5 max-h-[calc(80vh-150px)] overflow-y-auto pr-2
+                list-none space-y-2 max-h-[calc(75vh-150px)] overflow-y-auto pr-2 -mr-2
                 ${title === 'Licenses & Registrations' ? 'theme-scrollbar' : 'no-scrollbar'}
               `}>
                 {content[title].map(link => (
                   <li key={link.label}>
-                    <Link to={link.href} className="block text-sm text-gray-600 hover:text-[#1A7F7D] hover:translate-x-1 transition-all duration-200">
+                    <Link to={link.href} className="group flex items-center text-[13.5px] font-medium text-slate-600 hover:text-[#1A7F7D] transition-colors py-1">
+                      <span className="w-1 h-1 rounded-full bg-slate-300 mr-2 group-hover:bg-[#1A7F7D] group-hover:scale-125 transition-all"></span>
                       {link.label}
                     </Link>
                   </li>
@@ -194,11 +193,12 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
     }
 
     return (
-      <ul className="list-none space-y-1">
+      <ul className="list-none space-y-1 p-2">
         {content.map(link => (
           <li key={link.label}>
-            <Link to={link.href} className="block text-sm text-gray-600 hover:text-[#1A7F7D] hover:bg-gray-50 px-3 py-2.5 rounded-lg transition-colors">
+            <Link to={link.href} className="flex items-center text-sm font-medium text-slate-600 hover:text-[#1A7F7D] hover:bg-slate-50 px-4 py-2.5 rounded-xl transition-all group">
               {link.label}
+              <ArrowRight size={14} className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1A7F7D]" />
             </Link>
           </li>
         ))}
@@ -213,20 +213,20 @@ const DropdownPortal = ({ content, position, width, isMegaMenu, onMouseEnter, on
         top: `${position.top}px`,
         left: `${position.left}px`,
         width: `${width}px`,
-        maxWidth: '95vw',
+        maxWidth: '92vw',
         backgroundColor: 'white',
-        boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1), 0 0 20px -5px rgba(0,0,0,0.05)',
-        borderRadius: '0 0 16px 16px',
-        padding: '24px 32px',
+        boxShadow: '0 20px 40px -5px rgba(20, 25, 40, 0.1), 0 8px 15px -5px rgba(20, 25, 40, 0.04), 0 0 0 1px rgba(0,0,0,0.02)',
+        borderRadius: '20px',
+        padding: isMegaMenu ? '32px 0' : '8px',
         zIndex: 9999,
-        borderTop: '3px solid #1A7F7D',
+        border: '1px solid rgba(241, 245, 249, 1)',
         opacity: 1,
-        animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+        animation: 'fadeIn 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)'
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
       {renderContent()}
     </div>,
     document.body
@@ -340,20 +340,41 @@ export default function Header() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMobileMenuOpen]);
 
-  // --- 2. Scroll Detection ---
+  // --- 2. Screen & Scroll Detection ---
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollYRef.current && currentScrollY > 60) {
+      setIsScrolled(currentScrollY > 50);
+
+      // Hide/Show logic
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
         setShowHeader(false);
       } else {
         setShowHeader(true);
       }
       lastScrollYRef.current = currentScrollY;
     };
+
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  // Active "Pill" design only when on Home AND at the top AND on Desktop
+  const showFloatingHeader = isHomePage && !isScrolled && isDesktop;
 
   // --- Desktop Handlers ---
   const handleMenuEnter = (menuId, rect, content, width, isMegaMenu) => {
@@ -361,16 +382,14 @@ export default function Header() {
 
     // Improved positioning logic
     const margin = 24;
-    const headerHeight = 84; // Slightly taller header allowance
+    const verticalGap = showFloatingHeader ? 15 : 0; // Gap for floating header
     let left = rect.left;
 
     // Center mega menus relative to nav item if possible, or relative to page
     if (isMegaMenu) {
-      // Logic for MegaMenus - typically wider, so ensure they fit on screen
+      // Logic for MegaMenus
       const screenWidth = window.innerWidth;
       const centeredLeft = (screenWidth - width) / 2;
-
-      // Use constrained centered position
       left = Math.max(margin, Math.min(centeredLeft, screenWidth - width - margin));
     } else {
       // Dropdowns aligned to left of nav item
@@ -379,7 +398,7 @@ export default function Header() {
 
     setMenuConfig({
       content,
-      position: { top: 90, left }, // Fixed top matching header height
+      position: { top: rect.bottom + verticalGap, left }, // Dynamic top based on element position
       width,
       isMegaMenu,
     });
@@ -418,26 +437,41 @@ export default function Header() {
   return (
     <>
       <header
-        className={`cs_site_header bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
-          ${showHeader ? "translate-y-0" : "-translate-y-full"}
-          ${isMobileMenuOpen ? "translate-y-0" : ""} 
+        className={`cs_site_header transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${showHeader ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
+          ${// Conditional classes for Floating vs Standard
+          isMobileMenuOpen
+            ? "!translate-y-0 !opacity-100 !rounded-none !top-0 !w-full !max-w-none"
+            : showFloatingHeader
+              ? "rounded-full shadow-2xl border border-slate-200/60 bg-white/90 backdrop-blur-md"
+              : "bg-white shadow-sm border-b border-slate-100 rounded-none"
+          } 
         `}
         style={{
           position: "fixed",
-          top: 0,
-          width: "100%",
+          // Conditional Styles
+          top: isMobileMenuOpen ? 0 : (showFloatingHeader ? "20px" : "0"),
+          left: isMobileMenuOpen ? 0 : "50%",
+          transform: isMobileMenuOpen ? "none" : (
+            // Always keep centered horizontally (translateX(-50%))
+            // Add vertical translation if hidden
+            showHeader
+              ? "translateX(-50%)"
+              : "translateX(-50%) translateY(-150%)"
+          ),
+          width: isMobileMenuOpen ? "100%" : (showFloatingHeader ? "94%" : "100%"),
+          maxWidth: isMobileMenuOpen ? "100%" : (showFloatingHeader ? "1280px" : "100%"),
           zIndex: 9000,
-          height: '90px',
-          boxShadow: showHeader ? "0 4px 20px rgba(0,0,0,0.04)" : "none",
-          borderBottom: '1px solid rgba(0,0,0,0.05)'
+          height: showFloatingHeader ? '80px' : '90px', // Standard height slightly taller
         }}
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className={`w-full h-full px-4 sm:px-6 lg:px-8 ${showFloatingHeader ? "px-4 sm:px-8" : "max-w-[1440px] mx-auto"}`}>
           <div className="relative flex items-center justify-between h-full">
 
-            {/* Shape (Desktop Only) */}
-            <div className="absolute top-0 left-0 hidden xl:block pointer-events-none opacity-40">
-              <img src={headerShape} alt="" className="h-full object-cover" />
+            {/* Shape (Desktop Only) - Maintain mostly for standard, maybe hide for floating if distracting */}
+            <div className={`absolute top-0 left-0 hidden xl:block pointer-events-none opacity-40 ${showFloatingHeader ? "mix-blend-multiply" : ""}`}>
+              {/* Optional shape overlay */}
+              {!showFloatingHeader && <img src={headerShape} alt="" className="h-full object-cover" />}
             </div>
 
             {/* 1. Logo */}
@@ -448,12 +482,16 @@ export default function Header() {
                 className="block"
                 onClick={closeMobileMenu}
               >
-                <img src={logo} alt="Kanakkaalar" className="h-16 md:h-20 w-auto object-contain" width="160" height="80" />
+                <img
+                  src={logo}
+                  alt="Kanakkaalar"
+                  className={`${showFloatingHeader ? "h-16 md:h-20" : "h-20 md:h-24"} w-auto object-contain transition-all duration-500`}
+                />
               </Link>
             </div>
             {/* 2. Desktop Nav */}
             <div className="hidden lg:flex flex-grow justify-center items-center h-full px-4">
-              <ul className="list-none flex items-center gap-1 xl:gap-4 h-full">
+              <ul className={`list-none flex items-center h-full transition-all duration-500 ${showFloatingHeader ? "gap-1 xl:gap-2" : "gap-1 xl:gap-4"}`}>
                 {navLinks.map(item => (
                   <NavItem
                     key={item.id}
@@ -472,13 +510,20 @@ export default function Header() {
                 <div className="hidden lg:flex items-center gap-2">
                   <Link
                     to="/login"
-                    className="text-sm font-bold uppercase text-slate-700 hover:text-[#1A7F7D] px-4 py-2 transition-colors rounded-lg hover:bg-slate-50"
+                    className={`text-sm font-bold uppercase text-slate-700 hover:text-[#1A7F7D] transition-all hover:bg-slate-50
+                      ${showFloatingHeader ? "px-5 py-2.5 rounded-full" : "px-4 py-2 rounded-lg"}
+                    `}
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
-                    className="group relative flex items-center gap-2 px-6 py-2.5 bg-[#1A7F7D] text-white text-sm font-bold uppercase rounded-full overflow-hidden transition-all hover:bg-[#156664] hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                    className={`group relative flex items-center gap-2 text-sm font-bold uppercase overflow-hidden transition-all duration-300
+                      ${showFloatingHeader
+                        ? "px-6 py-3 bg-gradient-to-r from-[#1A7F7D] to-[#23938D] text-white rounded-full hover:shadow-lg hover:shadow-[#1A7F7D]/40 active:scale-95"
+                        : "px-6 py-2.5 bg-[#1A7F7D] text-white rounded-full shadow-md hover:bg-[#156664] hover:scale-105 active:scale-95 hover:shadow-lg"
+                      }
+                    `}
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       Get Started <ArrowRight size={16} />
