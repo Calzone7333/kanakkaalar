@@ -50,3 +50,7 @@ INSERT INTO workflow_events (order_id, stage, status, description, created_at, u
 (1002, 'ONBD', 'IN_PROGRESS', 'Documents being uploaded and verified', NOW(), NOW())
 
 ON DUPLICATE KEY UPDATE updated_at = NOW();
+
+-- Fix: Allow owner_id to be NULL for public leads (created via website)
+-- This fixes "Column 'owner_id' cannot be null" error when submitting form without login
+ALTER TABLE leads MODIFY owner_id BIGINT NULL;

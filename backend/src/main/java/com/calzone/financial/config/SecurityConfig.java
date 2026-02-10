@@ -35,10 +35,21 @@ public class SecurityConfig {
                         // --- Public Endpoints ---
                         // Allow unauthenticated access to auth endpoints (login, register)
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Allow public GET requests to the uploads directory for images
-                        .requestMatchers(HttpMethod.GET, "/uploads/profile-images/**").permitAll() // Corrected path
+                        // Allow public payment endpoints
+                        .requestMatchers(HttpMethod.GET, "/api/payments/key").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/payments/order").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/payments/confirm").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/payments/webhook").permitAll()
+
+                        // Allow public leads
+                        .requestMatchers(HttpMethod.POST, "/api/leads/public").permitAll()
+
                         // Allow preflight OPTIONS requests for CORS
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Allow public GET requests to the uploads directory for images
+                        .requestMatchers(HttpMethod.GET, "/uploads/profile-images/**").permitAll()
+
                         // Allow actuator health checks
                         .requestMatchers("/actuator/**").permitAll()
 

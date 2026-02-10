@@ -22,6 +22,6 @@ public class NotificationService {
     }
 
     public List<Notification> getAllNotifications() {
-        return notificationRepository.findAllByOrderByCreatedAtDesc();
+        return notificationRepository.findTop50ByOrderByCreatedAtDesc();
     }
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import StatCard from "../../../components/StatCard";
 import ChartCard from "../../../components/ChartCard";
 import DataTable from "../../../components/DataTable";
-import { DollarSign, TrendingUp, Target, Zap } from "lucide-react";
+import { IndianRupee, TrendingUp, Target, Zap } from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -114,55 +114,59 @@ const AdminDealReport = () => {
   const COLORS = ["#3B82F6", "#8B5CF6", "#EC4899", "#F59E0B", "#10B981", "#EF4444"];
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 p-2 sm:p-4 min-h-screen">
       {/* Page Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between py-2 sm:py-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Deal Report
           </h1>
-          <p className="mt-1 text-gray-600 dark:text-gray-400">
-            Monitor your sales pipeline and opportunities
+          <p className="mt-0.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            Monitor and analyze your sales performance
           </p>
         </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
-          title="Total Pipeline Value"
+          compact
+          title="Pipeline Value"
           value={`₹${(totalValue / 100000).toFixed(1)}L`}
-          icon={<DollarSign className="w-6 h-6" />}
+          icon={<IndianRupee className="w-5 h-5 sm:w-6 sm:h-6" />}
           change={18.5}
-          description="All deals"
-          bgColor="bg-green-50"
-          iconColor="text-green-600"
-        />
-        <StatCard
-          title="Active Deals"
-          value={totalDeals.toString()}
-          icon={<Target className="w-6 h-6" />}
-          change={12.3}
-          description="In pipeline"
-          bgColor="bg-blue-50"
+          description="Total potential"
+          bgColor="bg-blue-50/50"
           iconColor="text-blue-600"
         />
         <StatCard
-          title="Avg Deal Size"
-          value={`₹${(avgDealSize / 1000).toFixed(0)}K`}
-          icon={<Zap className="w-6 h-6" />}
-          change={5.2}
-          description="Per opportunity"
-          bgColor="bg-purple-50"
-          iconColor="text-purple-600"
+          compact
+          title="Active Deals"
+          value={totalDeals.toString()}
+          icon={<Target className="w-5 h-5 sm:w-6 sm:h-6" />}
+          change={12.3}
+          description="In pipeline"
+          bgColor="bg-indigo-50/50"
+          iconColor="text-indigo-600"
         />
         <StatCard
+          compact
+          title="Avg Deal"
+          value={`₹${(avgDealSize / 1000).toFixed(0)}K`}
+          icon={<Zap className="w-5 h-5 sm:w-6 sm:h-6" />}
+          change={5.2}
+          description="Per deal"
+          bgColor="bg-emerald-50/50"
+          iconColor="text-emerald-600"
+        />
+        <StatCard
+          compact
           title="Win Rate"
           value={`${winRate}%`}
-          icon={<TrendingUp className="w-6 h-6" />}
+          icon={<TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />}
           change={3.8}
           description="Last 30 days"
-          bgColor="bg-amber-50"
+          bgColor="bg-amber-50/50"
           iconColor="text-amber-600"
         />
       </div>

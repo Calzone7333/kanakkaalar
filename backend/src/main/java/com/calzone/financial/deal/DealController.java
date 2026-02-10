@@ -23,13 +23,19 @@ public class DealController {
         return ResponseEntity.ok(dealService.getAllDeals());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DealResponse> getDealById(@PathVariable Long id) {
+        return ResponseEntity.ok(dealService.getDealById(id));
+    }
+
     @PostMapping
     public ResponseEntity<DealResponse> createDeal(@Valid @RequestBody DealRequest request) {
         return ResponseEntity.ok(dealService.createDeal(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DealResponse> updateDeal(@PathVariable Long id, @RequestBody java.util.Map<String, Object> updates) {
+    public ResponseEntity<DealResponse> updateDeal(@PathVariable Long id,
+            @RequestBody java.util.Map<String, Object> updates) {
         return ResponseEntity.ok(dealService.updateDeal(id, updates));
     }
 }

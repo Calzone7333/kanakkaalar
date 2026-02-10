@@ -110,24 +110,46 @@ public class LeadService {
 
     @Transactional
     public LeadResponse create(LeadRequest request, User owner) {
-        Lead lead = new Lead();
-        lead.setName(request.name().trim());
-        lead.setEmail(request.email() != null ? request.email().trim() : null);
-        lead.setPhone(request.phone() != null ? request.phone().trim() : null);
-        lead.setService(request.service() == null ? null : request.service().trim());
-        lead.setStatus(normalizeStatus(request.status()));
-        lead.setOwner(owner);
-        Lead saved = leadRepository.save(lead);
-
-        // Send email notification to admin asynchronously (best effort)
+        log.info("Creating lead - Service: {}, Name: {}, Public: {}", request.service(), request.name(), owner == null);
         try {
-            sendEmailToAdmin(saved);
-        } catch (Exception e) {
-            // Log error but don't fail the request
-            log.error("Failed to send lead notification email", e);
-        }
+            Lead lead = new Lead();
+            lead.setName(request.name() != null ? request.name().trim() : "Untitled Lead");
+            lead.setEmail(request.email() != null ? request.email().trim() : null);
+            lead.setPhone(request.phone() != null ? request.phone().trim() : null);
+            lead.setService(request.service() != null ? request.service().trim() : "General Inquiry");
+            lead.setStatus(normalizeStatus(request.status()));
 
-        return toResponse(saved);
+            // If no owner provided (public lead), try to assign to admin to avoid null
+            // issues
+            if (owner == null && adminEmail != null && !adminEmail.isBlank()) {
+                log.info("Attempting to assign public lead to admin: {}", adminEmail);
+                userRepository.findByEmail(adminEmail).ifPresentOrElse(
+                        admin -> {
+                            lead.setOwner(admin);
+                            log.info("Public lead assigned to admin: {}", adminEmail);
+                        },
+                        () -> log.warn("Admin user not found for email: {}. Saving lead without owner.", adminEmail));
+            } else {
+                lead.setOwner(owner);
+            }
+
+            log.debug("Saving lead to database...");
+            Lead saved = leadRepository.save(lead);
+            log.info("Lead saved successfully with ID: {}", saved.getId());
+
+            try {
+                log.debug("Attempting to send notification email to admin...");
+                sendEmailToAdmin(saved);
+            } catch (Exception e) {
+                log.error("Failed to send lead email to admin for lead ID: " + saved.getId(), e);
+            }
+
+            return toResponse(saved);
+        } catch (Exception e) {
+            log.error("Fatal error creating lead", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Failed to create lead: " + e.getMessage());
+        }
     }
 
     @Transactional

@@ -45,6 +45,11 @@ public class LeadController {
         return ResponseEntity.ok(leadService.create(request, user));
     }
 
+    @PostMapping("/public")
+    public ResponseEntity<LeadResponse> createPublic(@Valid @RequestBody LeadRequest request) {
+        return ResponseEntity.ok(leadService.create(request, null));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<LeadResponse> update(@PathVariable Long id,
             @Valid @RequestBody LeadUpdateRequest request,

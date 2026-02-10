@@ -1,11 +1,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-export default function SEO({ title, description, keywords, name, type }) {
+export default function SEO({
+    title = 'Kanakkaalar',
+    description = 'India\'s Smart Online Platform for Modern Businesses. Legal, tax, and compliance simplification.',
+    keywords = 'business registration, tax filing, compliance, startup india, gst registration, trademark',
+    name,
+    type
+}) {
     return (
         <Helmet>
             {/* Standard Metadata */}
-            <title>{title ? `${title} | Kanakkaalar` : 'Kanakkaalar - Your Financial Compliance Partner'}</title>
+            <title>{title === 'Kanakkaalar' ? 'Kanakkaalar - Your Financial Compliance Partner' : `${title} | Kanakkaalar`}</title>
             <meta name="description" content={description} />
             {keywords && <meta name="keywords" content={keywords} />}
 
@@ -22,9 +28,3 @@ export default function SEO({ title, description, keywords, name, type }) {
         </Helmet>
     );
 }
-
-SEO.defaultProps = {
-    title: 'Kanakkaalar',
-    description: 'India\'s Smart Online Platform for Modern Businesses. Legal, tax, and compliance simplification.',
-    keywords: 'business registration, tax filing, compliance, startup india, gst registration, trademark'
-};

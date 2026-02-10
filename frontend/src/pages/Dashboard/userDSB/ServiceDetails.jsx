@@ -10,10 +10,12 @@ import {
     BuildingLibraryIcon
 } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
+import LeadModal from "../../../components/LeadModal";
 
 const ServiceDetail = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     // Get params from navigation state or fallback
     const { title, desc, category, price } = location.state || {
         title: "Service Details",
@@ -31,18 +33,18 @@ const ServiceDetail = () => {
     const isGeneric = !isGST && !isMSME && !isPvtLtd;
 
     const handleApply = () => {
-        navigate("/dashboard/user/service-order", {
-            state: {
-                serviceName: title,
-                description: desc,
-                price: price,
-                category: category
-            }
-        });
+        setIsModalOpen(true);
     };
 
     return (
         <div className="min-h-screen bg-gray-50/50 pb-28 md:pb-12">
+            <LeadModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                plan={price}
+                serviceName={title}
+                price={price}
+            />
             {/* Standard layout container */}
             <div className="max-w-5xl mx-auto p-4 md:p-8 space-y-8">
 
@@ -361,8 +363,8 @@ const TabButton = ({ label, active, onClick }) => (
     <button
         onClick={onClick}
         className={`flex-1 px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 relative ${active
-                ? "text-blue-700 bg-blue-50/50 shadow-sm"
-                : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+            ? "text-blue-700 bg-blue-50/50 shadow-sm"
+            : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
             }`}
     >
         {label}

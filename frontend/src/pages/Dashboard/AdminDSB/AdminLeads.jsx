@@ -26,10 +26,10 @@ const AdminLeads = () => {
       const res = await leadAPI.getAll();
       const rawLeads = res.data || [];
 
-      // Ensure unique IDs
+      // Process leads and handle potential ID duplication from virtual leads
       const leadsData = rawLeads.map((lead, index) => ({
         ...lead,
-        id: lead.id ? lead.id : `lead-${index}-${Date.now()}`
+        // Keep the original ID for actions, but the table now handles uniqueness via key={`${item.id}-${index}`}
       }));
 
       setLeads(leadsData);

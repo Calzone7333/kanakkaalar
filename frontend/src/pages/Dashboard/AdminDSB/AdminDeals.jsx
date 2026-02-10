@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import StatCard from "../../../components/StatCard";
 import ChartCard from "../../../components/ChartCard";
 import DataTable from "../../../components/DataTable";
-import { DollarSign, TrendingUp, Target, Zap, LayoutGrid, List as ListIcon } from "lucide-react";
+import { IndianRupee, TrendingUp, Target, Zap, LayoutGrid, List as ListIcon, ArrowRight, CreditCard, Send } from "lucide-react";
 import AddDealModal from "../../../components/AddDealModal";
 import AssignEmployeeModal from "../../../components/AssignEmployeeModal";
-import { orderAPI, dealAPI } from "../../../lib/api";
+import { orderAPI, dealAPI, paymentsAPI } from "../../../lib/api";
 import {
     BarChart,
     Bar,
@@ -30,6 +30,69 @@ const AdminDeals = () => {
 
     const [dealRecords, setDealRecords] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Payment Logic
+    const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+    const [dealForPayment, setDealForPayment] = useState(null);
+    const [paymentAmount, setPaymentAmount] = useState("");
+    const [paymentPhone, setPaymentPhone] = useState("");
+    const [paymentLoading, setPaymentLoading] = useState(false);
+
+    const handlePaymentClick = (deal) => {
+        setDealForPayment(deal);
+        setPaymentAmount(deal.amount || "");
+        // Try to extract phone if available in customer string "Name (email) - Phone" or similar, 
+        // but currently structure is just "Name (Email)".
+        // Only asks for phone in modal.
+        setPaymentModalOpen(true);
+    };
+
+    const sendPaymentLink = async () => {
+        if (!paymentAmount) return alert("Please enter amount");
+        // Simple phone validation
+        if (!paymentPhone || paymentPhone.length < 10) return alert("Please enter valid phone number for WhatsApp");
+
+        try {
+            setPaymentLoading(true);
+
+            // Extract email from "Name (email)" format if needed, or deal might have it?
+            // deal.customer usually is "Name (Email)"
+            let email = "";
+            const emailMatch = dealForPayment.customer.match(/\(([^)]+)\)/);
+            if (emailMatch) {
+                email = emailMatch[1];
+            } else {
+                // If it's just an email
+                if (dealForPayment.customer.includes("@")) email = dealForPayment.customer;
+            }
+
+            // Fallback
+            if (!email && dealForPayment.contact) email = dealForPayment.contact; // If contact field exists
+
+            const payload = {
+                dealId: dealForPayment.rawId || dealForPayment.id.replace('deal-', ''),
+                amount: parseFloat(paymentAmount),
+                customerEmail: email,
+                customerPhone: paymentPhone,
+                description: `Payment for ${dealForPayment.name}`
+            };
+
+            // Call API
+            // We need to add sendPaymentLink to paymentsAPI in frontend first? 
+            // I'll check api.js content again. I haven't added it to api.js yet!
+            // I'll add it to api.js in the next step. USE api.post directly for now or assume it exists.
+            // Better to use api.post directly here to avoid switching files twice.
+            await paymentsAPI.sendLink(payload); // I will add this to api.js
+
+            alert("Payment Link Sent Successfully via Email & WhatsApp!");
+            setPaymentModalOpen(false);
+        } catch (error) {
+            console.error(error);
+            alert("Failed to send link: " + (error.response?.data?.error || error.message));
+        } finally {
+            setPaymentLoading(false);
+        }
+    };
 
     useEffect(() => {
         const fetchDeals = async () => {
@@ -189,56 +252,69 @@ const AdminDeals = () => {
     };
 
     const KanbanColumn = ({ stage, deals, color }) => (
-        <div className="flex-1 min-w-[280px] bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-            <div className={`flex items-center justify-between mb-4 pb-2 border-b-2 ${color}`}>
-                <h3 className="font-semibold text-gray-700 dark:text-gray-200">{stage}</h3>
-                <span className="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-full">
+        <div className="flex-1 min-w-[300px] sm:min-w-[320px] bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 sm:p-5 border border-slate-100 dark:border-slate-800 shadow-inner">
+            <div className={`flex items-center justify-between mb-5 pb-2 border-b-2 ${color}`}>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 tracking-tight">{stage}</h3>
+                <span className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm border border-slate-100 dark:border-slate-700">
                     {deals.length}
                 </span>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-4">
                 {deals.map(deal => (
-                    <div key={deal.id} className="bg-white dark:bg-gray-800 p-3 rounded shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group relative">
-                        <div className="flex justify-between items-start mb-2">
-                            <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2">{deal.name}</h4>
-                            <span className="text-xs font-bold text-gray-500">₹{Number(deal.amount).toLocaleString()}</span>
+                    <div key={deal.id} className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-50 dark:border-slate-800 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300 group relative cursor-pointer ring-offset-2 hover:ring-2 hover:ring-blue-100 dark:hover:ring-blue-900/30">
+                        <div className="flex justify-between items-start mb-3">
+                            <h4 className="font-bold text-slate-900 dark:text-white text-sm line-clamp-2 leading-snug">{deal.name}</h4>
+                            <span className="text-xs font-black text-blue-600 ml-2">₹{Number(deal.amount).toLocaleString()}</span>
                         </div>
-                        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                            <span>{deal.customer.split('@')[0]}</span>
-                            <span>{deal.probability}%</span>
+
+                        <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                            <span className="truncate max-w-[120px]">{deal.customer}</span>
+                            <span className="font-bold px-1.5 py-0.5 bg-slate-50 dark:bg-slate-800 rounded">{deal.probability}%</span>
                         </div>
-                        <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+
+                        <div className="mt-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1">
                             <div
-                                className="bg-blue-500 h-1.5 rounded-full"
+                                className="bg-gradient-to-r from-blue-400 to-blue-600 h-1 rounded-full transition-all duration-500"
                                 style={{ width: `${deal.probability}%` }}
                             ></div>
                         </div>
-                        <div className="mt-2 flex justify-between items-center text-xs">
-                            <span className={`px-2 py-0.5 rounded-full ${deal.owner === 'Unassigned' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
-                                {deal.owner === 'Unassigned' ? 'Unassigned' : deal.owner.split('@')[0]}
+
+                        <div className="mt-4 flex justify-between items-center">
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-lg ${deal.owner === 'Unassigned' ? 'bg-rose-50 text-rose-500' : 'bg-emerald-50 text-emerald-600'}`}>
+                                {deal.owner === 'Unassigned' ? 'Unassigned' : (deal.owner.includes('@') ? deal.owner.split('@')[0] : deal.owner)}
                             </span>
                         </div>
 
-                        {/* Hover Actions */}
-                        <div className="absolute inset-0 bg-white/90 dark:bg-gray-800/90 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity rounded">
+                        {/* Hover Actions - More refined */}
+                        <div className="absolute inset-0 bg-blue-600/95 dark:bg-blue-600/95 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl backdrop-blur-sm z-10">
                             <button
                                 onClick={(e) => { e.stopPropagation(); handleViewClick(deal); }}
-                                className="px-3 py-1 bg-blue-100 text-blue-600 rounded text-xs font-medium hover:bg-blue-200"
+                                className="p-2 bg-white text-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform"
+                                title="View Details"
                             >
-                                View
+                                <ListIcon size={18} />
                             </button>
                             <button
                                 onClick={(e) => { e.stopPropagation(); handleAssignClick(deal); }}
-                                className="px-3 py-1 bg-purple-100 text-purple-600 rounded text-xs font-medium hover:bg-purple-200"
+                                className="p-2 bg-white text-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform"
+                                title="Assign Employee"
                             >
-                                Assign
+                                <Target size={18} />
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); handlePaymentClick(deal); }}
+                                className="p-2 bg-white text-emerald-600 rounded-full shadow-lg hover:scale-110 transition-transform"
+                                title="Request Payment"
+                            >
+                                <CreditCard size={18} />
                             </button>
                         </div>
                     </div>
                 ))}
                 {deals.length === 0 && (
-                    <div className="text-center py-4 text-gray-400 text-sm italic">
-                        No deals
+                    <div className="flex flex-col items-center justify-center py-10 opacity-30 select-none">
+                        <div className="w-12 h-12 rounded-full border-2 border-dashed border-slate-400 mb-2"></div>
+                        <span className="text-xs font-bold uppercase tracking-tighter">Empty Stage</span>
                     </div>
                 )}
             </div>
@@ -246,119 +322,134 @@ const AdminDeals = () => {
     );
 
     return (
-        <div className="space-y-8">
+        <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 p-2 sm:p-4 min-h-screen">
             {/* Page Header */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between py-2 sm:py-0">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                         Deal Management
                     </h1>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">
-                        Manage your sales pipeline and opportunities
+                    <p className="mt-0.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                        Manage and track your sales pipeline
                     </p>
                 </div>
-                <div className="flex items-center gap-2">
-                    <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl">
                         <button
                             onClick={() => setViewMode("list")}
-                            className={`p-2 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-gray-700 shadow text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-xs sm:text-sm font-bold whitespace-nowrap ${viewMode === "list" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
                         >
-                            <ListIcon size={20} />
+                            <ListIcon size={16} /> <span className="hidden sm:inline">List</span>
                         </button>
                         <button
                             onClick={() => setViewMode("kanban")}
-                            className={`p-2 rounded-md transition-all ${viewMode === "kanban" ? "bg-white dark:bg-gray-700 shadow text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-xs sm:text-sm font-bold whitespace-nowrap ${viewMode === "kanban" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
                         >
-                            <LayoutGrid size={20} />
+                            <LayoutGrid size={16} /> <span className="hidden sm:inline">Kanban</span>
                         </button>
                     </div>
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                        className="sm:flex-none px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2 text-sm whitespace-nowrap"
                     >
-                        Add Deal
+                        <Zap size={16} fill="currentColor" /> Add Deal
                     </button>
                 </div>
             </div>
 
             {/* KPI Cards */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
                 <StatCard
-                    title="Total Pipeline Value"
+                    compact
+                    title="Pipeline Value"
                     value={`₹${(totalValue / 100000).toFixed(1)}L`}
-                    icon={<DollarSign className="w-6 h-6" />}
+                    icon={<IndianRupee className="w-5 h-5 sm:w-6 sm:h-6" />}
                     change={18.5}
-                    description="All deals"
-                    bgColor="bg-green-50"
-                    iconColor="text-green-600"
-                />
-                <StatCard
-                    title="Active Deals"
-                    value={totalDeals.toString()}
-                    icon={<Target className="w-6 h-6" />}
-                    change={12.3}
-                    description="In pipeline"
-                    bgColor="bg-blue-50"
+                    description="Total potential"
+                    bgColor="bg-blue-50/50"
                     iconColor="text-blue-600"
                 />
                 <StatCard
-                    title="Avg Deal Size"
-                    value={`₹${(avgDealSize / 1000).toFixed(0)}K`}
-                    icon={<Zap className="w-6 h-6" />}
-                    change={5.2}
-                    description="Per opportunity"
-                    bgColor="bg-purple-50"
-                    iconColor="text-purple-600"
+                    compact
+                    title="Active Deals"
+                    value={totalDeals.toString()}
+                    icon={<Target className="w-5 h-5 sm:w-6 sm:h-6" />}
+                    change={12.3}
+                    description="In pipeline"
+                    bgColor="bg-indigo-50/50"
+                    iconColor="text-indigo-600"
                 />
                 <StatCard
+                    compact
+                    title="Avg Deal"
+                    value={`₹${(avgDealSize / 1000).toFixed(0)}K`}
+                    icon={<Zap className="w-5 h-5 sm:w-6 sm:h-6" />}
+                    change={5.2}
+                    description="Per deal"
+                    bgColor="bg-emerald-50/50"
+                    iconColor="text-emerald-600"
+                />
+                <StatCard
+                    compact
                     title="Win Rate"
                     value={`${winRate}%`}
-                    icon={<TrendingUp className="w-6 h-6" />}
+                    icon={<TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />}
                     change={3.8}
                     description="Last 30 days"
-                    bgColor="bg-amber-50"
+                    bgColor="bg-amber-50/50"
                     iconColor="text-amber-600"
                 />
             </div>
 
             {/* Charts Section */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                <div className="lg:col-span-2">
-                    <ChartCard title="Deal Trend" subtitle="Monthly deal value and count">
-                        <div style={{ width: '100%', height: 300 }}>
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+                <div>
+                    <ChartCard title="Deal Trend" subtitle="Monthly performance">
+                        <div style={{ width: '100%', height: 220 }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart data={dealTrendData}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                    <XAxis dataKey="month" stroke="#9ca3af" style={{ fontSize: "12px" }} />
-                                    <YAxis stroke="#9ca3af" style={{ fontSize: "12px" }} />
-                                    <Tooltip contentStyle={{ backgroundColor: "#fff", border: "1px solid #e5e7eb", borderRadius: "8px" }} />
-                                    <Legend />
-                                    <Line type="monotone" dataKey="deals" stroke="#3B82F6" strokeWidth={2} dot={{ fill: "#3B82F6", r: 4 }} name="Total Deals" />
-                                    <Line type="monotone" dataKey="closed" stroke="#10B981" strokeWidth={2} dot={{ fill: "#10B981", r: 4 }} name="Closed Won" />
+                                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                                    <XAxis dataKey="month" stroke="#94a3b8" style={{ fontSize: "10px", fontWeight: "bold" }} axisLine={false} tickLine={false} />
+                                    <YAxis stroke="#94a3b8" style={{ fontSize: "10px", fontWeight: "bold" }} axisLine={false} tickLine={false} />
+                                    <Tooltip
+                                        formatter={(value) => [`₹${value.toLocaleString()}`, "Amount"]}
+                                        contentStyle={{ backgroundColor: "#fff", border: "1px solid #e2e8f0", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }}
+                                    />
+                                    <Legend iconType="circle" wrapperStyle={{ fontSize: "10px", fontWeight: "bold", paddingTop: "10px" }} />
+                                    <Line type="monotone" dataKey="deals" stroke="#3B82F6" strokeWidth={3} dot={{ fill: "#3B82F6", r: 4, strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 6 }} name="Total Deals" />
+                                    <Line type="monotone" dataKey="closed" stroke="#10B981" strokeWidth={3} dot={{ fill: "#10B981", r: 4, strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 6 }} name="Closed Won" />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
                     </ChartCard>
                 </div>
-                <ChartCard title="Pipeline by Stage" subtitle="Deal distribution">
-                    <div style={{ width: '100%', height: 300 }}>
+                <ChartCard title="Pipeline Stage" subtitle="Distribution">
+                    <div style={{ width: '100%', height: 220 }}>
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
                                     data={stageDistribution}
                                     cx="50%"
                                     cy="50%"
-                                    labelLine={false}
-                                    label={({ name, value }) => `${name}: ${Math.round(value)}%`}
-                                    outerRadius={80}
-                                    fill="#8884d8"
+                                    innerRadius={50}
+                                    outerRadius={70}
+                                    paddingAngle={5}
                                     dataKey="value"
                                 >
                                     {stageDistribution.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} cornerRadius={4} />
                                     ))}
                                 </Pie>
-                                <Tooltip />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: "rgba(255, 255, 255, 0.98)",
+                                        border: "1px solid #e2e8f0",
+                                        borderRadius: "8px",
+                                        padding: "4px 8px",
+                                        boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)"
+                                    }}
+                                    itemStyle={{ fontSize: "10px", fontWeight: "bold", padding: "0" }}
+                                />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
@@ -405,53 +496,137 @@ const AdminDeals = () => {
 
             {/* View Content */}
             {viewMode === "list" ? (
-                <DataTable
-                    loading={loading}
-                    title="Deal Details"
-                    columns={[
-                        { key: "name", label: "Deal Name" },
-                        { key: "customer", label: "Customer" },
-                        {
-                            key: "amount",
-                            label: "Amount",
-                            render: (val) => `₹${Number(val).toLocaleString()}`
-                        },
-                        {
-                            key: "stage",
-                            label: "Stage",
-                            render: (value) => (
-                                <span className="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full dark:bg-blue-900/20 dark:text-blue-400">
-                                    {value}
-                                </span>
-                            ),
-                        },
-                        {
-                            key: "probability",
-                            label: "Probability",
-                            render: (value) => (
-                                <div className="flex items-center gap-2">
-                                    <div className="w-12 h-2 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div className="h-2 bg-blue-500 rounded-full" style={{ width: `${value}%` }} />
+                <div className="space-y-4">
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block">
+                        <DataTable
+                            loading={loading}
+                            title="Recent Deals"
+                            columns={[
+                                { key: "name", label: "Deal Name" },
+                                { key: "customer", label: "Customer" },
+                                {
+                                    key: "amount",
+                                    label: "Amount",
+                                    render: (val) => `₹${Number(val).toLocaleString()}`
+                                },
+                                {
+                                    key: "stage",
+                                    label: "Stage",
+                                    render: (value) => (
+                                        <span className="px-3 py-1 text-xs font-bold text-blue-600 bg-blue-50 rounded-full dark:bg-blue-900/20 dark:text-blue-400">
+                                            {value}
+                                        </span>
+                                    ),
+                                },
+                                {
+                                    key: "probability",
+                                    label: "Confidence",
+                                    render: (value) => (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-16 h-1.5 overflow-hidden bg-slate-100 rounded-full dark:bg-slate-800">
+                                                <div className="h-full bg-blue-500 rounded-full" style={{ width: `${value}%` }} />
+                                            </div>
+                                            <span className="text-xs font-bold text-slate-600">{value}%</span>
+                                        </div>
+                                    ),
+                                },
+                                { key: "owner", label: "Assignee" },
+                                {
+                                    key: "actions",
+                                    label: "Actions",
+                                    render: (_, deal) => (
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                onClick={() => handlePaymentClick(deal)}
+                                                className="p-1.5 hover:bg-emerald-50 text-emerald-600 rounded-lg transition-colors"
+                                                title="Request Payment"
+                                            >
+                                                <CreditCard size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleAssignClick(deal)}
+                                                className="p-1.5 hover:bg-blue-50 text-blue-600 rounded-lg transition-colors"
+                                                title="Assign"
+                                            >
+                                                <Target size={16} />
+                                            </button>
+                                        </div>
+                                    )
+                                },
+                            ]}
+                            data={filteredDeals}
+                            searchPlaceholder="Search pipeline..."
+                        />
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden space-y-4">
+                        <div className="flex items-center justify-between px-2">
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-white">Active Pipeline</h3>
+                            <span className="text-xs font-medium text-slate-500">{filteredDeals.length} deals</span>
+                        </div>
+                        {filteredDeals.map((deal) => (
+                            <div key={deal.id} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm active:scale-[0.98] transition-transform">
+                                <div className="flex justify-between items-start mb-3">
+                                    <div className="max-w-[70%]">
+                                        <h4 className="font-bold text-slate-900 dark:text-white line-clamp-1">{deal.name}</h4>
+                                        <p className="text-xs text-slate-500 mt-0.5">{deal.customer}</p>
                                     </div>
-                                    <span className="text-xs font-semibold">{value}%</span>
+                                    <span className="text-sm font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">₹{Number(deal.amount).toLocaleString()}</span>
                                 </div>
-                            ),
-                        },
-                        { key: "owner", label: "Owner" },
-                        { key: "dueDate", label: "Due Date" },
-                    ]}
-                    data={filteredDeals}
-                    searchPlaceholder="Search deals..."
-                    onAdd={() => setIsModalOpen(true)}
-                />
+
+                                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-50 dark:border-slate-800">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-[10px] uppercase font-bold text-slate-400">Current Stage</span>
+                                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{deal.stage}</span>
+                                    </div>
+                                    <div className="flex flex-col items-end gap-1">
+                                        <span className="text-[10px] uppercase font-bold text-slate-400">Assigned To</span>
+                                        <span className={`text-xs font-bold ${deal.owner === 'Unassigned' ? 'text-red-500' : 'text-slate-700 dark:text-slate-300'}`}>
+                                            {deal.owner === 'Unassigned' ? 'Nobody' : deal.owner.split('@')[0]}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 flex gap-2">
+                                    <button
+                                        onClick={() => handleViewClick(deal)}
+                                        className="flex-1 py-2 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold"
+                                    >
+                                        Details
+                                    </button>
+                                    <button
+                                        onClick={() => handleAssignClick(deal)}
+                                        className="flex-1 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold"
+                                    >
+                                        Assign
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                        {filteredDeals.length === 0 && (
+                            <div className="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+                                <p className="text-slate-400 text-sm">No deals matching your filters</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
             ) : (
-                <div className="flex gap-4 overflow-x-auto pb-4">
-                    <KanbanColumn stage="Lead In" deals={filteredDeals.filter(d => d.stage === "Lead In")} color="border-gray-400" />
-                    <KanbanColumn stage="Qualification" deals={filteredDeals.filter(d => d.stage === "Qualification")} color="border-blue-400" />
-                    <KanbanColumn stage="Proposal Sent" deals={filteredDeals.filter(d => d.stage === "Proposal Sent")} color="border-purple-400" />
-                    <KanbanColumn stage="Negotiation" deals={filteredDeals.filter(d => d.stage === "Negotiation")} color="border-orange-400" />
-                    <KanbanColumn stage="Closed Won" deals={filteredDeals.filter(d => d.stage === "Closed Won")} color="border-green-400" />
-                    <KanbanColumn stage="Closed Lost" deals={filteredDeals.filter(d => d.stage === "Closed Lost")} color="border-red-400" />
+                <div className="relative">
+                    {/* Horizontal scroll indicator for mobile */}
+                    <div className="md:hidden flex items-center justify-center gap-2 mb-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest animate-pulse">
+                        <span>Scroll Right</span>
+                        <ArrowRight size={10} />
+                    </div>
+                    <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory hide-scrollbar">
+                        <div className="snap-center"><KanbanColumn stage="Lead In" deals={filteredDeals.filter(d => d.stage === "Lead In")} color="border-slate-300" /></div>
+                        <div className="snap-center"><KanbanColumn stage="Qualification" deals={filteredDeals.filter(d => d.stage === "Qualification")} color="border-blue-300" /></div>
+                        <div className="snap-center"><KanbanColumn stage="Proposal Sent" deals={filteredDeals.filter(d => d.stage === "Proposal Sent")} color="border-violet-300" /></div>
+                        <div className="snap-center"><KanbanColumn stage="Negotiation" deals={filteredDeals.filter(d => d.stage === "Negotiation")} color="border-orange-300" /></div>
+                        <div className="snap-center"><KanbanColumn stage="Closed Won" deals={filteredDeals.filter(d => d.stage === "Closed Won")} color="border-emerald-300" /></div>
+                        <div className="snap-center"><KanbanColumn stage="Closed Lost" deals={filteredDeals.filter(d => d.stage === "Closed Lost")} color="border-rose-300" /></div>
+                    </div>
                 </div>
             )}
 
@@ -467,6 +642,75 @@ const AdminDeals = () => {
                 deal={selectedDeal}
                 onAssigned={handleAssigned}
             />
+
+            {/* Payment Modal */}
+            {paymentModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                        <div className="p-6">
+                            <div className="flex items-start justify-between mb-6">
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Request Payment</h3>
+                                    <p className="text-slate-500 text-sm mt-1">Send a secure payment link via Email & WhatsApp.</p>
+                                </div>
+                                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+                                    <CreditCard size={20} />
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-slate-500 mb-1.5">Amount (₹)</label>
+                                    <div className="relative">
+                                        <IndianRupee size={16} className="absolute left-3 top-3 text-slate-400" />
+                                        <input
+                                            type="number"
+                                            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold text-slate-700 dark:text-slate-200"
+                                            value={paymentAmount}
+                                            onChange={(e) => setPaymentAmount(e.target.value)}
+                                            placeholder="Enter amount"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-slate-500 mb-1.5">Customer WhatsApp</label>
+                                    <input
+                                        type="tel"
+                                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-medium text-slate-700 dark:text-slate-200"
+                                        value={paymentPhone}
+                                        onChange={(e) => setPaymentPhone(e.target.value)}
+                                        placeholder="e.g. 9876543210"
+                                    />
+                                    <p className="text-[10px] text-slate-400 mt-1">Link will be sent to this number.</p>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 flex gap-3">
+                                <button
+                                    onClick={() => setPaymentModalOpen(false)}
+                                    className="flex-1 py-2.5 text-slate-600 font-bold hover:bg-slate-50 rounded-xl transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={sendPaymentLink}
+                                    disabled={paymentLoading}
+                                    className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {paymentLoading ? (
+                                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                    ) : (
+                                        <>
+                                            <Send size={16} /> Send Link
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

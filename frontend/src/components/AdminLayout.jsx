@@ -20,8 +20,10 @@ import {
   X,
   Building,
   MessageSquare,
-  Layers // Added Layers
+  Layers, // Added Layers
+  BellRing
 } from "lucide-react";
+import NotificationDropdown from "./NotificationDropdown";
 
 // ✅ Import getUser from your auth utility
 import { getAuth } from "../lib/auth";
@@ -33,6 +35,7 @@ const AdminLayout = ({ children, logout }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [userName, setUserName] = useState("Admin");
   const [userProfileImage, setUserProfileImage] = useState(null);
+  const [showNotifications, setShowNotifications] = useState(false);
   const location = useLocation();
 
   // ✅ Load user info once
@@ -323,12 +326,21 @@ const AdminLayout = ({ children, logout }) => {
           </div>
 
           {/* Right Section (Icons) */}
-          <div className="flex items-center gap-4 pr-2">
-            <Link to="/dashboard/admin/notifications" className="relative cursor-pointer p-2 rounded-full hover:bg-gray-100">
-              <Bell size={20} className="text-gray-600" />
-              <span className="absolute top-[-4px] right-[-3px] h-2 w-2 rounded-full bg-red-500 border border-white"></span>
-            </Link>
-            <Settings size={20} className="text-gray-600 cursor-pointer" />
+          <div className="flex items-center gap-4 pr-2 relative">
+            <div className="relative">
+              <button
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="relative cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-all active:scale-95"
+              >
+                <BellRing size={20} className={`${showNotifications ? 'text-blue-600' : 'text-gray-600'}`} />
+                <span className="absolute top-[6px] right-[8px] h-2 w-2 rounded-full bg-red-500 border-2 border-white animate-pulse"></span>
+              </button>
+
+              {showNotifications && (
+                <NotificationDropdown onClose={() => setShowNotifications(false)} />
+              )}
+            </div>
+            <Settings size={20} className="text-gray-600 cursor-pointer hover:rotate-45 transition-transform" />
             {/* <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0189BB] text-white cursor-pointer">
               <User size={16} />
             </div> */}

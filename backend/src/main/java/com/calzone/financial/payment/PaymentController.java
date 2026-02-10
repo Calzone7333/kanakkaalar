@@ -120,6 +120,25 @@ public class PaymentController {
         }
     }
 
+    @PostMapping("/send-link")
+    public ResponseEntity<?> sendPaymentLink(@RequestBody SendLinkRequest req) {
+        try {
+            String link = service.sendPaymentLink(req);
+            return ResponseEntity.ok(java.util.Collections.singletonMap("link", link));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(java.util.Collections.singletonMap("error", e.getMessage()));
+        }
+    }
+
+    public static class SendLinkRequest {
+        public String dealId;
+        public double amount; // in rupees
+        public String customerEmail;
+        public String customerPhone;
+        public String description;
+    }
+
     private String extract(String body, String key) {
         int i = body.indexOf("\"" + key + "\"");
         if (i < 0)

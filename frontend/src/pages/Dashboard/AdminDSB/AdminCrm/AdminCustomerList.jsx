@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "../../../../components/DataTable";
-import { crmAPI } from "../../../../lib/api";
+import { crmAPI, dealAPI, orderAPI, paymentsAPI } from "../../../../lib/api";
 import {
     Users, Search, Filter, Plus, MoreVertical,
-    Phone, Mail, MapPin, Edit, Trash2, Eye
+    Phone, Mail, MapPin, Edit, Trash2, Eye,
+    CreditCard, Target, IndianRupee, Send
 } from "lucide-react";
 
 const AdminCustomerList = () => {
@@ -13,6 +14,44 @@ const AdminCustomerList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [customers, setCustomers] = useState([]);
+
+    // Payment Logic
+    const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+    const [customerForPayment, setCustomerForPayment] = useState(null);
+    const [paymentAmount, setPaymentAmount] = useState("");
+    const [paymentPhone, setPaymentPhone] = useState("");
+    const [paymentLoading, setPaymentLoading] = useState(false);
+
+    const handlePaymentClick = (customer) => {
+        setCustomerForPayment(customer);
+        setPaymentAmount("");
+        setPaymentPhone(customer.phone !== 'N/A' ? customer.phone : "");
+        setPaymentModalOpen(true);
+    };
+
+    const sendPaymentLink = async () => {
+        if (!paymentAmount) return alert("Please enter amount");
+        if (!paymentPhone || paymentPhone.length < 10) return alert("Please enter valid phone number for WhatsApp");
+
+        try {
+            setPaymentLoading(true);
+            const payload = {
+                dealId: customerForPayment.id.startsWith('deal-cust-') ? customerForPayment.id.replace('deal-cust-', '') : customerForPayment.id,
+                amount: parseFloat(paymentAmount),
+                customerEmail: customerForPayment.email !== 'N/A' ? customerForPayment.email : "",
+                customerPhone: paymentPhone,
+                description: `Payment for Customer ${customerForPayment.name}`
+            };
+            await paymentsAPI.sendLink(payload);
+            alert("Payment Link Sent Successfully via Email & WhatsApp!");
+            setPaymentModalOpen(false);
+        } catch (error) {
+            console.error(error);
+            alert("Failed to send link: " + (error.response?.data?.error || error.message));
+        } finally {
+            setPaymentLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchCustomers();
@@ -23,21 +62,102 @@ const AdminCustomerList = () => {
             setLoading(true);
             setError(null);
 
-            const res = await crmAPI.getAllProfiles();
-            const profiles = res.data || [];
+            const [crmRes, dealsRes, ordersRes] = await Promise.all([
+                crmAPI.getAllProfiles(),
+                dealAPI.getAll(),
+                orderAPI.getAll()
+            ]);
 
-            // Transform backend data to frontend format
-            const transformedCustomers = profiles.map(profile => ({
-                id: profile.id,
-                name: profile.user?.fullName || 'N/A',
-                email: profile.user?.email || 'N/A',
-                phone: profile.user?.phone || profile.whatsappNumber || 'N/A',
-                status: profile.status || 'Active',
-                kycStatus: profile.kycStatus || 'Pending',
-                walletBalance: 0 // Will be populated separately if needed
-            }));
+            const profiles = crmRes.data || [];
+            const deals = dealsRes.data || [];
+            const orders = ordersRes.data || [];
 
-            setCustomers(transformedCustomers);
+            const customerMap = new Map();
+
+            // 1. Process CRM Profiles (Highest Priority)
+            profiles.forEach(profile => {
+                const email = profile.user?.email?.toLowerCase();
+                if (email) {
+                    customerMap.set(email, {
+                        id: profile.id, // CRM ID
+                        source: 'CRM',
+                        name: profile.user?.fullName || 'N/A',
+                        email: profile.user?.email,
+                        phone: profile.user?.phone || profile.whatsappNumber || 'N/A',
+                        status: profile.status || 'Active',
+                        kycStatus: profile.kycStatus || 'Pending',
+                        walletBalance: 0,
+                        dealsCount: 0,
+                        ordersCount: 0
+                    });
+                }
+            });
+
+            // 2. Process Deals (Add missing, update counts)
+            deals.forEach(deal => {
+                // Extract email from "Name (email)" or just use field if exists (assuming deal structure)
+                let email = deal.customerEmail ? deal.customerEmail.toLowerCase() : null;
+                let name = deal.customerName || deal.customer || "Unknown";
+
+                // Fallback parsing if customer string is "Name (Email)"
+                if (!email && deal.customer && deal.customer.includes('(')) {
+                    const match = deal.customer.match(/\(([^)]+)\)/);
+                    if (match) email = match[1].toLowerCase();
+                    name = deal.customer.split('(')[0].trim();
+                } else if (!email && deal.customer && deal.customer.includes('@')) {
+                    email = deal.customer.toLowerCase();
+                    name = email.split('@')[0];
+                }
+
+                if (email) {
+                    if (customerMap.has(email)) {
+                        const existing = customerMap.get(email);
+                        existing.dealsCount = (existing.dealsCount || 0) + 1;
+                    } else {
+                        // New Customer from Deal
+                        customerMap.set(email, {
+                            id: `deal-cust-${deal.id}`, // Temporary ID
+                            source: 'Deal',
+                            name: name,
+                            email: email,
+                            phone: deal.contact || deal.phone || 'N/A',
+                            status: deal.stage || 'Lead',
+                            kycStatus: 'Pending',
+                            walletBalance: 0,
+                            dealsCount: 1,
+                            ordersCount: 0,
+                            dealId: deal.id // Store dealId for simpler access
+                        });
+                    }
+                }
+            });
+
+            // 3. Process Orders (Add missing, update counts)
+            orders.forEach(order => {
+                const email = order.customerEmail ? order.customerEmail.toLowerCase() : null;
+                if (email) {
+                    if (customerMap.has(email)) {
+                        const existing = customerMap.get(email);
+                        existing.ordersCount = (existing.ordersCount || 0) + 1;
+                    } else {
+                        // New Customer from Order (Unlikely if auth required, but possible for guest checkout)
+                        customerMap.set(email, {
+                            id: `order-cust-${order.id}`,
+                            source: 'Order',
+                            name: order.customerName || email.split('@')[0],
+                            email: email,
+                            phone: 'N/A',
+                            status: 'Active',
+                            kycStatus: 'Pending',
+                            walletBalance: 0,
+                            dealsCount: 0,
+                            ordersCount: 1
+                        });
+                    }
+                }
+            });
+
+            setCustomers(Array.from(customerMap.values()));
         } catch (err) {
             console.error('Error fetching customers:', err);
             setError(err.response?.data?.message || 'Failed to load customers');
@@ -158,6 +278,13 @@ const AdminCustomerList = () => {
                         render: (_, item) => (
                             <div className="flex items-center gap-2">
                                 <button
+                                    onClick={() => handlePaymentClick(item)}
+                                    className="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
+                                    title="Request Payment"
+                                >
+                                    <CreditCard size={18} />
+                                </button>
+                                <button
                                     onClick={() => navigate(`/dashboard/admin/crm/customer/${item.id}`)}
                                     className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
                                     title="View Profile"
@@ -176,6 +303,75 @@ const AdminCustomerList = () => {
                 searchTerm={searchTerm}
                 onSearchChange={(e) => setSearchTerm(e.target.value)}
             />
+
+            {/* Payment Modal */}
+            {paymentModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                        <div className="p-6">
+                            <div className="flex items-start justify-between mb-6">
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Request Payment</h3>
+                                    <p className="text-slate-500 text-sm mt-1">Send a secure payment link via Email & WhatsApp.</p>
+                                </div>
+                                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+                                    <CreditCard size={20} />
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-slate-500 mb-1.5">Amount (₹)</label>
+                                    <div className="relative">
+                                        <IndianRupee size={16} className="absolute left-3 top-3 text-slate-400" />
+                                        <input
+                                            type="number"
+                                            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold text-slate-700 dark:text-slate-200"
+                                            value={paymentAmount}
+                                            onChange={(e) => setPaymentAmount(e.target.value)}
+                                            placeholder="Enter amount"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-slate-500 mb-1.5">Customer WhatsApp</label>
+                                    <input
+                                        type="tel"
+                                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-medium text-slate-700 dark:text-slate-200"
+                                        value={paymentPhone}
+                                        onChange={(e) => setPaymentPhone(e.target.value)}
+                                        placeholder="e.g. 9876543210"
+                                    />
+                                    <p className="text-[10px] text-slate-400 mt-1">Link will be sent to this number.</p>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 flex gap-3">
+                                <button
+                                    onClick={() => setPaymentModalOpen(false)}
+                                    className="flex-1 py-2.5 text-slate-600 font-bold hover:bg-slate-50 rounded-xl transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={sendPaymentLink}
+                                    disabled={paymentLoading}
+                                    className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {paymentLoading ? (
+                                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                    ) : (
+                                        <>
+                                            <Send size={16} /> Send Link
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

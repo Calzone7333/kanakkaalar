@@ -17,7 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
 
 @Entity(name = "com_calzone.financial_lead_Lead")
-@Table(name = "leads", uniqueConstraints = @UniqueConstraint(name = "uk_leads_name_owner", columnNames = {"name", "owner_id"}))
+@Table(name = "leads")
 public class Lead {
 
     @Id

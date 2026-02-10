@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { crmAPI, dealAPI, orderAPI } from "../../../../lib/api";
 import {
     User, FileText, CreditCard, Bell,
     Phone, Mail, MapPin, Calendar,
     CheckCircle, Clock, AlertCircle,
-    ChevronLeft, Upload, Download, Trash2,
+    ChevronLeft, ChevronRight, Upload, Download, Trash2,
     Plus, MessageSquare, Shield, Wallet,
-    Briefcase, FileCheck, History
+    Briefcase, FileCheck, History, ArrowUpRight,
+    MoreVertical, Eye
 } from "lucide-react";
 import StatCard from "../../../../components/StatCard";
 
@@ -98,7 +100,7 @@ const CustomerProfileTab = ({ customer }) => (
     </div>
 );
 
-const ServicesTab = () => (
+const ServicesTab = ({ services = [] }) => (
     <div className="space-y-6">
         <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Active Services</h3>
@@ -107,33 +109,38 @@ const ServicesTab = () => (
             </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-                { name: "GST Registration", status: "In Progress", date: "20 Nov 2024", staff: "Amit K.", color: "blue" },
-                { name: "ITR Filing", status: "Completed", date: "15 Oct 2024", staff: "Priya S.", color: "green" },
-                { name: "PAN Application", status: "Pending", date: "22 Nov 2024", staff: "Unassigned", color: "amber" },
-            ].map((service, idx) => (
-                <div key={idx} className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start mb-3">
-                        <div className={`p-2 rounded-lg bg-${service.color}-50 text-${service.color}-600`}>
-                            <Briefcase size={20} />
+        {services.length === 0 ? (
+            <div className="text-center py-10 bg-gray-50 dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+                <p className="text-gray-500">No active services found.</p>
+            </div>
+        ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {services.map((service, idx) => (
+                    <div key={idx} className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex justify-between items-start mb-3">
+                            <div className={`p-2 rounded-lg bg-${service.color || 'blue'}-50 text-${service.color || 'blue'}-600`}>
+                                <Briefcase size={20} />
+                            </div>
+                            <span className={`px-2.5 py-1 rounded-full text-xs font-medium 
+                  ${service.status === 'Completed' || service.status === 'Won' ? 'bg-green-100 text-green-700' :
+                                    service.status === 'Pending' || service.status === 'Lead' ? 'bg-amber-100 text-amber-700' :
+                                        'bg-blue-100 text-blue-700'}`}>
+                                {service.status}
+                            </span>
                         </div>
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium 
-              ${service.status === 'Completed' ? 'bg-green-100 text-green-700' :
-                                service.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                                    'bg-blue-100 text-blue-700'}`}>
-                            {service.status}
-                        </span>
+                        <div className="mb-1">
+                            <h4 className="font-semibold text-gray-900 dark:text-white truncate" title={service.name}>{service.name}</h4>
+                            <p className="text-xs text-gray-500 uppercase">{service.type}</p>
+                        </div>
+                        <p className="text-sm text-gray-500 mb-4">Date: {service.date}</p>
+                        <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
+                            <span className="text-xs text-gray-500">Owner: <span className="font-medium text-gray-700 dark:text-gray-300">{service.staff}</span></span>
+                            <button className="text-blue-600 text-sm hover:underline">Details</button>
+                        </div>
                     </div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{service.name}</h4>
-                    <p className="text-sm text-gray-500 mb-4">Due: {service.date}</p>
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
-                        <span className="text-xs text-gray-500">Assigned to: <span className="font-medium text-gray-700 dark:text-gray-300">{service.staff}</span></span>
-                        <button className="text-blue-600 text-sm hover:underline">Details</button>
-                    </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        )}
     </div>
 );
 
@@ -219,18 +226,140 @@ const AdminCustomerDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("overview");
+    const [customer, setCustomer] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Mock Customer Data
-    const customer = {
-        id: id,
-        name: "Rahul Kumar",
-        email: "rahul@example.com",
-        phone: "+91 98765 43210",
-        status: "Active",
-        kycStatus: "Verified",
-        walletBalance: 2450,
-        joinDate: "12 Jan 2024"
-    };
+    const [relatedData, setRelatedData] = useState({ services: [], documents: [], transactions: [] });
+
+    useEffect(() => {
+        const fetchCustomer = async () => {
+            setLoading(true);
+            try {
+                let data = null;
+                // Handle Deal-based ID
+                if (id.startsWith('deal-cust-')) {
+                    const realId = id.replace('deal-cust-', '');
+                    const res = await dealAPI.getById(realId);
+                    const deal = res.data;
+                    data = {
+                        id: id,
+                        name: deal.customerName || deal.customer || "Unknown Deal Customer",
+                        email: deal.customerEmail || (deal.customer && deal.customer.includes('@') ? deal.customer : "N/A"),
+                        phone: deal.contact || deal.phone || "N/A",
+                        status: deal.stage || "Lead",
+                        kycStatus: "Pending",
+                        walletBalance: 0,
+                        joinDate: deal.createdAt ? new Date(deal.createdAt).toLocaleDateString() : "Recent",
+                        source: 'Deal'
+                    };
+                }
+                // Handle Order-based ID
+                else if (id.startsWith('order-cust-')) {
+                    const realId = id.replace('order-cust-', '');
+                    const res = await orderAPI.getById(realId);
+                    const order = res.data;
+                    data = {
+                        id: id,
+                        name: order.customerName || "Order Customer",
+                        email: order.customerEmail || "N/A",
+                        phone: "N/A",
+                        status: order.status || "Active",
+                        kycStatus: "Pending",
+                        walletBalance: 0,
+                        joinDate: order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "Recent",
+                        source: 'Order'
+                    };
+                }
+                // Handle CRM Profile ID (Default)
+                else {
+                    const res = await crmAPI.getAllProfiles();
+                    const profile = res.data.find(p => String(p.id) === String(id));
+
+                    if (profile) {
+                        data = {
+                            id: profile.id,
+                            name: profile.user?.fullName || "N/A",
+                            email: profile.user?.email || "N/A",
+                            phone: profile.user?.phone || profile.whatsappNumber || "N/A",
+                            status: profile.status || "Active",
+                            kycStatus: profile.kycStatus || "Pending",
+                            walletBalance: 0,
+                            joinDate: profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : "N/A",
+                            source: 'CRM'
+                        };
+                        try {
+                            const walletRes = await crmAPI.getWallet(profile.id);
+                            if (walletRes.data) data.walletBalance = walletRes.data.balance || 0;
+                        } catch (e) { }
+                    }
+                }
+
+                setCustomer(data);
+
+                // Fetch Related Services if email exists
+                if (data && data.email && data.email !== 'N/A') {
+                    const [dealsRes, ordersRes] = await Promise.all([
+                        dealAPI.getAll(),
+                        orderAPI.getAll()
+                    ]);
+
+                    const customerDeals = (dealsRes.data || []).filter(d =>
+                        (d.customerEmail && d.customerEmail.toLowerCase() === data.email.toLowerCase()) ||
+                        (d.customer && d.customer.toLowerCase().includes(data.email.toLowerCase()))
+                    ).map(d => ({
+                        id: d.id,
+                        name: d.name,
+                        status: d.stage || "Pending",
+                        date: d.createdAt ? new Date(d.createdAt).toLocaleDateString() : "Recent",
+                        staff: d.owner || "Unassigned",
+                        type: 'Deal',
+                        color: 'blue'
+                    }));
+
+                    const customerOrders = (ordersRes.data || []).filter(o =>
+                        (o.customerEmail && o.customerEmail.toLowerCase() === data.email.toLowerCase())
+                    ).map(o => ({
+                        id: o.id,
+                        name: o.serviceName || "Order #" + o.id,
+                        status: o.status || "Pending",
+                        date: o.createdAt ? new Date(o.createdAt).toLocaleDateString() : "Recent",
+                        staff: o.assigneeEmail || "System",
+                        type: 'Order',
+                        color: 'green'
+                    }));
+
+                    setRelatedData(prev => ({
+                        ...prev,
+                        services: [...customerDeals, ...customerOrders].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+                    }));
+                }
+
+            } catch (err) {
+                console.error("Failed to fetch customer details:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (id) fetchCustomer();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
+
+    if (!customer) {
+        return (
+            <div className="flex flex-col items-center justify-center h-96">
+                <h2 className="text-xl font-bold text-gray-700">Customer Not Found</h2>
+                <button onClick={() => navigate(-1)} className="mt-4 text-blue-600 hover:underline">Go Back</button>
+            </div>
+        );
+    }
 
     const tabs = [
         { id: "overview", label: "Overview", icon: FileCheck },
@@ -308,33 +437,25 @@ const AdminCustomerDetail = () => {
                 {activeTab === "overview" && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <StatCard title="Wallet Balance" value={`₹${customer.walletBalance}`} icon={<Wallet className="w-6 h-6" />} bgColor="bg-blue-50" iconColor="text-blue-600" />
-                        <StatCard title="Active Services" value="3" icon={<Briefcase className="w-6 h-6" />} bgColor="bg-purple-50" iconColor="text-purple-600" />
-                        <StatCard title="Pending Tickets" value="1" icon={<MessageSquare className="w-6 h-6" />} bgColor="bg-amber-50" iconColor="text-amber-600" />
-                        <StatCard title="Total Spent" value="₹12,500" icon={<CreditCard className="w-6 h-6" />} bgColor="bg-green-50" iconColor="text-green-600" />
+                        <StatCard title="Active Services" value={relatedData.services.length} icon={<Briefcase className="w-6 h-6" />} bgColor="bg-purple-50" iconColor="text-purple-600" />
+                        <StatCard title="Pending Tickets" value="0" icon={<MessageSquare className="w-6 h-6" />} bgColor="bg-amber-50" iconColor="text-amber-600" />
+                        <StatCard title="Total Spent" value="₹0" icon={<CreditCard className="w-6 h-6" />} bgColor="bg-green-50" iconColor="text-green-600" />
 
                         <div className="lg:col-span-2">
-                            <ServicesTab />
+                            <ServicesTab services={relatedData.services} />
                         </div>
                         <div className="lg:col-span-2">
                             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 h-full">
                                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Recent Activity</h3>
                                 <div className="space-y-4">
-                                    {[1, 2, 3].map((_, i) => (
-                                        <div key={i} className="flex gap-3">
-                                            <div className="mt-1 w-2 h-2 rounded-full bg-gray-300"></div>
-                                            <div>
-                                                <p className="text-sm text-gray-800 dark:text-gray-200">Document "PAN Card" uploaded successfully.</p>
-                                                <p className="text-xs text-gray-500">2 hours ago</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                                    <div className="text-center py-4 text-gray-500 text-sm">No recent activity</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
                 {activeTab === "profile" && <CustomerProfileTab customer={customer} />}
-                {activeTab === "services" && <ServicesTab />}
+                {activeTab === "services" && <ServicesTab services={relatedData.services} />}
                 {activeTab === "documents" && <DocumentsTab />}
                 {activeTab === "wallet" && <WalletTab />}
                 {activeTab === "support" && (

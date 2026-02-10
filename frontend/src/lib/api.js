@@ -242,6 +242,7 @@ export const paymentsAPI = {
     confirm: (payload) => api.post(`/payments/confirm`, payload),
     myPayments: () => api.get(`/payments/mine`),
     getKey: () => api.get(`/payments/key`),
+    sendLink: (payload) => api.post(`/payments/send-link`, payload),
     webhook: (payload, signature) => api.post(`/payments/webhook`, payload, { headers: { "X-Razorpay-Signature": signature } }),
 };
 
@@ -285,6 +286,7 @@ export const leadAPI = {
     getAll: () => api.get("/leads"),
     getById: (id) => api.get(`/leads/${id}`),
     create: (payload) => api.post("/leads", payload),
+    createPublic: (payload) => api.post("/leads/public", payload),
     update: (id, payload) => api.put(`/leads/${id}`, payload),
     delete: (id) => api.delete(`/leads/${id}`),
 };

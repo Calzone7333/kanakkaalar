@@ -10,7 +10,11 @@ public class OrderDtos {
         @NotBlank
         public String currency = "INR";
         public String description;
+        public String customerName;
+        public String customerEmail;
+        public String customerPhone;
     }
+
     public static class CreateOrderResponse {
         public String orderId;
         public String keyId;

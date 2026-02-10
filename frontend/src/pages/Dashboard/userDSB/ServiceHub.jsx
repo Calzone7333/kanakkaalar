@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/24/solid'; // distinct style for checkmarks
 import { serviceHubAPI, processAPI, serviceItemAPI } from "../../../lib/api"; // Added serviceItemAPI
+import LeadModal from "../../../components/LeadModal"; // Added LeadModal import
 
 // Remove static tabData
 // const tabData = { ... } 
@@ -53,6 +54,8 @@ const ComplianceCardSmall = ({ title, desc, to, categoryKey, onClick }) => (
 const PricingPlans = ({ plans, serviceTitle, serviceDesc }) => {
     if (!plans) return null;
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState(null);
 
     const tiers = [
         { key: 'standard', name: 'Starter', color: 'text-slate-600', accent: 'bg-white', border: 'border-slate-200' },
@@ -60,76 +63,111 @@ const PricingPlans = ({ plans, serviceTitle, serviceDesc }) => {
         { key: 'elite', name: 'Enterprise', color: 'text-amber-700', accent: 'bg-white', border: 'border-slate-200' }
     ];
 
-    const handlePlanSelect = (planKey, planPrice) => {
-        const params = new URLSearchParams({
-            title: serviceTitle,
-            desc: serviceDesc,
-            plan: planKey,
-            price: planPrice
-        });
-        navigate(`/dashboard/user/service-order?${params.toString()}`);
+    const handlePlanSelect = (planKey, planPrice, planName) => {
+        setSelectedPlan({ key: planKey, price: planPrice, name: planName });
+        setIsModalOpen(true);
     };
 
+
+
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 items-stretch">
-            {tiers.map(tier => {
-                const plan = plans[tier.key];
-                if (!plan) return null;
-                return (
-                    <div
-                        key={tier.key}
-                        className={`relative flex flex-col p-6 rounded-xl transition-all duration-300 border ${tier.border} ${tier.accent} hover:shadow-lg hover:-translate-y-1`}
-                    >
-                        {tier.isPopular && (
-                            <div className="absolute top-0 right-0">
-                                <span className="bg-[#2E96FF] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl uppercase tracking-wider">
-                                    Popular
-                                </span>
-                            </div>
-                        )}
-
-                        <div className="mb-6">
-                            <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${tier.isPopular ? 'text-[#2E96FF]' : 'text-slate-500'}`}>
-                                {tier.name}
-                            </h4>
-                            <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-bold text-slate-800 tracking-tight">
-                                    ₹{plan.price?.toLocaleString()}
-                                </span>
-                                <span className="text-xs font-medium text-slate-400">/ service</span>
-                            </div>
-                        </div>
-
-                        <ul className="flex-1 mb-8 space-y-3">
-                            {plan.features?.length > 0 ? (
-                                plan.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <div className="mt-1 w-4 h-4 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
-                                            <CheckIcon className="w-3 h-3" strokeWidth={3} />
-                                        </div>
-                                        <span className="text-sm font-medium text-slate-600 leading-snug">
-                                            {feature}
-                                        </span>
-                                    </li>
-                                ))
-                            ) : (
-                                <li className="text-sm italic text-slate-400">Standard implementation included.</li>
-                            )}
-                        </ul>
-
-                        <button
-                            onClick={() => handlePlanSelect(tier.key, plan.price)}
-                            className={`w-full py-2.5 text-sm font-bold rounded-lg transition-colors border ${tier.isPopular
-                                ? 'bg-[#2E96FF] text-white border-[#2E96FF] hover:bg-[#2579cd]'
-                                : 'bg-white text-slate-700 border-slate-200 hover:border-[#2E96FF] hover:text-[#2E96FF]'
-                                }`}
+        <>
+            <LeadModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                plan={selectedPlan?.name || selectedPlan?.key}
+                serviceName={serviceTitle}
+                price={selectedPlan?.price}
+            />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 items-stretch">
+                {tiers.map(tier => {
+                    const plan = plans[tier.key];
+                    if (!plan) return null;
+                    return (
+                        <div
+                            key={tier.key}
+                            className={`relative flex flex-col p-6 rounded-xl transition-all duration-300 border ${tier.border} ${tier.accent} hover:shadow-lg hover:-translate-y-1`}
                         >
-                            Select Plan
-                        </button>
-                    </div>
-                )
-            })}
-        </div>
+                            {tier.isPopular && (
+                                <div className="absolute top-0 right-0">
+                                    <span className="bg-[#2E96FF] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl uppercase tracking-wider">
+                                        Popular
+                                    </span>
+                                </div>
+                            )}
+
+                            <div className="mb-6">
+                                <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${tier.isPopular ? 'text-[#2E96FF]' : 'text-slate-500'}`}>
+                                    {tier.name}
+                                </h4>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-3xl font-bold text-slate-800 tracking-tight">
+                                        ₹{plan.price?.toLocaleString()}
+                                    </span>
+                                    <span className="text-xs font-medium text-slate-400">/ service</span>
+                                </div>
+                            </div>
+
+                            <ul className="flex-1 mb-8 space-y-3">
+                                {plan.features?.length > 0 ? (
+                                    plan.features.map((feature, idx) => (
+                                        <li key={idx} className="flex items-start gap-3">
+                                            <div className="mt-1 w-4 h-4 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                                                <CheckIcon className="w-3 h-3" strokeWidth={3} />
+                                            </div>
+                                            <span className="text-sm font-medium text-slate-600 leading-snug">
+                                                {feature}
+                                            </span>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li className="text-sm italic text-slate-400">Standard implementation included.</li>
+                                )}
+                            </ul>
+
+                            <button
+                                onClick={() => handlePlanSelect(tier.key, plan.price, tier.name)}
+                                className={`w-full py-2.5 text-sm font-bold rounded-lg transition-colors border ${tier.isPopular
+                                    ? 'bg-[#2E96FF] text-white border-[#2E96FF] hover:bg-[#2579cd]'
+                                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#2E96FF] hover:text-[#2E96FF]'
+                                    }`}
+                            >
+                                Select Plan
+                            </button>
+                        </div>
+                    )
+                })}
+            </div>
+        </>
+    );
+};
+
+const ConsultationCard = ({ service }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    return (
+        <>
+            <LeadModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                plan="Custom Consultation"
+                serviceName={service.title}
+            />
+            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
+                <h3 className="text-xl font-bold text-[#003366] mb-2">Interested in this service?</h3>
+                <p className="text-gray-600 mb-6 max-w-lg mx-auto">
+                    Our experts are ready to assist you with {service.title}. Get a personalized quote and guidance tailored to your business needs.
+                </p>
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-8 py-3 bg-[#2E96FF] text-white font-bold rounded-xl shadow-lg hover:bg-[#2579cd] hover:shadow-xl transition-all"
+                >
+                    Request Consultation / Quote
+                </button>
+                <p className="mt-4 text-xs text-gray-500">
+                    No immediate payment required. We will contact you to discuss details.
+                </p>
+            </div>
+        </>
     );
 };
 
@@ -201,6 +239,8 @@ function GstAdminList() {
         serviceHubAPI.orders('GST Registration').then(r => { setOrders(r.data); setError(null); }).catch(e => setError(e)).finally(() => setLoading(false));
     };
 
+
+
     React.useEffect(() => { load(); }, []);
 
     const markStage = async (orderId, stageName) => {
@@ -211,6 +251,8 @@ function GstAdminList() {
             alert('Failed to update stage');
         }
     };
+
+
 
     if (loading) return <div className="text-sm text-gray-500">Loading GST orders...</div>;
     if (error) return <div className="text-sm text-red-600">Failed to load orders</div>;
@@ -300,11 +342,19 @@ const getServiceSpecificContent = (service) => {
         ]
     };
 
+
+
     const processDetails = processStepData[service.categoryKey] || processStepData.licenses;
 
     let pricingSection = null;
     // Check if any valid plan exists (Standard, Premium, or Elite)
     const hasPlans = service.plans && (service.plans.standard || service.plans.premium || service.plans.elite);
+
+
+
+
+
+    // ... inside getServiceSpecificContent ...
 
     if (hasPlans) {
         pricingSection = {
@@ -317,37 +367,17 @@ const getServiceSpecificContent = (service) => {
                 </div>
             )
         };
+
+
     } else {
         // Fallback for services without specific plans (e.g. "Contact Expert")
         pricingSection = {
             id: 'pricing_group',
             title: 'Get Started',
-            content: (
-                <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
-                    <h3 className="text-xl font-bold text-[#003366] mb-2">Interested in this service?</h3>
-                    <p className="text-gray-600 mb-6 max-w-lg mx-auto">
-                        Our experts are ready to assist you with {service.title}. Get a personalized quote and guidance tailored to your business needs.
-                    </p>
-                    <button
-                        onClick={() => {
-                            const params = new URLSearchParams({
-                                title: service.title,
-                                desc: service.desc || 'Custom Service Request',
-                                plan: 'custom',
-                                price: '0' // Flag for custom pricing
-                            });
-                            navigate(`/dashboard/user/service-order?${params.toString()}`);
-                        }}
-                        className="px-8 py-3 bg-[#2E96FF] text-white font-bold rounded-xl shadow-lg hover:bg-[#2579cd] hover:shadow-xl transition-all"
-                    >
-                        Request Consultation / Quote
-                    </button>
-                    <p className="mt-4 text-xs text-gray-500">
-                        No immediate payment required. We will contact you to discuss details.
-                    </p>
-                </div>
-            )
+            content: <ConsultationCard service={service} />
         };
+
+
     }
 
     // --- Generic Content for ALL services - NEAT & COMPACT REDESIGN ---
@@ -366,21 +396,25 @@ const getServiceSpecificContent = (service) => {
                                     {service.description || `Experience high-end professional assistance for your ${service.title}. Our dedicated team meticulously handles every detail to ensure 100% compliance and expedited delivery.`}
                                 </p>
                             </div>
-                            <div className="bg-blue-50/50 rounded-xl p-6 border border-blue-100 shadow-sm">
-                                <h5 className="font-bold text-[#003366] mb-4 flex items-center text-xs uppercase tracking-wider">
+
+                            <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50/50 rounded-bl-[4rem] -mr-4 -mt-4"></div>
+
+                                <h5 className="font-bold text-slate-900 mb-6 flex items-center text-xs uppercase tracking-widest relative z-10">
                                     <ShieldCheckIcon className="w-4 h-4 mr-2 text-[#2E96FF]" />
                                     Executive Highlights
                                 </h5>
-                                <div className="text-2xl font-bold text-[#2E96FF] mb-2 tracking-tight">
+
+                                <div className="text-4xl font-black text-[#2E96FF] mb-2 tracking-tight relative z-10">
                                     {service.priceDescription ? `₹${service.priceDescription.replace(/[^0-9]/g, '')}` : 'Professional Quote'}
                                 </div>
-                                <div className="text-[10px] font-bold text-slate-400 border-b border-blue-100 pb-4 mb-4">BASE SERVICE FEE</div>
+                                <div className="text-[10px] font-bold text-slate-400 border-b border-slate-100 pb-6 mb-6 uppercase tracking-widest relative z-10">Base Service Fee</div>
 
                                 {service.duration && (
-                                    <div className="text-sm font-bold text-slate-700">
-                                        <span className="block mb-1 text-slate-400 text-[10px] font-bold uppercase tracking-wider">Turnaround</span>
-                                        <div className="flex items-center gap-2 text-slate-900">
-                                            <ClockIcon className="w-4 h-4 text-amber-500" />
+                                    <div className="relative z-10">
+                                        <span className="block mb-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">Turnaround</span>
+                                        <div className="flex items-center gap-2 text-slate-900 text-lg font-bold">
+                                            <ClockIcon className="w-5 h-5 text-amber-500" />
                                             {service.duration}
                                         </div>
                                     </div>
@@ -397,8 +431,8 @@ const getServiceSpecificContent = (service) => {
                                     { emoji: '⚡', label: 'Precision', desc: 'Expert-led execution with zero error tolerance.', color: 'blue' },
                                     { emoji: '🔒', label: 'Security', desc: 'Enterprise-grade data protection protocol.', color: 'indigo' }
                                 ].map((benefit, i) => (
-                                    <div key={i} className="p-6 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all group">
-                                        <div className={`w-10 h-10 bg-${benefit.color}-50 rounded-lg flex items-center justify-center mb-4 text-xl`}>{benefit.emoji}</div>
+                                    <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
+                                        <div className={`w-12 h-12 bg-${benefit.color}-50 rounded-xl flex items-center justify-center mb-5 text-2xl group-hover:scale-110 transition-transform`}>{benefit.emoji}</div>
                                         <h5 className="font-bold text-slate-900 mb-2 text-sm">{benefit.label}</h5>
                                         <p className="text-xs text-slate-500 leading-relaxed font-medium">{benefit.desc}</p>
                                     </div>
@@ -421,7 +455,7 @@ const getServiceSpecificContent = (service) => {
                                 <div className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-slate-100 rounded-full"></div>
                                 {processDetails.map((step, index) => (
                                     <div key={index} className="relative pl-10 group">
-                                        <div className="absolute left-0 top-0 w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center z-10 shadow-sm group-hover:border-[#2E96FF] group-hover:text-[#2E96FF] transition-all duration-300">
+                                        <div className="absolute left-0 top-0 w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center z-10 shadow-sm group-hover:border-[#2E96FF] group-hover:text-[#2E96FF] transition-all duration-300 text-slate-400">
                                             <step.icon className="w-5 h-5" />
                                         </div>
                                         <div className="pt-1">
@@ -463,7 +497,11 @@ const getServiceSpecificContent = (service) => {
             },
         ],
     };
+
+
 };
+
+
 
 // ===========================================
 // 3. ServiceDetailDrawer Component (The Popup)
@@ -476,6 +514,8 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
         return () => {
             document.body.style.overflow = 'unset';
         };
+
+
     }, []);
 
     const { sections } = getServiceSpecificContent(service);
@@ -491,6 +531,8 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
         visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 25 } },
     };
 
+
+
     const scrollToSection = (id) => {
         const element = sectionRefs.current[id];
         if (element && contentRef.current) {
@@ -502,6 +544,8 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
         }
     };
 
+
+
     useEffect(() => {
         if (!contentRef.current || sections.length === 0) return;
         const observerOptions = {
@@ -509,6 +553,8 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
             rootMargin: '-20% 0px -60% 0px',
             threshold: 0,
         };
+
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -524,14 +570,14 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-[#001529]/40 backdrop-blur-md"
+            className="fixed inset-0 z-[9990] flex items-center justify-center p-4 md:p-8 bg-[#001529]/60 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
         >
             <motion.div
-                className="w-full max-w-6xl h-full max-h-[90vh] bg-white relative flex flex-col md:flex-row overflow-hidden shadow-[0_32px_64px_-12px_rgba(0,0,0,0.25)] rounded-[2rem]"
+                className="w-full max-w-6xl h-full max-h-[90vh] bg-white relative flex flex-col md:flex-row overflow-hidden shadow-2xl rounded-[32px] ring-1 ring-white/20"
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"
@@ -539,41 +585,42 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* --- Sidebar (Desktop) --- */}
-                <div className="hidden md:flex w-64 bg-slate-50 border-r border-slate-100 flex-col shrink-0 h-full">
-                    <div className="p-6">
-                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-[#2E96FF] mb-4">
+                <div className="hidden md:flex w-72 bg-white border-r border-slate-100 flex-col shrink-0 h-full p-6">
+                    <div className="mb-8">
+                        <div className="w-12 h-12 bg-blue-50/50 rounded-2xl flex items-center justify-center text-[#2E96FF] mb-5">
                             <ShieldCheckIcon className="w-6 h-6" />
                         </div>
-                        <h2 className="text-lg font-bold text-gray-800 leading-tight">
+                        <h2 className="text-xl font-bold text-slate-900 leading-tight mb-3">
                             {service.title}
                         </h2>
-                        <div className="mt-2 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                            <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Expert Verified</span>
+                        <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Expert Verified</span>
                         </div>
                     </div>
 
-                    <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1">
+                    <nav className="flex-1 space-y-1">
                         {sections.map((section) => (
                             <button
                                 key={section.id}
                                 onClick={() => scrollToSection(section.id)}
-                                className={`w-full text-left px-4 py-2.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center group
+                                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center group
                                     ${activeSectionId === section.id
-                                        ? "bg-white text-[#2E96FF] shadow-sm ring-1 ring-slate-200"
-                                        : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
+                                        ? "bg-blue-50 text-blue-600"
+                                        : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                                     }`}
                             >
-                                <span className={`w-1.5 h-1.5 rounded-full mr-3 transition-all duration-300 ${activeSectionId === section.id ? 'bg-[#2E96FF]' : 'bg-slate-300 group-hover:bg-slate-400'}`}></span>
+                                <span className={`w-2 h-2 rounded-full mr-3 transition-all duration-300 ${activeSectionId === section.id ? 'bg-blue-600 ring-4 ring-blue-100' : 'bg-slate-300 group-hover:bg-slate-400'}`}></span>
                                 {section.title}
                             </button>
                         ))}
                     </nav>
 
-                    <div className="p-4 mt-auto">
-                        <div className="bg-slate-800 rounded-xl p-3 text-white">
-                            <p className="text-[10px] font-bold opacity-60 uppercase mb-0.5">Need help?</p>
-                            <p className="text-[11px] font-medium leading-relaxed">Our experts are available for a 1:1 call.</p>
+                    <div className="mt-auto pt-6">
+                        <div className="bg-[#0B1120] rounded-2xl p-8 text-white relative overflow-hidden group cursor-pointer h-48 flex flex-col justify-center">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-wider relative z-10">Need help?</p>
+                            <p className="text-sm font-medium leading-relaxed text-slate-200 relative z-10">Our experts are available for a 1:1 call.</p>
                         </div>
                     </div>
                 </div>
@@ -626,27 +673,27 @@ const ServiceDetailDrawer = ({ service, onClose }) => {
                     <div ref={contentRef} className="flex-1 overflow-y-auto scroll-smooth">
                         <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-8 pb-32">
                             {/* Stats Summary Strip */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-emerald-500">
-                                        <BanknotesIcon className="w-5 h-5" />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm flex items-center gap-5 group hover:border-blue-100 transition-colors">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                        <BanknotesIcon className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">Investment</div>
-                                        <div className="text-sm font-bold text-slate-800 leading-none">
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Investment</div>
+                                        <div className="text-base font-bold text-slate-900 leading-none">
                                             {service.desc?.split('|')[0] || "Consultation"}
                                         </div>
                                     </div>
                                 </div>
 
                                 {service.duration && (
-                                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-amber-500">
-                                            <ClockIcon className="w-5 h-5" />
+                                    <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm flex items-center gap-5 group hover:border-blue-100 transition-colors">
+                                        <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                            <ClockIcon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">Timeline</div>
-                                            <div className="text-sm font-bold text-slate-800 leading-none">{service.duration}</div>
+                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Timeline</div>
+                                            <div className="text-base font-bold text-slate-900 leading-none">{service.duration}</div>
                                         </div>
                                     </div>
                                 )}
@@ -726,6 +773,8 @@ export default function ServicesHub() {
                 setLoadingServices(false);
             }
         };
+
+
         fetchServices();
     }, []);
 
@@ -870,6 +919,8 @@ export default function ServicesHub() {
             to: item.route || `/dashboard/user/service-order?title=${encodeURIComponent(item.name || item.title)}`,
             categoryKey: item.categoryKey || "licenses"
         };
+
+
     });
     const placeholdersCount = Math.max(0, 10 - displayedData.length);
 
@@ -878,10 +929,14 @@ export default function ServicesHub() {
         setSearchTerm(""); // Clear search when manually changing tabs
     };
 
+
+
     const handleCardClick = (service) => {
         // This opens the ServiceDetailDrawer popup
         setSelectedService(service);
     };
+
+
 
     if (loadingServices) {
         return (
