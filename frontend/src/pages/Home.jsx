@@ -118,7 +118,7 @@ export default function Home() {
             <h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
             >
-              India&apos; Smart Online Platform for Modern Businesses.
+              India&apos;s Smart Online Platform for Modern Businesses.
               <br />
             </h1>
 
