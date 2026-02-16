@@ -64,7 +64,14 @@ jobs:
         run: |
           rsync -avz --delete -e "ssh -p 19919 -o StrictHostKeyChecking=no" \
           frontend/dist/ \
-          prakash@103.181.108.248:/var/www/kanakkaalar/
+          prakash@103.181.108.248:/home/prakash/apps/kanakkaalar/frontend/dist/
+
+      ############################
+      # 5.1️⃣ Copy Frontend to Apache Dir
+      ############################
+      - name: Copy Frontend
+        run: |
+          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 "cp -r /home/prakash/apps/kanakkaalar/frontend/dist/* /var/www/kanakkaalar/"
 
       ############################
       # 6️⃣ Restart Backend Application
@@ -79,10 +86,4 @@ jobs:
             nohup java -jar /home/prakash/apps/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar > /home/prakash/apps/kanakkaalar/backend/app.log 2>&1 &
           EOF
 
-      ############################
-      # 7️⃣ Renew SSL and Restart Apache (Requires SERVER_PASSWORD secret)
-      ############################
-      - name: Renew SSL & Restart Apache
-        run: |
-          # Requires passwordless sudo configuration on server for these commands
-          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 "sudo certbot renew && sudo systemctl restart apache2"
+
