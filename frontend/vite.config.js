@@ -27,6 +27,7 @@ export default defineConfig({
   preview: {
     host: true,
     port: 5173,
+    allowedHosts: ['uliyar.com', 'kanakkaalar.com', 'www.uliyar.com', 'www.kanakkaalar.com', '.uliyar.com', '.kanakkaalar.com'],
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8081',

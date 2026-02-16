@@ -1,86 +1,53 @@
-name: Deploy Kanakkaalar to EC2
+name: Deploy Full Stack (Backend + Frontend)
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main  # deploy only when pushing to main branch
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      # 1️⃣ Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Build Backend (Java 17)
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - run: cd backend && mvn clean package -DskipTests
+      ############################
+      # 2️⃣ Build Backend (Spring Boot)
+      ############################
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Build Frontend (Node 20)
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - run: |
-        cd frontend
-        npm install
-        npm run build
+      - name: Build Spring Boot backend
+        run: mvn clean package -f backend/pom.xml
 
-    - name: Prepare Server
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        script: mkdir -p /home/ubuntu/kanakkaalar_temp && chmod 777 /home/ubuntu/kanakkaalar_temp
+      ############################
+      # 3️⃣ Setup SSH for Deployment
+      ############################
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Upload Artifacts
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        source: "backend/target/*.jar,frontend/dist/**"
-        target: "/home/ubuntu/kanakkaalar_temp"
-        timeout: 300s
+      ############################
+      # 4️⃣ Deploy Backend JAR
+      ############################
+      - name: Deploy Backend
+        run: |
+          rsync -avz --delete -e "ssh -p 19919 -o StrictHostKeyChecking=no" \
+          backend/target/financial-backend-0.0.1-SNAPSHOT.jar \
+          prakash@103.181.108.248:/home/prakash/apps/kanakkaalar/backend/target/
 
-    - name: Deploy & Restart Background Services
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        timeout: 120s
-        script: |
-          set -e
-          echo "Deploying..."
-          
-          # Backend
-          echo "Stopping and cleaning old backend..."
-          sudo pm2 stop kanakkaalar-backend || true
-          sudo pm2 delete kanakkaalar-backend || true
-          sudo rm -f /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
-          
-          sudo mkdir -p /var/www/kanakkaalar/backend/target
-          sudo cp -f /home/ubuntu/kanakkaalar_temp/backend/target/*.jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar
-          
-          # Frontend
-          sudo rm -rf /var/www/kanakkaalar/frontend/dist/*
-          sudo mkdir -p /var/www/kanakkaalar/frontend/dist
-          sudo cp -r /home/ubuntu/kanakkaalar_temp/frontend/dist/* /var/www/kanakkaalar/frontend/dist/
-          
-          rm -rf /home/ubuntu/kanakkaalar_temp
-
-          # Start Backend
-          echo "Starting Backend..."
-          sudo fuser -k 8081/tcp || true
-          sudo pm2 start "java -jar /var/www/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar" --name kanakkaalar-backend
-          sudo pm2 save
-          
-          # Ensure Apache serves new frontend
-          sudo systemctl reload apache2
-          
-          echo "Done!"
+      ############################
+      # 5️⃣ Deploy Frontend (dist folder)
+      ############################
+      - name: Deploy Frontend
+        run: |
+          rsync -avz --delete -e "ssh -p 19919 -o StrictHostKeyChecking=no" \
+          frontend/dist/ \
+          prakash@103.181.108.248:/var/www/kanakkaalar/
