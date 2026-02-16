@@ -84,10 +84,5 @@ jobs:
       ############################
       - name: Renew SSL & Restart Apache
         run: |
-          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 << 'EOF'
-            # Renew SSL Certificates
-            echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S certbot renew
-            
-            # Restart Apache Web Server
-            echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl restart apache2
-          EOF
+          # Requires passwordless sudo configuration on server for these commands
+          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 "sudo certbot renew && sudo systemctl restart apache2"
