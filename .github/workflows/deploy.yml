@@ -67,11 +67,11 @@ jobs:
           prakash@103.181.108.248:/home/prakash/apps/kanakkaalar/frontend/dist/
 
       ############################
-      # 5.1️⃣ Copy Frontend to Apache Dir
+      # 5.1️⃣ Copy Frontend to Apache Dir (Force Update with Sudo)
       ############################
       - name: Copy Frontend
         run: |
-          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 "cp -r /home/prakash/apps/kanakkaalar/frontend/dist/* /var/www/kanakkaalar/"
+          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 "sudo cp -r /home/prakash/apps/kanakkaalar/frontend/dist/* /var/www/kanakkaalar/"
 
       ############################
       # 6️⃣ Restart Backend Application
