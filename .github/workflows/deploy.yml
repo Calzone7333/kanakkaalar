@@ -51,3 +51,29 @@ jobs:
           rsync -avz --delete -e "ssh -p 19919 -o StrictHostKeyChecking=no" \
           frontend/dist/ \
           prakash@103.181.108.248:/var/www/kanakkaalar/
+
+      ############################
+      # 6️⃣ Restart Backend Application
+      ############################
+      - name: Restart Backend
+        run: |
+          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 << 'EOF'
+            # Stop existing backend if running
+            pkill -f 'financial-backend' || true
+            
+            # Start new backend in background
+            nohup java -jar /home/prakash/apps/kanakkaalar/backend/target/financial-backend-0.0.1-SNAPSHOT.jar > /home/prakash/apps/kanakkaalar/backend/app.log 2>&1 &
+          EOF
+
+      ############################
+      # 7️⃣ Renew SSL and Restart Apache (Requires SERVER_PASSWORD secret)
+      ############################
+      - name: Renew SSL & Restart Apache
+        run: |
+          ssh -p 19919 -o StrictHostKeyChecking=no prakash@103.181.108.248 << 'EOF'
+            # Renew SSL Certificates
+            echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S certbot renew
+            
+            # Restart Apache Web Server
+            echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl restart apache2
+          EOF

@@ -1,4 +1,0 @@
-CREATE DATABASE IF NOT EXISTS vakilsearch; 
-CREATE USER IF NOT EXISTS 'vakil'@'%' IDENTIFIED BY 'vakilpass';
-GRANT ALL PRIVILEGES ON vakilsearch.* TO 'vakil'@'%';
-FLUSH PRIVILEGES;
