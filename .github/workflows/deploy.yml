@@ -43,6 +43,8 @@ jobs:
           node-version: 20
 
       - name: Build Frontend
+        env:
+          VITE_API_URL: https://kanakkaalar.com/api
         run: |
           cd frontend
           npm install

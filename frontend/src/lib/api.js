@@ -4,7 +4,7 @@ import { getAuth, clearAuth } from "./auth";
 // --- API Configuration ---
 
 const FAILOVER_URLS = [
-    "/api"
+    import.meta.env.VITE_API_URL || "/api"
 ];
 
 // Default to the first URL
