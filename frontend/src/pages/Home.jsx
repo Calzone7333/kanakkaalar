@@ -92,7 +92,7 @@ export default function Home() {
     <>
       <SEO
         title="Home"
-        description="India' Smart Online Platform for Modern Businesses. We simplify legal, tax, and compliance for startups, SMEs, and individuals."
+        description="India's Smart Online Platform for Modern Businesses. We simplify legal, tax, and compliance for startups, SMEs, and individuals."
         keywords="business registration, company registration, trademark registration, GST filing, compliance, startup india, legal services, tax consultant"
       />
       <section
@@ -118,7 +118,7 @@ export default function Home() {
             <h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 mb-4 wow fadeInDown"
             >
-              India&apos;s Smart Online Platform for Modern Businesses.
+              India&apos; Smart Online Platform for Modern Businesses.
               <br />
             </h1>
 
