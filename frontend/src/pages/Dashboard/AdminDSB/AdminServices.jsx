@@ -142,38 +142,56 @@ const AdminServices = () => {
     }, [services, searchTerm, filterCategory]);
 
     return (
-        <div className="space-y-8">
-            <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Services Hub Management
-                </h1>
-                <p className="text-gray-600 dark:text-gray-400 mt-2">
-                    Manage all services displayed on the Service Hub.
-                </p>
+        <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                        Services Hub Management
+                    </h1>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
+                        Manage all services displayed on the Service Hub.
+                    </p>
+                </div>
+                <button
+                    onClick={handleOpenAddModal}
+                    className="sm:hidden flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-all text-sm"
+                >
+                    <Layers className="w-4 h-4" /> Add Service
+                </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {serviceStats.map((stat, idx) => (
                     <StatCard key={idx} {...stat} loading={loading} />
                 ))}
             </div>
 
             {/* Filter Bar */}
-            <div className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm overflow-x-auto">
-                <span className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by Category:</span>
-                <div className="flex gap-2">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => setFilterCategory(cat)}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${filterCategory === cat
-                                    ? "bg-indigo-600 text-white"
-                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                                }`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+            <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-indigo-500" />
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Category Filter</span>
+                    </div>
+                    <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded-full">
+                        {services.length} Total items
+                    </div>
+                </div>
+                <div className="p-3 sm:p-4 overflow-x-auto no-scrollbar">
+                    <div className="flex items-center gap-2 min-w-max">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setFilterCategory(cat)}
+                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 border ${filterCategory === cat
+                                    ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-100 ring-2 ring-indigo-500/20"
+                                    : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-100 dark:border-gray-800 hover:border-indigo-200 hover:bg-gray-50"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -190,8 +208,8 @@ const AdminServices = () => {
                         label: "Status",
                         render: (value) => (
                             <span className={`px-2.5 py-1 rounded-full text-[10px] uppercase font-bold tracking-wide ${value
-                                    ? "bg-emerald-100 text-emerald-700"
-                                    : "bg-rose-100 text-rose-700"
+                                ? "bg-emerald-100 text-emerald-700"
+                                : "bg-rose-100 text-rose-700"
                                 }`}>
                                 {value ? "Active" : "Inactive"}
                             </span>
