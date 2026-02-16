@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     // Primary: Public IP
-    private static final String BASE_URL = "http://115.97.59.230:8081/";
+    private static final String BASE_URL = "https://kanakkaalar.com/api/";
     // Fallback: Local IP
     private static final String FALLBACK_URL = "http://192.168.1.2:8081/";
 

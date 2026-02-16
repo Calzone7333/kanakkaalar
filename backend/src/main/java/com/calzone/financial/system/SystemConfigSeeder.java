@@ -14,8 +14,8 @@ public class SystemConfigSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        seedConfig("RAZORPAY_KEY_ID", "rzp_test_v9bZpQvmrVnUzZ");
-        seedConfig("RAZORPAY_KEY_SECRET", "7WK71mMmiIYb4ZLi4Mcw1eDl");
+        seedConfig("RAZORPAY_KEY_ID", "rzp_live_RsCU4fzmfxNC71");
+        seedConfig("RAZORPAY_KEY_SECRET", "t8rH6pclcf1r00xVUMsNJ1b4");
     }
 
     private void seedConfig(String key, String defaultValue) {
