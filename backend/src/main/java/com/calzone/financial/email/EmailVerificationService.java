@@ -109,7 +109,7 @@ public class EmailVerificationService {
                     "</head>" +
                     "<body>" +
                     "    <div class=\"logo-section\">" +
-                    "        <img src=\"https://kanakkaalar.in/assets1/img/kanakkaalar_logo.png\" alt=\"Kanakkaalar\" style=\"height: 70px; width: auto; object-contain;\">"
+                    "        <img src=\"https://kanakkaalar.com/assets/kanakkaalar_logo-BNI-NPJA.png\" alt=\"Kanakkaalar\" style=\"height: 70px; width: auto; object-fit: contain;\">"
                     +
                     "    </div>" +
                     "    <div class=\"container\">" +
