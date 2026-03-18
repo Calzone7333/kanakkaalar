@@ -18,6 +18,9 @@ public class EmailController {
 
     private final JavaMailSender mailSender;
 
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
+    private String senderEmail;
+
     public EmailController(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
@@ -26,6 +29,7 @@ public class EmailController {
     public ResponseEntity<Void> send(@RequestBody SendPayload payload) {
         // send to receiver
         SimpleMailMessage toReceiver = new SimpleMailMessage();
+        toReceiver.setFrom(senderEmail);
         toReceiver.setTo(payload.to);
         toReceiver.setSubject(payload.subject);
         toReceiver.setText(payload.message);
@@ -37,6 +41,7 @@ public class EmailController {
         // copy to sender if provided
         if (payload.from != null && !payload.from.isBlank()) {
             SimpleMailMessage toSender = new SimpleMailMessage();
+            toSender.setFrom(senderEmail);
             toSender.setTo(payload.from);
             toSender.setSubject("Copy: " + payload.subject);
             toSender.setText(payload.message);
